@@ -17,11 +17,35 @@ CREATE TABLE IF NOT EXISTS `infinitepetsdb`.`accounts` (
 )
 ENGINE = InnoDB;
 
+-- Animal Type Table
+CREATE TABLE IF NOT EXISTS `infinitepetsdb`.`animal_type` (
+    `animal_Type_ID` INT NOT NULL AUTO_INCREMENT,
+    `animal_Type` VARCHAR(30) NOT NULL,
+    PRIMARY KEY (`animal_Type_ID`)
+)
+
+ENGINE = innoDB;
+
+-- Breed 
+CREATE TABLE IF NOT EXISTS `infinitepetsdb`.`breed` (
+    breed_id INT NOT NULL AUTO_INCREMENT,
+    `animal_type_id` INT NOT NULL,
+    breed_name VARCHAR(30),
+    PRIMARY KEY (breed_id, animal_type_id),
+    CONSTRAINT fk_breed_animal_type
+        FOREIGN KEY (animal_type_id)
+        REFERENCES infinitepetsdb.animal_type (animal_type_id)
+        ON DELETE CASCADE
+        ON UPDATE NO ACTION
+)
+
+
+ENGINE = innoDB;
+
 CREATE TABLE IF NOT EXISTS `infinitepetsdb`.`pets` (
 	`PetID` INT NOT NULL AUTO_INCREMENT,
 	`Sex` CHAR(1) NOT NULL,
-	`Species` VARCHAR(20) NOT NULL,
-	`Breed` VARCHAR(20) NOT NULL,
+	`Animal_type_breed_id` INT NOT NULL,
 	`PetName` VARCHAR(30) NOT NULL,
 	`Owner` INT NOT NULL,
 	PRIMARY KEY (`PetID`),
@@ -32,7 +56,12 @@ CREATE TABLE IF NOT EXISTS `infinitepetsdb`.`pets` (
 		ON DELETE CASCADE
 		ON UPDATE NO ACTION,
 	CONSTRAINT `chk_pets_sex`
-		CHECK (`Sex` IN ('M','F','N','S'))
+		CHECK (`Sex` IN ('M','F','N','S')),
+        CONSTRAINT fk_animal_type_breed
+            FOREIGN KEY (Animal_type_breed_id)
+            REFERENCES infinitepetsdb.breed (breed_id)
+            ON DELETE NO ACTION
+            ON UPDATE NO ACTION
 )
 ENGINE = InnoDB;
 
@@ -45,3 +74,23 @@ INSERT INTO `accounts` (`Username`,`Password`,`Email`,`FirstName`,`LastName`,`Is
 		('barb','password','cprg352+barb@gmail.com','Barb','Barber',0,1);
 		
 		
+-- insert into animal_type
+INSERT INTO animal_type (animal_type)
+    VALUES 
+        ('Dog'),
+        ('Cat'),
+        ('Bird');
+
+-- insert into breed table
+INSERT INTO breed (animal_type_id, breed_name)
+    VALUES
+        (1, 'Labrador Retriever'),
+        (1, 'Golden Retriever'),
+        (2, 'tortoiseshell'),
+        (2, 'breed 2');
+
+-- So, let's say customer chose animalt type of Dog (which will be id 1), 
+-- then based on that, show customer all options with id 1 (whcih is dog)
+-- custoem then select Golden Retriever
+-- so now we have id 2 for breed_id.
+-- we now know it is aniaml type of dog and breed of golden retriever.
