@@ -5,9 +5,19 @@
  */
 package servlets;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -56,7 +66,40 @@ public class addAPetServlet extends HttpServlet {
        String birthday = request.getParameter("birthday");
        String info = request.getParameter("info");
        
+       
+       String pet = petName +" "+ sex+" "+type+" "+breed +" "+ birthday +" "+ info;
+       testWritePet(request, pet);
+       
     }
 
-
+    private List testBreeds (String type) throws FileNotFoundException{
+          List<String> breedList = new ArrayList();
+          
+          try {
+            String path = getServletContext().getRealPath("/WEB-INF/testFiles/"+type+".txt");
+            BufferedReader br = new BufferedReader(new FileReader(new File(path)));
+            String currentLine;
+            
+            while((currentLine = br.readLine()) != null){
+                breedList.add(currentLine);
+            }
+            br.close();            
+            } 
+          catch (IOException ex) {
+            Logger.getLogger(addAPetServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return breedList;
+    }
+    
+    
+    private void testWritePet (HttpServletRequest request, String pet) throws IOException{
+        
+        String path = getServletContext().getRealPath("/WEB-INF/testFiles/pets.txt");
+        PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter(path,true)));
+        
+        pw.print(pet);
+        pw.println();
+        pw.close();
+        
+    }
 }
