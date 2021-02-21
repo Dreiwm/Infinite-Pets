@@ -1,2 +1,2 @@
-# Infinit-Pets
+# Infinite-Pets
 BCCRS' Capstone Project
