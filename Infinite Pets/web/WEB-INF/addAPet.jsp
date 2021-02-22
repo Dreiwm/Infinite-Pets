@@ -67,6 +67,7 @@
                         <div class="form-row" style="margin-top: 10px;margin-bottom: 10px;">
                             <div class="col-8">
                                 <label style="margin-bottom: 1px;color: rgba(154,152,145,0.65);">Pet name</label>
+                                <!--**********-->
                                 <input name="petName" class="form-control" type="text" style="height: 36px;"></div>
                         </div>
                         
@@ -74,35 +75,21 @@
                             
                             <div class="col">
                                 <label style="margin-bottom: 1px;color: rgba(154,152,145,0.65);">Animal</label>
+                                <!--**********-->
                                 <select name="animal" class="form-control" placeholder="animal" style="background: rgba(154,152,145,0.75);color: #ffffff;border-style: none;width: 150px;">
                                     <option name="select" value="select" selected="true" style="background: rgb(255,255,255);color: rgb(0,0,0);">Select</option>
-                                    <option name="dog" value="dog" style="background: rgb(255,255,255);color: rgb(0,0,0);">Dog</option>
+                                    <option name="animal" value="dog" style="background: rgb(255,255,255);color: rgb(0,0,0);">Dog</option>
                                 </select>
-                                
-<!--                                <div class="dropdown">
-                                    <button class="btn btn-dark dropdown-toggle" aria-expanded="false" data-toggle="dropdown" type="button" style="background: rgba(154,152,145,0.75);border-style: none;">Select</button>
-                                    <div class="dropdown-menu">
-                                        <a name="animal" class="dropdown-item">Dog</a>
-                                    </div>
-                                </div>-->
                             </div>
                             
                             <div class="col">
                                 <label style="margin-bottom: 1px;color: rgba(154,152,145,0.65);">Breed</label>
-                                
+                                <!--**********-->
                                 <select name="breed" class="form-control" placeholder="animal" style="background: rgba(154,152,145,0.75);color: #ffffff;border-style: none; width: 150px;">
                                     <option name="select" value="select" selected="true" style="background: rgb(255,255,255);color: rgb(0,0,0);">Select</option>
                                     <option name="breed" value="lab" style="background: rgb(255,255,255);color: rgb(0,0,0);">Lab</option>
                                 </select>
-                                
-<!--                                <div class="dropdown border-light shadow-none">
-                                    <button class="btn btn-dark dropdown-toggle" aria-expanded="false" data-toggle="dropdown" type="button" style="background: rgba(154,152,145,0.75);border-style: none;">Select</button>
-                                    <div class="dropdown-menu">
-                                        <a name="breed" class="dropdown-item">Lab</a>
-                                    </div>
-                                </div>-->
                             </div>
-                            
                         </div>
                         
                         <div class="form-row" style="margin-bottom: 10px;">
@@ -110,6 +97,7 @@
                                 <div class="form-row">
                                     <div class="col" style="margin-bottom: 10px;">
                                         <label style="margin-bottom: 1px;color: rgba(154,152,145,0.65);">Medical information</label>
+                                        <!--**********-->
                                         <textarea name="medical" class="form-control" style="width: 310px;height: 115px;max-height: 200px;"></textarea>
                                     </div>
                                 </div>
@@ -123,15 +111,9 @@
                                 <div class="form-row">
                                     <div class="col" style="margin-bottom: 10px;">
                                         <label style="margin-bottom: 1px;color: rgba(154,152,145,0.65);">Sex</label>
-<!--                                        <div class="dropdown border-light shadow-none" style="width: 134px;">
-                                            <button class="btn btn-dark dropdown-toggle" aria-expanded="false" data-toggle="dropdown" type="button" style="background: rgba(154,152,145,0.75);border-style: none;">Select</button>
-                                            <div class="dropdown-menu">
-                                                <a name="sex" value="male" class="dropdown-item">Male</a>
-                                                <a name="sex" value="female" class="dropdown-item">Female</a>
-                                            </div>
-                                        </div>-->
-
-                                            <select name="animal" class="form-control" placeholder="animal" style="background: rgba(154,152,145,0.75);color: #ffffff;border-style: none; width: 100px">
+                                            
+                                            <!--**********-->
+                                            <select name="sex" class="form-control" placeholder="animal" style="background: rgba(154,152,145,0.75);color: #ffffff;border-style: none; width: 100px">
                                                 <option name="select" value="select" class="form-control" selected="true" style="background: rgb(255,255,255);color: rgb(0,0,0);">Select</option>
                                                 <option name="sex" value="male" class="form-control" style="background: rgb(255,255,255);color: rgb(0,0,0);">Male</option>
                                                 <option name="sex" value="female" class="form-control" style="background: rgb(255,255,255);color: rgb(0,0,0);">Female</option>
@@ -139,6 +121,7 @@
                                     </div>
                                     <div class="col">
                                         <label style="margin-bottom: 1px;color: rgba(154,152,145,0.65);">Birthday</label>
+                                        <!--**********-->
                                         <input name="birthday" class="form-control" type="date" style="width: 171px;height: 36px;">
                                     </div>
                                 </div>
@@ -146,12 +129,14 @@
                             <div class="col d-flex flex-column align-items-start align-content-center" style="margin-bottom: 10px;margin-left: 10px;padding: 0px;">
                                 <label style="margin-bottom: 1px;color: rgba(154,152,145,0.65);">Upload a photo</label>
                                     <i class="fa fa-photo" style="font-size: 50px;border-radius: 5px;border: 2px solid rgba(154,152,145,0.75);background: rgb(255,255,255);text-align: center;width: 120px;color: rgba(0,0,0,0.21);margin-bottom: 5px;padding: 18px;"></i>
-                                <button name="upload" class="btn btn-dark" type="button" style="background: rgba(154,152,145,0.75);border-style: none;width: 118px;">Browse</button>
+                                    <!--**********-->
+                                    <button name="upload" class="btn btn-dark" type="button" style="background: rgba(154,152,145,0.75);border-style: none;width: 118px;">Browse</button>
                             </div>
                             <div class="col">
                                 <label style="margin-bottom: 1px;color: rgba(154,152,145,0.65);">Preferred Veterinarian</label>
                                 <div class="form-row" style="margin-bottom: 10px;">
                                     <div class="col">
+                                        <!--**********-->
                                         <input name="vet" class="form-control" type="text" style="height: 36px;">
                                     </div>
                                 </div>
@@ -159,9 +144,11 @@
                         </div>
                         <div class="form-row d-flex justify-content-start" style="margin-bottom: 10px;">
                             <div class="col-auto">
+                                <!--**********-->
                                 <button name="cancel" class="btn btn-danger" type="button" style="background: rgba(154,152,145,0.75);border-style: none;">Cancel</button>
                             </div>
                             <div class="col-auto">
+                                <!--**********-->
                                 <button name="save" class="btn btn-success" type="submit" style="background: rgba(154,152,145,0.75);border-style: none;">Save</button>
                             </div>
                         </div>
