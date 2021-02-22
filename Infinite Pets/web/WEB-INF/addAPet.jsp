@@ -239,7 +239,7 @@
         <br>
         <label for=""> Select animal breed</label>
         <br>
-        <select name="animal" id="">
+        <select name="breed" id="">
             <option value="">
                 animal breed
             </option>
@@ -251,7 +251,11 @@
         <br>
         <label for="">Additional Info:</label>
         <br>
-        <textarea name="info" id="" cols="30" rows="10">Any additional information we should know...</textarea>
+        <textarea name="medical" id="" cols="30" rows="10">Any additional information we should know...</textarea>
+        <br>
+        <label for="">Vet</label>
+        <br>
+        <input type="text" name="vet" id="">
         <br>
         <label for="">Add a picture</label>
         <br>
