@@ -13,11 +13,8 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -28,20 +25,15 @@ import javax.servlet.http.HttpSession;
  *
  * @author Chris
  */
-public class addAPetServlet extends HttpServlet {
+public class AddPetServlet extends HttpServlet {
 
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
                 HttpSession session = request.getSession();
+                
+               request.setAttribute("animalList", testBreeds("animal"));
+               request.setAttribute("breedList", testBreeds("dog"));
                 
                 getServletContext().getRequestDispatcher("/WEB-INF/addAPet.jsp").forward(request,response);
     }
@@ -64,12 +56,17 @@ public class addAPetServlet extends HttpServlet {
        String type = request.getParameter("animal");
        String breed = request.getParameter("breed");
        String birthday = request.getParameter("birthday");
-       String info = request.getParameter("info");
+       String info = request.getParameter("medical");
+       String vet = request.getParameter("vet");
        
        
-       String pet = petName +" "+ sex+" "+type+" "+breed +" "+ birthday +" "+ info;
+       String pet = petName +" "+ sex+" "+type+" "+breed +" "+ birthday +" "+ info +" " +vet +"added";
        testWritePet(request, pet);
        
+       
+       request.setAttribute("currentPets", testBreeds("pets"));
+       
+       getServletContext().getRequestDispatcher("/WEB-INF/addAPet.jsp").forward(request,response);
     }
 
     private List testBreeds (String type) throws FileNotFoundException{
@@ -86,7 +83,7 @@ public class addAPetServlet extends HttpServlet {
             br.close();            
             } 
           catch (IOException ex) {
-            Logger.getLogger(addAPetServlet.class.getName()).log(Level.SEVERE, null, ex);
+            
         }
         return breedList;
     }
@@ -95,11 +92,12 @@ public class addAPetServlet extends HttpServlet {
     private void testWritePet (HttpServletRequest request, String pet) throws IOException{
         
         String path = getServletContext().getRealPath("/WEB-INF/testFiles/pets.txt");
-        PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter(path,true)));
-        
-        pw.print(pet);
-        pw.println();
-        pw.close();
+        try (PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter(path,true)))) {
+            pw.print(pet);
+            pw.println();
+        }
         
     }
+
+  
 }
