@@ -32,7 +32,7 @@ public class AddPetServlet extends HttpServlet {
             throws ServletException, IOException {
                 HttpSession session = request.getSession();
                 
-                
+               request.setAttribute("animalList", testBreeds("animal"));
                request.setAttribute("breedList", testBreeds("dog"));
                 
                 getServletContext().getRequestDispatcher("/WEB-INF/addAPet.jsp").forward(request,response);
@@ -61,7 +61,10 @@ public class AddPetServlet extends HttpServlet {
        
        
        String pet = petName +" "+ sex+" "+type+" "+breed +" "+ birthday +" "+ info +" " +vet +"added";
-       testWritePet(request, "words");
+       testWritePet(request, pet);
+       
+       
+       request.setAttribute("currentPets", testBreeds("pets"));
        
        getServletContext().getRequestDispatcher("/WEB-INF/addAPet.jsp").forward(request,response);
     }

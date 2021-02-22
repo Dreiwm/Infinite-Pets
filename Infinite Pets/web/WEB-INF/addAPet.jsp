@@ -236,6 +236,9 @@
             <option value="">
                 animal type
             </option>
+            <c:forEach items="${animalList}" var="anlst">
+                <option value="${anlst}">${anlst}</option>
+            </c:forEach>
         </select>
         <br>
         <label for=""> Select animal breed</label>
@@ -274,7 +277,11 @@
             
         </form>
         
-    
+        <p>
+            <c:forEach items="${currentPets}" var="pets">
+                ${pets}
+            </c:forEach>
+        </p>
 </body>
 
 </html>
