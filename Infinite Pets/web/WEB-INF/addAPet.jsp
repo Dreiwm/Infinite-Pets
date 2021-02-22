@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 
@@ -20,6 +21,61 @@
 </head>
 
 <body style="background: #e7e4d9;color: rgb(255,255,255);">
+    
+            <h1>Add a Pet</h1>
+        <form>
+        <label for="">Pet Name</label>
+        <br>
+        <input type="text" name="petName" id="">
+        <br>
+        <label for="">Sex</label>
+        <select name="sex" id="">
+            <option value="male">male</option>
+            <option value="female">female</option>
+        </select>
+        <br>
+        <label for=""> Select animal type</label>
+        <br>
+        <select name="animal" id="">
+            <option value="">
+                animal type
+            </option>
+        </select>
+        <br>
+        <label for=""> Select animal breed</label>
+        <br>
+        <select name="breed" id="">
+            <option value="">
+                animal breed
+            </option>
+        </select>
+        <br>
+        <label for="">Birthday</label>
+        <br>
+        <input type="date" name="birthday" id="">
+        <br>
+        <label for="">Additional Info:</label>
+        <br>
+        <textarea name="medical" id="" cols="30" rows="10">Any additional information we should know...</textarea>
+        <br>
+        <label for="">Vet</label>
+        <br>
+        <input type="text" name="vet" id="">
+        <br>
+        <label for="">Add a picture</label>
+        <br>
+        <input type="image" src="" alt="">
+        
+            <label for="">Upload an image:</label>
+            <input type="image" alt="" accept="image/*">
+            <!--<input type="submit" value="Choose photo...">-->
+            
+            <button type="submit" value="save">Save</button>
+            <button type="button" value="cancel">Cancel</button>
+            
+        </form>
+    
+    
 <!--    <header style="background: #9a9891;">
         <div class="row align-items-center" style="height: 75px;margin: 0px;">
             <div class="col d-flex justify-content-start" style="margin: 0px;padding-left: 20px;padding-right: 0px;">
@@ -217,58 +273,7 @@
     
     
  -->
-        <h1>Add a Pet</h1>
-        <form>
-        <label for="">Pet Name</label>
-        <br>
-        <input type="text" name="petName" id="">
-        <br>
-        <label for="">Sex</label>
-        <select name="sex" id="">
-            <option value="male">male</option>
-            <option value="female">female</option>
-        </select>
-        <br>
-        <label for=""> Select animal type</label>
-        <br>
-        <select name="animal" id="">
-            <option value="">
-                animal type
-            </option>
-        </select>
-        <br>
-        <label for=""> Select animal breed</label>
-        <br>
-        <select name="breed" id="">
-            <option value="">
-                animal breed
-            </option>
-        </select>
-        <br>
-        <label for="">Birthday</label>
-        <br>
-        <input type="date" name="birthday" id="">
-        <br>
-        <label for="">Additional Info:</label>
-        <br>
-        <textarea name="medical" id="" cols="30" rows="10">Any additional information we should know...</textarea>
-        <br>
-        <label for="">Vet</label>
-        <br>
-        <input type="text" name="vet" id="">
-        <br>
-        <label for="">Add a picture</label>
-        <br>
-        <input type="image" src="" alt="">
-        
-            <label for="">Upload an image:</label>
-            <input type="image" alt="" accept="image/*">
-            <!--<input type="submit" value="Choose photo...">-->
-            
-            <button type="submit" value="save">Save</button>
-            <button type="button" value="cancel">Cancel</button>
-            
-        </form>
+
         
     
 </body>
