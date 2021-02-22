@@ -30,7 +30,7 @@ ENGINE = innoDB;
 CREATE TABLE IF NOT EXISTS `infinitepetsdb`.`breed` (
     breed_id INT NOT NULL AUTO_INCREMENT,
     `animal_type_id` INT NOT NULL,
-    breed_name VARCHAR(30),
+    breed_name VARCHAR(50),
     PRIMARY KEY (breed_id, animal_type_id),
     CONSTRAINT fk_breed_animal_type
         FOREIGN KEY (animal_type_id)
