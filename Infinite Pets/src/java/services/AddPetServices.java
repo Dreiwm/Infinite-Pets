@@ -7,8 +7,8 @@ package services;
 
 /**
  *
- * @author Chris
+ * @author BTran
  */
-public class petService {
+public class AddPetServices {
     
 }
