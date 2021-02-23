@@ -4,7 +4,7 @@ DROP SCHEMA IF EXISTS `infinitepetsdb` ;
 CREATE SCHEMA IF NOT EXISTS `infinitepetsdb` DEFAULT CHARACTER SET latin1 ;
 USE `infinitepetsdb` ;
 
-CREATE TABLE IF NOT EXISTS `infinitepetsdb`.`accounts` (
+CREATE TABLE IF NOT EXISTS `infinitepetsdb`.`account` (
 	`UserId` INT NOT NULL AUTO_INCREMENT,
 	`Username` VARCHAR(30) NOT NULL,
 	`Password` VARCHAR(30) NOT NULL,
@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS `infinitepetsdb`.`accounts` (
 )
 ENGINE = InnoDB;
 
-CREATE TABLE IF NOT EXISTS `infinitepetsdb`.`pets` (
+CREATE TABLE IF NOT EXISTS `infinitepetsdb`.`pet` (
 	`PetID` INT NOT NULL AUTO_INCREMENT,
 	`Sex` CHAR(1) NOT NULL,
 	`Species` VARCHAR(20) NOT NULL,
@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS `infinitepetsdb`.`pets` (
 	INDEX `fk_pets_accounts_idx` (`Owner` ASC),
 	CONSTRAINT `fk_pets_accounts`
 		FOREIGN KEY (`Owner`)
-		REFERENCES `infinitepetsdb`.`accounts` (`UserId`)
+		REFERENCES `infinitepetsdb`.`account` (`UserId`)
 		ON DELETE CASCADE
 		ON UPDATE NO ACTION,
 	CONSTRAINT `chk_pets_sex`
@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS `infinitepetsdb`.`pets` (
 ENGINE = InnoDB;
 
 
-INSERT INTO `accounts` (`Username`,`Password`,`Email`,`FirstName`,`LastName`,`IsEmployee`,`IsConfirmed`)
+INSERT INTO `account` (`Username`,`Password`,`Email`,`FirstName`,`LastName`,`IsEmployee`,`IsConfirmed`)
 	VALUES 
 		('admin','password','cprg352+admin@gmail.com','Admin','Admin',1,1),
 		('employee','password','cprg352+employee@gmail.com','employee','employee',1,1),

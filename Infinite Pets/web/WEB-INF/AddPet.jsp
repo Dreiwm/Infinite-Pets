@@ -34,9 +34,13 @@
             </option>
         </select>
         <br>
+        <label for="">Type of Animal</label>
+        <input type="text" name="species" id="">
+        <br>
+        <br>
         <label for=""> Select animal breed</label>
         <br>
-        <select name="animal" id="">
+        <select name="breed" id="">
             <option value="">
                 animal breed
             </option>
