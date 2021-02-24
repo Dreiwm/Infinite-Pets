@@ -49,9 +49,12 @@ public class AddPetServices {
         PetDB petDB = new PetDB();
         AnimalDB animalDB = new AnimalDB();
         BreedDB breedDB = new BreedDB();
+        char sx = sex.charAt(0);
         
-//        ToDo make pet and add the stuff to it
+        Pet newPet = new Pet(0,sx,animal,breed,name);
+        newPet.setOwner(accountDB.getAccountById(owner));
         
+        petDB.insertPet(newPet);
     }
     
     
