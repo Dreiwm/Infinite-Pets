@@ -6,8 +6,10 @@
 package services;
 
 import java.util.List;
-import models.Accounts;
-import models.Pets;
+import models.Account;
+import models.Pet;
+import models.AnimalType;
+import models.Breed;
 
 /**
  *

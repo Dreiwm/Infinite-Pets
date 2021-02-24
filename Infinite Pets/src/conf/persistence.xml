@@ -5,6 +5,10 @@
     <non-jta-data-source>java:/comp/env/jdbc/infinitepetsdb</non-jta-data-source>
     <class>models.Pets</class>
     <class>models.Accounts</class>
+    <class>models.Account</class>
+    <class>models.Pet</class>
+    <class>models.AnimalType</class>
+    <class>models.Breed</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
   </persistence-unit>
 </persistence>
