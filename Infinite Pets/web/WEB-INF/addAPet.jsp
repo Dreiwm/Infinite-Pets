@@ -13,15 +13,15 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>InfinitePets</title>
-<!--    <link rel="stylesheet" href="./assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="./assets/fonts/fontawesome-all.min.css">
     <link rel="stylesheet" href="./assets/fonts/font-awesome.min.css">
     <link rel="stylesheet" href="./assets/fonts/fontawesome5-overrides.min.css">
-    <link rel="stylesheet" href="./assets/css/styles.min.css">-->
+    <link rel="stylesheet" href="./assets/css/styles.min.css">
 </head>
 
 <body style="background: #e7e4d9;color: rgb(255,255,255);">
-<!--    <header style="background: #9a9891;">
+    <header style="background: #9a9891;">
         <div class="row align-items-center" style="height: 75px;margin: 0px;">
             <div class="col d-flex justify-content-start" style="margin: 0px;padding-left: 20px;padding-right: 0px;">
                 <a href="" name="menu" style="text-decoration: none">
@@ -68,7 +68,7 @@
                         <div class="form-row" style="margin-top: 10px;margin-bottom: 10px;">
                             <div class="col-8">
                                 <label style="margin-bottom: 1px;color: rgba(154,152,145,0.65);">Pet name</label>
-                                **********
+                                <!--**********-->
                                 <input name="petName" class="form-control" type="text" style="height: 36px;"></div>
                         </div>
                         
@@ -76,19 +76,27 @@
                             
                             <div class="col">
                                 <label style="margin-bottom: 1px;color: rgba(154,152,145,0.65);">Animal</label>
-                                **********
+                                <!--**********-->
                                 <select name="animal" class="form-control" placeholder="animal" style="background: rgba(154,152,145,0.75);color: #ffffff;border-style: none;width: 150px;">
-                                    <option name="select" value="select" selected="true" style="background: rgb(255,255,255);color: rgb(0,0,0);">Select</option>
-                                    <option name="animal" value="dog" style="background: rgb(255,255,255);color: rgb(0,0,0);">Dog</option>
+<!--                                    <option name="select" value="select" selected="true" style="background: rgb(255,255,255);color: rgb(0,0,0);">Select</option>
+                                    <option name="animal" value="dog" style="background: rgb(255,255,255);color: rgb(0,0,0);">Dog</option>-->
+                                    <c:forEach items="${animalList}" var="anlst">
+                                        <option value="${anlst}" style="background: rgb(255,255,255);color: rgb(0,0,0);">${anlst}</option>
+                                    </c:forEach>
                                 </select>
+                                
                             </div>
                             
                             <div class="col">
                                 <label style="margin-bottom: 1px;color: rgba(154,152,145,0.65);">Breed</label>
-                                **********
+                                <!--**********-->
                                 <select name="breed" class="form-control" placeholder="animal" style="background: rgba(154,152,145,0.75);color: #ffffff;border-style: none; width: 150px;">
-                                    <option name="select" value="select" selected="true" style="background: rgb(255,255,255);color: rgb(0,0,0);">Select</option>
-                                    <option name="breed" value="lab" style="background: rgb(255,255,255);color: rgb(0,0,0);">Lab</option>
+                                    <c:forEach items="${breedList}" var="lst">
+                                        <!--<option value="${lst}">${lst}</option>-->
+                                        <option value="${lst}" style="background: rgb(255,255,255);color: rgb(0,0,0);">${lst}</option>
+                                    </c:forEach>
+<!--                                    <option name="select" value="select" selected="true" style="background: rgb(255,255,255);color: rgb(0,0,0);">Select</option>
+                                    <option name="breed" value="lab" style="background: rgb(255,255,255);color: rgb(0,0,0);">Lab</option>-->
                                 </select>
                             </div>
                         </div>
@@ -98,7 +106,7 @@
                                 <div class="form-row">
                                     <div class="col" style="margin-bottom: 10px;">
                                         <label style="margin-bottom: 1px;color: rgba(154,152,145,0.65);">Medical information</label>
-                                        **********
+                                        <!--**********-->
                                         <textarea name="medical" class="form-control" style="width: 310px;height: 115px;max-height: 200px;"></textarea>
                                     </div>
                                 </div>
@@ -113,7 +121,7 @@
                                     <div class="col" style="margin-bottom: 10px;">
                                         <label style="margin-bottom: 1px;color: rgba(154,152,145,0.65);">Sex</label>
                                             
-                                            **********
+                                            <!--**********-->
                                             <select name="sex" class="form-control" placeholder="animal" style="background: rgba(154,152,145,0.75);color: #ffffff;border-style: none; width: 100px">
                                                 <option name="select" value="select" class="form-control" selected="true" style="background: rgb(255,255,255);color: rgb(0,0,0);">Select</option>
                                                 <option name="sex" value="male" class="form-control" style="background: rgb(255,255,255);color: rgb(0,0,0);">Male</option>
@@ -122,7 +130,7 @@
                                     </div>
                                     <div class="col">
                                         <label style="margin-bottom: 1px;color: rgba(154,152,145,0.65);">Birthday</label>
-                                        **********
+                                        <!--**********-->
                                         <input name="birthday" class="form-control" type="date" style="width: 171px;height: 36px;">
                                     </div>
                                 </div>
@@ -130,14 +138,14 @@
                             <div class="col d-flex flex-column align-items-start align-content-center" style="margin-bottom: 10px;margin-left: 10px;padding: 0px;">
                                 <label style="margin-bottom: 1px;color: rgba(154,152,145,0.65);">Upload a photo</label>
                                     <i class="fa fa-photo" style="font-size: 50px;border-radius: 5px;border: 2px solid rgba(154,152,145,0.75);background: rgb(255,255,255);text-align: center;width: 120px;color: rgba(0,0,0,0.21);margin-bottom: 5px;padding: 18px;"></i>
-                                    **********
+                                    <!--**********-->
                                     <button name="upload" class="btn btn-dark" type="button" style="background: rgba(154,152,145,0.75);border-style: none;width: 118px;">Browse</button>
                             </div>
                             <div class="col">
                                 <label style="margin-bottom: 1px;color: rgba(154,152,145,0.65);">Preferred Veterinarian</label>
                                 <div class="form-row" style="margin-bottom: 10px;">
                                     <div class="col">
-                                        **********
+                                        <!--**********-->
                                         <input name="vet" class="form-control" type="text" style="height: 36px;">
                                     </div>
                                 </div>
@@ -145,11 +153,11 @@
                         </div>
                         <div class="form-row d-flex justify-content-start" style="margin-bottom: 10px;">
                             <div class="col-auto">
-                                **********
+                                <!--**********-->
                                 <button name="cancel" class="btn btn-danger" type="button" style="background: rgba(154,152,145,0.75);border-style: none;">Cancel</button>
                             </div>
                             <div class="col-auto">
-                                **********
+                                <!--**********-->
                                 <button name="save" class="btn btn-success" type="submit" style="background: rgba(154,152,145,0.75);border-style: none;">Save</button>
                             </div>
                         </div>
@@ -217,8 +225,8 @@
     <script src="./assets/bootstrap/js/bootstrap.min.js"></script>
     
     
- -->
-        <h1>Add a Pet</h1>
+ 
+<!--        <h1>Add a Pet</h1>
         <form>
         <label for="">Pet Name</label>
         <br>
@@ -270,7 +278,7 @@
         
             <label for="">Upload an image:</label>
             <input type="image" alt="" accept="image/*">
-            <!--<input type="submit" value="Choose photo...">-->
+            <input type="submit" value="Choose photo...">
             
             <button type="submit" value="save">Save</button>
             <button type="button" value="cancel">Cancel</button>
@@ -281,7 +289,7 @@
             <c:forEach items="${currentPets}" var="pets">
                 ${pets}
             </c:forEach>
-        </p>
+        </p>-->
 </body>
 
 </html>
