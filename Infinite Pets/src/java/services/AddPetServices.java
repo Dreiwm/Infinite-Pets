@@ -44,7 +44,7 @@ public class AddPetServices {
         return account;
     }
     
-    public void setPet(String name, String animal, String breed, Date bday, String vet, String medical, String sex, String owner)throws Exception{
+    public void setPet(String name, String animal, String breed, String bday, String vet, String medical, String sex, String owner)throws Exception{
         AccountDB accountDB = new AccountDB();
         PetDB petDB = new PetDB();
         AnimalDB animalDB = new AnimalDB();
