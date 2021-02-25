@@ -36,7 +36,7 @@
             </tbody>
         </table>
 
-        <a href="/AddPet">Add a new pet</a>
+        <a href="/InfinitePets/AddPet">Add a new pet</a>
         
     </body>
 </html>

@@ -44,17 +44,15 @@ public class AddPetServices {
         return account;
     }
     
-    public void setPet(String name, String animal, String breed, String bday, String vet, String medical, String sex, String owner)throws Exception{
+    public void createPet(String name, String animal, String breed, String bday, String vet, String medical, String sex, String owner)throws Exception{
         AccountDB accountDB = new AccountDB();
         PetDB petDB = new PetDB();
         char sx = sex.charAt(0);
         
-        
         Pet newPet = new Pet(0,sx,animal,breed,name);
        
         newPet.setOwner(accountDB.getAccountByUsername(owner));
-        
-        
+                
         System.out.println(newPet.getBreed()+"\n"+newPet.getPetName());
         petDB.insertPet(newPet);
         System.out.println("set pet");

@@ -234,8 +234,10 @@
         <br>
         <label for="">Sex</label>
         <select name="sex" id="">
-            <option value="male">male</option>
-            <option value="female">female</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Neutered">Neutered</option>
+            <option value="Spaded">Spaded</option>
         </select>
         <br>
         <label for=""> Select animal type</label>
@@ -284,7 +286,7 @@
             <button type="submit" name="action" value="cancel">Cancel</button>
             
         </form>
-        
+      <p name="errorMsg"></p>
         <p>
             <c:forEach items="${currentPets}" var="pets">
                 ${pets}
