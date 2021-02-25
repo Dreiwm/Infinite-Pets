@@ -13,15 +13,15 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>InfinitePets</title>
-    <link rel="stylesheet" href="./assets/bootstrap/css/bootstrap.min.css">
+<!--    <link rel="stylesheet" href="./assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="./assets/fonts/fontawesome-all.min.css">
     <link rel="stylesheet" href="./assets/fonts/font-awesome.min.css">
     <link rel="stylesheet" href="./assets/fonts/fontawesome5-overrides.min.css">
-    <link rel="stylesheet" href="./assets/css/styles.min.css">
+    <link rel="stylesheet" href="./assets/css/styles.min.css">-->
 </head>
 
 <body style="background: #e7e4d9;color: rgb(255,255,255);">
-    <header style="background: #9a9891;">
+<!--    <header style="background: #9a9891;">
         <div class="row align-items-center" style="height: 75px;margin: 0px;">
             <div class="col d-flex justify-content-start" style="margin: 0px;padding-left: 20px;padding-right: 0px;">
                 <a href="" name="menu" style="text-decoration: none">
