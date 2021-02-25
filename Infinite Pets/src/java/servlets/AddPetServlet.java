@@ -14,6 +14,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -37,11 +38,11 @@ public class AddPetServlet extends HttpServlet {
                 HttpSession session = request.getSession();
                AddPetServices aps = new AddPetServices();
         try {
-            List animalList = aps.getAnimals();  
-            List breedList = aps.getAllAnimalBreeds();
+//            List animalList = aps.getAnimals();  
+//            List breedList = aps.getAllAnimalBreeds();
                 
-            request.setAttribute("animalList", animalList);
-            request.setAttribute("breedList", breedList);
+//            request.setAttribute("animalList", animalList);
+//            request.setAttribute("breedList", breedList);
                 
         } catch (Exception ex) {
             Logger.getLogger(AddPetServlet.class.getName()).log(Level.SEVERE, null, ex);
@@ -62,7 +63,9 @@ public class AddPetServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
        HttpSession session = request.getSession();
-        
+       AddPetServices aps = new AddPetServices();
+       
+       String owner = "anne"; 
        String petName = request.getParameter("petName");
        String sex = request.getParameter("sex");
        String type = request.getParameter("animal");
@@ -71,10 +74,12 @@ public class AddPetServlet extends HttpServlet {
        String info = request.getParameter("medical");
        String vet = request.getParameter("vet");
        
-       
-       String pet = petName +" "+ sex+" "+type+" "+breed +" "+ birthday +" "+ info +" " +vet +"added";
-       testWritePet(request, pet);
-       
+       try{
+            aps.setPet(petName, type, breed, birthday, vet, info, sex, owner);
+       }
+       catch(Exception e){
+           
+       }
        
        request.setAttribute("currentPets", testBreeds("pets"));
        
