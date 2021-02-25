@@ -38,11 +38,11 @@ public class AddPetServlet extends HttpServlet {
                 HttpSession session = request.getSession();
                AddPetServices aps = new AddPetServices();
         try {
-//            List animalList = aps.getAnimals();  
-//            List breedList = aps.getAllAnimalBreeds();
+            List animalList = aps.getAnimals();  
+            List breedList = aps.getAllAnimalBreeds();
                 
-//            request.setAttribute("animalList", animalList);
-//            request.setAttribute("breedList", breedList);
+            request.setAttribute("animalList", animalList);
+            request.setAttribute("breedList", breedList);
                 
         } catch (Exception ex) {
             Logger.getLogger(AddPetServlet.class.getName()).log(Level.SEVERE, null, ex);
