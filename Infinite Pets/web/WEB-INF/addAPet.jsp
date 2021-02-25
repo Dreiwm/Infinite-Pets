@@ -227,7 +227,7 @@
     -->
  
       <h1>Add a Pet</h1>
-        <form>
+        <form method="post">
         <label for="">Pet Name</label>
         <br>
         <input type="text" name="petName" id="">
@@ -245,7 +245,7 @@
                 animal type
             </option>
             <c:forEach items="${animalList}" var="anlst">
-                <option value="${anlst.animalType}">${anlst.animalType}</option>
+                <option value="${anlst.animalTypeID}">${anlst.animalType}</option>
             </c:forEach>
         </select>
         <br>
@@ -256,7 +256,7 @@
                 animal breed
             </option>
             <c:forEach items="${breedList}" var="lst">
-                <option value="${lst}">${lst}</option>
+                <option value="${lst.breedName}">${lst.breedName}</option>
             </c:forEach>
         </select>
         <br>

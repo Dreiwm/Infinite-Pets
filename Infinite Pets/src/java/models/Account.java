@@ -6,12 +6,12 @@
 package models;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -68,8 +68,8 @@ public class Account implements Serializable {
     @Basic(optional = false)
     @Column(name = "IsConfirmed")
     private boolean isConfirmed;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "owner")
-    private List<Pet> petCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "owner", fetch = FetchType.EAGER)
+    private List<Pet> petList;
 
     public Account() {
     }
@@ -154,12 +154,12 @@ public class Account implements Serializable {
     }
 
     @XmlTransient
-    public List<Pet> getPetCollection() {
-        return petCollection;
+    public List<Pet> getPetList() {
+        return petList;
     }
 
-    public void setPetCollection(List<Pet> petCollection) {
-        this.petCollection = petCollection;
+    public void setPetList(List<Pet> petList) {
+        this.petList = petList;
     }
 
     @Override

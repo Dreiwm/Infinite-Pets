@@ -39,12 +39,15 @@ public class AddPetServlet extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         AddPetServices aps = new AddPetServices();
+        session.setAttribute("owner", "anne");
+        
+        
         try {
+            System.out.print(aps.getAccount((String)session.getAttribute("owner")));
             List<AnimalType> animalList = aps.getAnimals();  
             List<Breed> breedList = aps.getAllAnimalBreeds();
-                
+            
             request.setAttribute("animalList", animalList);
-            System.out.println(animalList.get(0).getAnimalType());
             request.setAttribute("breedList", breedList);
                 
         } catch (Exception ex) {
@@ -68,6 +71,8 @@ public class AddPetServlet extends HttpServlet {
        HttpSession session = request.getSession();
        AddPetServices aps = new AddPetServices();
        
+       System.out.println("making pet");
+       
        String owner = (String)session.getAttribute("owner");
        String petName = request.getParameter("petName");
        String sex = request.getParameter("sex");
@@ -78,6 +83,7 @@ public class AddPetServlet extends HttpServlet {
        String vet = request.getParameter("vet");
        
        try{
+            System.out.println("going to aps");
             aps.setPet(petName, type, breed, birthday, vet, info, sex, owner);
        }
        catch(Exception e){

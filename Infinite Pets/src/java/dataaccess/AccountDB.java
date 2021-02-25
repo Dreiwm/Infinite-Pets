@@ -16,10 +16,11 @@ import models.Account;
  */
 public class AccountDB {
     
-    public Account getAccountById(String username) throws Exception{
+    public Account getAccountByUsername(String username) throws Exception{
        EntityManager em = DBUtil.getEmFactory().createEntityManager();
        try{
-           Account user = em.find(Account.class, username);
+           Account user = em.createNamedQuery("Account.findByUsername",Account.class).setParameter("username", username).getSingleResult();
+           
            return user;
        }
        finally{

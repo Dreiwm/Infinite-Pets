@@ -30,7 +30,7 @@ public class AnimalDB {
     public List<AnimalType> getAllAnimals() throws Exception{
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         try{
-            List<AnimalType> allAnimals = em.createNamedQuery("AninmalType.findAll", AnimalType.class).getResultList();
+            List<AnimalType> allAnimals = em.createNamedQuery("AnimalType.findAll", AnimalType.class).getResultList();
             return allAnimals;
         }
         finally{

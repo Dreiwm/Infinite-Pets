@@ -40,21 +40,24 @@ public class AddPetServices {
     public Account getAccount(String username)throws Exception{
         AccountDB accountDB = new AccountDB();
         Account account = new Account();
-        account = accountDB.getAccountById(username);
+        account = accountDB.getAccountByUsername(username);
         return account;
     }
     
     public void setPet(String name, String animal, String breed, String bday, String vet, String medical, String sex, String owner)throws Exception{
         AccountDB accountDB = new AccountDB();
         PetDB petDB = new PetDB();
-        AnimalDB animalDB = new AnimalDB();
-        BreedDB breedDB = new BreedDB();
         char sx = sex.charAt(0);
         
-        Pet newPet = new Pet(0,sx,animal,breed,name);
-        newPet.setOwner(accountDB.getAccountById(owner));
         
+        Pet newPet = new Pet(0,sx,animal,breed,name);
+       
+        newPet.setOwner(accountDB.getAccountByUsername(owner));
+        
+        
+        System.out.println(newPet.getBreed()+"\n"+newPet.getPetName());
         petDB.insertPet(newPet);
+        System.out.println("set pet");
     }
     
     

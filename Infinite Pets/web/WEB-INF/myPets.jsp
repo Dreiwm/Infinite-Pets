@@ -28,7 +28,7 @@
                 <c:forEach items="${pets}" var="pet">
                     <tr>
                         <td>${pet.petName}</td>
-                        <td>${pet.animal}</td>
+                        <td>${pet.species}</td>
                         <td>${pet.breed}</td>
                         <td>${pet.sex}</td>
                     </tr>

@@ -30,7 +30,7 @@ public class PetDB {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         try{
             Account user = em.find(Account.class, owner);
-            return user.getPetCollection();
+            return user.getPetList();
         }
         finally{
             em.close();
@@ -42,10 +42,13 @@ public class PetDB {
         EntityTransaction trans = em.getTransaction();
         try{
             Account user = pet.getOwner();
-            user.getPetCollection().add(pet);
+            user.getPetList().add(pet);
             trans.begin();
+            System.out.println("setting pet");
             em.persist(pet);
+            System.out.println("merging user");
             em.merge(user);
+              System.out.println("merged user");
             trans.commit();
         }catch(Exception ex){
             trans.rollback();
@@ -74,7 +77,7 @@ public class PetDB {
         EntityTransaction trans = em.getTransaction();
         try{
             Account user = pet.getOwner();
-            user.getPetCollection().remove(pet);
+            user.getPetList().remove(pet);
             trans.begin();
             em.remove(em.merge(pet));
             em.merge(user);
