@@ -1,0 +1,9 @@
+.form-control:focus {
+  border-color: rgba(154, 152, 145, 0);
+  outline: 0;
+  box-shadow: 0 0 0 0.15rem rgba(162, 164, 163, 0.65);
+}
+.custom-file-input:focus ~ .custom-file-label {
+  border-color: #a2a4a3;
+  box-shadow: 0 0 0 0.2rem rgba(162, 164, 163, 0.65);
+}

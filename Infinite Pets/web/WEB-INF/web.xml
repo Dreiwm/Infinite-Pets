@@ -4,9 +4,17 @@
         <servlet-name>AddPetServlet</servlet-name>
         <servlet-class>servlets.AddPetServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>MyPetsServlet</servlet-name>
+        <servlet-class>servlets.MyPetsServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>AddPetServlet</servlet-name>
         <url-pattern>/AddPet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MyPetsServlet</servlet-name>
+        <url-pattern>/MyPets</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

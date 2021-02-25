@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS `infinitepetsdb`.`pet` (
     `PetID` INT NOT NULL AUTO_INCREMENT,
     `Sex` CHAR(1) NOT NULL,
     `Species` VARCHAR(20) NOT NULL,
-    `Breed` VARCHAR(20) NOT NULL,
+    `Breed` VARCHAR(60) NOT NULL,
     `PetName` VARCHAR(30) NOT NULL,
     `Owner` INT NOT NULL,
     PRIMARY KEY (`PetID`),
