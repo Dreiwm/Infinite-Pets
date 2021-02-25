@@ -69,30 +69,35 @@ public class AddPetServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
        HttpSession session = request.getSession();
-       AddPetServices aps = new AddPetServices();
        
-       System.out.println("making pet");
-       
-       String owner = (String)session.getAttribute("owner");
-       String petName = request.getParameter("petName");
-       String sex = request.getParameter("sex");
-       String type = request.getParameter("animal");
-       String breed = request.getParameter("breed");
-       String birthday = request.getParameter("birthday");
-       String info = request.getParameter("medical");
-       String vet = request.getParameter("vet");
-       
-       try{
-            System.out.println("going to aps");
-            aps.setPet(petName, type, breed, birthday, vet, info, sex, owner);
+       if(request.getParameter("action").toString().equals("cancel")){
+            response.sendRedirect("MyPets");
        }
-       catch(Exception e){
-           
+       else{
+            AddPetServices aps = new AddPetServices();
+
+            System.out.println("making pet");
+
+            String owner = (String)session.getAttribute("owner");
+            String petName = request.getParameter("petName");
+            String sex = request.getParameter("sex");
+            String type = request.getParameter("animal");
+            String breed = request.getParameter("breed");
+            String birthday = request.getParameter("birthday");
+            String info = request.getParameter("medical");
+            String vet = request.getParameter("vet");
+
+            try{
+                 System.out.println("going to aps");
+                 aps.setPet(petName, type, breed, birthday, vet, info, sex, owner);
+            }
+            catch(Exception e){
+
+            }
+
+           response.sendRedirect("MyPets"); 
        }
-       
-       request.setAttribute("currentPets", testBreeds("pets"));
-       
-       getServletContext().getRequestDispatcher("/WEB-INF/addAPet.jsp").forward(request,response);
+      
     }
 
     

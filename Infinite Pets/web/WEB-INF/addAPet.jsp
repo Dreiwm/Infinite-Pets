@@ -245,7 +245,7 @@
                 animal type
             </option>
             <c:forEach items="${animalList}" var="anlst">
-                <option value="${anlst.animalTypeID}">${anlst.animalType}</option>
+                <option value="${anlst.animalType}">${anlst.animalType}</option>
             </c:forEach>
         </select>
         <br>
@@ -280,8 +280,8 @@
             <input type="image" alt="" accept="image/*">
             <input type="submit" value="Choose photo...">
             
-            <button type="submit" value="save">Save</button>
-            <button type="button" value="cancel">Cancel</button>
+            <button type="submit" name="action" value="save">Save</button>
+            <button type="submit" name="action" value="cancel">Cancel</button>
             
         </form>
         
