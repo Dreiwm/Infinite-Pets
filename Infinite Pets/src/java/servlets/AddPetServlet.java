@@ -23,7 +23,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import models.Account;
 import models.AnimalType;
+import models.Breed;
 import services.AddPetServices;
 
 /**
@@ -35,13 +37,14 @@ public class AddPetServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-                HttpSession session = request.getSession();
-               AddPetServices aps = new AddPetServices();
+        HttpSession session = request.getSession();
+        AddPetServices aps = new AddPetServices();
         try {
-            List animalList = aps.getAnimals();  
-            List breedList = aps.getAllAnimalBreeds();
+            List<AnimalType> animalList = aps.getAnimals();  
+            List<Breed> breedList = aps.getAllAnimalBreeds();
                 
             request.setAttribute("animalList", animalList);
+            System.out.println(animalList.get(0).getAnimalType());
             request.setAttribute("breedList", breedList);
                 
         } catch (Exception ex) {
@@ -65,7 +68,7 @@ public class AddPetServlet extends HttpServlet {
        HttpSession session = request.getSession();
        AddPetServices aps = new AddPetServices();
        
-       String owner = "anne"; 
+       String owner = (String)session.getAttribute("owner");
        String petName = request.getParameter("petName");
        String sex = request.getParameter("sex");
        String type = request.getParameter("animal");

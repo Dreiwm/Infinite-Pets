@@ -68,8 +68,8 @@
                         <div class="form-row" style="margin-top: 10px;margin-bottom: 10px;">
                             <div class="col-8">
                                 <label style="margin-bottom: 1px;color: rgba(154,152,145,0.65);">Pet name</label>
-                                **********
-                                <input name="petName" class="form-control" type="text" style="height: 36px;"></div>
+                                <!--**********-->
+<!--                                <input name="petName" class="form-control" type="text" style="height: 36px;"></div>
                         </div>
                         
                         <div class="form-row" style="margin-bottom: 10px;">
@@ -80,13 +80,21 @@
                                 <select name="animal" class="form-control" placeholder="animal" style="background: rgba(154,152,145,0.75);color: #ffffff;border-style: none;width: 150px;">
                                     <option name="select" value="select" selected="true" style="background: rgb(255,255,255);color: rgb(0,0,0);">Select</option>
                                     <option name="animal" value="dog" style="background: rgb(255,255,255);color: rgb(0,0,0);">Dog</option>
+                                    <c:forEach items="${animalList}" var="anlst">
+                                        <option value="${anlst}" style="background: rgb(255,255,255);color: rgb(0,0,0);">${anlst}</option>
+                                    </c:forEach>
                                 </select>
+                                
                             </div>
                             
                             <div class="col">
                                 <label style="margin-bottom: 1px;color: rgba(154,152,145,0.65);">Breed</label>
                                 **********
                                 <select name="breed" class="form-control" placeholder="animal" style="background: rgba(154,152,145,0.75);color: #ffffff;border-style: none; width: 150px;">
+                                    <c:forEach items="${breedList}" var="lst">
+                                        <option value="${lst}">${lst}</option>
+                                        <option value="${lst}" style="background: rgb(255,255,255);color: rgb(0,0,0);">${lst}</option>
+                                    </c:forEach>
                                     <option name="select" value="select" selected="true" style="background: rgb(255,255,255);color: rgb(0,0,0);">Select</option>
                                     <option name="breed" value="lab" style="background: rgb(255,255,255);color: rgb(0,0,0);">Lab</option>
                                 </select>
@@ -216,9 +224,9 @@
     <script src="./assets/js/jquery.min.js"></script>
     <script src="./assets/bootstrap/js/bootstrap.min.js"></script>
     
-    
- -->
-        <h1>Add a Pet</h1>
+    -->
+ 
+      <h1>Add a Pet</h1>
         <form>
         <label for="">Pet Name</label>
         <br>
@@ -237,7 +245,7 @@
                 animal type
             </option>
             <c:forEach items="${animalList}" var="anlst">
-                <option value="${anlst.animalTypeID}">${anlst.animalType}</option>
+                <option value="${anlst.animalType}">${anlst.animalType}</option>
             </c:forEach>
         </select>
         <br>
@@ -248,7 +256,7 @@
                 animal breed
             </option>
             <c:forEach items="${breedList}" var="lst">
-                <option value="${lst.breedID}">${lst.breedName}</option>
+                <option value="${lst}">${lst}</option>
             </c:forEach>
         </select>
         <br>
@@ -270,7 +278,7 @@
         
             <label for="">Upload an image:</label>
             <input type="image" alt="" accept="image/*">
-            <!--<input type="submit" value="Choose photo...">-->
+            <input type="submit" value="Choose photo...">
             
             <button type="submit" value="save">Save</button>
             <button type="button" value="cancel">Cancel</button>
