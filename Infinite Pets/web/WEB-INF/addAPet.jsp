@@ -78,10 +78,10 @@
                                 <label style="margin-bottom: 1px;color: rgba(154,152,145,0.65);">Animal</label>
                             
                                 <select name="animal" class="form-control" placeholder="animal" style="background: rgba(154,152,145,0.75);color: #ffffff;border-style: none;width: 150px;">
-                                    <option name="select" value="select" selected="true" style="background: rgb(255,255,255);color: rgb(0,0,0);">Select</option>
-                                    <option name="animal" value="dog" style="background: rgb(255,255,255);color: rgb(0,0,0);">Dog</option>
+<!--                                    <option name="select" value="select" selected="true" style="background: rgb(255,255,255);color: rgb(0,0,0);">Select</option>
+                                    <option name="animal" value="dog" style="background: rgb(255,255,255);color: rgb(0,0,0);">Dog</option>-->
                                     <c:forEach items="${animalList}" var="anlst">
-                                        <option value="${anlst}" style="background: rgb(255,255,255);color: rgb(0,0,0);">${anlst}</option>
+                                        <option value="${anlst.animalType}" style="background: rgb(255,255,255);color: rgb(0,0,0);">${anlst.animalType}</option>
                                     </c:forEach>
                                 </select>
                                 
@@ -92,11 +92,10 @@
                               
                                 <select name="breed" class="form-control" placeholder="animal" style="background: rgba(154,152,145,0.75);color: #ffffff;border-style: none; width: 150px;">
                                     <c:forEach items="${breedList}" var="lst">
-                                        <option value="${lst}">${lst}</option>
-                                        <option value="${lst}" style="background: rgb(255,255,255);color: rgb(0,0,0);">${lst}</option>
+                                        <option value="${lst.breedName}" style="background: rgb(255,255,255);color: rgb(0,0,0);">${lst.breedName}</option>
                                     </c:forEach>
-                                    <option name="select" value="select" selected="true" style="background: rgb(255,255,255);color: rgb(0,0,0);">Select</option>
-                                    <option name="breed" value="lab" style="background: rgb(255,255,255);color: rgb(0,0,0);">Lab</option>
+<!--                                    <option name="select" value="select" selected="true" style="background: rgb(255,255,255);color: rgb(0,0,0);">Select</option>
+                                    <option name="breed" value="lab" style="background: rgb(255,255,255);color: rgb(0,0,0);">Lab</option>-->
                                 </select>
                             </div>
                         </div>
@@ -123,10 +122,14 @@
                                             
                                            
                                             <select name="sex" class="form-control" placeholder="animal" style="background: rgba(154,152,145,0.75);color: #ffffff;border-style: none; width: 100px">
-                                                <option name="select" value="select" class="form-control" selected="true" style="background: rgb(255,255,255);color: rgb(0,0,0);">Select</option>
-                                                <option name="sex" value="male" class="form-control" style="background: rgb(255,255,255);color: rgb(0,0,0);">Male</option>
-                                                <option name="sex" value="female" class="form-control" style="background: rgb(255,255,255);color: rgb(0,0,0);">Female</option>
-                                </select>
+                                                <option name="sex" value="Male" style="background: rgb(255,255,255);color: rgb(0,0,0);">Male</option>
+                                                <option name="sex" value="Female" style="background: rgb(255,255,255);color: rgb(0,0,0);">Female</option>
+                                                <option name="sex" value="Neutered" style="background: rgb(255,255,255);color: rgb(0,0,0);">Neutered</option>
+                                                <option name="sex" value="Spaded" style="background: rgb(255,255,255);color: rgb(0,0,0);">Spaded</option>
+                                                <!--<option name="select" value="select" class="form-control" selected="true" style="background: rgb(255,255,255);color: rgb(0,0,0);">Select</option>-->
+<!--                                                <option name="sex" value="male" class="form-control" style="background: rgb(255,255,255);color: rgb(0,0,0);">Male</option>
+                                                <option name="sex" value="female" class="form-control" style="background: rgb(255,255,255);color: rgb(0,0,0);">Female</option>-->
+                                            </select>
                                     </div>
                                     <div class="col">
                                         <label style="margin-bottom: 1px;color: rgba(154,152,145,0.65);">Birthday</label>
