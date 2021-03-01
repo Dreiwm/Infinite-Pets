@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS `infinitepetsdb`.`pet` (
     `Owner` INT NOT NULL,
     `Birthday` DATE NOT NULL,
     `Preferred Vet` VARCHAR(60),
-    `MedicalInfo` VARCHAR,
+    `MedicalInfo` VARCHAR(120),
     PRIMARY KEY (`PetID`),
     INDEX `fk_pets_accounts_idx` (`Owner` ASC),
     CONSTRAINT `fk_pets_accounts`
