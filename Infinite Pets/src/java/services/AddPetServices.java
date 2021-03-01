@@ -50,7 +50,10 @@ public class AddPetServices {
         char sx = sex.charAt(0);
         
         Pet newPet = new Pet(0,sx,animal,breed,name);
-       
+        newPet.setBirthday(new Date(bday));
+        newPet.setPreferredVet(vet);
+        
+        
         newPet.setOwner(accountDB.getAccountByUsername(owner));
                 
         System.out.println(newPet.getBreed()+"\n"+newPet.getPetName());

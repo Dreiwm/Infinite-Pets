@@ -4,6 +4,7 @@ DROP SCHEMA IF EXISTS `infinitepetsdb` ;
 CREATE SCHEMA IF NOT EXISTS `infinitepetsdb` DEFAULT CHARACTER SET latin1 ;
 USE `infinitepetsdb` ;
 
+-- Account
 CREATE TABLE IF NOT EXISTS `infinitepetsdb`.`account` (
     `UserId` INT NOT NULL AUTO_INCREMENT,
     `Username` VARCHAR(30) NOT NULL,
@@ -17,6 +18,8 @@ CREATE TABLE IF NOT EXISTS `infinitepetsdb`.`account` (
 )
 ENGINE = InnoDB;
 
+-- Pet
+-- Preferred Vet contains 60 chars to account for fulll name.
 CREATE TABLE IF NOT EXISTS `infinitepetsdb`.`pet` (
     `PetID` INT NOT NULL AUTO_INCREMENT,
     `Sex` CHAR(1) NOT NULL,
@@ -24,6 +27,9 @@ CREATE TABLE IF NOT EXISTS `infinitepetsdb`.`pet` (
     `Breed` VARCHAR(60) NOT NULL,
     `PetName` VARCHAR(30) NOT NULL,
     `Owner` INT NOT NULL,
+    `Birthday` DATE NOT NULL,
+    `Preferred Vet` VARCHAR(60),
+    `MedicalInfo` VARCHAR(120),
     PRIMARY KEY (`PetID`),
     INDEX `fk_pets_accounts_idx` (`Owner` ASC),
     CONSTRAINT `fk_pets_accounts`
