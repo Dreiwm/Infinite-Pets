@@ -2,11 +2,11 @@
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
     <servlet>
         <servlet-name>AddPetServlet</servlet-name>
-        <servlet-class>servlets.AddPetServlet</servlet-class>
+        <servlet-class>servlets.petServlets.AddPetServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>MyPetsServlet</servlet-name>
-        <servlet-class>servlets.MyPetsServlet</servlet-class>
+        <servlet-class>servlets.petServlets.MyPetsServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>AddPetServlet</servlet-name>
