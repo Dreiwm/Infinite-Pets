@@ -56,7 +56,7 @@
     <div class="container shadow-none d-flex justify-content-center align-items-center" style="max-width: none;margin-top: 10px;margin-bottom: 10px;">
         
         <div class="container d-flex justify-content-center align-items-center" style="width: 850px;background: rgba(255,255,255,0.5);border-radius: 25px;height: 425px;">
-            <form action="POST">
+            <form method="POST">
                 <div class="form-row">
                     <div class="col">
                         <h1 style="margin-right: 15px;margin-left: 15px;color: #777673;font-size: 30px;border-color: rgba(119,118,115,0.27);border-bottom-width: 2px;border-bottom-style: solid;">Add a Pet</h1>
@@ -157,11 +157,11 @@
                         <div class="form-row d-flex justify-content-start" style="margin-bottom: 10px;">
                             <div class="col-auto">
                                
-                                <button name="cancel" class="btn btn-danger" type="button" style="background: rgba(154,152,145,0.75);border-style: none;">Cancel</button>
+                                <button type="submit" name="action" value="cancel" class="btn btn-danger"style="background: rgba(154,152,145,0.75);border-style: none;">Cancel</button>
                             </div>
                             <div class="col-auto">
                                 
-                                <button name="save" class="btn btn-success" type="submit" style="background: rgba(154,152,145,0.75);border-style: none;">Save</button>
+                                <button type="submit" name="action" value="save" class="btn btn-danger" style="background: rgba(154,152,145,0.75);border-style: none;">Save</button>
                             </div>
                         </div>
                     </div>
