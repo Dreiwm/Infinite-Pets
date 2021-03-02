@@ -46,7 +46,7 @@ public class AddPetServlet extends HttpServlet {
         request.setAttribute("animalList", getAnimalType());
         request.setAttribute("breedList", getBreedList());        
        
-        getServletContext().getRequestDispatcher("/WEB-INF/addAPet.jsp").forward(request,response);
+        getServletContext().getRequestDispatcher("/WEB-INF/AddAPet.jsp").forward(request,response);
     }
 
     /**
@@ -92,7 +92,7 @@ public class AddPetServlet extends HttpServlet {
                 else {
                     session.setAttribute("errorMsg", msg);
                     System.out.println(msg);
-                    getServletContext().getRequestDispatcher("/WEB-INF/addAPet.jsp").forward(request,response);
+                    getServletContext().getRequestDispatcher("/WEB-INF/AddAPet.jsp").forward(request,response);
 //                    response.sendRedirect("AddPet");
                 }
             }

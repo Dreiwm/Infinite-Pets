@@ -9,6 +9,7 @@ import dataaccess.AccountDB;
 import dataaccess.AnimalDB;
 import dataaccess.BreedDB;
 import dataaccess.PetDB;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import models.Account;
@@ -44,14 +45,16 @@ public class AddPetServices {
         return account;
     }
     
-    public void createPet(String name, String animal, String breed, String bday, String vet, String medical, String sex, String owner)throws Exception{
+    public void createPet(String name, String animal, String breed, String birthday, String vet, String medical, String sex, String owner)throws Exception{
         AccountDB accountDB = new AccountDB();
         PetDB petDB = new PetDB();
         char sx = sex.charAt(0);
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        Date bday = format.parse(birthday);
         
-        Pet newPet = new Pet(0,sx,animal,breed,name);
-        newPet.setBirthday(new Date(bday));
+        Pet newPet = new Pet(0, sx, animal, breed, name, bday);
         newPet.setPreferredVet(vet);
+        newPet.setMedicalInfo(medical);
         
         
         newPet.setOwner(accountDB.getAccountByUsername(owner));

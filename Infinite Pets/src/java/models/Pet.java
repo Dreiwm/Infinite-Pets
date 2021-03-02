@@ -6,6 +6,7 @@
 package models;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,11 +19,13 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Chris
+ * @author BTran
  */
 @Entity
 @Table(name = "pet")
@@ -33,7 +36,10 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Pet.findBySex", query = "SELECT p FROM Pet p WHERE p.sex = :sex")
     , @NamedQuery(name = "Pet.findBySpecies", query = "SELECT p FROM Pet p WHERE p.species = :species")
     , @NamedQuery(name = "Pet.findByBreed", query = "SELECT p FROM Pet p WHERE p.breed = :breed")
-    , @NamedQuery(name = "Pet.findByPetName", query = "SELECT p FROM Pet p WHERE p.petName = :petName")})
+    , @NamedQuery(name = "Pet.findByPetName", query = "SELECT p FROM Pet p WHERE p.petName = :petName")
+    , @NamedQuery(name = "Pet.findByBirthday", query = "SELECT p FROM Pet p WHERE p.birthday = :birthday")
+    , @NamedQuery(name = "Pet.findByPreferredVet", query = "SELECT p FROM Pet p WHERE p.preferredVet = :preferredVet")
+    , @NamedQuery(name = "Pet.findByMedicalInfo", query = "SELECT p FROM Pet p WHERE p.medicalInfo = :medicalInfo")})
 public class Pet implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -54,6 +60,14 @@ public class Pet implements Serializable {
     @Basic(optional = false)
     @Column(name = "PetName")
     private String petName;
+    @Basic(optional = false)
+    @Column(name = "Birthday")
+    @Temporal(TemporalType.DATE)
+    private Date birthday;
+    @Column(name = "PreferredVet")
+    private String preferredVet;
+    @Column(name = "MedicalInfo")
+    private String medicalInfo;
     @JoinColumn(name = "Owner", referencedColumnName = "UserId")
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Account owner;
@@ -65,12 +79,13 @@ public class Pet implements Serializable {
         this.petID = petID;
     }
 
-    public Pet(Integer petID, Character sex, String species, String breed, String petName) {
+    public Pet(Integer petID, Character sex, String species, String breed, String petName, Date birthday) {
         this.petID = petID;
         this.sex = sex;
         this.species = species;
         this.breed = breed;
         this.petName = petName;
+        this.birthday = birthday;
     }
 
     public Integer getPetID() {
@@ -111,6 +126,30 @@ public class Pet implements Serializable {
 
     public void setPetName(String petName) {
         this.petName = petName;
+    }
+
+    public Date getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
+    }
+
+    public String getPreferredVet() {
+        return preferredVet;
+    }
+
+    public void setPreferredVet(String preferredVet) {
+        this.preferredVet = preferredVet;
+    }
+
+    public String getMedicalInfo() {
+        return medicalInfo;
+    }
+
+    public void setMedicalInfo(String medicalInfo) {
+        this.medicalInfo = medicalInfo;
     }
 
     public Account getOwner() {
