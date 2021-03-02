@@ -149,7 +149,7 @@ public class AddPetServlet extends HttpServlet {
             //checking Animal Type
             if (!type.equals("") && type != null){
                 for (int i = 0; i < animalList.size(); i++){
-                    System.out.println(animalList.get(i).getAnimalType());
+//                    System.out.println(animalList.get(i).getAnimalType());
                     if (type.equals(animalList.get(i).getAnimalType()))
                         found = true;
                 }

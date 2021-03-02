@@ -51,7 +51,6 @@ public class AddPetServices {
         char sx = sex.charAt(0);
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         Date bday = format.parse(birthday);
-        
         Pet newPet = new Pet(0, sx, animal, breed, name, bday);
         newPet.setPreferredVet(vet);
         newPet.setMedicalInfo(medical);
