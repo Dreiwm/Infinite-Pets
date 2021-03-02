@@ -53,6 +53,7 @@ public class AddPetServices {
         Date bday = format.parse(birthday);
         Pet newPet = new Pet(0, sx, animal, breed, name, bday);
         newPet.setPreferredVet(vet);
+        newPet.setMedicalInfo(medical);
         
         
         newPet.setOwner(accountDB.getAccountByUsername(owner));
