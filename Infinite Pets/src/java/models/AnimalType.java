@@ -24,7 +24,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Chris
+ * @author BTran
  */
 @Entity
 @Table(name = "animal_type")

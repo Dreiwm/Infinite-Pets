@@ -41,7 +41,7 @@ public class MyPetsServlet extends HttpServlet {
         
         request.setAttribute("pets", owner.getPetList());
         
-        getServletContext().getRequestDispatcher("/WEB-INF/myPets.jsp").forward(request,response);
+        getServletContext().getRequestDispatcher("/WEB-INF/MyPets.jsp").forward(request,response);
     }
 
     @Override
