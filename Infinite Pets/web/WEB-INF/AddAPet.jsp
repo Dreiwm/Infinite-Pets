@@ -32,6 +32,7 @@
                     </div>
                 </a>
             </div>
+            <!--
             <a href="" name="home">
                 <div name="logo" class="col-auto d-flex justify-content-center" style="margin: 0px;margin-right: 0px;margin-left: 0px;">
                     <img id="logoLarge" src="./assets/img/Logos/infinitePetsLogo-White(4).png" style="width: 250px;">
@@ -226,7 +227,7 @@
     </div>
     <script src="./assets/js/jquery.min.js"></script>
     <script src="./assets/bootstrap/js/bootstrap.min.js"></script>
-    
+ -->   
     
  
 <!--      <h1>Add a Pet</h1>
@@ -271,7 +272,7 @@
         <br>
         <label for="">Additional Info:</label>
         <br>
-        <textarea name="medical" id="" cols="30" rows="10">Any additional information we should know...</textarea>
+        <textarea name="medical" id="" cols="30" rows="10" placeholder="Any additional information we should know..."></textarea>
         <br>
         <label for="">Vet</label>
         <br>

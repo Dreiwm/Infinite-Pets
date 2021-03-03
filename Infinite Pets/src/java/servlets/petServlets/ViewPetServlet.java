@@ -39,22 +39,23 @@ public class ViewPetServlet extends HttpServlet {
                 if(temp.getPetName().equalsIgnoreCase((String)session.getAttribute("viewPetName")))
                     targetPet = temp;
             }
+            request.setAttribute("owner", (String)session.getAttribute("owner"));
+            request.setAttribute("petName", targetPet.getPetName());
+            request.setAttribute("sex", this.determineSex(targetPet.getSex()));
+            request.setAttribute("animal", targetPet.getSpecies());
+            request.setAttribute("breed", targetPet.getBreed());
+            request.setAttribute("birthday",targetPet.getBirthday());
+            request.setAttribute("medical", targetPet.getMedicalInfo());
+            request.setAttribute("vet", targetPet.getPreferredVet());
         } catch (Exception ex) {
             //Logger.getLogger(ViewPetServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         
         
-        request.setAttribute("owner", (String)session.getAttribute("owner"));
-        request.setAttribute("petName", targetPet.getPetName());
-        request.setAttribute("sex", this.determineSex(targetPet.getSex()));
-        request.setAttribute("animal", targetPet.getSpecies());
-        request.setAttribute("breed", targetPet.getBreed());
-        request.setAttribute("birthday",targetPet.getBirthday());
-        request.setAttribute("medical", targetPet.getMedicalInfo());
-        request.setAttribute("vet", targetPet.getPreferredVet());
+
         
-        getServletContext().getRequestDispatcher("/WEB-INF/ViewPets.jsp").forward(request,response);
+        getServletContext().getRequestDispatcher("/WEB-INF/ViewPet.jsp").forward(request,response);
     }
 
   
