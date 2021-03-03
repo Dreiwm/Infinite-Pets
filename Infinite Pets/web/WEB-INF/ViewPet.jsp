@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -20,10 +21,9 @@
             <br>
             <label for="">Sex</label>
                 <select name="sex" id="sex" disabled="true">
-                    <option value="Male">Male</option>
-                    <option value="Female">Female</option>
-                    <option value="Neutered">Neutered</option>
-                    <option value="Spaded">Spaded</option>
+                    <c:forEach items="${sex}" var="sexList">
+                        <option value="${sexList}">${sexList}</option>
+                    </c:forEach>
                 </select>
             <br>
             <label for=""> Select animal type</label>
@@ -37,7 +37,7 @@
             <br>
             <label for="">Birthday</label>
             <br>
-            <input type="date" name="birthday" id="bday">
+            <input type="date" name="birthday" id="bday" readonly>
             <br>
             <label for="">Additional Info:</label>
             <br>

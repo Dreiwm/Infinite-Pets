@@ -7,6 +7,8 @@ package servlets.petServlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -39,20 +41,19 @@ public class ViewPetServlet extends HttpServlet {
                 if(temp.getPetName().equalsIgnoreCase((String)session.getAttribute("viewPetName")))
                     targetPet = temp;
             }
-            request.setAttribute("owner", (String)session.getAttribute("owner"));
-            request.setAttribute("petName", targetPet.getPetName());
-            request.setAttribute("sex", this.determineSex(targetPet.getSex()));
-            request.setAttribute("animal", targetPet.getSpecies());
-            request.setAttribute("breed", targetPet.getBreed());
-            request.setAttribute("birthday",targetPet.getBirthday());
-            request.setAttribute("medical", targetPet.getMedicalInfo());
-            request.setAttribute("vet", targetPet.getPreferredVet());
         } catch (Exception ex) {
             //Logger.getLogger(ViewPetServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         
-        
+            request.setAttribute("owner", (String)session.getAttribute("owner"));
+            request.setAttribute("petName", targetPet.getPetName());
+            request.setAttribute("sex", this.determineSex("M"));
+            request.setAttribute("animal", targetPet.getSpecies());
+            request.setAttribute("breed", targetPet.getBreed());
+            request.setAttribute("birthday",targetPet.getBirthday());
+            request.setAttribute("medical", targetPet.getMedicalInfo());
+            request.setAttribute("vet", targetPet.getPreferredVet());
 
         
         getServletContext().getRequestDispatcher("/WEB-INF/ViewPet.jsp").forward(request,response);
@@ -70,16 +71,27 @@ public class ViewPetServlet extends HttpServlet {
      * @param sex
      * @return String that is the correct sex
      */
-    private String determineSex(Character sex){
-        if(sex.equals("M"))
-           return "Male";
-        else if (sex.equals("F"))
-           return "Female";
-        else if (sex.equals("N"))
-           return "Neutered";
-        else if (sex.equals("S"))
-           return "Spayed";
+    private List determineSex(String sex){
+        List temp = new ArrayList();
+        if(sex.equals("M")){
+            temp.add("Male");
+            temp.add("Neutered");
+        }
+        else if (sex.equals("F")){
+           temp.add("Female");
+           temp.add("Spayed");
+           
+        }
+        else if (sex.equals("N")){
+           temp.add("Neutered");
+         
+        }
+        else if (sex.equals("S")){
+            temp.add("Spayed");  
+        }
         else
-           return "Altered";
+           temp.add("Altered");
+       
+        return temp;
     }
 }
