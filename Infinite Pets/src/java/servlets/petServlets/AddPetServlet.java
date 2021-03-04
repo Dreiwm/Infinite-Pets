@@ -61,16 +61,13 @@ public class AddPetServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
-        request.setAttribute("animalList", getAnimalType());
-        request.setAttribute("breedList", getBreedList());
-       
+        
         if(request.getParameter("action").toString().equals("cancel")){
             response.sendRedirect("MyPets");
         }
         else if(request.getParameter("action").toString().equals("save")){
             AddPetServices aps = new AddPetServices();
-            
-            System.out.println("making pet");
+
             String owner = (String)session.getAttribute("owner");
             String petName = request.getParameter("petName");
             String sex = request.getParameter("sex");
@@ -85,7 +82,7 @@ public class AddPetServlet extends HttpServlet {
             try{
                 String msg = checkInput(petName, type, breed, birthday, vet, info, sex, owner);
                 if (msg.equals("Checked")){
-                    System.out.println("going to aps");
+              
                     aps.createPet(petName, type, breed, birthday, vet, info, sex, owner);
                     response.sendRedirect("MyPets");
                 }

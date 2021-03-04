@@ -35,20 +35,16 @@ public class ViewPetServlet extends HttpServlet {
         AddPetServices petServ = new AddPetServices();
         Pet targetPet = new Pet();
         try {
-            Account owner = petServ.getAccount((String)session.getAttribute("owner"));
-            //go though all of the owners pet to find the correct one. 
-            for(Pet temp : owner.getPetList()){
-                if(temp.getPetName().equalsIgnoreCase((String)session.getAttribute("viewPetName")))
-                    targetPet = temp;
-            }
+            //get the pet by the ID stored in the session.
+            targetPet = petServ.getPetById((Integer)session.getAttribute("viewPetId"));
         } catch (Exception ex) {
             //Logger.getLogger(ViewPetServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        
+        //This sets all the text and combo boxes in the jsp
             request.setAttribute("owner", (String)session.getAttribute("owner"));
             request.setAttribute("petName", targetPet.getPetName());
-            request.setAttribute("sex", this.determineSex("M"));
+            request.setAttribute("sex", this.determineSex(targetPet.getBreed().toString()));
             request.setAttribute("animal", targetPet.getSpecies());
             request.setAttribute("breed", targetPet.getBreed());
             request.setAttribute("birthday",targetPet.getBirthday());
@@ -63,7 +59,33 @@ public class ViewPetServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       
+        HttpSession session = request.getSession();
+        AddPetServices petServ = new AddPetServices();
+        
+        if(request.getParameter("action").toString().equals("save"))
+        {
+            Pet targetPet = new Pet();
+            try {
+                //get the pet by the ID stored in the session.
+                targetPet = petServ.getPetById((Integer)session.getAttribute("viewPetId"));
+            } catch (Exception ex) {
+                //Logger.getLogger(ViewPetServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+                String owner = (String)session.getAttribute("owner");
+                String petName = request.getParameter("petName");
+                String sex = request.getParameter("sex");
+                String type = request.getParameter("animal");
+                String breed = request.getParameter("breed");
+                String birthday = request.getParameter("birthday");
+                String info = request.getParameter("medical");
+                String vet = request.getParameter("vet");
+                
+                //do error checking
+                
+        } 
+     
+        response.sendRedirect("MyPets");
     }
 
     /**
