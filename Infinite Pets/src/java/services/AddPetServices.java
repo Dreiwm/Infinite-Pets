@@ -45,6 +45,14 @@ public class AddPetServices {
         return account;
     }
     
+    public Pet getPetById(Integer id) throws Exception{
+        PetDB ptdb = new PetDB();
+        Pet pet = new Pet(); 
+        
+        pet = ptdb.getItemById(id);
+        
+        return pet;
+    }
     
     public void createPet(String name, String animal, String breed, String birthday, String vet, String medical, String sex, String owner)throws Exception{
         AccountDB accountDB = new AccountDB();
@@ -64,5 +72,8 @@ public class AddPetServices {
         System.out.println("set pet");
     }
     
+    public void updatePet(Pet pet, String birthday, String vet, String medical, String sex){
+        
+    }
     
 }
