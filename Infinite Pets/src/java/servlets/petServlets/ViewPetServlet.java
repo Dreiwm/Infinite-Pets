@@ -19,6 +19,7 @@ import javax.servlet.http.HttpSession;
 import models.Account;
 import models.Pet;
 import services.AddPetServices;
+import services.ValidationServices;
 
 /**
  *
@@ -34,6 +35,10 @@ public class ViewPetServlet extends HttpServlet {
         HttpSession session = request.getSession();
         AddPetServices petServ = new AddPetServices();
         Pet targetPet = new Pet();
+       
+        //REMOVE ME ONLY FOR TESTING
+        session.setAttribute("viewPetId", 1);
+        
         try {
             //get the pet by the ID stored in the session.
             targetPet = petServ.getPetById((Integer)session.getAttribute("viewPetId"));
@@ -44,7 +49,7 @@ public class ViewPetServlet extends HttpServlet {
         //This sets all the text and combo boxes in the jsp
             request.setAttribute("owner", (String)session.getAttribute("owner"));
             request.setAttribute("petName", targetPet.getPetName());
-            request.setAttribute("sex", this.determineSex(targetPet.getBreed().toString()));
+            request.setAttribute("sex", this.determineSex(targetPet.getBreed()));
             request.setAttribute("animal", targetPet.getSpecies());
             request.setAttribute("breed", targetPet.getBreed());
             request.setAttribute("birthday",targetPet.getBirthday());
@@ -61,7 +66,7 @@ public class ViewPetServlet extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         AddPetServices petServ = new AddPetServices();
-        
+        ValidationServices vs = new ValidationServices();
         if(request.getParameter("action").toString().equals("save"))
         {
             Pet targetPet = new Pet();
@@ -81,7 +86,23 @@ public class ViewPetServlet extends HttpServlet {
                 String info = request.getParameter("medical");
                 String vet = request.getParameter("vet");
                 
-                //do error checking
+            try{
+                String msg = vs.checkInput(petName, type, breed, birthday, vet, info, sex, owner);
+                if (msg.equals("Checked")){
+              
+                    petServ.createPet(petName, type, breed, birthday, vet, info, sex, owner);
+                    response.sendRedirect("MyPets");
+                }
+                else {
+                    session.setAttribute("errorMsg", msg);
+                    System.out.println(msg);
+                    getServletContext().getRequestDispatcher("/WEB-INF/addAPet.jsp").forward(request,response);
+//                    response.sendRedirect("AddPet");
+                }
+            }
+            catch(Exception e){
+                Logger.getLogger(AddPetServlet.class.getName()).log(Level.SEVERE, null, e);
+            }
                 
         } 
      
@@ -95,20 +116,20 @@ public class ViewPetServlet extends HttpServlet {
      */
     private List determineSex(String sex){
         List temp = new ArrayList();
-        if(sex.equals("M")){
+        if(sex.equalsIgnoreCase("M")){
             temp.add("Male");
             temp.add("Neutered");
         }
-        else if (sex.equals("F")){
+        else if (sex.equalsIgnoreCase("F")){
            temp.add("Female");
            temp.add("Spayed");
            
         }
-        else if (sex.equals("N")){
+        else if (sex.equalsIgnoreCase("N")){
            temp.add("Neutered");
          
         }
-        else if (sex.equals("S")){
+        else if (sex.equalsIgnoreCase("S")){
             temp.add("Spayed");  
         }
         else
