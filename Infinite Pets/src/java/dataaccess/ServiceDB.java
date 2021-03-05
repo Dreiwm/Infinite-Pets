@@ -73,6 +73,8 @@ public class ServiceDB {
             }
             Logger.getLogger(Service.class.getName()).log(Level.SEVERE, "Cannot insert " + service.toString(), e); 
 
+        } finally {
+            em.close();
         }
     }
     
@@ -93,6 +95,8 @@ public class ServiceDB {
             if (tr.isActive())
                 tr.rollback();
             Logger.getLogger(Service.class.getName()).log(Level.SEVERE, "Cannot update " + service.toString(), e); 
+        } finally {
+            em.close();
         }
     }
 }
