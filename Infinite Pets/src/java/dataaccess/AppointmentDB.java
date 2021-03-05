@@ -28,7 +28,7 @@ public class AppointmentDB {
         
         try {
             Account account = em.find(Account.class, accountId);
-            account.getAppointments();
+            account.getAppointmentList();
         } finally {
             em.close();
         }
@@ -60,6 +60,26 @@ public class AppointmentDB {
                 tr.rollback();
             
             Logger.getLogger(Appointment.class.getName()).log(Level.SEVERE, "Cannot insert " + appointment.toString(), e); 
+        } finally {
+            em.close();
+        }
+    }
+    
+    public boolean update(Appointment appointment) {
+        EntityManager em = DBUtil.getEmFactory().createEntityManager();
+        EntityTransaction tr = em.getTransaction();
+        
+        
+        try {
+            tr.begin();
+            em.merge(appointment);
+            tr.commit();
+            return true;
+        }  catch (Exception e) {
+            if (tr.isActive())
+                tr.rollback();
+            
+            Logger.getLogger(Appointment.class.getName()).log(Level.SEVERE, "Cannot update " + appointment.toString(), e); 
         } finally {
             em.close();
         }
