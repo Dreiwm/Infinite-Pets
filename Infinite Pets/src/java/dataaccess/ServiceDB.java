@@ -10,6 +10,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import models.Service;
 
 /**
  *
@@ -76,6 +77,7 @@ public class ServiceDB {
         } finally {
             em.close();
         }
+        return false;
     }
     
     /**
@@ -83,7 +85,7 @@ public class ServiceDB {
      * @param service the service to be updated.
      * @throws java.lang.Exception if somethign went wrong with transaction.
      */
-    public update(Service service) throws Exception {
+    public boolean update(Service service) throws Exception {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         EntityTransaction tr = em.getTransaction();
         
@@ -91,6 +93,7 @@ public class ServiceDB {
             tr.begin();
             em.merge(service);
             tr.commit();
+            return true;
         } catch (Exception e) {
             if (tr.isActive())
                 tr.rollback();
@@ -98,5 +101,6 @@ public class ServiceDB {
         } finally {
             em.close();
         }
+        return false;
     }
 }

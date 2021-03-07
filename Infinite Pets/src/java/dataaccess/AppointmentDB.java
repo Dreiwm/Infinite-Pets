@@ -11,6 +11,7 @@ import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import models.Account;
+import models.Appointment;
 
 /**
  *
@@ -32,6 +33,7 @@ public class AppointmentDB {
         } finally {
             em.close();
         }
+        return null;
     }
     
     /**
@@ -45,9 +47,9 @@ public class AppointmentDB {
         
         try {
             
-            // get account from appointment
-            AccountDB accDB = new AccountDB();
-            Account acc = accDB.getAccountByUsername(appointment.getUsername());
+            Account acc = em.find(Account.class, appointment.getClientID());
+            
+//            Account acc = accDB.getAccountByClientID(appointment.getClientID());
             acc.getAppointmentList().add(appointment);
             
             tr.begin();
@@ -63,6 +65,7 @@ public class AppointmentDB {
         } finally {
             em.close();
         }
+        return false; 
     }
     
     public boolean update(Appointment appointment) {
@@ -83,5 +86,6 @@ public class AppointmentDB {
         } finally {
             em.close();
         }
+        return false;
     }
 }
