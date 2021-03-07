@@ -5,6 +5,7 @@
  */
 package dataaccess;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -37,7 +38,7 @@ public class ServiceDB {
      * @param serviceId the id of service to retrieve from DB
      * @return the Service.
      */
-    public Service getService(int serviceId) {
+    public Service getServiceById(int serviceId) {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         
         try {
@@ -102,5 +103,20 @@ public class ServiceDB {
             em.close();
         }
         return false;
-    } 
+    }
+    
+    /**
+     * For testing purposes only
+     * @param args 
+     */
+    public static void main(String[] args) throws Exception {
+        ServiceDB sb = new ServiceDB();
+        
+        // Test insert
+//        Service service = new Service(0, "test", new BigDecimal(11.00), true, true, true);
+//        sb.insert(service);
+        
+        // test get service by id
+        System.out.println(sb.getServiceById(1).getServiceName());
+    }
 }
