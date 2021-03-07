@@ -46,6 +46,7 @@ public class AppointmentDB {
         } finally {
             em.close();
         }
+//        return null;
     }
     
     /**
