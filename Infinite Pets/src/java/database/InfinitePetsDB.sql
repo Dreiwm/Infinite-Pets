@@ -56,9 +56,9 @@ CREATE TABLE IF NOT EXISTS `infinitepetsdb`.`appointment` (
 	`ServiceID` INT NOT NULL,
 	`PetID` INT DEFAULT NULL,
 	`AppointmentDate` DATE NOT NULL,
-	`EndDate` DATE DEFAULT NULL --used for range,
+	`EndDate` DATE DEFAULT NULL, --used for range
 	`AppointmentTime` TIME DEFAULT NULL,
-	`Confirmed` BOOLEAN NOT NULL DEFAULT 'false',
+	`Confirmed` BOOLEAN NOT NULL,
 	`EmployeeID` INT DEFAULT NULL,
 	`Paid` BOOLEAN NOT NULL,
 	`Active` BOOLEAN NOT NULL,
