@@ -49,6 +49,53 @@ CREATE TABLE IF NOT EXISTS `infinitepetsdb`.`service` (
 )
 ENGINE=InnoDB;
 
+
+-- Animal Type Table
+CREATE TABLE IF NOT EXISTS `infinitepetsdb`.`animal_type` (
+    `animal_Type_ID` INT NOT NULL AUTO_INCREMENT,
+    `animal_Type` VARCHAR(30) NOT NULL,
+    PRIMARY KEY (`animal_Type_ID`)
+)
+ENGINE = InnoDB;
+
+-- Breed 
+CREATE TABLE IF NOT EXISTS `infinitepetsdb`.`breed` (
+    breed_id INT NOT NULL AUTO_INCREMENT,
+    `animal_type_id` INT NOT NULL,
+    breed_name VARCHAR(50),
+    PRIMARY KEY (breed_id, animal_type_id),
+    CONSTRAINT fk_breed_animal_type
+        FOREIGN KEY (animal_type_id)
+        REFERENCES infinitepetsdb.animal_type (animal_type_id)
+        ON DELETE CASCADE
+        ON UPDATE NO ACTION
+)
+ENGINE = innoDB;
+
+-- Pet
+-- Preferred Vet contains 60 chars to account for full name.
+CREATE TABLE IF NOT EXISTS `infinitepetsdb`.`pet` (
+    `PetID` INT NOT NULL AUTO_INCREMENT,
+    `Sex` CHAR(1) NOT NULL,
+    `Species` VARCHAR(20) NOT NULL,
+    `Breed` VARCHAR(60) NOT NULL,
+    `PetName` VARCHAR(30) NOT NULL,
+    `Owner` INT NOT NULL,
+    `Birthday` DATE NOT NULL,
+    `PreferredVet` VARCHAR(60),
+    `MedicalInfo` VARCHAR(120),
+    PRIMARY KEY (`PetID`),
+    INDEX `fk_pets_accounts_idx` (`Owner` ASC),
+    CONSTRAINT `fk_pets_accounts`
+            FOREIGN KEY (`Owner`)
+            REFERENCES `infinitepetsdb`.`account` (`UserId`)
+            ON DELETE CASCADE
+            ON UPDATE NO ACTION,
+    CONSTRAINT `chk_pets_sex`
+            CHECK (`Sex` IN ('M','F','N','S'))
+)
+ENGINE = InnoDB;
+
 --Appointment
 CREATE TABLE IF NOT EXISTS `infinitepetsdb`.`appointment` (
 	`AppointmentID` INT NOT NULL AUTO_INCREMENT,
@@ -89,51 +136,6 @@ CREATE TABLE IF NOT EXISTS `infinitepetsdb`.`appointment` (
             ON UPDATE NO ACTION
 ) ENGINE=InnoDB;
 
--- Pet
--- Preferred Vet contains 60 chars to account for full name.
-CREATE TABLE IF NOT EXISTS `infinitepetsdb`.`pet` (
-    `PetID` INT NOT NULL AUTO_INCREMENT,
-    `Sex` CHAR(1) NOT NULL,
-    `Species` VARCHAR(20) NOT NULL,
-    `Breed` VARCHAR(60) NOT NULL,
-    `PetName` VARCHAR(30) NOT NULL,
-    `Owner` INT NOT NULL,
-    `Birthday` DATE NOT NULL,
-    `PreferredVet` VARCHAR(60),
-    `MedicalInfo` VARCHAR(120),
-    PRIMARY KEY (`PetID`),
-    INDEX `fk_pets_accounts_idx` (`Owner` ASC),
-    CONSTRAINT `fk_pets_accounts`
-            FOREIGN KEY (`Owner`)
-            REFERENCES `infinitepetsdb`.`account` (`UserId`)
-            ON DELETE CASCADE
-            ON UPDATE NO ACTION,
-    CONSTRAINT `chk_pets_sex`
-            CHECK (`Sex` IN ('M','F','N','S'))
-)
-ENGINE = InnoDB;
-
--- Animal Type Table
-CREATE TABLE IF NOT EXISTS `infinitepetsdb`.`animal_type` (
-    `animal_Type_ID` INT NOT NULL AUTO_INCREMENT,
-    `animal_Type` VARCHAR(30) NOT NULL,
-    PRIMARY KEY (`animal_Type_ID`)
-)
-ENGINE = InnoDB;
-
--- Breed 
-CREATE TABLE IF NOT EXISTS `infinitepetsdb`.`breed` (
-    breed_id INT NOT NULL AUTO_INCREMENT,
-    `animal_type_id` INT NOT NULL,
-    breed_name VARCHAR(50),
-    PRIMARY KEY (breed_id, animal_type_id),
-    CONSTRAINT fk_breed_animal_type
-        FOREIGN KEY (animal_type_id)
-        REFERENCES infinitepetsdb.animal_type (animal_type_id)
-        ON DELETE CASCADE
-        ON UPDATE NO ACTION
-)
-ENGINE = innoDB;
 
 INSERT INTO `account` (`Username`,`Password`,`Email`,`FirstName`,`LastName`,`IsEmployee`,`IsConfirmed`)
     VALUES 
