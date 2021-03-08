@@ -45,9 +45,6 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Pet.findByMedicalInfo", query = "SELECT p FROM Pet p WHERE p.medicalInfo = :medicalInfo")})
 public class Pet implements Serializable {
 
-    @OneToMany(mappedBy = "petID", fetch = FetchType.EAGER)
-    private List<Appointment> appointmentList;
-
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -74,6 +71,8 @@ public class Pet implements Serializable {
     private String preferredVet;
     @Column(name = "MedicalInfo")
     private String medicalInfo;
+    @OneToMany(mappedBy = "petID", fetch = FetchType.EAGER)
+    private List<Appointment> appointmentList;
     @JoinColumn(name = "Owner", referencedColumnName = "UserId")
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Account owner;
@@ -158,6 +157,15 @@ public class Pet implements Serializable {
         this.medicalInfo = medicalInfo;
     }
 
+    @XmlTransient
+    public List<Appointment> getAppointmentList() {
+        return appointmentList;
+    }
+
+    public void setAppointmentList(List<Appointment> appointmentList) {
+        this.appointmentList = appointmentList;
+    }
+
     public Account getOwner() {
         return owner;
     }
@@ -189,15 +197,6 @@ public class Pet implements Serializable {
     @Override
     public String toString() {
         return "models.Pet[ petID=" + petID + " ]";
-    }
-
-    @XmlTransient
-    public List<Appointment> getAppointmentList() {
-        return appointmentList;
-    }
-
-    public void setAppointmentList(List<Appointment> appointmentList) {
-        this.appointmentList = appointmentList;
     }
     
 }

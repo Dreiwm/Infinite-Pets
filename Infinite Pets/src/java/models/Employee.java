@@ -25,17 +25,17 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Riley
+ * @author BTran
  */
 @Entity
 @Table(name = "employee")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Employee.findAll", query = "SELECT e FROM Employee e"),
-    @NamedQuery(name = "Employee.findByEmployeeID", query = "SELECT e FROM Employee e WHERE e.employeeID = :employeeID"),
-    @NamedQuery(name = "Employee.findByIsAdmin", query = "SELECT e FROM Employee e WHERE e.isAdmin = :isAdmin"),
-    @NamedQuery(name = "Employee.findByOnVacation", query = "SELECT e FROM Employee e WHERE e.onVacation = :onVacation"),
-    @NamedQuery(name = "Employee.findByActive", query = "SELECT e FROM Employee e WHERE e.active = :active")})
+    @NamedQuery(name = "Employee.findAll", query = "SELECT e FROM Employee e")
+    , @NamedQuery(name = "Employee.findByEmployeeID", query = "SELECT e FROM Employee e WHERE e.employeeID = :employeeID")
+    , @NamedQuery(name = "Employee.findByIsAdmin", query = "SELECT e FROM Employee e WHERE e.isAdmin = :isAdmin")
+    , @NamedQuery(name = "Employee.findByOnVacation", query = "SELECT e FROM Employee e WHERE e.onVacation = :onVacation")
+    , @NamedQuery(name = "Employee.findByActive", query = "SELECT e FROM Employee e WHERE e.active = :active")})
 public class Employee implements Serializable {
 
     private static final long serialVersionUID = 1L;

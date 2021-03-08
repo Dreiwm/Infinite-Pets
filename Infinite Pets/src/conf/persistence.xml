@@ -7,9 +7,9 @@
     <class>models.AnimalType</class>
     <class>models.Breed</class>
     <class>models.Pet</class>
-    <class>models.Employee</class>
-    <class>models.Service</class>
     <class>models.Appointment</class>
+    <class>models.Service</class>
+    <class>models.Employee</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
   </persistence-unit>
 </persistence>

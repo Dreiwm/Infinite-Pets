@@ -5,8 +5,11 @@
  */
 package services;
 
+import dataaccess.ServiceDB;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.List;
+import models.Service;
 
 /**
  *
@@ -15,21 +18,21 @@ import java.util.logging.Logger;
 public class PetServicesServices {
     //Retrieves a list of all the services
     public List<Service> getAllServices() throws Exception {
-        AppointmentDB apDB = new AppointmentDB();
-        return apDB.getAllServices
+        ServiceDB serviceDB = new ServiceDB();
+        return serviceDB.getAllServices();
     }
     
     //Retrieves a specific Service requested
     public Service getService(int serviceID) {
-        AppointmentDB apDB = new AppointmentDB();
-        return apDB.getService(serviceID);
+        ServiceDB serviceDB = new ServiceDB();
+        return serviceDB.getServiceById(serviceID);
     }
     
-    //Retrieves a list of different ServiceTypes
-    public List<ServiceType> getAllServiceTypes() {
-        AppointmentDB apDB = new AppointmentDB();
-        return apDB.getAllServiceTypes();
-    }
+//    //Retrieves a list of different ServiceTypes
+//    public List<ServiceType> getAllServiceTypes() {
+//        ServiceDB serviceDB = new ServiceDB();
+//        return apDB.getAllServiceTypes();
+//    }
     
     public void createService(){
         try {
