@@ -11,6 +11,7 @@ import dataaccess.PetDB;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import models.Appointment;
 import models.Pet;
 import java.util.List;
 import models.Account;

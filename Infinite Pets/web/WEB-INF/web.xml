@@ -9,6 +9,10 @@
         <servlet-class>servlets.petServlets.MyPetsServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>ViewPetServlet</servlet-name>
+        <servlet-class>servlets.petServlets.ViewPetServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>BookAppointmentServlet</servlet-name>
         <servlet-class>servlets.scheduleServlets.BookAppointmentServlet</servlet-class>
     </servlet>

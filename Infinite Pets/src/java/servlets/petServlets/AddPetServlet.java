@@ -30,6 +30,7 @@ import models.Breed;
 import services.AddPetServices;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
+import services.ValidationServices;
 
 /**
  *
@@ -42,9 +43,13 @@ public class AddPetServlet extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         AddPetServices aps = new AddPetServices();
+        ValidationServices vs = new ValidationServices();
+       
+        //REMOVE ME
         session.setAttribute("owner", "anne");
-        request.setAttribute("animalList", getAnimalType());
-        request.setAttribute("breedList", getBreedList());        
+        
+        request.setAttribute("animalList", vs.getAnimalType());
+        request.setAttribute("breedList", vs.getBreedList());        
        
         getServletContext().getRequestDispatcher("/WEB-INF/AddAPet.jsp").forward(request,response);
     }
@@ -61,8 +66,10 @@ public class AddPetServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
-        request.setAttribute("animalList", getAnimalType());
-        request.setAttribute("breedList", getBreedList());
+        ValidationServices vs = new ValidationServices();
+        
+        request.setAttribute("animalList", vs.getAnimalType());
+        request.setAttribute("breedList", vs.getBreedList());
        
         if(request.getParameter("action").toString().equals("cancel")){
             response.sendRedirect("MyPets");
@@ -83,7 +90,7 @@ public class AddPetServlet extends HttpServlet {
             System.out.println("INPUT: "+petName+" "+type+" "+breed+" "+birthday+" "+vet+" "+info+" "+sex+" "+owner);
 
             try{
-                String msg = checkInput(petName, type, breed, birthday, vet, info, sex, owner);
+                String msg = vs.checkInput(petName, type, breed, birthday, vet, info, sex, owner);
                 if (msg.equals("Checked")){
                     System.out.println("going to aps");
                     aps.createPet(petName, type, breed, birthday, vet, info, sex, owner);
@@ -102,118 +109,5 @@ public class AddPetServlet extends HttpServlet {
         }    
     }
     
-    /*
-    Test Methods
-    */
-    private List testBreeds (String type) throws FileNotFoundException{
-          List<String> breedList = new ArrayList();
-          
-          try {
-            String path = getServletContext().getRealPath("/WEB-INF/testFiles/"+type+".txt");
-            BufferedReader br = new BufferedReader(new FileReader(new File(path)));
-            String currentLine;
-            
-            while((currentLine = br.readLine()) != null){
-                breedList.add(currentLine);
-            }
-            br.close();            
-            } 
-          catch (IOException ex) {
-            Logger.getLogger(AddPetServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return breedList;
-    }
     
-    
-    private void testWritePet (HttpServletRequest request, String pet) throws IOException{
-        
-        String path = getServletContext().getRealPath("/WEB-INF/testFiles/pets.txt");
-        try (PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter(path,true)))) {
-            pw.print(pet);
-            pw.println();
-        }        
-    }
-    
-    private String checkInput(String petName, String type, String breed, String birthday, String vet, String info, String sex, String owner){
-        String msg = "";
-        boolean found = false;
-        try {
-            List<AnimalType> animalList = getAnimalType();
-            List<Breed> breedList = getBreedList();
-            System.out.println("checking input");
-            
-            //Check Pet Name
-            if (petName.equals("") || petName == null)
-                msg += "Pet Name is invalid.";
-            
-            //checking Animal Type
-            if (!type.equals("") && type != null){
-                for (int i = 0; i < animalList.size(); i++){
-//                    System.out.println(animalList.get(i).getAnimalType());
-                    if (type.equals(animalList.get(i).getAnimalType()))
-                        found = true;
-                }
-            }
-            else
-                msg += "Type is invalid.";
-            
-            //checking Breed
-            if (!breed.equals("") && breed != null){
-                for (int i = 0; i < breedList.size(); i++){
-                    if (breed.equals(breedList.get(i).getBreedName()))
-                        found = true;
-                }
-            }
-            else
-                msg += "Breed is invalid.";
-            
-            //Check valid sex
-            if (!sex.equals("") && sex != null){
-                if (!sex.equals("Male") && !sex.equals("Female") && !sex.equals("Neutered") && !sex.equals("Spaded"))
-                    msg += "Not a Proper Selection.";
-            }
-            
-            //Check for a valid bday
-            if (!birthday.equals("") && birthday != null){
-                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-                Date bday = format.parse(birthday);
-                if (bday.after(format.parse(getToday())))
-                    msg += ("Date doesn't exist yet.");
-            }
-            
-        } catch(Exception e){
-            Logger.getLogger(AddPetServlet.class.getName()).log(Level.SEVERE, null, e);
-        }
-        if (msg.equals(""))
-            msg = "Checked";
-        return msg;
-    }
-    
-    private String getToday(){
-        SimpleDateFormat format= new SimpleDateFormat("yyyy-MM-dd");
-        Date date = new Date();
-        return format.format(date);
-    }
-    
-    private List getAnimalType() {
-        try {
-            AddPetServices aps = new AddPetServices();
-            List<AnimalType> animalList = aps.getAnimals();
-            return animalList;  
-        } catch (Exception ex) {
-            Logger.getLogger(AddPetServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
-    }
-    
-    private List getBreedList() {
-        try {
-            AddPetServices aps = new AddPetServices(); 
-            List<Breed> breedList = aps.getAllAnimalBreeds();
-            return breedList;
-        } catch (Exception ex) {
-            Logger.getLogger(AddPetServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
-    }
 }
