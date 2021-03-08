@@ -12,6 +12,10 @@
         <servlet-name>ViewPetServlet</servlet-name>
         <servlet-class>servlets.petServlets.ViewPetServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>BookAppointmentServlet</servlet-name>
+        <servlet-class>servlets.scheduleServlets.BookAppointmentServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>AddPetServlet</servlet-name>
         <url-pattern>/AddPet</url-pattern>
@@ -21,8 +25,8 @@
         <url-pattern>/MyPets</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ViewPetServlet</servlet-name>
-        <url-pattern>/ViewPet</url-pattern>
+        <servlet-name>BookAppointmentServlet</servlet-name>
+        <url-pattern>/BookAppointment</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
