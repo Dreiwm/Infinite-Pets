@@ -7,6 +7,7 @@ package models;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,10 +19,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -41,6 +44,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Pet.findByPreferredVet", query = "SELECT p FROM Pet p WHERE p.preferredVet = :preferredVet")
     , @NamedQuery(name = "Pet.findByMedicalInfo", query = "SELECT p FROM Pet p WHERE p.medicalInfo = :medicalInfo")})
 public class Pet implements Serializable {
+
+    @OneToMany(mappedBy = "petID", fetch = FetchType.EAGER)
+    private List<Appointment> appointmentList;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -183,6 +189,15 @@ public class Pet implements Serializable {
     @Override
     public String toString() {
         return "models.Pet[ petID=" + petID + " ]";
+    }
+
+    @XmlTransient
+    public List<Appointment> getAppointmentList() {
+        return appointmentList;
+    }
+
+    public void setAppointmentList(List<Appointment> appointmentList) {
+        this.appointmentList = appointmentList;
     }
     
 }
