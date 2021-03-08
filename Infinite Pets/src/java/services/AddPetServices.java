@@ -23,21 +23,26 @@ import models.Breed;
  */
 public class AddPetServices {
     
+    //Retrieves a list of all the animal types
     public List<AnimalType> getAnimals() throws Exception{
         AnimalDB animalsdb = new AnimalDB();
         return animalsdb.getAllAnimals();
     }
    
+    //Retrieves a list of breeds for an animal type
     public List getBreeds(String animal)throws Exception{
         BreedDB breedDB = new BreedDB();
         return breedDB.getBreedByAnimalId(animal);
     }
     
+    //DO WE NEED THIS????
+    //Retrieves a list of all animal breeds
     public List getAllAnimalBreeds()throws Exception{
         BreedDB breedDB = new BreedDB();
         return breedDB.getAllAnimalBreeds();
     }
     
+    //Retrieves an account
     public Account getAccount(String username)throws Exception{
         AccountDB accountDB = new AccountDB();
         Account account = new Account();
@@ -72,12 +77,14 @@ public class AddPetServices {
         System.out.println("set pet");
     }
     
+
     public void updatePet(Pet pet, String birthday, String vet, String medical, String sex){
         
     }
     
     
+   
+    public void deletePet(){
     
-    
-    
+    }
 }

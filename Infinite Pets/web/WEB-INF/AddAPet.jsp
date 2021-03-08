@@ -91,6 +91,8 @@
                             <div class="col">
                                 <label style="margin-bottom: 1px;color: rgba(154,152,145,0.65);">Breed</label>
                               
+<!----------------------NOTE MAKE AN IF STATEMENT FOR WHEN THEY SELECT AN ANIMAL TYPE THE DROP DOWN FOR BREEDS WILL DYNAMICALLY CHANGE AS WELL-------------------!>                                  
+                                
                                 <select name="breed" class="form-control" placeholder="animal" style="background: rgba(154,152,145,0.75);color: #ffffff;border-style: none; width: 150px;">
                                     <c:forEach items="${breedList}" var="lst">
                                         <option value="${lst.breedName}" style="background: rgb(255,255,255);color: rgb(0,0,0);">${lst.breedName}</option>
@@ -126,7 +128,7 @@
                                                 <option name="sex" value="Male" style="background: rgb(255,255,255);color: rgb(0,0,0);">Male</option>
                                                 <option name="sex" value="Female" style="background: rgb(255,255,255);color: rgb(0,0,0);">Female</option>
                                                 <option name="sex" value="Neutered" style="background: rgb(255,255,255);color: rgb(0,0,0);">Neutered</option>
-                                                <option name="sex" value="Spaded" style="background: rgb(255,255,255);color: rgb(0,0,0);">Spaded</option>
+                                                <option name="sex" value="Spaded" style="background: rgb(255,255,255);color: rgb(0,0,0);">Spayed</option>
                                                 <!--<option name="select" value="select" class="form-control" selected="true" style="background: rgb(255,255,255);color: rgb(0,0,0);">Select</option>-->
 <!--                                                <option name="sex" value="male" class="form-control" style="background: rgb(255,255,255);color: rgb(0,0,0);">Male</option>
                                                 <option name="sex" value="female" class="form-control" style="background: rgb(255,255,255);color: rgb(0,0,0);">Female</option>-->
