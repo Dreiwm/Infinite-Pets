@@ -44,11 +44,14 @@ public class AddPetServlet extends HttpServlet {
         HttpSession session = request.getSession();
         AddPetServices aps = new AddPetServices();
         ValidationServices vs = new ValidationServices();
+       
+        //REMOVE ME
         session.setAttribute("owner", "anne");
+        
         request.setAttribute("animalList", vs.getAnimalType());
         request.setAttribute("breedList", vs.getBreedList());        
        
-        getServletContext().getRequestDispatcher("/WEB-INF/addAPet.jsp").forward(request,response);
+        getServletContext().getRequestDispatcher("/WEB-INF/AddAPet.jsp").forward(request,response);
     }
 
     /**
@@ -63,14 +66,18 @@ public class AddPetServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
+        ValidationServices vs = new ValidationServices();
         
+        request.setAttribute("animalList", vs.getAnimalType());
+        request.setAttribute("breedList", vs.getBreedList());
+       
         if(request.getParameter("action").toString().equals("cancel")){
             response.sendRedirect("MyPets");
         }
         else if(request.getParameter("action").toString().equals("save")){
             AddPetServices aps = new AddPetServices();
-            ValidationServices vs = new ValidationServices();
             
+            System.out.println("making pet");
             String owner = (String)session.getAttribute("owner");
             String petName = request.getParameter("petName");
             String sex = request.getParameter("sex");
@@ -85,14 +92,14 @@ public class AddPetServlet extends HttpServlet {
             try{
                 String msg = vs.checkInput(petName, type, breed, birthday, vet, info, sex, owner);
                 if (msg.equals("Checked")){
-              
+                    System.out.println("going to aps");
                     aps.createPet(petName, type, breed, birthday, vet, info, sex, owner);
                     response.sendRedirect("MyPets");
                 }
                 else {
                     session.setAttribute("errorMsg", msg);
                     System.out.println(msg);
-                    getServletContext().getRequestDispatcher("/WEB-INF/addAPet.jsp").forward(request,response);
+                    getServletContext().getRequestDispatcher("/WEB-INF/AddAPet.jsp").forward(request,response);
 //                    response.sendRedirect("AddPet");
                 }
             }
@@ -102,37 +109,5 @@ public class AddPetServlet extends HttpServlet {
         }    
     }
     
-    /*
-    Test Methods
-    */
-    private List testBreeds (String type) throws FileNotFoundException{
-          List<String> breedList = new ArrayList();
-          
-          try {
-            String path = getServletContext().getRealPath("/WEB-INF/testFiles/"+type+".txt");
-            BufferedReader br = new BufferedReader(new FileReader(new File(path)));
-            String currentLine;
-            
-            while((currentLine = br.readLine()) != null){
-                breedList.add(currentLine);
-            }
-            br.close();            
-            } 
-          catch (IOException ex) {
-            Logger.getLogger(AddPetServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return breedList;
-    }
     
-    
-    private void testWritePet (HttpServletRequest request, String pet) throws IOException{
-        
-        String path = getServletContext().getRealPath("/WEB-INF/testFiles/pets.txt");
-        try (PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter(path,true)))) {
-            pw.print(pet);
-            pw.println();
-        }        
-    }
-    
-
 }
