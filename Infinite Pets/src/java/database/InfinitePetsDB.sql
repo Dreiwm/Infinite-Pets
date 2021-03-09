@@ -4,6 +4,50 @@ DROP SCHEMA IF EXISTS `infinitepetsdb` ;
 CREATE SCHEMA IF NOT EXISTS `infinitepetsdb` DEFAULT CHARACTER SET latin1 ;
 USE `infinitepetsdb` ;
 
+-- ServiceType
+-- To be used in Service and employee tables.
+CREATE TABLE IF NOT EXISTS `infinitepetsdb`.serviceType (
+	`serviceTypeID` INT NOT NULL auto_increment,
+    `serviceType` VARCHAR(30) NOT NULL,
+    PRIMARY KEY (`serviceTypeID`)
+)
+ENGINE=InnoDB;
+
+-- Services
+CREATE TABLE IF NOT EXISTS `infinitepetsdb`.`service` (
+	`ServiceID` INT NOT NULL AUTO_INCREMENT,
+    `serviceTypeID` INT NOT NULL,
+	`ServiceName` VARCHAR(40) NOT NULL,
+	`ServiceDescription` TEXT CHARACTER SET utf16 COLLATE utf16_bin, -- 64 KB blob of text storage. will hold something like 2000 words,
+	`BasePrice` DECIMAL(6,2) NOT NULL, -- can hold up to 9999.99, not that I expect anything to be more than 300, but youknow.
+	`Active` BIT NOT NULL, -- currently available
+	`SpecifyPet` BIT NOT NULL, -- if the client needs to specify what pet will have the service, things like pet/house sitting, don't I'd imagine.
+	`DateRange` BIT NOT NULL, -- if it's a long term thing, again, the sitting
+	PRIMARY KEY (`ServiceID`),
+	CONSTRAINT fk_service_type
+		FOREIGN KEY (serviceTypeID)
+        REFERENCES infinitepetsdb.serviceType (serviceTypeID)
+        ON DELETE CASCADE
+        ON UPDATE NO ACTION
+)
+ENGINE=InnoDB;
+
+-- Location table
+CREATE TABLE IF NOT EXISTS `infinitepetsdb`.`location` (
+    `locationID` INT NOT NULL auto_increment,
+    `locationType` CHAR(1) NOT NULL,
+    `postalCode` VARCHAR(6) NOT NULL,
+    `address` VARCHAR(30) NOT NULL,
+    `city` VARCHAR(30) NOT NULL,
+    `country` VARCHAR(30) NOT NULL,
+    `province` VARCHAR(30) NOT NULL,
+    `area` CHAR(1) NOT NULL,
+    CONSTRAINT `chk_area`
+            CHECK (`area` IN ('N','S', 'W', 'E', 'NW', 'NE', 'SW', 'SE')),
+    PRIMARY KEY (`locationID`)
+    )
+ENGINE = InnoDB;
+
 -- Account
 CREATE TABLE IF NOT EXISTS `infinitepetsdb`.`account` (
     `UserId` INT NOT NULL AUTO_INCREMENT,
@@ -22,33 +66,38 @@ ENGINE = InnoDB;
 -- this is just temporary, it's not complete.
 CREATE TABLE IF NOT EXISTS `infinitepetsdb`.`employee` (
     `EmployeeID` INT NOT NULL AUTO_INCREMENT,
-	`AccountID` INT NOT NULL,
+	`UserID` INT NOT NULL,
     `IsAdmin` BIT NOT NULL,
     `OnVacation` BIT NOT NULL,
-    `Active` BIT NOT NULL, --hired still
+    `Active` BIT NOT NULL,
     PRIMARY KEY (`EmployeeID`),
-	INDEX `fk_employees_accounts_idx` (`AccountID` ASC),
+	INDEX `fk_employees_accounts_idx` (`UserId` ASC),
     CONSTRAINT `fk_employees_accounts`
-            FOREIGN KEY (`AccountID`)
+            FOREIGN KEY (`UserId`)
             REFERENCES `infinitepetsdb`.`account` (`UserId`)
             ON DELETE CASCADE
             ON UPDATE NO ACTION
 )
 ENGINE = InnoDB;
 
---Services
-CREATE TABLE IF NOT EXISTS `infinitepetsdb`.`service` (
-	`ServiceID` INT NOT NULL AUTO_INCREMENT,
-	`ServiceName` VARCHAR(40) NOT NULL,
-	`ServiceDescription` TEXT CHARACTER SET utf16 COLLATE utf16_bin, --64 KB blob of text storage. will hold something like 2000 words,
-	`BasePrice` DECIMAL(6,2) NOT NULL,--can hold up to 9999.99, not that I expect anything to be more than 300, but youknow.
-	`Active` BIT NOT NULL, --currently available
-	`SpecifyPet` BIT NOT NULL, --if the client needs to specify what pet will have the service, things like pet/house sitting, don't I'd imagine.
-	`DateRange` BIT NOT NULL, --if it's a long term thing, again, the sitting
-	PRIMARY KEY (`ServiceID`)
-)
+-- Employee Service Preferences
+-- This table will be referring (FK) to ServiceType and Employee
+CREATE TABLE IF NOT EXISTS infinitepetsdb.empServicePreference (
+	employeeID INT NOT NULL,
+    serviceTypeID INT NOT NULL,
+    PRIMARY KEY (employeeID, serviceTypeID),
+    CONSTRAINT `fk_empID`
+		FOREIGN KEY (employeeID)
+        REFERENCES infinitepetsdb.employee (EmployeeID)
+        ON DELETE CASCADE
+        ON UPDATE NO ACTION,
+	CONSTRAINT `fk_serviceTypeID`
+		FOREIGN KEY (serviceTypeID)
+        REFERENCES infinitepetsdb.serviceType (serviceTypeID)
+        ON DELETE CASCADE
+        ON UPDATE NO ACTION
+    )
 ENGINE=InnoDB;
-
 
 -- Animal Type Table
 CREATE TABLE IF NOT EXISTS `infinitepetsdb`.`animal_type` (
@@ -96,14 +145,14 @@ CREATE TABLE IF NOT EXISTS `infinitepetsdb`.`pet` (
 )
 ENGINE = InnoDB;
 
---Appointment
+-- Appointment
 CREATE TABLE IF NOT EXISTS `infinitepetsdb`.`appointment` (
 	`AppointmentID` INT NOT NULL AUTO_INCREMENT,
 	`ClientID` INT NOT NULL,
 	`ServiceID` INT NOT NULL,
 	`PetID` INT DEFAULT NULL,
 	`AppointmentDate` DATE NOT NULL,
-	`EndDate` DATE DEFAULT NULL, --used for range
+	`EndDate` DATE DEFAULT NULL, -- used for range
 	`AppointmentTime` TIME DEFAULT NULL,
 	`Confirmed` BOOLEAN NOT NULL,
 	`EmployeeID` INT DEFAULT NULL,
