@@ -15,6 +15,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -53,11 +55,19 @@ public class Employee implements Serializable {
     @Basic(optional = false)
     @Column(name = "Active")
     private boolean active;
+    @JoinTable(name = "empservicepreference", joinColumns = {
+        @JoinColumn(name = "EmployeeID", referencedColumnName = "EmployeeID")}, inverseJoinColumns = {
+        @JoinColumn(name = "ServiceTypeID", referencedColumnName = "ServiceTypeID")})
+    @ManyToMany(fetch = FetchType.EAGER)
+    private List<Servicetype> servicetypeList;
     @OneToMany(mappedBy = "employeeID", fetch = FetchType.EAGER)
     private List<Appointment> appointmentList;
-    @JoinColumn(name = "AccountID", referencedColumnName = "UserId")
+    @JoinColumn(name = "UserID", referencedColumnName = "UserId")
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
-    private Account accountID;
+    private Account userID;
+    @JoinColumn(name = "Qualifications", referencedColumnName = "QualificationID")
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    private Empqualification qualifications;
 
     public Employee() {
     }
@@ -106,6 +116,15 @@ public class Employee implements Serializable {
     }
 
     @XmlTransient
+    public List<Servicetype> getServicetypeList() {
+        return servicetypeList;
+    }
+
+    public void setServicetypeList(List<Servicetype> servicetypeList) {
+        this.servicetypeList = servicetypeList;
+    }
+
+    @XmlTransient
     public List<Appointment> getAppointmentList() {
         return appointmentList;
     }
@@ -114,12 +133,20 @@ public class Employee implements Serializable {
         this.appointmentList = appointmentList;
     }
 
-    public Account getAccountID() {
-        return accountID;
+    public Account getUserID() {
+        return userID;
     }
 
-    public void setAccountID(Account accountID) {
-        this.accountID = accountID;
+    public void setUserID(Account userID) {
+        this.userID = userID;
+    }
+
+    public Empqualification getQualifications() {
+        return qualifications;
+    }
+
+    public void setQualifications(Empqualification qualifications) {
+        this.qualifications = qualifications;
     }
 
     @Override

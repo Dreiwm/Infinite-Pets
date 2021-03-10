@@ -16,7 +16,9 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -67,7 +69,12 @@ public class Service implements Serializable {
     @Column(name = "DateRange")
     private boolean dateRange;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "serviceID", fetch = FetchType.EAGER)
+    private List<Discount> discountList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "serviceID", fetch = FetchType.EAGER)
     private List<Appointment> appointmentList;
+    @JoinColumn(name = "ServiceTypeID", referencedColumnName = "ServiceTypeID")
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    private Servicetype serviceTypeID;
 
     public Service() {
     }
@@ -142,12 +149,29 @@ public class Service implements Serializable {
     }
 
     @XmlTransient
+    public List<Discount> getDiscountList() {
+        return discountList;
+    }
+
+    public void setDiscountList(List<Discount> discountList) {
+        this.discountList = discountList;
+    }
+
+    @XmlTransient
     public List<Appointment> getAppointmentList() {
         return appointmentList;
     }
 
     public void setAppointmentList(List<Appointment> appointmentList) {
         this.appointmentList = appointmentList;
+    }
+
+    public Servicetype getServiceTypeID() {
+        return serviceTypeID;
+    }
+
+    public void setServiceTypeID(Servicetype serviceTypeID) {
+        this.serviceTypeID = serviceTypeID;
     }
 
     @Override

@@ -70,7 +70,7 @@ public class Account implements Serializable {
     private boolean isConfirmed;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "clientID", fetch = FetchType.EAGER)
     private List<Appointment> appointmentList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "accountID", fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userID", fetch = FetchType.EAGER)
     private List<Employee> employeeList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "owner", fetch = FetchType.EAGER)
     private List<Pet> petList;
