@@ -151,14 +151,14 @@ CREATE TABLE IF NOT EXISTS `infinitepetsdb`.`empQualification` (
     `EmployeeID` INT NOT NULL,
     `QualificationID` INT NOT NULL,
     PRIMARY KEY (EmployeeID, QualificationID),
-    INDEX `fk_employee_idx` (`EmployeeID` ASC),
-    CONSTRAINT `fk_employee_id`
+    INDEX `fk_employeeidx` (`EmployeeID` ASC),
+    CONSTRAINT `fk_employeeid`
         FOREIGN KEY (EmployeeID)
     REFERENCES infinitepetsdb.employee (EmployeeID)
     ON DELETE CASCADE
     ON UPDATE NO ACTION,
-    INDEX `fk_qualification_idx` (`QualificationID` ASC),
-    CONSTRAINT `fk_qualification_id`
+    INDEX `fk_qualificationidx` (`QualificationID` ASC),
+    CONSTRAINT `fk_qualificationid`
         FOREIGN KEY (QualificationID)
     REFERENCES infinitepetsdb.empQualificationType (QualificationTypeID)
     ON DELETE CASCADE

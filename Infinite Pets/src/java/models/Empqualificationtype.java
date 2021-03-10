@@ -8,16 +8,15 @@ package models;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -27,49 +26,49 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author BTran
  */
 @Entity
-@Table(name = "empqualification")
+@Table(name = "empqualificationtype")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Empqualification.findAll", query = "SELECT e FROM Empqualification e")
-    , @NamedQuery(name = "Empqualification.findByQualificationID", query = "SELECT e FROM Empqualification e WHERE e.qualificationID = :qualificationID")
-    , @NamedQuery(name = "Empqualification.findByQualificationName", query = "SELECT e FROM Empqualification e WHERE e.qualificationName = :qualificationName")
-    , @NamedQuery(name = "Empqualification.findByQualificationDescription", query = "SELECT e FROM Empqualification e WHERE e.qualificationDescription = :qualificationDescription")})
-public class Empqualification implements Serializable {
+    @NamedQuery(name = "Empqualificationtype.findAll", query = "SELECT e FROM Empqualificationtype e")
+    , @NamedQuery(name = "Empqualificationtype.findByQualificationTypeID", query = "SELECT e FROM Empqualificationtype e WHERE e.qualificationTypeID = :qualificationTypeID")
+    , @NamedQuery(name = "Empqualificationtype.findByQualificationName", query = "SELECT e FROM Empqualificationtype e WHERE e.qualificationName = :qualificationName")
+    , @NamedQuery(name = "Empqualificationtype.findByQualificationDescription", query = "SELECT e FROM Empqualificationtype e WHERE e.qualificationDescription = :qualificationDescription")})
+public class Empqualificationtype implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "QualificationID")
-    private Integer qualificationID;
+    @Column(name = "QualificationTypeID")
+    private Integer qualificationTypeID;
     @Basic(optional = false)
     @Column(name = "QualificationName")
     private String qualificationName;
     @Basic(optional = false)
     @Column(name = "QualificationDescription")
     private String qualificationDescription;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "qualifications", fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "empqualificationtypeList", fetch = FetchType.EAGER)
     private List<Employee> employeeList;
 
-    public Empqualification() {
+    public Empqualificationtype() {
     }
 
-    public Empqualification(Integer qualificationID) {
-        this.qualificationID = qualificationID;
+    public Empqualificationtype(Integer qualificationTypeID) {
+        this.qualificationTypeID = qualificationTypeID;
     }
 
-    public Empqualification(Integer qualificationID, String qualificationName, String qualificationDescription) {
-        this.qualificationID = qualificationID;
+    public Empqualificationtype(Integer qualificationTypeID, String qualificationName, String qualificationDescription) {
+        this.qualificationTypeID = qualificationTypeID;
         this.qualificationName = qualificationName;
         this.qualificationDescription = qualificationDescription;
     }
 
-    public Integer getQualificationID() {
-        return qualificationID;
+    public Integer getQualificationTypeID() {
+        return qualificationTypeID;
     }
 
-    public void setQualificationID(Integer qualificationID) {
-        this.qualificationID = qualificationID;
+    public void setQualificationTypeID(Integer qualificationTypeID) {
+        this.qualificationTypeID = qualificationTypeID;
     }
 
     public String getQualificationName() {
@@ -100,18 +99,18 @@ public class Empqualification implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (qualificationID != null ? qualificationID.hashCode() : 0);
+        hash += (qualificationTypeID != null ? qualificationTypeID.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Empqualification)) {
+        if (!(object instanceof Empqualificationtype)) {
             return false;
         }
-        Empqualification other = (Empqualification) object;
-        if ((this.qualificationID == null && other.qualificationID != null) || (this.qualificationID != null && !this.qualificationID.equals(other.qualificationID))) {
+        Empqualificationtype other = (Empqualificationtype) object;
+        if ((this.qualificationTypeID == null && other.qualificationTypeID != null) || (this.qualificationTypeID != null && !this.qualificationTypeID.equals(other.qualificationTypeID))) {
             return false;
         }
         return true;
@@ -119,7 +118,7 @@ public class Empqualification implements Serializable {
 
     @Override
     public String toString() {
-        return "models.Empqualification[ qualificationID=" + qualificationID + " ]";
+        return "models.Empqualificationtype[ qualificationTypeID=" + qualificationTypeID + " ]";
     }
     
 }

@@ -16,6 +16,7 @@
     <class>models.Location</class>
     <class>models.Discount</class>
     <class>models.Promotion</class>
+    <class>models.Empqualificationtype</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
   </persistence-unit>
 </persistence>
