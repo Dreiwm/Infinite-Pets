@@ -97,12 +97,12 @@ CREATE TABLE IF NOT EXISTS `infinitepetsdb`.`account` (
 )
 ENGINE = InnoDB;
 
--- Qualifications
-CREATE TABLE IF NOT EXISTS `infinitepetsdb`.`empQualification` (
-    `QualificationID` INT NOT NULL AUTO_INCREMENT,
+-- QualificationType
+CREATE TABLE IF NOT EXISTS `infinitepetsdb`.`empQualificationType` (
+    `QualificationTypeID` INT NOT NULL AUTO_INCREMENT,
     `QualificationName` VARCHAR(50) NOT NULL,
     `QualificationDescription` VARCHAR(100) NOT NULL,
-    PRIMARY KEY (`QualificationID`)
+    PRIMARY KEY (`QualificationTypeID`)
 )
 ENGINE = InnoDB;
 
@@ -114,18 +114,11 @@ CREATE TABLE IF NOT EXISTS `infinitepetsdb`.`employee` (
     `IsAdmin` BIT NOT NULL,
     `OnVacation` BIT NOT NULL,
     `Active` BIT NOT NULL,
-    `Qualifications` INT NOT NULL,
     PRIMARY KEY (`EmployeeID`),
 	INDEX `fk_employees_accounts_idx` (`UserId` ASC),
     CONSTRAINT `fk_employees_accounts`
         FOREIGN KEY (`UserId`)
     REFERENCES `infinitepetsdb`.`account` (`UserId`)
-    ON DELETE CASCADE
-    ON UPDATE NO ACTION,
-    INDEX `fk_qualification_idx` (`Qualifications` ASC),
-    CONSTRAINT `fk_qualification_id`
-        FOREIGN KEY (`Qualifications`)
-    REFERENCES `infinitepetsdb`.`empQualification` (`QualificationID`)
     ON DELETE CASCADE
     ON UPDATE NO ACTION
 )
@@ -147,6 +140,27 @@ CREATE TABLE IF NOT EXISTS `infinitepetsdb`.`empServicePreference` (
     CONSTRAINT `fk_serviceType_id`
         FOREIGN KEY (ServiceTypeID)
     REFERENCES infinitepetsdb.serviceType (ServiceTypeID)
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION
+    )
+ENGINE = InnoDB;
+
+-- Employee Qualifications
+-- This table will be referring (FK) to ServiceType and Employee
+CREATE TABLE IF NOT EXISTS `infinitepetsdb`.`empQualification` (
+    `EmployeeID` INT NOT NULL,
+    `QualificationID` INT NOT NULL,
+    PRIMARY KEY (EmployeeID, QualificationID),
+    INDEX `fk_employee_idx` (`EmployeeID` ASC),
+    CONSTRAINT `fk_employee_id`
+        FOREIGN KEY (EmployeeID)
+    REFERENCES infinitepetsdb.employee (EmployeeID)
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION,
+    INDEX `fk_qualification_idx` (`QualificationID` ASC),
+    CONSTRAINT `fk_qualification_id`
+        FOREIGN KEY (QualificationID)
+    REFERENCES infinitepetsdb.empQualificationType (QualificationTypeID)
     ON DELETE CASCADE
     ON UPDATE NO ACTION
     )
