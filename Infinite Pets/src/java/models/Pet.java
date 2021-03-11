@@ -28,21 +28,21 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author BTran
+ * @author Riley
  */
 @Entity
 @Table(name = "pet")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Pet.findAll", query = "SELECT p FROM Pet p")
-    , @NamedQuery(name = "Pet.findByPetID", query = "SELECT p FROM Pet p WHERE p.petID = :petID")
-    , @NamedQuery(name = "Pet.findBySex", query = "SELECT p FROM Pet p WHERE p.sex = :sex")
-    , @NamedQuery(name = "Pet.findBySpecies", query = "SELECT p FROM Pet p WHERE p.species = :species")
-    , @NamedQuery(name = "Pet.findByBreed", query = "SELECT p FROM Pet p WHERE p.breed = :breed")
-    , @NamedQuery(name = "Pet.findByPetName", query = "SELECT p FROM Pet p WHERE p.petName = :petName")
-    , @NamedQuery(name = "Pet.findByBirthday", query = "SELECT p FROM Pet p WHERE p.birthday = :birthday")
-    , @NamedQuery(name = "Pet.findByPreferredVet", query = "SELECT p FROM Pet p WHERE p.preferredVet = :preferredVet")
-    , @NamedQuery(name = "Pet.findByMedicalInfo", query = "SELECT p FROM Pet p WHERE p.medicalInfo = :medicalInfo")})
+    @NamedQuery(name = "Pet.findAll", query = "SELECT p FROM Pet p"),
+    @NamedQuery(name = "Pet.findByPetID", query = "SELECT p FROM Pet p WHERE p.petID = :petID"),
+    @NamedQuery(name = "Pet.findBySex", query = "SELECT p FROM Pet p WHERE p.sex = :sex"),
+    @NamedQuery(name = "Pet.findBySpecies", query = "SELECT p FROM Pet p WHERE p.species = :species"),
+    @NamedQuery(name = "Pet.findByBreed", query = "SELECT p FROM Pet p WHERE p.breed = :breed"),
+    @NamedQuery(name = "Pet.findByPetName", query = "SELECT p FROM Pet p WHERE p.petName = :petName"),
+    @NamedQuery(name = "Pet.findByBirthday", query = "SELECT p FROM Pet p WHERE p.birthday = :birthday"),
+    @NamedQuery(name = "Pet.findByPreferredVet", query = "SELECT p FROM Pet p WHERE p.preferredVet = :preferredVet"),
+    @NamedQuery(name = "Pet.findByMedicalInfo", query = "SELECT p FROM Pet p WHERE p.medicalInfo = :medicalInfo")})
 public class Pet implements Serializable {
 
     private static final long serialVersionUID = 1L;
