@@ -7,9 +7,16 @@
     <class>models.AnimalType</class>
     <class>models.Breed</class>
     <class>models.Pet</class>
-    <class>models.Employee</class>
-    <class>models.Service</class>
     <class>models.Appointment</class>
+    <class>models.Service</class>
+    <class>models.Employee</class>
+    <class>models.Servicetype</class>
+    <class>models.Management</class>
+    <class>models.Empqualification</class>
+    <class>models.Location</class>
+    <class>models.Discount</class>
+    <class>models.Promotion</class>
+    <class>models.Empqualificationtype</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
   </persistence-unit>
 </persistence>
