@@ -59,7 +59,7 @@ public class Employee implements Serializable {
         @JoinColumn(name = "EmployeeID", referencedColumnName = "EmployeeID")}, inverseJoinColumns = {
         @JoinColumn(name = "ServiceTypeID", referencedColumnName = "ServiceTypeID")})
     @ManyToMany(fetch = FetchType.EAGER)
-    private List<ServiceType> servicetypeList;
+    private List<Servicetype> servicetypeList;
     @JoinTable(name = "empqualification", joinColumns = {
         @JoinColumn(name = "EmployeeID", referencedColumnName = "EmployeeID")}, inverseJoinColumns = {
         @JoinColumn(name = "QualificationID", referencedColumnName = "QualificationTypeID")})
@@ -118,11 +118,11 @@ public class Employee implements Serializable {
     }
 
     @XmlTransient
-    public List<ServiceType> getServicetypeList() {
+    public List<Servicetype> getServicetypeList() {
         return servicetypeList;
     }
 
-    public void setServicetypeList(List<ServiceType> servicetypeList) {
+    public void setServicetypeList(List<Servicetype> servicetypeList) {
         this.servicetypeList = servicetypeList;
     }
 
