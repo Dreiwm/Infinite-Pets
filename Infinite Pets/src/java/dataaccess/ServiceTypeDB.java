@@ -18,8 +18,8 @@ import models.ServiceType;
  */
 public class ServiceTypeDB {
     /**
-     * Inserts the Servicetype into the database.
-     * @param serviceType Servicetype to be inserted into the database
+     * Inserts the ServiceType into the database.
+     * @param serviceType ServiceType to be inserted into the database
      * @return returns true if successfully inserted.
      * @throws Exception if something went wrong in process of inserting into the database.
      */
@@ -78,8 +78,8 @@ public class ServiceTypeDB {
      */
     public boolean delete(ServiceType serviceType) throws Exception {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
-       EntityTransaction tr = em.getTransaction();
-       try{
+        EntityTransaction tr = em.getTransaction();
+        try{
            tr.begin();
            em.remove(em.merge(serviceType));
            tr.commit();
