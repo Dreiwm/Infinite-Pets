@@ -96,9 +96,9 @@ public class ServiceTypeDB {
     }
     
     /**
-     * Returns the Servicetype from the database with given ID.
+     * Returns the ServiceType from the database with given ID.
      * @param id id to be used to access information about Servicetype
-     * @return returns Servicetype if found on the database. 
+     * @return returns ServiceType if found on the database. 
      * @throws Exception if something went wrong with process of accessing database.
      */
     public ServiceType get(int id) throws Exception {
@@ -112,8 +112,8 @@ public class ServiceTypeDB {
     }
     
     /**
-     * Returns all Servicetype.
-     * @return List of the Servicetype.
+     * Returns all ServiceType.
+     * @return List of the ServiceType.
      * @throws Exception if something went wrong with process of accessing the database.
      */
     public List<ServiceType> getAllServiceTypes() throws Exception {
