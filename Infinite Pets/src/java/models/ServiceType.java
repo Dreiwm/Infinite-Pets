@@ -34,7 +34,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Servicetype.findAll", query = "SELECT s FROM Servicetype s")
     , @NamedQuery(name = "Servicetype.findByServiceTypeID", query = "SELECT s FROM Servicetype s WHERE s.serviceTypeID = :serviceTypeID")
     , @NamedQuery(name = "Servicetype.findByServiceType", query = "SELECT s FROM Servicetype s WHERE s.serviceType = :serviceType")})
-public class Servicetype implements Serializable {
+public class ServiceType implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -50,14 +50,14 @@ public class Servicetype implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "serviceTypeID", fetch = FetchType.EAGER)
     private List<Service> serviceList;
 
-    public Servicetype() {
+    public ServiceType() {
     }
 
-    public Servicetype(Integer serviceTypeID) {
+    public ServiceType(Integer serviceTypeID) {
         this.serviceTypeID = serviceTypeID;
     }
 
-    public Servicetype(Integer serviceTypeID, String serviceType) {
+    public ServiceType(Integer serviceTypeID, String serviceType) {
         this.serviceTypeID = serviceTypeID;
         this.serviceType = serviceType;
     }
@@ -106,10 +106,10 @@ public class Servicetype implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Servicetype)) {
+        if (!(object instanceof ServiceType)) {
             return false;
         }
-        Servicetype other = (Servicetype) object;
+        ServiceType other = (ServiceType) object;
         if ((this.serviceTypeID == null && other.serviceTypeID != null) || (this.serviceTypeID != null && !this.serviceTypeID.equals(other.serviceTypeID))) {
             return false;
         }
