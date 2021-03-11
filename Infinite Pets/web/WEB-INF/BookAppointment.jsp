@@ -28,7 +28,7 @@
     <br>
     
     <label for="time">Time</label>
-    <select name="time" id="">
+    <select name="time" id="time">
         <option value="morn">Morning</option>
         <option value="after">Afternoon</option>
         <option value="eve">Evening</option>
@@ -37,7 +37,7 @@
     <br>
 
     <label for="pet">Select Pet</label>
-    <select name="pet" id="">
+    <select name="pet" id="petName">
         <option value="">Pet 1</option>
         <option value="">Pet 2</option>
         <option value="">Pet 3</option>
@@ -47,7 +47,7 @@
     <br>
 
     <label for="service">Select service</label>
-    <select name="service" id="">
+    <select name="service" id="service">
         <option value="">Service 1</option>
         <option value="">Service 2</option>
         <option value="">Service 3</option>
@@ -59,11 +59,11 @@
     
 
     <br>
-    <textarea name="notes" id="" cols="30" rows="3">Additional Notes</textarea>
+    <textarea name="notes" id="petNotes" cols="30" rows="3">Additional Notes</textarea>
     
     <h3>Current pet to Add:</h3>
 
-    <table name="tempPetService">
+<!--    <table name="tempPetService">
         <tr>
             <td>PET NAME</td>
         </tr>
@@ -84,10 +84,10 @@
         </tr>
     </table>
 
-    <button>Add pet to the appointment</button>
+    <button>Add pet to the appointment</button>-->
 
 
-    <ul name="petService">
+<!--    <ul name="petService">
         <li>pet 1</li>
         <li>service 1</li>
         <li>service 2</li>
@@ -99,7 +99,7 @@
         <li>service 1</li>
         <li>service 3</li>
         <li>notes about the pet</li>
-    </ul>
+    </ul>-->
 
 
     <button>Cancel</button>
