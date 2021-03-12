@@ -77,7 +77,8 @@ public class LocationDB {
     
     /**
      * Updates the location.
-     * @param l the service to be updated.
+     * @param l the Location to be updated.
+     * @return returns true if successfully updated.
      * @throws java.lang.Exception if something went wrong with transaction.
      */
     public boolean update(Location l) throws Exception {
@@ -112,6 +113,7 @@ public class LocationDB {
            tr.begin();
            em.remove(em.merge(l));
            tr.commit();
+           return true;
        } catch (Exception e){
            if (tr.isActive())
                tr.rollback();
