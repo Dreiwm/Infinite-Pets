@@ -76,7 +76,7 @@ CREATE TABLE IF NOT EXISTS `infinitepetsdb`.`location` (
     `City` VARCHAR(30) NOT NULL,
     `Country` VARCHAR(30) NOT NULL,
     `Province` VARCHAR(30) NOT NULL,
-    `Area` CHAR(1) NOT NULL,
+    `Area` VARCHAR(2) NOT NULL,
     CONSTRAINT `chk_area`
             CHECK (`Area` IN ('N','S', 'W', 'E', 'NW', 'NE', 'SW', 'SE')),
     PRIMARY KEY (`LocationID`)
