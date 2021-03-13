@@ -86,7 +86,6 @@ ENGINE = InnoDB;
 -- Account
 CREATE TABLE IF NOT EXISTS `infinitepetsdb`.`account` (
     `UserId` INT NOT NULL AUTO_INCREMENT,
-    `Username` VARCHAR(30) NOT NULL,
     `Password` VARCHAR(30) NOT NULL,
     `Email` VARCHAR(100) UNIQUE NOT NULL,
     `FirstName` VARCHAR(50) NOT NULL,

@@ -15,9 +15,10 @@
         <h1>Login</h1>
         <form>
             <table>
-                <tr><td>Login</td><td><input type="text" name="userName" placeholder="Email"></td></tr>
-                <tr><td>Password</td><td><input type="password" name="password" placeholder="Password"></td></tr>
-            </table>
+                <tr><td><c:if test="${errorMsg != null}"><p>${errorMsg}</p></c:if></td></tr>
+                <tr><td>Login</td><td><input type="text" name="userName" placeholder="Email" required="true"></td></tr>
+                <tr><td>Password</td><td><input type="password" name="password" placeholder="Password" required="true"></td></tr>
+            </table> <br>
             <input type="hidden" name="action" value="login">
             <input type="Submit" value="Log In">
         </form>
