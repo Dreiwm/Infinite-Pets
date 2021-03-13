@@ -62,7 +62,7 @@ public class Location implements Serializable {
     private String province;
     @Basic(optional = false)
     @Column(name = "Area")
-    private Character area;
+    private String area;
 
     public Location() {
     }
@@ -71,7 +71,7 @@ public class Location implements Serializable {
         this.locationID = locationID;
     }
 
-    public Location(Integer locationID, Character locationType, String postalCode, String address, String city, String country, String province, Character area) {
+    public Location(Integer locationID, Character locationType, String postalCode, String address, String city, String country, String province, String area) {
         this.locationID = locationID;
         this.locationType = locationType;
         this.postalCode = postalCode;
@@ -138,11 +138,11 @@ public class Location implements Serializable {
         this.province = province;
     }
 
-    public Character getArea() {
+    public String getArea() {
         return area;
     }
 
-    public void setArea(Character area) {
+    public void setArea(String area) {
         this.area = area;
     }
 
