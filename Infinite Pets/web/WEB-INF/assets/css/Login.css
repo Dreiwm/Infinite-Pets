@@ -1,0 +1,93 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 14-Mar-2021, 11:09:38 PM
+    Author     : Cashton
+*/
+
+
+.wrapper {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+}
+
+.loginContainer{
+    display: grid;
+    grid-template-areas: 
+        "photo inputs";
+    
+    column-gap: 30px;
+    row-gap: 0px;
+    padding: 25px;
+
+    margin-top: 25px;
+    margin-bottom: 25px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    border-style: solid;
+    background-color: #F3F1EC;
+}
+
+.photo img{
+    grid-area: photo;
+    box-shadow: 5px 5px 5px #00000049;
+    border-radius: 10px;
+}
+
+.inputs{
+    grid-area: inputs;
+    display: grid;
+    grid-template-areas: 
+        "title title"
+        "userLabel userInput"
+        "passLabel passInput"
+        "create create";
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    column-gap: 5px;
+    row-gap: 5px;
+    background-color: #69686342;
+    padding: 10px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-radius: 10px;
+    box-shadow: 5px 5px 5px #00000049;
+}
+
+.title{
+    grid-area: title;
+    color: #5a5955;
+}
+
+.userLabel{
+    grid-area: userLabel;
+}
+
+.userInput{
+    grid-area: userInput;
+}
+
+.passLabel {
+    grid-area: passLabel;
+}
+
+.passInput {
+    grid-area: passInput;
+}
+
+.createAccount{
+    grid-area: create;
+    padding-top: 5px;
+}
+
+#loginLogo {
+    height: auto;
+    width: 300px;
+
+}
