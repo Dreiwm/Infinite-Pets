@@ -48,7 +48,7 @@
                     </div>
     
                     <div class="dateInput">
-                        <input name="date" type="date">
+                        <input name="date" type="date" id="selectDate">
                     </div>
     
                     <div class="timeLable">
@@ -56,7 +56,7 @@
                     </div>
     
                     <div class="timeInput">
-                        <select name="time" id="time">
+                        <select name="time" id="selectTime">
                             <option value="morn">Morning</option>
                             <option value="after">Afternoon</option>
                             <option value="eve">Evening</option>
@@ -67,7 +67,7 @@
                         <label for="pet">Select Pet</label>
                     </div>
                     <div class="petInput">
-                        <select name="pet" id="pet">
+                        <select name="pet" id="petSelect">
                             <option value="">Pet 1</option>
                             <option value="">Pet 2</option>
                             <option value="">Pet 3</option>
@@ -80,7 +80,7 @@
                     </div>
                     
                     <div class="serviceInput">
-                        <select name="service" id="service">
+                        <select name="service" id="serviceSelect">
                             <option value="">Service 1</option>
                             <option value="">Service 2</option>
                             <option value="">Service 3</option>
@@ -89,7 +89,7 @@
                     </div>
     
                     <div class="addServiceBtn">
-                        <button>Add another service</button>
+                        <button onclick="addService()">Add another service</button>
                     </div>
     
                     

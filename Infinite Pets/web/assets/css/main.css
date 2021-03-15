@@ -69,12 +69,10 @@ body {
     font-family: 'Playfair Display', serif;;
 }
 
-.container {
-    display: grid;
-    height: 100vh;
-    grid-template-columns: 1fr;
-    grid-template-rows: 0.2fr 0.1fr 2fr 1fr;
-    
+a {
+    color: #696863;
+    text-decoration: none;
+    margin-bottom: 5px;
 }
 
 .navbar {
@@ -96,63 +94,17 @@ body {
     align-items: center;
 }
 
-#menu {
-    width: 40px;
-    height: auto;
-}
-
-#account {
-    width: 40px;
-    height: auto;
-}
-
-#logo {
-    width: 300px;
-    height: auto;
-}
-
-.path {
-    display: grid;
-    grid-template-columns: 1fr .1fr 1fr .1fr 1fr .1fr 1fr;
-    grid-template-rows: 1fr;
-    margin-left: 40px;
-    margin-right: 40px;
-    margin-bottom: 15px;
-    height: 25px;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    column-width: auto;
-}
-
-.path a {
-    text-decoration: none;
-    color: #696863;
-    cursor: pointer;
-}
-
-#chevronRight {
-    height: 15px;
-    width: auto;
-}
-
-.appointment{
-    margin-left: 50px;
-    margin-right: 50px;
-    padding-left: 20px;
-    padding-right: 20px;
-    border-radius: 10px;
-    background-color: #F3F1EC;
-}
-
 .footer {
     display: grid;
     height: 200px;
-    width: auto;
+    width: 100%;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr;
     background: #9A9891;
     color: #696863;
+    position: absolute;
+    bottom: 0;
+    
     
 }
 
@@ -163,7 +115,7 @@ body {
 }
 
 .footer a{
-    color: #696863;;
+    color: #696863;
     text-decoration: none;
     margin-bottom: 5px;
     
@@ -185,6 +137,21 @@ body {
     max-height: 50px;
     width: auto;
     margin-left: 15px;
+}
+
+#menu {
+    width: 40px;
+    height: auto;
+}
+
+#account {
+    width: 40px;
+    height: auto;
+}
+
+#logo {
+    width: 300px;
+    height: auto;
 }
 
 #facebook {
