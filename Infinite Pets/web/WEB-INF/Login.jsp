@@ -35,23 +35,10 @@
     <link rel="stylesheet" href="assets/css/Login.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
-   
+    <%@include file="testFiles/header.jsp" %>
     <title>Login</title>
 </head>
 <body>
-    
-        
-        <div class="navbar">
-            <div class="navItem">
-                <img id="menu" src="assets/img/menu.svg">
-            </div>
-            <div id="navItem" class="navItem">
-                <img id="logo" src="assets/img/infinitePetsLogo-White(4).png">
-            </div>
-            <div id="navItem" class="navItem">
-                <img id="account" src="assets/img/account.svg">
-            </div>
-        </div>
 
         <div class="wrapper">
         
@@ -83,6 +70,8 @@
     </div>
 
     </div>
-        
-</body>
+  
+</body>  
+<footer> <%@include file="testFiles/footer.jsp" %> </footer>
+      
 </html>

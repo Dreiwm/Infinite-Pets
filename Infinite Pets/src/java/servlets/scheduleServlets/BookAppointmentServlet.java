@@ -7,6 +7,7 @@ package servlets.scheduleServlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -43,6 +44,20 @@ public class BookAppointmentServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        ArrayList services;
+
         
+        if(request.getParameterValues("petName")!=null){
+            for(String id : request.getParameterValues("petName")){
+                for(String service: request.getParameterValues("service"+id)){
+                    services = new ArrayList();
+                    services.add(service);
+                }
+                //Book the appointment
+            }
+        }
+        //Check for errors 
+        //if none redirect to appointment page
+        //else back to booking with error shown
     }
 }

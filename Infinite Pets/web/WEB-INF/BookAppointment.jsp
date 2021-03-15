@@ -13,7 +13,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <%@include file="testFiles/header.jsp" %>
-    <script src="assets/js/addAppt.js"></script>
     <title>Book Appointment</title>
 </head>
 <body>
@@ -135,7 +134,7 @@
             <p>Details: </p>
             <form method ="post">
             <div id="detailsTable"></div>
-
+            <input>
             <button type="submit" name="action" value="cancel">Cancel</button>
             <button type="submit" name="action" value="submit">Book appointment</button>
             </form>        
@@ -143,5 +142,6 @@
 </div>
 </body>
 <%@include file="testFiles/footer.jsp" %>
+<script src="assets/js/addAppt.js"></script>
 </html>
 
