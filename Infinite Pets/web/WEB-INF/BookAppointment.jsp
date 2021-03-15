@@ -78,6 +78,7 @@
                 
             </div>
 
+            <img src="assets/img/infinitePetsLogo-black(3).png" width="984" height="1193" alt="infinitePetsLogo-black(3)"/>
 
 
 
