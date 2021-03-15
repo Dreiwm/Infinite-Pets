@@ -31,8 +31,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="assets/css/main.css">
-    <link rel="stylesheet" href="assets/css/Login.css">
+    <link rel="stylesheet" type="text/css" href="./assets/css/main.css"/>
+    <link rel="stylesheet" type="text/css" href="./assets/css/Login.css"/>
+    <%@include file="testFiles/header.jsp" %>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
    
@@ -40,18 +41,6 @@
 </head>
 <body>
     
-        
-        <div class="navbar">
-            <div class="navItem">
-                <img id="menu" src="assets/img/menu.svg">
-            </div>
-            <div id="navItem" class="navItem">
-                <img id="logo" src="assets/img/infinitePetsLogo-White(4).png">
-            </div>
-            <div id="navItem" class="navItem">
-                <img id="account" src="assets/img/account.svg">
-            </div>
-        </div>
 
         <div class="wrapper">
         
@@ -67,7 +56,7 @@
                         <label for="username">Username</label>
                     </div>
                     <div class="userInput">
-                        <input id="username" name="username" type="username">
+                        <input id="username" name="username" type="text">
                     </div>
                     <div class="passLabel">
                         <label for="password">Password</label>
@@ -82,7 +71,7 @@
             </div>
     </div>
 
-    </div>
         
 </body>
+<%@include file="testFiles/footer.jsp" %>
 </html>

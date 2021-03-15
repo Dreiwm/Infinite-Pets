@@ -7,7 +7,6 @@ and open the template in the editor.
     Created on : 14-Mar-2021, 11:10:06 PM
     Author     : Cashton
 */
-
 .path {
     display: grid;
     grid-template-columns: 1fr .1fr 1fr .1fr 1fr .1fr 1fr;
@@ -116,4 +115,6 @@ and open the template in the editor.
 .sumService{grid-area: sumService;}
 .cancelBtn{grid-area: cancelBtn;}
 .bookBtn{grid-area: bookBtn;}
+
+
 
