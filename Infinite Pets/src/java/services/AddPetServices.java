@@ -32,7 +32,7 @@ public class AddPetServices {
     //Retrieves a list of breeds for an animal type
     public List getBreeds(String animal)throws Exception{
         BreedDB breedDB = new BreedDB();
-        return breedDB.getBreedByAnimalId(animal);
+        return breedDB.getBreedByAnimalType(animal);
     }
     
     //DO WE NEED THIS????
