@@ -7,11 +7,16 @@ package servlets.InfinitePetsServlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import models.Account;
+import services.AddPetServices;
 import services.EmailService;
+import services.PetServicesServices;
 
 /**
  *
@@ -30,13 +35,31 @@ public class ResetPasswordServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String email = request.getParameter("email");
+        Account to = new Account();
+        AddPetServices pss = new AddPetServices();
+        boolean found = false;
+        //connect to the database to see if the email is a valid on if so then call the email service to send the reset link
+        try { 
+            to = pss.getAccount(email);  
+            if(to!=null){
+                EmailService gmail = new EmailService();
+                String path = getServletContext().getRealPath("/WEB-INF");
+                gmail.sendRecoveryPassword(to, path);
+                found = true;
+            }
+            
+        } catch (Exception ex) {
+//            Logger.getLogger(ResetPasswordServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } finally{
+            if (found){
+                 response.sendRedirect("Login");
+            }  
+            else{
+                request.getRequestDispatcher("/WEB-INF/ResetPassword.jsp").forward(request, response);
+            }  
+        }
         
-        
-            EmailService gmail = new EmailService();
-            String path = getServletContext().getRealPath("/WEB-INF");
-            gmail.sendRecoveryPassword(email, path);
-       
-        
+               
     }
 
   

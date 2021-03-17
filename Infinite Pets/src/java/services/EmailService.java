@@ -21,6 +21,7 @@ import javax.mail.internet.MimeMessage;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+import models.Account;
 
 /**
  *
@@ -99,15 +100,18 @@ public class EmailService {
     /*
     To Move Later added here so to test code
     */
-    public void sendRecoveryPassword(String to, String path){
+    public void sendRecoveryPassword(Account to, String path){
         
         try{
             String subject = "Infinite Pets Password Recovery";
-            String template = path + "/emailtemplates/passwordRecovery.html";
-            //HashMap
+            String template = path + "assets/emailTemplates/ResetTemplate";
             
-
-            //sendMail(to, subject, template, tags);
+            HashMap<String, String> tags = new HashMap<>();
+                tags.put("firstname", to.getFirstName());
+                tags.put("lastname", to.getLastName());
+                tags.put("date", (new java.util.Date()).toString());
+                
+                sendMail(to.getEmail(), subject, template, tags);
             
         }
         catch(Exception e){
