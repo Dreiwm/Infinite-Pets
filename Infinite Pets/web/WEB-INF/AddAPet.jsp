@@ -95,9 +95,7 @@
                                 
                                 <select name="breed" class="form-control" placeholder="animal" style="background: rgba(154,152,145,0.75);color: #ffffff;border-style: none; width: 150px;">
                                     <c:forEach items="${breedList}" var="lst">
-
-                                        <option value="${lst.breedName}" style="background: rgb(255,255,255);color: rgb(0,0,0);">${lst.breedName}</option>
-                                        
+                                        <option value="${lst.breedName}" style="background: rgb(255,255,255);color: rgb(0,0,0);">${lst.breedName}</option>                                        
                                     </c:forEach>
 <!--                                    <option name="select" value="select" selected="true" style="background: rgb(255,255,255);color: rgb(0,0,0);">Select</option>
                                     <option name="breed" value="lab" style="background: rgb(255,255,255);color: rgb(0,0,0);">Lab</option>
