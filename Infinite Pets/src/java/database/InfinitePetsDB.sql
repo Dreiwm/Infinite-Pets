@@ -8,7 +8,7 @@ USE `infinitepetsdb` ;
 -- To be used in Service and employee tables.
 CREATE TABLE IF NOT EXISTS `infinitepetsdb`.serviceType (
 	`ServiceTypeID` INT NOT NULL auto_increment,
-        `ServiceType` VARCHAR(30) NOT NULL,
+    `ServiceType` VARCHAR(30) NOT NULL,
     PRIMARY KEY (`ServiceTypeID`)
 )
 ENGINE=InnoDB;
@@ -88,15 +88,15 @@ CREATE TABLE IF NOT EXISTS `infinitepetsdb`.`account` (
     `UserId` INT NOT NULL AUTO_INCREMENT,
     `Username` VARCHAR(30) NOT NULL,
     `Password` VARCHAR(30) NOT NULL,
-	`PasswordHash` VARCHAR(32) NOT NULL,
-	`PasswordSalt` VARCHAR(32) NOT NULL,
+	`PasswordHash` VARCHAR(32) DEFAULT NULL, -- I'd make this NOT NULL but until we implement the hashing it'll have to stay null
+	`PasswordSalt` VARCHAR(32) DEFAULT NULL,
     `Email` VARCHAR(100) UNIQUE NOT NULL,
     `FirstName` VARCHAR(50) NOT NULL,
     `LastName` VARCHAR(50) NOT NULL,
     `IsEmployee` BIT NOT NULL,
     `IsConfirmed` BIT NOT NULL,
-	`PasswordResetCode` VARCHAR(30),
-	`PasswordResetActive` BIT DEFAULT 0
+	`PasswordResetCode` VARCHAR(30) DEFAULT NULL,
+	`PasswordResetActive` BIT DEFAULT 0,
     PRIMARY KEY (`UserId`)
 )
 ENGINE = InnoDB;
@@ -224,7 +224,7 @@ CREATE TABLE IF NOT EXISTS `infinitepetsdb`.`gallery` (
 	`ImagePath` VARCHAR(120),
 	`Show` BIT NOT NULL,
 	`Featured` BIT NOT NULL,
-	PRIMARY KEY (`ImageID`),
+	PRIMARY KEY (`ImageID`)
 )
 ENGINE = InnoDB;
 
