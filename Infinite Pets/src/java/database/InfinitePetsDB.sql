@@ -88,11 +88,15 @@ CREATE TABLE IF NOT EXISTS `infinitepetsdb`.`account` (
     `UserId` INT NOT NULL AUTO_INCREMENT,
     `Username` VARCHAR(30) NOT NULL,
     `Password` VARCHAR(30) NOT NULL,
+	`PasswordHash` VARCHAR(32) NOT NULL,
+	`PasswordSalt` VARCHAR(32) NOT NULL,
     `Email` VARCHAR(100) UNIQUE NOT NULL,
     `FirstName` VARCHAR(50) NOT NULL,
     `LastName` VARCHAR(50) NOT NULL,
     `IsEmployee` BIT NOT NULL,
     `IsConfirmed` BIT NOT NULL,
+	`PasswordResetCode` VARCHAR(30),
+	`PasswordResetActive` BIT DEFAULT 0
     PRIMARY KEY (`UserId`)
 )
 ENGINE = InnoDB;
@@ -200,6 +204,7 @@ CREATE TABLE IF NOT EXISTS `infinitepetsdb`.`pet` (
     `Birthday` DATE NOT NULL,
     `PreferredVet` VARCHAR(60),
     `MedicalInfo` VARCHAR(120),
+	`ImagePath` VARCHAR(120),
     PRIMARY KEY (`PetID`),
     INDEX `fk_pets_accounts_idx` (`Owner` ASC),
     CONSTRAINT `fk_pets_accounts`
@@ -211,6 +216,18 @@ CREATE TABLE IF NOT EXISTS `infinitepetsdb`.`pet` (
             CHECK (`Sex` IN ('M','F','N','S'))
 )
 ENGINE = InnoDB;
+
+-- GalleryImage
+CREATE TABLE IF NOT EXISTS `infinitepetsdb`.`gallery` (
+	`ImageID` INT NOT NULL AUTO_INCREMENT,
+    `ImageSubtitle` VARCHAR(80),
+	`ImagePath` VARCHAR(120),
+	`Show` BIT NOT NULL,
+	`Featured` BIT NOT NULL,
+	PRIMARY KEY (`ImageID`),
+)
+ENGINE = InnoDB;
+
 
 -- Appointment
 CREATE TABLE IF NOT EXISTS `infinitepetsdb`.`appointment` (
