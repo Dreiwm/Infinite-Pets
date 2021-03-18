@@ -48,26 +48,33 @@
                 <div class="photo">
                     <img id="loginLogo"  src="assets/img/zacLoginPhotojpg.jpg" alt="">
                 </div>
-                <div class="inputs">
-                    <div class="title">
-                        <h1>Login</h1>
+                <form>
+                
+                    <div class="inputs">
+                        <div class="title">
+                            <h1>Login</h1>
+                        </div>
+                        <div class="userLabel">
+                            <label for="username">Username</label>
+                        </div>
+                        <div class="userInput">
+                            <input id="username" name="username" type="text">
+                        </div>
+                        <div class="passLabel">
+                            <label for="password">Password</label>
+                        </div>
+                        <div class="passInput">
+                            <input id="password" name="password" type="password">
+                        </div>
+                        <div class="loginBtn">
+                            <button type="submit">Login</button>
+                        </div>
+                        <div class="createAccount">
+                            <a id="createAccount" href="CreateAccount">Create Account</a>
+                            
+                        </div>
                     </div>
-                    <div class="userLabel">
-                        <label for="username">Username</label>
-                    </div>
-                    <div class="userInput">
-                        <input id="username" name="username" type="text">
-                    </div>
-                    <div class="passLabel">
-                        <label for="password">Password</label>
-                    </div>
-                    <div class="passInput">
-                        <input id="password" name="password" type="password">
-                    </div>
-                    <div class="createAccount">
-                        <a id="createAccount" href="CreateAccount">Create Account</a>
-                    </div>
-                </div>
+                </form>
             </div>
     </div>
 
