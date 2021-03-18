@@ -14,41 +14,41 @@
     </head>
     <body>
         
-    <footer>
+    
         <div class="footer">
             <!-- Left side of the footer -->
-            <div id="footerLeft">
-                <div id="footerItem">
+            <div class="footerLeft">
+                <div class="leftTitle">
                     <h4>
                         Contact Us
                     </h4>
                 </div>
-                <div id="footerItem">
+                <div class="leftPhone">
                     <a href="tel:4039889244">(403)988-9244</a>
                 </div>
-                <div id="footerItem">
+                <div class="leftEmail">
                     <a href="mailto:infinitepetcare@gmail.com">infinitepetcare@gmail.com</a>
                 </div>
-                <div id="footerItem">
+                <div class="leftFacebook">
                     <a href="https://www.facebook.com/Infinite-Pets-1866961236871093/">
                         <img id="facebook" src="assets/img/facebook.svg" alt="">
                     </a>
                 </div>
-                <div id="footerItem">
+                <div class="leftInstagram">
                     <a href="https://www.instagram.com/infinite.pets/">
                         <img id="instagram" src="assets/img/instagram.svg" alt="">
                     </a>
                 </div>
             </div>
             <!-- Right side of the footer -->
-            <div id="footerRight">
-                <div id="footerItem">
+            <div class="footerRight">
+                <div class="rightTitle">
                     <h4>Subscribe to our newsletter!</h4>
                 </div>
-                <div id="footerItem">
+                <div class="newsMessage">
                     <p>Receive notifications about upcoming events, new services, recommended products and more!</p>
                 </div>
-                <div id="footerItem">
+                <div class="newsInput">
                     <form action="">
                         <input name="emailNewsletter" type="text">
                         <button type="submit">Subscribe</button>
@@ -56,6 +56,6 @@
                 </div>
             </div>
         </div>
-    </footer>
+    
     </body>
 </html>

@@ -96,15 +96,18 @@ a {
 
 .footer {
     display: grid;
-    height: 200px;
+    height: auto;
     width: 100%;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr;
+    grid-template-areas:
+        "footerLeft footerRight";
+    column-gap: 30px;
+    padding: 15px;
     background: #9A9891;
     color: #696863;
     position: absolute;
     bottom: 0;
-    
+    justify-content: center;
+    align-items: center;
     
 }
 
@@ -122,15 +125,39 @@ a {
 }
 
 .footerLeft {
+    grid-area: footerLeft;
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr 1fr;
+    grid-template-areas:
+        "leftTitle leftTitle"
+        "leftPhone leftPhone"
+        "leftEmail leftEmail"
+        "leftFacebook leftInstagram";
+
     justify-content: center;
-    align-content: center;
-    padding-left: 15px;
-    margin-left: 15px;
-    column-width: auto;
+    align-items: center;
 }
+.leftTitle{grid-area: leftTitle;}
+.leftPhone{grid-area: leftPhone;}
+.leftEmail{grid-area: leftEmail;}
+.leftFacebook{grid-area: leftFacebook;}
+.leftInstagram{grid-area: leftInstagram;}
+
+.footerRight{
+    grid-area: footerRight;
+    display: grid;
+    grid-template-areas:
+        "rightTitle"
+        "newsMessage"
+        "newsInput";
+    max-width: 400px;
+    justify-content: center;
+    align-items: center;
+}
+
+.rightTitle{grid-area: rightTitle;}
+.newsMessage{grid-area: newsMessage;}
+.newsInput{grid-area: newsInput;}
+
 
 .footerItem {
     display: flex;
