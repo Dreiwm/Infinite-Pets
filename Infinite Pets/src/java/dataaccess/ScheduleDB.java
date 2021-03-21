@@ -10,26 +10,27 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
-import models.Gallery;
+import models.Employee;
+import models.Schedule;
 
 /**
- * Responsible for communicating with Gallery table in the database.
+ * Responsible for communicating with schedule table in the database
  * @author Riley
  */
-public class GalleryDB {
-   /**
-     * Inserts the Gallery into the gallery table in the database.
-     * @param gallery Gallery to be inserted into.
+public class ScheduleDB {
+    /**
+     * Inserts the Schedule into the schedule table in the database.
+     * @param schedule Schedule to be inserted into.
      * @return returns true if successfully inserted into.
      * @throws Exception if something went wrong with process of inserting into database.
      */
-    public boolean insert(Gallery gallery) throws Exception {
+    public boolean insert(Schedule schedule) throws Exception {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         EntityTransaction tr = em.getTransaction();
         
         try {
             tr.begin();
-            em.persist(gallery);
+            em.persist(schedule);
             tr.commit();
             return true;
         } catch (Exception e) {
@@ -37,7 +38,7 @@ public class GalleryDB {
             if (tr.isActive()) {
                 tr.rollback();
             }
-            Logger.getLogger(Gallery.class.getName()).log(Level.SEVERE, "Cannot insert " + gallery.toString(), e); 
+            Logger.getLogger(Schedule.class.getName()).log(Level.SEVERE, "Cannot insert " + schedule.toString(), e); 
 
         } finally {
             em.close();
@@ -46,24 +47,24 @@ public class GalleryDB {
     }
     
     /**
-     * Updates given Gallery object in the database.
-     * @param gallery the Gallery object to be updated.
-     * @return true if Gallery was successfully persisted.
+     * Updates given Schedule object in the database.
+     * @param schedule the Schedule object to be updated.
+     * @return true if Schedule was successfully persisted.
      * @throws Exception if something went wrong with process of updating the object in the database.
      */
-    public boolean update(Gallery gallery) throws Exception {
+    public boolean update(Schedule schedule) throws Exception {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         EntityTransaction tr = em.getTransaction();
         
         try {
             tr.begin();
-            em.merge(gallery);
+            em.merge(schedule);
             tr.commit();
             return true;
         } catch (Exception e) {
             if (tr.isActive())
                 tr.rollback();
-            Logger.getLogger(Gallery.class.getName()).log(Level.SEVERE, "Cannot update " + gallery.toString(), e); 
+            Logger.getLogger(Schedule.class.getName()).log(Level.SEVERE, "Cannot update " + schedule.toString(), e); 
         } finally {
             em.close();
         }
@@ -71,22 +72,22 @@ public class GalleryDB {
     }
     
     /**
-     * Delete a row with given Gallery object from the database.
-     * @param gallery the Gallery object to be deleted from the database.
+     * Delete a row with given Schedule object from the database.
+     * @param schedule the Schedule object to be deleted from the database.
      * @return true if successfully removed.
      * @throws Exception if something went wrong with process of deleting ab object from database.
      */
-    public boolean delete(Gallery gallery) throws Exception {
+    public boolean delete(Schedule schedule) throws Exception {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         EntityTransaction tr = em.getTransaction();
         try {
            tr.begin();
-           em.remove(em.merge(gallery));
+           em.remove(em.merge(schedule));
            tr.commit();
        } catch (Exception e){
            if (tr.isActive())
                tr.rollback();
-            Logger.getLogger(Gallery.class.getName()).log(Level.SEVERE, "Cannot delete " + gallery.toString(), e); 
+            Logger.getLogger(Schedule.class.getName()).log(Level.SEVERE, "Cannot delete " + schedule.toString(), e); 
            
        }
        finally {
@@ -96,33 +97,43 @@ public class GalleryDB {
     }
     
     /**
-     * Returns the Gallery object with given ID.
-     * @param id the id to be used to access a specific row in the Gallery table.
-     * @return returns the Gallery object with given ID.
+     * Returns the Schedule object with given ID.
+     * @param id the id to be used to access a specific row in the Schedule table.
+     * @return returns the Schedule object with given ID.
      * @throws Exception if something went wrong with process of retrieving given ID from database.
      */
-    public Gallery get(int id) throws Exception {
+    public Schedule get(int id) throws Exception {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         
         try {
-            return em.find(Gallery.class, id);
+            return em.find(Schedule.class, id);
         } finally {
             em.close();
         }
     }
     
     /**
-     * Returns List of all Gallery objects
-     * @return the List of Gallery objects from the gallery table.
-     * @throws Exception if something went wrong with the process of retrieving all Gallery from the database.
+     * Returns List of all Schedule objects
+     * @return the List of Schedule objects from the discount table.
+     * @throws Exception if something went wrong with the process of retrieving all Discounts from the database.
      */
-    public List<Gallery> getAllGalleries() throws Exception {
+    public List<Schedule> getAllSchedules() throws Exception {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         
         try {
-            return em.createNamedQuery("Gallery.findAll", Gallery.class).getResultList();
+            return em.createNamedQuery("Schedule.findAll", Schedule.class).getResultList();
         } finally {
             em.close();
         }
-    } 
+    }
+    
+    // test
+    public  static void main(String[] args) throws Exception {
+        EmployeeDB empDB = new EmployeeDB();
+        
+        Employee emp = empDB.get(1);
+        emp.getScheduleList().forEach(s -> {
+            System.out.println(s.getStartTime() + " to " + s.getEndTime());
+        });
+    }
 }
