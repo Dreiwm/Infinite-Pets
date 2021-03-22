@@ -11,6 +11,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import models.Account;
+import services.AddPetServices;
 
 /**
  *
@@ -42,5 +45,38 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String password, email = "";
+       
+        
+        email = request.getParameter("username");
+        password = request.getParameter("password");
+        boolean found = false;
+        Account acc = new Account();
+        
+        if((email!=null)&&(password!=null)){
+            try{
+                AddPetServices pss = new AddPetServices();
+                acc = pss.getAccount(email);
+                if(acc!=null)
+                    found = true;
+            }
+            catch(Exception e){
+                
+            }
+            finally{
+                if(found){
+                     HttpSession session = request.getSession();
+                     session.setAttribute("owner", acc.getUserId());
+                     response.sendRedirect("MyPets");
+                }
+                else
+                {
+                    getServletContext().getRequestDispatcher("/WEB-INF/Login.jsp").forward(request,response);
+                }
+            }     
+        }
+        else
+            getServletContext().getRequestDispatcher("/WEB-INF/Login.jsp").forward(request,response);
+        
     }
 }

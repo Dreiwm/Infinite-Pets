@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.UUID;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -44,7 +45,13 @@ public class ResetPasswordServlet extends HttpServlet {
             if(to!=null){
                 EmailService gmail = new EmailService();
                 String path = getServletContext().getRealPath("/WEB-INF");
-                gmail.sendRecoveryPassword(to, path);
+                String url =  request.getScheme() + "://" + request.getServerName();
+                String resetToken = UUID.randomUUID().toString();
+                
+                //update the user account with the reset token
+                //to.setResetToken(resetToken);
+                
+                gmail.sendRecoveryPassword(to, path, url, resetToken);
                 found = true;
             }
             

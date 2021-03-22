@@ -62,6 +62,9 @@
                     <div class="passInput">
                         <input id="password" name="password" type="password">
                     </div>
+                    <div class="btns">
+                        <button type="submit" name="action" value="login">Login</button>
+                    </div>
                     <div class="createAccount">
                         <a id="createAccount" href="CreateAccount">Create Account</a>
                     </div>

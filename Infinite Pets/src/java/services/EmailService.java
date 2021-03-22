@@ -100,7 +100,7 @@ public class EmailService {
     /*
     To Move Later added here so to test code
     */
-    public void sendRecoveryPassword(Account to, String path){
+    public void sendRecoveryPassword(Account to, String path, String url, String resetToken){
         
         try{
             String subject = "Infinite Pets Password Recovery";
@@ -109,7 +109,7 @@ public class EmailService {
             HashMap<String, String> tags = new HashMap<>();
                 tags.put("firstname", to.getFirstName());
                 tags.put("lastname", to.getLastName());
-                tags.put("date", (new java.util.Date()).toString());
+                tags.put("reset", url + "/reset?token="+resetToken);
                 
                 sendMail(to.getEmail(), subject, template, tags);
             

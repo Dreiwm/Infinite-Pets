@@ -111,17 +111,19 @@
                     <br>
                     <textarea name="notes" id="notes" cols="30" rows="3" placeholder="Additional Notes"></textarea>
 
-                    <h3>Current pet to Add:</h3>
-                <div id="tempTableSpace"></div>
-            <button onclick="addAppointment()">Add pet to the appointment</button>
             </div>
                 <div class="colum">
                     <h1>Appointment Summary:</h1>
 
-                        <p id="selectedDate">Date: </p>
-                        <p id="selectedTime">Time: </p>
-                        <p>Details: </p>
+                     
                         <form method ="post">
+                        <div id="displayDate">
+                            <p id="selectedDate">Date: </p>
+                        </div>    
+                        <div id="displayTime">
+                           <p id="selectedTime">Time: </p> 
+                        </div>
+                        <p>Details: </p>
                         <div id="detailsTable"></div>
                         <button type="submit" name="action" value="cancel">Cancel</button>
                         <button type="submit" name="action" value="submit">Book appointment</button>

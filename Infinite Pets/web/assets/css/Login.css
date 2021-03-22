@@ -46,6 +46,7 @@ and open the template in the editor.
         "title title"
         "userLabel userInput"
         "passLabel passInput"
+        "loginBtn loginBtn"
         "create create";
     justify-content: center;
     align-items: center;
@@ -79,6 +80,10 @@ and open the template in the editor.
 
 .passInput {
     grid-area: passInput;
+}
+
+.btns{
+    grid-area: loginBtn;
 }
 
 .createAccount{
