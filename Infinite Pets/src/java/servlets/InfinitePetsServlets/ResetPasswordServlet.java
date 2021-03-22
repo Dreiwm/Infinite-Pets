@@ -43,6 +43,7 @@ public class ResetPasswordServlet extends HttpServlet {
         try { 
             to = pss.getAccount(email);  
             if(to!=null){
+                //get the path, and create a reset token 
                 EmailService gmail = new EmailService();
                 String path = getServletContext().getRealPath("/WEB-INF");
                 String url =  request.getScheme() + "://" + request.getServerName();
@@ -50,7 +51,9 @@ public class ResetPasswordServlet extends HttpServlet {
                 
                 //update the user account with the reset token
                 //to.setResetToken(resetToken);
+                //pss.updateAccount(to);
                 
+                //gmail.sendRecoveryPassword(to, path, url);
                 gmail.sendRecoveryPassword(to, path, url, resetToken);
                 found = true;
             }

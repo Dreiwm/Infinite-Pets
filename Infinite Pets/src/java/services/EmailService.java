@@ -109,9 +109,10 @@ public class EmailService {
             HashMap<String, String> tags = new HashMap<>();
                 tags.put("firstname", to.getFirstName());
                 tags.put("lastname", to.getLastName());
+                //tags.put("reset", url + "/reset?token="+to.getReset());
                 tags.put("reset", url + "/reset?token="+resetToken);
                 
-                sendMail(to.getEmail(), subject, template, tags);
+            sendMail(to.getEmail(), subject, template, tags);
             
         }
         catch(Exception e){
