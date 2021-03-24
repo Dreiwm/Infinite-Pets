@@ -5,7 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!--<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -31,16 +31,14 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="./assets/css/main.css"/>
-    <link rel="stylesheet" type="text/css" href="./assets/css/Login.css"/>
-    <%@include file="testFiles/header.jsp" %>
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/Login.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
-   
+    <%@include file="testFiles/header.jsp" %>
     <title>Login</title>
 </head>
 <body>
-    
 
         <div class="wrapper">
         
@@ -56,13 +54,16 @@
                         <label for="username">Username</label>
                     </div>
                     <div class="userInput">
-                        <input id="username" name="username" type="text">
+                        <input id="username" name="username" type="username">
                     </div>
                     <div class="passLabel">
                         <label for="password">Password</label>
                     </div>
                     <div class="passInput">
                         <input id="password" name="password" type="password">
+                    </div>
+                    <div class="btns">
+                        <button type="submit" name="action" value="login">Login</button>
                     </div>
                     <div class="createAccount">
                         <a id="createAccount" href="CreateAccount">Create Account</a>
@@ -71,7 +72,9 @@
             </div>
     </div>
 
-        
-</body>
-<%@include file="testFiles/footer.jsp" %>
+    </div>
+  
+</body>  
+<footer> <%@include file="testFiles/footer.jsp" %> </footer>
+      
 </html>
