@@ -8,7 +8,7 @@ USE `infinitepetsdb` ;
 -- To be used in Service and employee tables.
 CREATE TABLE IF NOT EXISTS `infinitepetsdb`.serviceType (
 	`ServiceTypeID` INT NOT NULL auto_increment,
-        `ServiceType` VARCHAR(30) NOT NULL,
+    `ServiceType` VARCHAR(30) NOT NULL,
     PRIMARY KEY (`ServiceTypeID`)
 )
 ENGINE=InnoDB;
