@@ -31,6 +31,8 @@
     <servlet>
         <servlet-name>DeleteAccountServlet</servlet-name>
         <servlet-class>servlets.InfinitePetsServlets.DeleteAccountServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>MyProfileServlet</servlet-name>
         <servlet-class>servlets.InfinitePetsServlets.MyProfileServlet</servlet-class>
     </servlet>
@@ -59,10 +61,12 @@
         <url-pattern>/ResetPassword</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>DeleteAccountServlet</servlet-name>
-        <url-pattern>/DeleteAccount</url-pattern>
         <servlet-name>MyProfileServlet</servlet-name>
         <url-pattern>/MyProfile</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteAccountServlet</servlet-name>
+        <url-pattern>/DeleteAccount</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

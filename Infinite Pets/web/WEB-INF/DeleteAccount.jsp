@@ -9,11 +9,21 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <%@include file="testFiles/header.jsp" %>
+        <title>Delete Account</title> <!-- Overwrite title in header.jsp -->
+        <link rel="stylesheet" href="assets/css/deleteAccount.css"/>
     </head>
     <body>
-        <%@include file="testFiles/header.jsp" %>
-        <h1>Hello World!</h1>
+
+        <div class="wrapper">
+            <div class="generalContainer">
+            <h1>Delete Account</h1>
+            <form>
+                    <button type="submit" name="action" value="deleteAccount" class="dangerButton">Delete Account</button>
+                    <button type="submit" name="action" value="cancel">Cancel</button>
+            </form>
+        </div>
+        </div>
         <footer> <%@include file="testFiles/footer.jsp" %> </footer>
     </body>
 </html>
