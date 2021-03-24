@@ -76,7 +76,7 @@ CREATE TABLE IF NOT EXISTS `infinitepetsdb`.`location` (
     `City` VARCHAR(30) NOT NULL,
     `Country` VARCHAR(30) NOT NULL,
     `Province` VARCHAR(30) NOT NULL,
-    `Area` CHAR(1) NOT NULL,
+    `Area` VARCHAR(2) NOT NULL,
     CONSTRAINT `chk_area`
             CHECK (`Area` IN ('N','S', 'W', 'E', 'NW', 'NE', 'SW', 'SE')),
     PRIMARY KEY (`LocationID`)
@@ -84,18 +84,19 @@ CREATE TABLE IF NOT EXISTS `infinitepetsdb`.`location` (
 ENGINE = InnoDB;
 
 -- Account
+-- WARNING: PasswordHash and PasswordSalt is TEMPORARILY allowed to be null
 CREATE TABLE IF NOT EXISTS `infinitepetsdb`.`account` (
     `UserId` INT NOT NULL AUTO_INCREMENT,
     `Username` VARCHAR(30) NOT NULL,
     `Password` VARCHAR(30) NOT NULL,
-	`PasswordHash` VARCHAR(32) DEFAULT NULL, -- I'd make this NOT NULL but until we implement the hashing it'll have to stay null
-	`PasswordSalt` VARCHAR(32) DEFAULT NULL,
+	`PasswordHash` VARCHAR(32),
+	`PasswordSalt` VARCHAR(32),
     `Email` VARCHAR(100) UNIQUE NOT NULL,
     `FirstName` VARCHAR(50) NOT NULL,
     `LastName` VARCHAR(50) NOT NULL,
     `IsEmployee` BIT NOT NULL,
     `IsConfirmed` BIT NOT NULL,
-	`PasswordResetCode` VARCHAR(30) DEFAULT NULL,
+	`PasswordResetCode` VARCHAR(30),
 	`PasswordResetActive` BIT DEFAULT 0,
     PRIMARY KEY (`UserId`)
 )
@@ -204,7 +205,7 @@ CREATE TABLE IF NOT EXISTS `infinitepetsdb`.`pet` (
     `Birthday` DATE NOT NULL,
     `PreferredVet` VARCHAR(60),
     `MedicalInfo` VARCHAR(120),
-	`ImagePath` VARCHAR(120),
+    `ImagePath` VARCHAR(120),
     PRIMARY KEY (`PetID`),
     INDEX `fk_pets_accounts_idx` (`Owner` ASC),
     CONSTRAINT `fk_pets_accounts`
@@ -220,7 +221,7 @@ ENGINE = InnoDB;
 -- GalleryImage
 CREATE TABLE IF NOT EXISTS `infinitepetsdb`.`gallery` (
 	`ImageID` INT NOT NULL AUTO_INCREMENT,
-    `ImageSubtitle` VARCHAR(80),
+        `ImageSubtitle` VARCHAR(80),
 	`ImagePath` VARCHAR(120),
 	`Show` BIT NOT NULL,
 	`Featured` BIT NOT NULL,
@@ -281,12 +282,51 @@ CREATE TABLE IF NOT EXISTS `infinitepetsdb`.`management` (
 )
 ENGINE = InnoDB;
 
+
+-- Schedule
+	-- For the staff
+	-- COmposite PK using Schedule ID and EmployeeID
+    CREATE TABLE IF NOT EXISTS `infinitepetsdb`.`schedule` (
+        `ScheduleID` INT NOT NULL AUTO_INCREMENT,
+        `EmployeeID` INT NOT NULL,
+        `startTime` DATETIME NOT NULL,
+        `endTime` DATETIME NOT NULL,
+        INDEX `fk_schedule_employee_employeeIdx` (`EmployeeID` ASC),
+        CONSTRAINT `fk_schedule_employee_employeeID`
+			FOREIGN KEY (`EmployeeID`)
+            REFERENCES `infinitepetsdb`.`employee` (`EmployeeiD`)
+            ON DELETE NO ACTION,
+        PRIMARY KEY (`ScheduleID`, `EmployeeID`)
+    )
+    ENGINE = InnoDB;
+
+
+-- Inserts 
+
+-- Insert into accounts
 INSERT INTO `account` (`Username`,`Password`,`Email`,`FirstName`,`LastName`,`IsEmployee`,`IsConfirmed`)
     VALUES 
         ('admin','password','cprg352+admin@gmail.com','Admin','Admin',1,1),
         ('employee','password','cprg352+employee@gmail.com','employee','employee',1,1),
         ('anne','password','cprg352+anne@gmail.com','Anne','Annerson',0,1),
         ('barb','password','cprg352+barb@gmail.com','Barb','Barber',0,1);
+
+-- insert into employee tables
+   -- `UserID` INT NOT NULL,
+    -- `IsAdmin` BIT NOT NULL,
+   -- `OnVacation` BIT NOT NULL,
+    -- `Active` BIT NOT NULL,
+INSERT INTO `employee` (`UserID`, `IsAdmin`, `OnVacation`, `Active`)
+	VALUES (2, 0, 0, 1);
+
+
+-- Insert into schedule for testing
+-- datetime format YYYY-MM-DD HH:MM:SS
+INSERT `Schedule` (`EmployeeID`, `startTime`, `endTime`)
+	VALUES 
+            (1, '2021-03-21 10:00:00', '2021-03-21 17:00:00'),
+            (1, '2021-03-22 12:00:00', '2021-03-21 17:00:00');
+
 
 -- insert into animal_type
 INSERT INTO animal_Type (animal_Type)
