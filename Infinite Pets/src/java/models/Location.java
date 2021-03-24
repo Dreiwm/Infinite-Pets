@@ -19,21 +19,21 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author BTran
+ * @author Riley
  */
 @Entity
 @Table(name = "location")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Location.findAll", query = "SELECT l FROM Location l")
-    , @NamedQuery(name = "Location.findByLocationID", query = "SELECT l FROM Location l WHERE l.locationID = :locationID")
-    , @NamedQuery(name = "Location.findByLocationType", query = "SELECT l FROM Location l WHERE l.locationType = :locationType")
-    , @NamedQuery(name = "Location.findByPostalCode", query = "SELECT l FROM Location l WHERE l.postalCode = :postalCode")
-    , @NamedQuery(name = "Location.findByAddress", query = "SELECT l FROM Location l WHERE l.address = :address")
-    , @NamedQuery(name = "Location.findByCity", query = "SELECT l FROM Location l WHERE l.city = :city")
-    , @NamedQuery(name = "Location.findByCountry", query = "SELECT l FROM Location l WHERE l.country = :country")
-    , @NamedQuery(name = "Location.findByProvince", query = "SELECT l FROM Location l WHERE l.province = :province")
-    , @NamedQuery(name = "Location.findByArea", query = "SELECT l FROM Location l WHERE l.area = :area")})
+    @NamedQuery(name = "Location.findAll", query = "SELECT l FROM Location l"),
+    @NamedQuery(name = "Location.findByLocationID", query = "SELECT l FROM Location l WHERE l.locationID = :locationID"),
+    @NamedQuery(name = "Location.findByLocationType", query = "SELECT l FROM Location l WHERE l.locationType = :locationType"),
+    @NamedQuery(name = "Location.findByPostalCode", query = "SELECT l FROM Location l WHERE l.postalCode = :postalCode"),
+    @NamedQuery(name = "Location.findByAddress", query = "SELECT l FROM Location l WHERE l.address = :address"),
+    @NamedQuery(name = "Location.findByCity", query = "SELECT l FROM Location l WHERE l.city = :city"),
+    @NamedQuery(name = "Location.findByCountry", query = "SELECT l FROM Location l WHERE l.country = :country"),
+    @NamedQuery(name = "Location.findByProvince", query = "SELECT l FROM Location l WHERE l.province = :province"),
+    @NamedQuery(name = "Location.findByArea", query = "SELECT l FROM Location l WHERE l.area = :area")})
 public class Location implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -62,7 +62,7 @@ public class Location implements Serializable {
     private String province;
     @Basic(optional = false)
     @Column(name = "Area")
-    private Character area;
+    private String area;
 
     public Location() {
     }
@@ -71,7 +71,7 @@ public class Location implements Serializable {
         this.locationID = locationID;
     }
 
-    public Location(Integer locationID, Character locationType, String postalCode, String address, String city, String country, String province, Character area) {
+    public Location(Integer locationID, Character locationType, String postalCode, String address, String city, String country, String province, String area) {
         this.locationID = locationID;
         this.locationType = locationType;
         this.postalCode = postalCode;
@@ -138,11 +138,11 @@ public class Location implements Serializable {
         this.province = province;
     }
 
-    public Character getArea() {
+    public String getArea() {
         return area;
     }
 
-    public void setArea(Character area) {
+    public void setArea(String area) {
         this.area = area;
     }
 

@@ -16,6 +16,14 @@
         <servlet-name>BookAppointmentServlet</servlet-name>
         <servlet-class>servlets.scheduleServlets.BookAppointmentServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>LoginServlet</servlet-name>
+        <servlet-class>servlets.InfinitePetsServlets.LoginServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SignUpServlet</servlet-name>
+        <servlet-class>servlets.InfinitePetsServlets.SignUpServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>AddPetServlet</servlet-name>
         <url-pattern>/AddPet</url-pattern>
@@ -27,6 +35,14 @@
     <servlet-mapping>
         <servlet-name>BookAppointmentServlet</servlet-name>
         <url-pattern>/BookAppointment</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LoginServlet</servlet-name>
+        <url-pattern>/Login</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SignUpServlet</servlet-name>
+        <url-pattern>/SignUp</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
