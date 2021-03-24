@@ -28,6 +28,12 @@ public class PetServicesServices {
         return serviceDB.getServiceById(serviceID);
     }
     
+       //Retrieves a specific Service requested
+    public Service getService(String serviceName) {
+        ServiceDB serviceDB = new ServiceDB();
+        return serviceDB.getServiceByName(serviceName);
+    }
+    
 //    //Retrieves a list of different ServiceTypes
 //    public List<ServiceType> getAllServiceTypes() {
 //        ServiceDB serviceDB = new ServiceDB();
