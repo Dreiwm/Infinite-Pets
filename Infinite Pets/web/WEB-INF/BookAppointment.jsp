@@ -12,176 +12,94 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <%@include file="testFiles/header.jsp" %>
-    <script src="assets/js/addAppt.js"></script>
-    <link rel="stylesheet" type="text/css" href="./assets/css/main.css"/>
-    <link rel="stylesheet" type="text/css" href="./assets/css/BookAppointment.css"/>
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
     <title>Book Appointment</title>
 </head>
-<body>        
+<body>
+    <header>
 
-        <div class="wrapper">
 
-            <div class="path">
-                <div class="link">
-                    <a href="">My appointments</a>
-                </div>
-                <div class="link">
-                    <img id="chevronRight" src="assets/img/chevronRight.svg" alt="">
-                </div>
-                <div class="link">
-                    <a href="">New Appointment</a>
-                </div>
-            </div>
+    </header>
+    <label for="date">Date</label>
+    <input name="date" type="date">
 
-            <div class="appointmentContainer">
-                <div class="appointmentInput">
-                    <div class="appointmentTitle">
-                        <h1>Book an Appointment</h1>
-                    </div>
+    <br>
     
-    
-                    <div class="dateLabel">
-                        <label for="date">Date</label>
-                    </div>
-    
-                    <div class="dateInput">
-                        <input name="date" type="date" id="selectDate">
-                    </div>
-    
-                    <div class="timeLable">
-                        <label for="time">Time</label>
-                    </div>
-    
-                    <div class="timeInput">
-                        <select name="time" id="selectTime">
-                            <option value="morn">Morning</option>
-                            <option value="after">Afternoon</option>
-                            <option value="eve">Evening</option>
-                        </select>
-                    </div>
-    
-                    <div class="petLabel">
-                        <label for="pet">Select Pet</label>
-                    </div>
-                    <div class="petInput">
-                        <select name="pet" id="petSelect">
-                            <option value="">Pet 1</option>
-                            <option value="">Pet 2</option>
-                            <option value="">Pet 3</option>
-                            <option value="">Pet 4</option>
-                        </select>
-                    </div>
-    
-                    <div class="serviceLabel">
-                        <label for="service">Select service</label>
-                    </div>
-                    
-                    <div class="serviceInput">
-                        <select name="service" id="serviceSelect">
-                            <option value="">Service 1</option>
-                            <option value="">Service 2</option>
-                            <option value="">Service 3</option>
-                            <option value="">Service 4</option>
-                        </select>
-                    </div>
-    
-                    <div class="addServiceBtn">
-                        <button onclick="addService()">Add another service</button>
-                    </div>
-    
-                    
-    
-                    <div class="notesInput">
-                        <textarea name="notes" id="notes" cols="30" rows="3">Additional Notes</textarea>
-                    </div>
-                    
-                    <div class="addPetToApptBtn">
-                        <button>Add pet to the appointment</button>
-                    </div>
-    
-                </div>
-    
-                <div class="appointmentSum">
-                    <div class="sumTitle">
-                        <h3>Appointment Summary:</h3>
-                    </div>
-                        <div class="sumDate">
-                            <p>Date: </p>
-                        </div>
-                        <div class="sumTime">
-                            <p>Time: </p>
-                        </div>
-                        <div class="sumDetails">
-                            <p>Details: </p>
-                        </div>
-    
-                        <div class="sumPetName">
-                            <input id="sumPetName" type="text">
-                        </div>
-                        
-                        <div class="sumService">
-                            <input id="sumService" type="text">
-                        </div>
+    <label for="time">Time</label>
+    <select name="time" id="">
+        <option value="morn">Morning</option>
+        <option value="after">Afternoon</option>
+        <option value="eve">Evening</option>
+    </select>
 
-                        <div class="cancelBtn">
-                            <button>Cancel</button>
-                        </div>
-                        <div class="bookBtn">
-                            <button>Book appointment</button>
-                        </div>
-                </div>
-            </div>
-        </div>
+    <br>
 
+    <label for="pet">Select Pet</label>
+    <select name="pet" id="">
+        <option value="">Pet 1</option>
+        <option value="">Pet 2</option>
+        <option value="">Pet 3</option>
+        <option value="">Pet 4</option>
+    </select>
+    
+    <br>
+
+    <label for="service">Select service</label>
+    <select name="service" id="">
+        <option value="">Service 1</option>
+        <option value="">Service 2</option>
+        <option value="">Service 3</option>
+        <option value="">Service 4</option>
+    </select>
+
+    <button>Add another service for this pet</button>
+
+    
+
+    <br>
+    <textarea name="notes" id="" cols="30" rows="3">Additional Notes</textarea>
+    
+    <h3>Current pet to Add:</h3>
+
+    <table name="tempPetService">
+        <tr>
+            <td>PET NAME</td>
+        </tr>
+        <tr>
+            <td>SERVICE 1</td>
+        </tr>
+        <tr>
+            <td>SERVICE 2</td>
+        </tr>
+        <tr>
+            <td>SERVICE 3</td>
+        </tr>
+        <tr>
+            <td>SERVICE 4</td>
+        </tr>
+        <tr>
+            <td>Additional notes for the pet</td>
+        </tr>
+    </table>
+
+    <button>Add pet to the appointment</button>
+
+
+    <ul name="petService">
+        <li>pet 1</li>
+        <li>service 1</li>
+        <li>service 2</li>
+        <li>notes about the pet</li>
+    </ul>
+
+    <ul name="petService">
+        <li>pet 2</li>
+        <li>service 1</li>
+        <li>service 3</li>
+        <li>notes about the pet</li>
+    </ul>
+
+
+    <button>Cancel</button>
+    <button>Book appointment</button>
 </body>
-
-
-
-  <!-- <div class="calendar">
-                <div class="month"></div>
-                <div class="daysHeader"></div>
-                <div class="week">
-                    <div class="day"></div>
-                    <div class="day"></div>
-                    <div class="day"></div>
-                    <div class="day"></div>
-                    <div class="day"></div>
-                    <div class="day"></div>
-                    <div class="day"></div>
-                </div>
-                <div class="week">
-                    <div class="day"></div>
-                    <div class="day"></div>
-                    <div class="day"></div>
-                    <div class="day"></div>
-                    <div class="day"></div>
-                    <div class="day"></div>
-                    <div class="day"></div>
-                </div>
-                <div class="week">
-                    <div class="day"></div>
-                    <div class="day"></div>
-                    <div class="day"></div>
-                    <div class="day"></div>
-                    <div class="day"></div>
-                    <div class="day"></div>
-                    <div class="day"></div>
-                </div>
-                <div class="week">
-                    <div class="day"></div>
-                    <div class="day"></div>
-                    <div class="day"></div>
-                    <div class="day"></div>
-                    <div class="day"></div>
-                    <div class="day"></div>
-                    <div class="day"></div>
-                </div>
-                
-            </div> -->
-
-<%@include file="testFiles/footer.jsp" %>
 </html>
-
