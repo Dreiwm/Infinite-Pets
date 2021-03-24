@@ -24,21 +24,25 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author BTran
+ * @author Riley
  */
 @Entity
 @Table(name = "account")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Account.findAll", query = "SELECT a FROM Account a")
-    , @NamedQuery(name = "Account.findByUserId", query = "SELECT a FROM Account a WHERE a.userId = :userId")
-    , @NamedQuery(name = "Account.findByUsername", query = "SELECT a FROM Account a WHERE a.username = :username")
-    , @NamedQuery(name = "Account.findByPassword", query = "SELECT a FROM Account a WHERE a.password = :password")
-    , @NamedQuery(name = "Account.findByEmail", query = "SELECT a FROM Account a WHERE a.email = :email")
-    , @NamedQuery(name = "Account.findByFirstName", query = "SELECT a FROM Account a WHERE a.firstName = :firstName")
-    , @NamedQuery(name = "Account.findByLastName", query = "SELECT a FROM Account a WHERE a.lastName = :lastName")
-    , @NamedQuery(name = "Account.findByIsEmployee", query = "SELECT a FROM Account a WHERE a.isEmployee = :isEmployee")
-    , @NamedQuery(name = "Account.findByIsConfirmed", query = "SELECT a FROM Account a WHERE a.isConfirmed = :isConfirmed")})
+    @NamedQuery(name = "Account.findAll", query = "SELECT a FROM Account a"),
+    @NamedQuery(name = "Account.findByUserId", query = "SELECT a FROM Account a WHERE a.userId = :userId"),
+    @NamedQuery(name = "Account.findByUsername", query = "SELECT a FROM Account a WHERE a.username = :username"),
+    @NamedQuery(name = "Account.findByPassword", query = "SELECT a FROM Account a WHERE a.password = :password"),
+    @NamedQuery(name = "Account.findByPasswordHash", query = "SELECT a FROM Account a WHERE a.passwordHash = :passwordHash"),
+    @NamedQuery(name = "Account.findByPasswordSalt", query = "SELECT a FROM Account a WHERE a.passwordSalt = :passwordSalt"),
+    @NamedQuery(name = "Account.findByEmail", query = "SELECT a FROM Account a WHERE a.email = :email"),
+    @NamedQuery(name = "Account.findByFirstName", query = "SELECT a FROM Account a WHERE a.firstName = :firstName"),
+    @NamedQuery(name = "Account.findByLastName", query = "SELECT a FROM Account a WHERE a.lastName = :lastName"),
+    @NamedQuery(name = "Account.findByIsEmployee", query = "SELECT a FROM Account a WHERE a.isEmployee = :isEmployee"),
+    @NamedQuery(name = "Account.findByIsConfirmed", query = "SELECT a FROM Account a WHERE a.isConfirmed = :isConfirmed"),
+    @NamedQuery(name = "Account.findByPasswordResetCode", query = "SELECT a FROM Account a WHERE a.passwordResetCode = :passwordResetCode"),
+    @NamedQuery(name = "Account.findByPasswordResetActive", query = "SELECT a FROM Account a WHERE a.passwordResetActive = :passwordResetActive")})
 public class Account implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -53,6 +57,10 @@ public class Account implements Serializable {
     @Basic(optional = false)
     @Column(name = "Password")
     private String password;
+    @Column(name = "PasswordHash")
+    private String passwordHash;
+    @Column(name = "PasswordSalt")
+    private String passwordSalt;
     @Basic(optional = false)
     @Column(name = "Email")
     private String email;
@@ -68,6 +76,10 @@ public class Account implements Serializable {
     @Basic(optional = false)
     @Column(name = "IsConfirmed")
     private boolean isConfirmed;
+    @Column(name = "PasswordResetCode")
+    private String passwordResetCode;
+    @Column(name = "PasswordResetActive")
+    private Boolean passwordResetActive;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "clientID", fetch = FetchType.EAGER)
     private List<Appointment> appointmentList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userID", fetch = FetchType.EAGER)
@@ -117,6 +129,22 @@ public class Account implements Serializable {
         this.password = password;
     }
 
+    public String getPasswordHash() {
+        return passwordHash;
+    }
+
+    public void setPasswordHash(String passwordHash) {
+        this.passwordHash = passwordHash;
+    }
+
+    public String getPasswordSalt() {
+        return passwordSalt;
+    }
+
+    public void setPasswordSalt(String passwordSalt) {
+        this.passwordSalt = passwordSalt;
+    }
+
     public String getEmail() {
         return email;
     }
@@ -155,6 +183,22 @@ public class Account implements Serializable {
 
     public void setIsConfirmed(boolean isConfirmed) {
         this.isConfirmed = isConfirmed;
+    }
+
+    public String getPasswordResetCode() {
+        return passwordResetCode;
+    }
+
+    public void setPasswordResetCode(String passwordResetCode) {
+        this.passwordResetCode = passwordResetCode;
+    }
+
+    public Boolean getPasswordResetActive() {
+        return passwordResetActive;
+    }
+
+    public void setPasswordResetActive(Boolean passwordResetActive) {
+        this.passwordResetActive = passwordResetActive;
     }
 
     @XmlTransient
