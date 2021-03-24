@@ -76,7 +76,7 @@ CREATE TABLE IF NOT EXISTS `infinitepetsdb`.`location` (
     `City` VARCHAR(30) NOT NULL,
     `Country` VARCHAR(30) NOT NULL,
     `Province` VARCHAR(30) NOT NULL,
-    `Area` VARCHAR(2) NOT NULL,
+    `Area` CHAR(1) NOT NULL,
     CONSTRAINT `chk_area`
             CHECK (`Area` IN ('N','S', 'W', 'E', 'NW', 'NE', 'SW', 'SE')),
     PRIMARY KEY (`LocationID`)
@@ -86,6 +86,7 @@ ENGINE = InnoDB;
 -- Account
 CREATE TABLE IF NOT EXISTS `infinitepetsdb`.`account` (
     `UserId` INT NOT NULL AUTO_INCREMENT,
+    `Username` VARCHAR(30) NOT NULL,
     `Password` VARCHAR(30) NOT NULL,
 	`PasswordHash` VARCHAR(32) DEFAULT NULL, -- I'd make this NOT NULL but until we implement the hashing it'll have to stay null
 	`PasswordSalt` VARCHAR(32) DEFAULT NULL,

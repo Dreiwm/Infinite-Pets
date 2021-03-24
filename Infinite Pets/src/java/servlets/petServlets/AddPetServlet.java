@@ -49,7 +49,7 @@ public class AddPetServlet extends HttpServlet {
         session.setAttribute("owner", "anne");
         
         request.setAttribute("animalList", vs.getAnimalType());
-        request.setAttribute("dogBreedList", vs.getBreedList());        
+        request.setAttribute("breedList", vs.getBreedList());        
        
         getServletContext().getRequestDispatcher("/WEB-INF/AddAPet.jsp").forward(request,response);
     }
@@ -92,7 +92,7 @@ public class AddPetServlet extends HttpServlet {
             try{
                 String msg = vs.checkInput(petName, type, breed, birthday, vet, info, sex, owner);
                 if (msg.equals("Checked")){
-//                    System.out.println("going to aps");
+                    System.out.println("going to aps");
                     aps.createPet(petName, type, breed, birthday, vet, info, sex, owner);
                     response.sendRedirect("MyPets");
                 }
