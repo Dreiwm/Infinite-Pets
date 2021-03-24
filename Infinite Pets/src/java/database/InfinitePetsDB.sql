@@ -8,7 +8,7 @@ USE `infinitepetsdb` ;
 -- To be used in Service and employee tables.
 CREATE TABLE IF NOT EXISTS `infinitepetsdb`.serviceType (
 	`ServiceTypeID` INT NOT NULL auto_increment,
-        `ServiceType` VARCHAR(30) NOT NULL,
+    `ServiceType` VARCHAR(30) NOT NULL,
     PRIMARY KEY (`ServiceTypeID`)
 )
 ENGINE=InnoDB;
@@ -76,7 +76,7 @@ CREATE TABLE IF NOT EXISTS `infinitepetsdb`.`location` (
     `City` VARCHAR(30) NOT NULL,
     `Country` VARCHAR(30) NOT NULL,
     `Province` VARCHAR(30) NOT NULL,
-    `Area` VARCHAR(2) NOT NULL,
+    `Area` CHAR(1) NOT NULL,
     CONSTRAINT `chk_area`
             CHECK (`Area` IN ('N','S', 'W', 'E', 'NW', 'NE', 'SW', 'SE')),
     PRIMARY KEY (`LocationID`)
@@ -86,12 +86,17 @@ ENGINE = InnoDB;
 -- Account
 CREATE TABLE IF NOT EXISTS `infinitepetsdb`.`account` (
     `UserId` INT NOT NULL AUTO_INCREMENT,
+    `Username` VARCHAR(30) NOT NULL,
     `Password` VARCHAR(30) NOT NULL,
+	`PasswordHash` VARCHAR(32) DEFAULT NULL, -- I'd make this NOT NULL but until we implement the hashing it'll have to stay null
+	`PasswordSalt` VARCHAR(32) DEFAULT NULL,
     `Email` VARCHAR(100) UNIQUE NOT NULL,
     `FirstName` VARCHAR(50) NOT NULL,
     `LastName` VARCHAR(50) NOT NULL,
     `IsEmployee` BIT NOT NULL,
     `IsConfirmed` BIT NOT NULL,
+	`PasswordResetCode` VARCHAR(30) DEFAULT NULL,
+	`PasswordResetActive` BIT DEFAULT 0,
     PRIMARY KEY (`UserId`)
 )
 ENGINE = InnoDB;
@@ -199,6 +204,7 @@ CREATE TABLE IF NOT EXISTS `infinitepetsdb`.`pet` (
     `Birthday` DATE NOT NULL,
     `PreferredVet` VARCHAR(60),
     `MedicalInfo` VARCHAR(120),
+	`ImagePath` VARCHAR(120),
     PRIMARY KEY (`PetID`),
     INDEX `fk_pets_accounts_idx` (`Owner` ASC),
     CONSTRAINT `fk_pets_accounts`
@@ -210,6 +216,18 @@ CREATE TABLE IF NOT EXISTS `infinitepetsdb`.`pet` (
             CHECK (`Sex` IN ('M','F','N','S'))
 )
 ENGINE = InnoDB;
+
+-- GalleryImage
+CREATE TABLE IF NOT EXISTS `infinitepetsdb`.`gallery` (
+	`ImageID` INT NOT NULL AUTO_INCREMENT,
+    `ImageSubtitle` VARCHAR(80),
+	`ImagePath` VARCHAR(120),
+	`Show` BIT NOT NULL,
+	`Featured` BIT NOT NULL,
+	PRIMARY KEY (`ImageID`)
+)
+ENGINE = InnoDB;
+
 
 -- Appointment
 CREATE TABLE IF NOT EXISTS `infinitepetsdb`.`appointment` (
