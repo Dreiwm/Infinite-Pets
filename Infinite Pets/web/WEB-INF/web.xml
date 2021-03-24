@@ -28,6 +28,10 @@
         <servlet-name>ResetPasswordServlet</servlet-name>
         <servlet-class>servlets.InfinitePetsServlets.ResetPasswordServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>DeleteAccountServlet</servlet-name>
+        <servlet-class>servlets.InfinitePetsServlets.DeleteAccountServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>AddPetServlet</servlet-name>
         <url-pattern>/AddPet</url-pattern>
@@ -52,6 +56,10 @@
         <servlet-name>ResetPasswordServlet</servlet-name>
         <url-pattern>/ResetPassword</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteAccountServlet</servlet-name>
+        <url-pattern>/DeleteAccount</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
@@ -60,11 +68,11 @@
     <env-entry>
         <env-entry-name>webmail-username</env-entry-name>
         <env-entry-type>java.lan.String</env-entry-type>
-        <env-entry-value></env-entry-value>
+        <env-entry-value/>
     </env-entry>
-        <env-entry>
+    <env-entry>
         <env-entry-name>webmail-password</env-entry-name>
         <env-entry-type>java.lan.String</env-entry-type>
-        <env-entry-value></env-entry-value>
+        <env-entry-value/>
     </env-entry>
 </web-app>
