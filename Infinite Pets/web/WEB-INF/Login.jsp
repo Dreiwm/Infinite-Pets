@@ -66,7 +66,7 @@
                         <button type="submit" name="action" value="login">Login</button>
                     </div>
                     <div class="createAccount">
-                        <a id="createAccount" href="CreateAccount">Create Account</a>
+                        <a id="createAccount" href="SignUp">Create Account</a>
                     </div>
                 </div>
             </div>
