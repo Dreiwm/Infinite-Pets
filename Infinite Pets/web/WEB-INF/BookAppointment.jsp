@@ -13,6 +13,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="assets/css/BookAppointment.css">
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
     <%@include file="testFiles/header.jsp" %>
     <title>Book Appointment</title>
 </head>
@@ -33,4 +36,5 @@
 
 
 </body>
+<footer> <%@include file="testFiles/footer.jsp" %> </footer>
 </html>
