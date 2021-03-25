@@ -9,6 +9,9 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" href="assets/css/main.css">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
         <%@include file="testFiles/header.jsp" %>
         <title>Delete Account</title> <!-- Overwrite title in header.jsp -->
         <link rel="stylesheet" href="assets/css/deleteAccount.css"/>
@@ -24,6 +27,6 @@
             </form>
         </div>
         </div>
-        <footer> <%@include file="testFiles/footer.jsp" %> </footer>
     </body>
+    <footer> <%@include file="testFiles/footer.jsp" %> </footer>
 </html>
