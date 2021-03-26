@@ -5,6 +5,8 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -20,12 +22,22 @@
 
         <div class="wrapper">
             <div class="generalContainer">
-            <h1>Delete Account</h1>
-            <form name="deleteAccountForm" method="POST">
-                    <button type="submit" name="action" value="deleteAccount" class="dangerButton">Delete Account</button>
-                    <button type="submit" name="action" value="cancel">Cancel</button>
-            </form>
-        </div>
+                <!-- If deleteAccount parameter is not null, then present 
+                the successful account deletion. Otherwise, present button to send an email-->
+                <c:if test="${deleteAccount != null}">
+                    <h1>
+                        Your account had been deleted.
+                    </h1>
+                </c:if>
+                
+                <c:if test="${deleteAccount == null}">
+                    <h1>Delete Account</h1>
+                    <form name="deleteAccountForm" method="POST">
+                            <button type="submit" name="action" value="deleteAccount" class="dangerButton">Delete Account</button>
+                            <button type="submit" name="action" value="cancel">Cancel</button>
+                    </form>
+                </c:if>
+            </div>
         </div>
     </body>
     <footer> <%@include file="testFiles/footer.jsp" %> </footer>
