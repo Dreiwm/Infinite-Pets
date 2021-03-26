@@ -40,14 +40,38 @@ public class DeleteAccountServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
                         System.out.println("loading page");
-                                            getServletContext().getRequestDispatcher("/WEB-INF/DeleteAccount.jsp").forward(request,response);
+//                        
 
         // ensure that the user is still in session. If so, dispatch to JSP.
         // Otherwise, send the user to login page
         HttpSession ses = request.getSession();
-        ses.setAttribute("owner", "cprg352+anne@gmail.com"); 
+        ses.setAttribute("email", "bccrs.test@gmail.com"); 
         // Pretend that session is valid. Remove above when session is working properly.
         
+        // Check if the deleteAccount is not null, if its not, then the link
+        // is coming from an email that was sent.
+        String deleteAccount = request.getParameter("deleteAccount");
+        
+        
+        // test
+//        request.setAttribute("deleteAccount", "asdf");
+        
+        if (deleteAccount != null) {
+            // actually delete account 
+            // invalidate the session
+            
+            AccountServices acs = new AccountServices();
+                            try {
+                                acs.deleteAccount((String) ses.getAttribute("email"));
+                            } catch (Exception ex) {
+                                Logger.getLogger(DeleteAccountServlet.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+;
+            
+            ses.invalidate();
+            
+        } 
+        getServletContext().getRequestDispatcher("/WEB-INF/DeleteAccount.jsp").forward(request,response);
         
         
         
@@ -107,10 +131,10 @@ public class DeleteAccountServlet extends HttpServlet {
                     // Create random token...
                     String delConfirmToken = UUID.randomUUID().toString();
                     
-                    es.sendDeletionConfirm(acc, path, url, delConfirmToken);
+//                    es.sendDeletionConfirm(acc, path, url, delConfirmToken);
 //                        es.sendRecoveryPassword(to, path, url, action);
-                            
-                            } catch (Exception ex) {
+                    
+                } catch (Exception ex) {
                     Logger.getLogger(DeleteAccountServlet.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 
@@ -118,9 +142,7 @@ public class DeleteAccountServlet extends HttpServlet {
                 getServletContext().getRequestDispatcher("/WEB-INF/MyProfile.jsp").forward(request,response);
             }
         }
-        
-        getServletContext().getRequestDispatcher("/WEB-INF/DeleteAccount.jsp").forward(request,response);
-        
+                
         
         
         
