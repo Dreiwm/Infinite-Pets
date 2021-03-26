@@ -15,6 +15,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -24,25 +26,24 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Riley
+ * @author BTran
  */
 @Entity
 @Table(name = "account")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Account.findAll", query = "SELECT a FROM Account a"),
-    @NamedQuery(name = "Account.findByUserId", query = "SELECT a FROM Account a WHERE a.userId = :userId"),
-    @NamedQuery(name = "Account.findByUsername", query = "SELECT a FROM Account a WHERE a.username = :username"),
-    @NamedQuery(name = "Account.findByPassword", query = "SELECT a FROM Account a WHERE a.password = :password"),
-    @NamedQuery(name = "Account.findByPasswordHash", query = "SELECT a FROM Account a WHERE a.passwordHash = :passwordHash"),
-    @NamedQuery(name = "Account.findByPasswordSalt", query = "SELECT a FROM Account a WHERE a.passwordSalt = :passwordSalt"),
-    @NamedQuery(name = "Account.findByEmail", query = "SELECT a FROM Account a WHERE a.email = :email"),
-    @NamedQuery(name = "Account.findByFirstName", query = "SELECT a FROM Account a WHERE a.firstName = :firstName"),
-    @NamedQuery(name = "Account.findByLastName", query = "SELECT a FROM Account a WHERE a.lastName = :lastName"),
-    @NamedQuery(name = "Account.findByIsEmployee", query = "SELECT a FROM Account a WHERE a.isEmployee = :isEmployee"),
-    @NamedQuery(name = "Account.findByIsConfirmed", query = "SELECT a FROM Account a WHERE a.isConfirmed = :isConfirmed"),
-    @NamedQuery(name = "Account.findByPasswordResetCode", query = "SELECT a FROM Account a WHERE a.passwordResetCode = :passwordResetCode"),
-    @NamedQuery(name = "Account.findByPasswordResetActive", query = "SELECT a FROM Account a WHERE a.passwordResetActive = :passwordResetActive")})
+    @NamedQuery(name = "Account.findAll", query = "SELECT a FROM Account a")
+    , @NamedQuery(name = "Account.findByUserId", query = "SELECT a FROM Account a WHERE a.userId = :userId")
+    , @NamedQuery(name = "Account.findByPassword", query = "SELECT a FROM Account a WHERE a.password = :password")
+    , @NamedQuery(name = "Account.findByPasswordHash", query = "SELECT a FROM Account a WHERE a.passwordHash = :passwordHash")
+    , @NamedQuery(name = "Account.findByPasswordSalt", query = "SELECT a FROM Account a WHERE a.passwordSalt = :passwordSalt")
+    , @NamedQuery(name = "Account.findByEmail", query = "SELECT a FROM Account a WHERE a.email = :email")
+    , @NamedQuery(name = "Account.findByFirstName", query = "SELECT a FROM Account a WHERE a.firstName = :firstName")
+    , @NamedQuery(name = "Account.findByLastName", query = "SELECT a FROM Account a WHERE a.lastName = :lastName")
+    , @NamedQuery(name = "Account.findByIsEmployee", query = "SELECT a FROM Account a WHERE a.isEmployee = :isEmployee")
+    , @NamedQuery(name = "Account.findByIsConfirmed", query = "SELECT a FROM Account a WHERE a.isConfirmed = :isConfirmed")
+    , @NamedQuery(name = "Account.findByPasswordResetCode", query = "SELECT a FROM Account a WHERE a.passwordResetCode = :passwordResetCode")
+    , @NamedQuery(name = "Account.findByPasswordResetActive", query = "SELECT a FROM Account a WHERE a.passwordResetActive = :passwordResetActive")})
 public class Account implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -51,9 +52,6 @@ public class Account implements Serializable {
     @Basic(optional = false)
     @Column(name = "UserId")
     private Integer userId;
-    @Basic(optional = false)
-    @Column(name = "Username")
-    private String username;
     @Basic(optional = false)
     @Column(name = "Password")
     private String password;
@@ -84,6 +82,9 @@ public class Account implements Serializable {
     private List<Appointment> appointmentList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userID", fetch = FetchType.EAGER)
     private List<Employee> employeeList;
+    @JoinColumn(name = "Address", referencedColumnName = "LocationID")
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    private Location address;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "owner", fetch = FetchType.EAGER)
     private List<Pet> petList;
 
@@ -94,9 +95,8 @@ public class Account implements Serializable {
         this.userId = userId;
     }
 
-    public Account(Integer userId, String username, String password, String email, String firstName, String lastName, boolean isEmployee, boolean isConfirmed) {
+    public Account(Integer userId, String password, String email, String firstName, String lastName, boolean isEmployee, boolean isConfirmed) {
         this.userId = userId;
-        this.username = username;
         this.password = password;
         this.email = email;
         this.firstName = firstName;
@@ -111,14 +111,6 @@ public class Account implements Serializable {
 
     public void setUserId(Integer userId) {
         this.userId = userId;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
     }
 
     public String getPassword() {
@@ -217,6 +209,14 @@ public class Account implements Serializable {
 
     public void setEmployeeList(List<Employee> employeeList) {
         this.employeeList = employeeList;
+    }
+
+    public Location getAddress() {
+        return address;
+    }
+
+    public void setAddress(Location address) {
+        this.address = address;
     }
 
     @XmlTransient

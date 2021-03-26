@@ -23,17 +23,17 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Riley
+ * @author BTran
  */
 @Entity
 @Table(name = "schedule")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Schedule.findAll", query = "SELECT s FROM Schedule s"),
-    @NamedQuery(name = "Schedule.findByScheduleID", query = "SELECT s FROM Schedule s WHERE s.schedulePK.scheduleID = :scheduleID"),
-    @NamedQuery(name = "Schedule.findByEmployeeID", query = "SELECT s FROM Schedule s WHERE s.schedulePK.employeeID = :employeeID"),
-    @NamedQuery(name = "Schedule.findByStartTime", query = "SELECT s FROM Schedule s WHERE s.startTime = :startTime"),
-    @NamedQuery(name = "Schedule.findByEndTime", query = "SELECT s FROM Schedule s WHERE s.endTime = :endTime")})
+    @NamedQuery(name = "Schedule.findAll", query = "SELECT s FROM Schedule s")
+    , @NamedQuery(name = "Schedule.findByScheduleID", query = "SELECT s FROM Schedule s WHERE s.schedulePK.scheduleID = :scheduleID")
+    , @NamedQuery(name = "Schedule.findByEmployeeID", query = "SELECT s FROM Schedule s WHERE s.schedulePK.employeeID = :employeeID")
+    , @NamedQuery(name = "Schedule.findByStartTime", query = "SELECT s FROM Schedule s WHERE s.startTime = :startTime")
+    , @NamedQuery(name = "Schedule.findByEndTime", query = "SELECT s FROM Schedule s WHERE s.endTime = :endTime")})
 public class Schedule implements Serializable {
 
     private static final long serialVersionUID = 1L;

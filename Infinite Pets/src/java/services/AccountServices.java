@@ -6,7 +6,9 @@
 package services;
 
 import dataaccess.AccountDB;
+import dataaccess.LocationDB;
 import models.Account;
+import models.Location;
 
 /**
  *
@@ -30,33 +32,41 @@ public class AccountServices {
     }
     
     //Creates a Customer account and sends it to the database to be added
-    public void createUserAccount(String username, String password, String email, String firstName, 
-            String lastName)throws Exception{
+    public void createUserAccount(String firstName, String lastName, String email, String pass, Location address)throws Exception{
         AccountDB accountDB = new AccountDB();
-        Account account = new Account(0, username, password, email, firstName, lastName, false, false);
+        Account account = new Account(0, pass, email, firstName, lastName, false, false);
+        account.setAddress(address);
         accountDB.insertAccount(account);
     }
     
     //Create a staff Account and add it to the Database
-     public void createStaffAccount(String username, String password, String email, String firstName, 
+     public void createStaffAccount(String password, String email, String firstName, 
             String lastName)throws Exception{
         AccountDB accountDB = new AccountDB();
-        Account account = new Account(0, username, password, email, firstName, lastName, true, true);
+        Account account = new Account(0, password, email, firstName, lastName, true, true);
         accountDB.insertAccount(account);
     }   
+     
+    //Create an adress object for an account
+     public Location createAddress(String postalCode, String address, String city, String country, String province, String area) throws Exception{
+        LocationDB locDB = new LocationDB();
+        Location location = new Location (0, 'R', postalCode, address, city, country, province, area);
+        locDB.insert(location);
+        return location;
+     }
     
     /**
      * Updates an User Level Account with provided info.
      * To insure security a new Account object is created using inputed info and
      * lists are added after
      */
-    public void updateUserAccount(String username, String password, String email, String firstName, 
+    public void updateUserAccount(String password, String email, String firstName, 
             String lastName, Boolean isConfermed)throws Exception{
         AccountDB accountDB = new AccountDB();
         try{
             Account account = accountDB.getAccountByUsername(email);
             Account tempAccount = account;
-            account = new Account(account.getUserId(), username, password, email, firstName, lastName, false, isConfermed);
+            account = new Account(account.getUserId(), password, email, firstName, lastName, false, isConfermed);
             account.setAppointmentList(tempAccount.getAppointmentList());
             account.setEmployeeList(tempAccount.getEmployeeList());
             account.setPetList(tempAccount.getPetList());
@@ -72,13 +82,13 @@ public class AccountServices {
      * To insure security a new Account object is created using inputed info and
      * lists are added after
      */
-    public void updateStaffAccount(String username, String password, String email, String firstName, 
+    public void updateStaffAccount(String password, String email, String firstName, 
             String lastName, boolean isStaff)throws Exception{
                 AccountDB accountDB = new AccountDB();
         try{
             Account account = accountDB.getAccountByUsername(email);
             Account tempAccount = account;
-            account = new Account(account.getUserId(), username, password, email, firstName, lastName, isStaff, true);
+            account = new Account(account.getUserId(), password, email, firstName, lastName, isStaff, true);
             account.setAppointmentList(tempAccount.getAppointmentList());
             account.setEmployeeList(tempAccount.getEmployeeList());
             account.setPetList(tempAccount.getPetList());

@@ -68,7 +68,7 @@ public class ValidationServices {
             }
             
         } catch(Exception e){
-            Logger.getLogger(AddPetServlet.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(AddPetServlet.class.getName()).log(Level.WARNING, null, e);
         }
         if (msg.equals(""))
             msg = "Checked";
@@ -87,7 +87,7 @@ public class ValidationServices {
             List<AnimalType> animalList = aps.getAnimals();
             return animalList;  
         } catch (Exception ex) {
-            Logger.getLogger(AddPetServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AddPetServlet.class.getName()).log(Level.WARNING, null, ex);
         }
         return null;
     }
@@ -98,8 +98,31 @@ public class ValidationServices {
             List<Breed> breedList = aps.getAllAnimalBreeds();
             return breedList;
         } catch (Exception ex) {
-            Logger.getLogger(AddPetServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AddPetServlet.class.getName()).log(Level.WARNING, null, ex);
         }
         return null;
+    }
+
+    public boolean verifyLogin(String firstName, String lastName, String street, String city, String prov, String country, String postalCode, String area, String email, String emailConf, String pass, String passConf) {
+        boolean checked = false;
+        try {
+            
+            if (!firstName.equals("") || !lastName.equals("") || !street.equals("") || !city.equals("") || !prov.equals("") || !country.equals("") ||  !postalCode.equals("") || !area.equals("") || !email.equals("") || !emailConf.equals("") || !pass.equals("") || !passConf.equals("")) {
+                if (checkEmailPass(email, emailConf, pass, passConf))
+                    checked = true;                
+            }
+            return checked; 
+        } catch(Exception e) {
+            Logger.getLogger(AddPetServlet.class.getName()).log(Level.WARNING, null, e);
+        }
+        return checked;
+    }
+    
+    private boolean checkEmailPass(String email, String email2, String pass, String pass2) {
+        boolean checked = false;
+        if (email.equals(email2) && pass.equals(pass2)) {
+            checked = true;
+        }
+        return checked;
     }
 }

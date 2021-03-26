@@ -6,34 +6,39 @@
 package models;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Riley
+ * @author BTran
  */
 @Entity
 @Table(name = "location")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Location.findAll", query = "SELECT l FROM Location l"),
-    @NamedQuery(name = "Location.findByLocationID", query = "SELECT l FROM Location l WHERE l.locationID = :locationID"),
-    @NamedQuery(name = "Location.findByLocationType", query = "SELECT l FROM Location l WHERE l.locationType = :locationType"),
-    @NamedQuery(name = "Location.findByPostalCode", query = "SELECT l FROM Location l WHERE l.postalCode = :postalCode"),
-    @NamedQuery(name = "Location.findByAddress", query = "SELECT l FROM Location l WHERE l.address = :address"),
-    @NamedQuery(name = "Location.findByCity", query = "SELECT l FROM Location l WHERE l.city = :city"),
-    @NamedQuery(name = "Location.findByCountry", query = "SELECT l FROM Location l WHERE l.country = :country"),
-    @NamedQuery(name = "Location.findByProvince", query = "SELECT l FROM Location l WHERE l.province = :province"),
-    @NamedQuery(name = "Location.findByArea", query = "SELECT l FROM Location l WHERE l.area = :area")})
+    @NamedQuery(name = "Location.findAll", query = "SELECT l FROM Location l")
+    , @NamedQuery(name = "Location.findByLocationID", query = "SELECT l FROM Location l WHERE l.locationID = :locationID")
+    , @NamedQuery(name = "Location.findByLocationType", query = "SELECT l FROM Location l WHERE l.locationType = :locationType")
+    , @NamedQuery(name = "Location.findByPostalCode", query = "SELECT l FROM Location l WHERE l.postalCode = :postalCode")
+    , @NamedQuery(name = "Location.findByAddress", query = "SELECT l FROM Location l WHERE l.address = :address")
+    , @NamedQuery(name = "Location.findByCity", query = "SELECT l FROM Location l WHERE l.city = :city")
+    , @NamedQuery(name = "Location.findByCountry", query = "SELECT l FROM Location l WHERE l.country = :country")
+    , @NamedQuery(name = "Location.findByProvince", query = "SELECT l FROM Location l WHERE l.province = :province")
+    , @NamedQuery(name = "Location.findByArea", query = "SELECT l FROM Location l WHERE l.area = :area")})
 public class Location implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -63,6 +68,8 @@ public class Location implements Serializable {
     @Basic(optional = false)
     @Column(name = "Area")
     private String area;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "address", fetch = FetchType.EAGER)
+    private List<Account> accountList;
 
     public Location() {
     }
@@ -144,6 +151,15 @@ public class Location implements Serializable {
 
     public void setArea(String area) {
         this.area = area;
+    }
+
+    @XmlTransient
+    public List<Account> getAccountList() {
+        return accountList;
+    }
+
+    public void setAccountList(List<Account> accountList) {
+        this.accountList = accountList;
     }
 
     @Override

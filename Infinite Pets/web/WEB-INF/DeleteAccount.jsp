@@ -22,7 +22,9 @@
             <div class="generalContainer">
             <h1>Delete Account</h1>
             <form>
-                    <button type="submit" name="action" value="deleteAccount" class="dangerButton">Delete Account</button>
+                    <button type="submit" name="action" value="deleteAccount" class="dangerButton">Delete Account</button>                    
+            </form>
+            <form method="GET" action="MyProfile">
                     <button type="submit" name="action" value="cancel">Cancel</button>
             </form>
         </div>

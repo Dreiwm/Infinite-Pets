@@ -31,6 +31,10 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        //gets session and invalidates if you go to the login page specifically
+        HttpSession session = request.getSession();
+        session.invalidate();
+        
         getServletContext().getRequestDispatcher("/WEB-INF/Login.jsp").forward(request,response);
     }
 
