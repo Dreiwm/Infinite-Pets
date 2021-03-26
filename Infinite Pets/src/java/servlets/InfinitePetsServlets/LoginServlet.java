@@ -31,7 +31,9 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+                System.out.println("page loading..");
         getServletContext().getRequestDispatcher("/WEB-INF/Login.jsp").forward(request,response);
+
     }
 
     /**
@@ -45,6 +47,7 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+       System.out.println("processing the doPost..");
         String password, email = "";
        
         
@@ -65,12 +68,14 @@ public class LoginServlet extends HttpServlet {
             }
             finally{
                 if(found){
+                    System.out.println("account found");
                      HttpSession session = request.getSession();
                      session.setAttribute("owner", acc.getUserId());
                      response.sendRedirect("MyPets");
                 }
                 else
                 {
+                    System.out.println("Wrong creds");
                     getServletContext().getRequestDispatcher("/WEB-INF/Login.jsp").forward(request,response);
                 }
             }     

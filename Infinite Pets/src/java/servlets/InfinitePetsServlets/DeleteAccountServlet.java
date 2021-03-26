@@ -7,10 +7,17 @@ package servlets.InfinitePetsServlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.UUID;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import models.Account;
+import services.AccountServices;
+import services.EmailService;
 
 /**
  *
@@ -32,7 +39,35 @@ public class DeleteAccountServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-                        getServletContext().getRequestDispatcher("/WEB-INF/DeleteAccount.jsp").forward(request,response);
+                        System.out.println("loading page");
+                                            getServletContext().getRequestDispatcher("/WEB-INF/DeleteAccount.jsp").forward(request,response);
+
+        // ensure that the user is still in session. If so, dispatch to JSP.
+        // Otherwise, send the user to login page
+        HttpSession ses = request.getSession();
+        ses.setAttribute("owner", "cprg352+anne@gmail.com"); 
+        // Pretend that session is valid. Remove above when session is working properly.
+        
+        
+        
+        
+//        String email = (String) ses.getAttribute("owner");
+//        System.out.println(email);
+//        AccountServices acs = new AccountServices();
+//        if (email != null) {
+//            try {
+//                if (acs.getAccount(email) != null)
+//                    getServletContext().getRequestDispatcher("/WEB-INF/DeleteAccount.jsp").forward(request,response);
+//            } catch (Exception ex) {
+//                Logger.getLogger(DeleteAccountServlet.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//        } else {
+//            ses.invalidate();
+//            response.sendRedirect("Login");
+//        }
+        
+        
+        
     }
 
     /**
@@ -46,7 +81,50 @@ public class DeleteAccountServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        
+        // if delete button is not null, then send to login page
+        // if cancel button is not null, then go back to MyProfile page.
+        String action = request.getParameter("action");
+        
+        if (action != null) {
+            if (action.equals("deleteAccount")) {
+                try {
+                    System.out.println("Deleting account");
+                    
+                    // Get email from session and then get Account
+                    HttpSession ses = request.getSession();
+                    // Get account using AccountService
+                    AccountServices acs = new AccountServices();
+                    Account acc = acs.getAccount((String) ses.getAttribute("email"));
+                    
+                    // Send email to user to confirm deletion...
+                    // Use EmailService
+                    EmailService es = new EmailService();
+                    
+                    
+                    String path = getServletContext().getRealPath("/WEB-INF");
+                    String url =  request.getScheme() + "://" + request.getServerName();
+                    // Create random token...
+                    String delConfirmToken = UUID.randomUUID().toString();
+                    
+                    es.sendDeletionConfirm(acc, path, url, delConfirmToken);
+//                        es.sendRecoveryPassword(to, path, url, action);
+                            
+                            } catch (Exception ex) {
+                    Logger.getLogger(DeleteAccountServlet.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
+            } else {
+                getServletContext().getRequestDispatcher("/WEB-INF/MyProfile.jsp").forward(request,response);
+            }
+        }
+        
+        getServletContext().getRequestDispatcher("/WEB-INF/DeleteAccount.jsp").forward(request,response);
+        
+        
+        
+        
+        
     }
 
     /**

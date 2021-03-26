@@ -11,6 +11,7 @@ import java.io.FileReader;
 import java.util.HashMap;
 import java.util.Properties;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.mail.Address;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -119,6 +120,33 @@ public class EmailService {
             
         }
         
+    }
+    
+    /**
+     * Sends an email to user to confirm account deletion.
+     * @param acc Account to be deleted.
+     * @param path the path 
+     * @param url the URL
+     * @param delConfirmToken a randomized string.
+     */
+    public void sendDeletionConfirm(Account acc, String path, String url, String delConfirmToken) {
+        try {
+            String subj = "Infinite Pets - Confirm Account Deletion";
+            String template = "assets/emailTemplates/AccountDeletionConfirmTemplate";
+            
+            // Tags to be used in the sendEmail method
+            HashMap<String, String> tags = new HashMap<>();
+            tags.put("fName", acc.getFirstName());
+            tags.put("lName", acc.getLastName());
+            
+            // finally, deletion token itself
+            tags.put("deleteAccount", url + "/deleteAccount?delToken=" + delConfirmToken);
+            
+            // finally, send email
+            sendMail(url, subj, template, tags);
+        } catch (Exception ex) {
+            Logger.getLogger(EmailService.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     

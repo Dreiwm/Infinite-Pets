@@ -27,7 +27,7 @@ public class AccountDB {
            em.close();
        }
     }
-  
+    
     public List<Account> getAllAccount(){
         EntityManager em = DBUtil.getEmFactory().createEntityManager();  
         try{

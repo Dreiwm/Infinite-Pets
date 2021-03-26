@@ -21,7 +21,7 @@
         <div class="wrapper">
             <div class="generalContainer">
             <h1>Delete Account</h1>
-            <form>
+            <form name="deleteAccountForm" method="POST">
                     <button type="submit" name="action" value="deleteAccount" class="dangerButton">Delete Account</button>
                     <button type="submit" name="action" value="cancel">Cancel</button>
             </form>
