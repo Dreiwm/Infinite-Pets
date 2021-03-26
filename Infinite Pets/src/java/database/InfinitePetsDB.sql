@@ -96,8 +96,8 @@ CREATE TABLE IF NOT EXISTS `infinitepetsdb`.`account` (
     `LastName` VARCHAR(50) NOT NULL,
     `IsEmployee` BIT NOT NULL,
     `IsConfirmed` BIT NOT NULL,
-	`PasswordResetCode` VARCHAR(30),
-    `DeleteAccountCode` VARCHAR(30),
+	`PasswordResetCode` VARCHAR(36),
+    `DeleteAccountCode` VARCHAR(36),
 	`PasswordResetActive` BIT DEFAULT 0,
     PRIMARY KEY (`UserId`)
 )

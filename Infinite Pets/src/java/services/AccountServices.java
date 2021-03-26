@@ -6,6 +6,8 @@
 package services;
 
 import dataaccess.AccountDB;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import models.Account;
 
 /**
@@ -18,7 +20,7 @@ public class AccountServices {
      * Returns an account from DB using email, usually retrieved from session.
      * @param email the email to used to retrieve an account from DB.
      * @return returns Account 
-     * @throws Exception if somethign went wrong.
+     * @throws Exception if something went wrong.
      */
     public Account getAccount(String email) throws Exception{
         AccountDB accountDB = new AccountDB();
@@ -57,7 +59,7 @@ public class AccountServices {
      * lists are added after
      */
     public void updateUserAccount(String username, String password, String email, String firstName, 
-            String lastName, Boolean isConfermed)throws Exception{
+            String lastName, Boolean isConfermed) throws Exception{
         AccountDB accountDB = new AccountDB();
         try{
             Account account = accountDB.getAccountByEmail(email);
@@ -66,11 +68,32 @@ public class AccountServices {
             account.setAppointmentList(tempAccount.getAppointmentList());
             account.setEmployeeList(tempAccount.getEmployeeList());
             account.setPetList(tempAccount.getPetList());
+            
             accountDB.updateAccount(account);
         }
         catch(Exception e){
             
         }   
+    }
+    
+    /**
+     * Updates an account with newly created DeleteAccountCode
+     * @param deleteToken randomized token generated when submitting form to send an account deletion request. 
+     * @param email email to iedentify which account to be updated with new deleteAccountcCode.
+     */
+    public void updateDeleteToken(String deleteToken, String email) {
+        try {
+            AccountDB acDB = new AccountDB();
+            Account acc = acDB.getAccountByEmail(email);
+            
+            // now we have account to work with, update Token
+            acc.setDeleteAccountCode(deleteToken);
+            acDB.updateAccount(acc);
+            
+            
+        } catch (Exception ex) {
+            Logger.getLogger(AccountServices.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     /**

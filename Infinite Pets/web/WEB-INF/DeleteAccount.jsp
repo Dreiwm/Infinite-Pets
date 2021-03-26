@@ -24,13 +24,13 @@
             <div class="generalContainer">
                 <!-- If deleteAccount parameter is not null, then present 
                 the successful account deletion. Otherwise, present button to send an email-->
-                <c:if test="${deleteAccount != null}">
+                <c:if test="${deleteAccountVerified == true}">
                     <h1>
                         Your account had been deleted.
                     </h1>
                 </c:if>
                 
-                <c:if test="${deleteAccount == null}">
+                <c:if test="${deleteAccountVerified == false}">
                     <h1>Delete Account</h1>
                     <span>We will send an email to you to confirm your account deletion.</span>
                     <br/>

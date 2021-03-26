@@ -143,7 +143,7 @@ public class EmailService {
             tags.put("deleteAccount", url + "/deleteAccount?delToken=" + delConfirmToken);
             
             // finally, send email
-            sendMail(url, subj, template, tags);
+            sendMail(acc.getEmail(), subj, template, tags);
         } catch (Exception ex) {
             Logger.getLogger(EmailService.class.getName()).log(Level.SEVERE, null, ex);
         }
