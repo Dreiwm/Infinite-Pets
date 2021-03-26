@@ -13,11 +13,17 @@ import models.Account;
  * @author Chris
  */
 public class AccountServices {
-        //Retrieves an account by the emil
-    public Account getAccount(String username)throws Exception{
+        //Retrieves an account by the email
+    /**
+     * Returns an account from DB using email, usually retrieved from session.
+     * @param email the email to used to retrieve an account from DB.
+     * @return returns Account 
+     * @throws Exception if somethign went wrong.
+     */
+    public Account getAccount(String email) throws Exception{
         AccountDB accountDB = new AccountDB();
         Account account = new Account();
-        account = accountDB.getAccountByUsername(username);
+        account = accountDB.getAccountByEmail(email);
         return account;
     }
     
@@ -54,7 +60,7 @@ public class AccountServices {
             String lastName, Boolean isConfermed)throws Exception{
         AccountDB accountDB = new AccountDB();
         try{
-            Account account = accountDB.getAccountByUsername(email);
+            Account account = accountDB.getAccountByEmail(email);
             Account tempAccount = account;
             account = new Account(account.getUserId(), username, password, email, firstName, lastName, false, isConfermed);
             account.setAppointmentList(tempAccount.getAppointmentList());
@@ -76,7 +82,7 @@ public class AccountServices {
             String lastName, boolean isStaff)throws Exception{
                 AccountDB accountDB = new AccountDB();
         try{
-            Account account = accountDB.getAccountByUsername(email);
+            Account account = accountDB.getAccountByEmail(email);
             Account tempAccount = account;
             account = new Account(account.getUserId(), username, password, email, firstName, lastName, isStaff, true);
             account.setAppointmentList(tempAccount.getAppointmentList());
@@ -92,7 +98,7 @@ public class AccountServices {
     //Removes an existing account
     public void deleteAccount(String email)throws Exception{
         AccountDB accountDB = new AccountDB();
-        Account toDelete = accountDB.getAccountByUsername(email);
+        Account toDelete = accountDB.getAccountByEmail(email);
         accountDB.deleteAccount(toDelete);
     }
 }

@@ -39,60 +39,67 @@ public class DeleteAccountServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-                        System.out.println("loading page");
-//                        
-
-        // ensure that the user is still in session. If so, dispatch to JSP.
-        // Otherwise, send the user to login page
+        
         HttpSession ses = request.getSession();
         ses.setAttribute("email", "bccrs.test@gmail.com"); 
         // Pretend that session is valid. Remove above when session is working properly.
+        
+        String email = (String) ses.getAttribute("email");
+        System.out.println(email);
+        AccountServices acs = new AccountServices();
+        Account acc = null;
+        try {
+            acc = acs.getAccount(email);
+        } catch (Exception ex) {
+            Logger.getLogger(DeleteAccountServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+;
+        if (acc != null) {
+            // if account is not null, means email in session matches from DB
+            getServletContext().getRequestDispatcher("/WEB-INF/DeleteAccount.jsp").forward(request,response);
+        } else {
+            ses.invalidate();
+            response.sendRedirect("Login");
+        }
+
+        
+        
         
         // Check if the deleteAccount is not null, if its not, then the link
         // is coming from an email that was sent.
         String deleteAccount = request.getParameter("deleteAccount");
         
         
-        // test
-//        request.setAttribute("deleteAccount", "asdf");
+        // test only, remove this later.
+        request.setAttribute("deleteAccount", "asdf");
         
         if (deleteAccount != null) {
-            // actually delete account 
-            // invalidate the session
+            // Before we actually delete the account, we need to verify that
+            // the token matches the token on account.
             
-            AccountServices acs = new AccountServices();
-                            try {
-                                acs.deleteAccount((String) ses.getAttribute("email"));
-                            } catch (Exception ex) {
-                                Logger.getLogger(DeleteAccountServlet.class.getName()).log(Level.SEVERE, null, ex);
-                            }
-;
+            // get token
+            String tokenFromAcc = acc.getDeleteAccountCode();
             
-            ses.invalidate();
-            
+            if (tokenFromAcc != null && deleteAccount.equals(tokenFromAcc)) {
+                // actually delete now.
+                // actually delete account 
+                 // invalidate the session
+
+
+                try {
+                    acs.deleteAccount(acc.getEmail());
+                } catch (Exception ex) {
+                    Logger.getLogger(DeleteAccountServlet.class.getName()).log(Level.SEVERE, null, ex);
+                }
+    ;
+
+                ses.invalidate();
+                System.out.println("account deleted");
+            }
         } 
-        getServletContext().getRequestDispatcher("/WEB-INF/DeleteAccount.jsp").forward(request,response);
-        
-        
-        
-//        String email = (String) ses.getAttribute("owner");
-//        System.out.println(email);
-//        AccountServices acs = new AccountServices();
-//        if (email != null) {
-//            try {
-//                if (acs.getAccount(email) != null)
-//                    getServletContext().getRequestDispatcher("/WEB-INF/DeleteAccount.jsp").forward(request,response);
-//            } catch (Exception ex) {
-//                Logger.getLogger(DeleteAccountServlet.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//        } else {
-//            ses.invalidate();
-//            response.sendRedirect("Login");
-//        }
-        
-        
-        
     }
+        
+        
 
     /**
      * Handles the HTTP <code>POST</code> method.
@@ -130,7 +137,7 @@ public class DeleteAccountServlet extends HttpServlet {
                     String url =  request.getScheme() + "://" + request.getServerName();
                     // Create random token...
                     String delConfirmToken = UUID.randomUUID().toString();
-                    
+                    System.out.println("path: " + path + " url: " + url + "token: " + delConfirmToken);
 //                    es.sendDeletionConfirm(acc, path, url, delConfirmToken);
 //                        es.sendRecoveryPassword(to, path, url, action);
                     

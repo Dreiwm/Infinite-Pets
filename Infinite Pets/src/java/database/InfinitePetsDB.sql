@@ -97,6 +97,7 @@ CREATE TABLE IF NOT EXISTS `infinitepetsdb`.`account` (
     `IsEmployee` BIT NOT NULL,
     `IsConfirmed` BIT NOT NULL,
 	`PasswordResetCode` VARCHAR(30),
+    `DeleteAccountCode` VARCHAR(30),
 	`PasswordResetActive` BIT DEFAULT 0,
     PRIMARY KEY (`UserId`)
 )
@@ -308,7 +309,7 @@ INSERT INTO `account` (`Username`,`Password`,`Email`,`FirstName`,`LastName`,`IsE
     VALUES 
         ('admin','password','cprg352+admin@gmail.com','Admin','Admin',1,1),
         ('employee','password','cprg352+employee@gmail.com','employee','employee',1,1),
-        ('anne','password','cprg352+anne@gmail.com','Anne','Annerson',0,1),
+        ('anne','password','bccrs.test@gmail.com','Anne','Annerson',0,1),
         ('barb','password','cprg352+barb@gmail.com','Barb','Barber',0,1);
 
 -- insert into employee tables

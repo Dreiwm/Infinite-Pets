@@ -42,6 +42,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Account.findByIsEmployee", query = "SELECT a FROM Account a WHERE a.isEmployee = :isEmployee"),
     @NamedQuery(name = "Account.findByIsConfirmed", query = "SELECT a FROM Account a WHERE a.isConfirmed = :isConfirmed"),
     @NamedQuery(name = "Account.findByPasswordResetCode", query = "SELECT a FROM Account a WHERE a.passwordResetCode = :passwordResetCode"),
+    @NamedQuery(name = "Account.findByDeleteAccountCode", query = "SELECT a FROM Account a WHERE a.deleteAccountCode = :deleteAccountCode"),
     @NamedQuery(name = "Account.findByPasswordResetActive", query = "SELECT a FROM Account a WHERE a.passwordResetActive = :passwordResetActive")})
 public class Account implements Serializable {
 
@@ -78,6 +79,8 @@ public class Account implements Serializable {
     private boolean isConfirmed;
     @Column(name = "PasswordResetCode")
     private String passwordResetCode;
+    @Column(name = "DeleteAccountCode")
+    private String deleteAccountCode;
     @Column(name = "PasswordResetActive")
     private Boolean passwordResetActive;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "clientID", fetch = FetchType.EAGER)
@@ -191,6 +194,14 @@ public class Account implements Serializable {
 
     public void setPasswordResetCode(String passwordResetCode) {
         this.passwordResetCode = passwordResetCode;
+    }
+
+    public String getDeleteAccountCode() {
+        return deleteAccountCode;
+    }
+
+    public void setDeleteAccountCode(String deleteAccountCode) {
+        this.deleteAccountCode = deleteAccountCode;
     }
 
     public Boolean getPasswordResetActive() {
