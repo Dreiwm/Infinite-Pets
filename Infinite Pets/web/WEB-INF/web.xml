@@ -32,6 +32,10 @@
         <servlet-name>ForgotPasswordServlet</servlet-name>
         <servlet-class>servlets.InfinitePetsServlets.ForgotPasswordServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>MyProfileServlet</servlet-name>
+        <servlet-class>servlets.InfinitePetsServlets.MyProfileServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>AddPetServlet</servlet-name>
         <url-pattern>/AddPet</url-pattern>
@@ -59,6 +63,10 @@
     <servlet-mapping>
         <servlet-name>ForgotPasswordServlet</servlet-name>
         <url-pattern>/ForgotPassword</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MyProfileServlet</servlet-name>
+        <url-pattern>/MyProfile</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

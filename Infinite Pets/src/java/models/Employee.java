@@ -8,6 +8,7 @@ package models;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -70,6 +71,8 @@ public class Employee implements Serializable {
     @JoinColumn(name = "UserID", referencedColumnName = "UserId")
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Account userID;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employee", fetch = FetchType.EAGER)
+    private List<Schedule> scheduleList;
 
     public Employee() {
     }
@@ -150,6 +153,15 @@ public class Employee implements Serializable {
 
     public void setUserID(Account userID) {
         this.userID = userID;
+    }
+
+    @XmlTransient
+    public List<Schedule> getScheduleList() {
+        return scheduleList;
+    }
+
+    public void setScheduleList(List<Schedule> scheduleList) {
+        this.scheduleList = scheduleList;
     }
 
     @Override

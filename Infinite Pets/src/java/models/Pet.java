@@ -42,7 +42,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Pet.findByPetName", query = "SELECT p FROM Pet p WHERE p.petName = :petName"),
     @NamedQuery(name = "Pet.findByBirthday", query = "SELECT p FROM Pet p WHERE p.birthday = :birthday"),
     @NamedQuery(name = "Pet.findByPreferredVet", query = "SELECT p FROM Pet p WHERE p.preferredVet = :preferredVet"),
-    @NamedQuery(name = "Pet.findByMedicalInfo", query = "SELECT p FROM Pet p WHERE p.medicalInfo = :medicalInfo")})
+    @NamedQuery(name = "Pet.findByMedicalInfo", query = "SELECT p FROM Pet p WHERE p.medicalInfo = :medicalInfo"),
+    @NamedQuery(name = "Pet.findByImagePath", query = "SELECT p FROM Pet p WHERE p.imagePath = :imagePath")})
 public class Pet implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -71,6 +72,8 @@ public class Pet implements Serializable {
     private String preferredVet;
     @Column(name = "MedicalInfo")
     private String medicalInfo;
+    @Column(name = "ImagePath")
+    private String imagePath;
     @OneToMany(mappedBy = "petID", fetch = FetchType.EAGER)
     private List<Appointment> appointmentList;
     @JoinColumn(name = "Owner", referencedColumnName = "UserId")
@@ -155,6 +158,14 @@ public class Pet implements Serializable {
 
     public void setMedicalInfo(String medicalInfo) {
         this.medicalInfo = medicalInfo;
+    }
+
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
     }
 
     @XmlTransient

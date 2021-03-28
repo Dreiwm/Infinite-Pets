@@ -32,7 +32,7 @@
                     </div>
                 </a>
             </div>
-            
+            <!--
             <a href="" name="home">
                 <div name="logo" class="col-auto d-flex justify-content-center" style="margin: 0px;margin-right: 0px;margin-left: 0px;">
                     <img id="logoLarge" src="./assets/img/Logos/infinitePetsLogo-White(4).png" style="width: 250px;">
@@ -81,8 +81,8 @@
                                 <select name="animal" class="form-control" placeholder="animal" style="background: rgba(154,152,145,0.75);color: #ffffff;border-style: none;width: 150px;">
 <!--                                    <option name="select" value="select" selected="true" style="background: rgb(255,255,255);color: rgb(0,0,0);">Select</option>
                                     <option name="animal" value="dog" style="background: rgb(255,255,255);color: rgb(0,0,0);">Dog</option>-->
-                                    <c:forEach items="${animailList}" var="anlst">
-                                        <option value="${anlst.animalType}" style="background: rgb(255,255,255);color: rgb(0,0,0);">${anlst.animalType} </option>
+                                    <c:forEach items="${animalList}" var="anlst">
+                                        <option value="${anlst.animalType}" style="background: rgb(255,255,255);color: rgb(0,0,0);">${anlst.animalType}</option>
                                     </c:forEach>
                                 </select>
                                 
@@ -91,16 +91,14 @@
                             <div class="col">
                                 <label style="margin-bottom: 1px;color: rgba(154,152,145,0.65);">Breed</label>
                               
-<!----------------------NOTE MAKE AN IF STATEMENT FOR WHEN THEY SELECT AN ANIMAL TYPE THE DROP DOWN FOR BREEDS WILL DYNAMICALLY CHANGE AS WELL--------------------->                                  
+<!----------------------NOTE MAKE AN IF STATEMENT FOR WHEN THEY SELECT AN ANIMAL TYPE THE DROP DOWN FOR BREEDS WILL DYNAMICALLY CHANGE AS WELL-------------------!>                                  
                                 
                                 <select name="breed" class="form-control" placeholder="animal" style="background: rgba(154,152,145,0.75);color: #ffffff;border-style: none; width: 150px;">
                                     <c:forEach items="${breedList}" var="lst">
-
                                         <option value="${lst.breedName}" style="background: rgb(255,255,255);color: rgb(0,0,0);">${lst.breedName}</option>
-                                        
                                     </c:forEach>
 <!--                                    <option name="select" value="select" selected="true" style="background: rgb(255,255,255);color: rgb(0,0,0);">Select</option>
-                                    <option name="breed" value="lab" style="background: rgb(255,255,255);color: rgb(0,0,0);">Lab</option>
+                                    <option name="breed" value="lab" style="background: rgb(255,255,255);color: rgb(0,0,0);">Lab</option>-->
                                 </select>
                             </div>
                         </div>

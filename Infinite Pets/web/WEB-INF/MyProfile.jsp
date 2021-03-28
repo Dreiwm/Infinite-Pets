@@ -1,6 +1,6 @@
 <%-- 
-    Document   : CreateAccount
-    Created on : Mar 10, 2021, 7:38:40 PM
+    Document   : MyProfile
+    Created on : Mar 24, 2021, 4:04:47 PM
     Author     : BTran
 --%>
 
@@ -9,10 +9,10 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Sign Up</title>
+        <title>User Profile</title>
     </head>
     <body>
-        <h1>Create an Account</h1>
+        <h1>My Profile</h1>
         <form>
             <table>
                 <tr><td>First Name:</td><td><input type="text" name="firstName" placeholder="First Name"></td></tr>

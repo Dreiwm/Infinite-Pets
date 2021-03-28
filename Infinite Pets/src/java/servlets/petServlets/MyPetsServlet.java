@@ -31,7 +31,6 @@ public class MyPetsServlet extends HttpServlet {
 //REMOVE ME LATER!!!!!!!!!!!!!!
         session.setAttribute("owner", "anne");
 //REMOVE THE ABOVE LINE LATER!!!!!!!!!!!!      
-
         Account owner = new Account();
         AddPetServices aps = new AddPetServices();
         try {
