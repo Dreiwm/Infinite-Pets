@@ -64,13 +64,13 @@ public class EmailService {
         String password = (String)env.lookup("webmail-password");
         
         Properties props = new Properties();
-        props.put("mai.transport.protocol", "smtps");
+        props.put("mail.transport.protocol", "smtps");
         props.put("mail.smtps.host", "smtp.gmail.com");
-        props.put("mail.smtps.prot",465);
+        props.put("mail.smtps.port",465);
         props.put("mail.smtps.auth", "true");
         props.put("mail.smtps.quitwait", "false");
         Session session = Session.getDefaultInstance(props);
-        //session.setDebug(true);
+        session.setDebug(true);
         
         //Create Message
         Message msg = new MimeMessage(session);
@@ -104,7 +104,7 @@ public class EmailService {
         
         try{
             String subject = "Infinite Pets Password Recovery";
-            String template = path + "assets/emailTemplates/ResetTemplate";
+            String template = path + "assets/emailTemplates/ResetTemplate.html";
             
             HashMap<String, String> tags = new HashMap<>();
                 tags.put("firstname", to.getFirstName());

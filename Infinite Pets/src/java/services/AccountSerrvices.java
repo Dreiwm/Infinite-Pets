@@ -29,6 +29,14 @@ public class AccountSerrvices {
         return account;
     }
     
+    //Retreave account by email
+    public Account getAcocuntEmail(String email)throws Exception{
+        AccountDB accountDB = new AccountDB();
+        Account account = new Account();
+        account = accountDB.getAccountByEmail(email);
+        return account;
+    }
+    
     //Creates a Customer account and sends it to the database to be added
     public void createUserAccount(String username, String password, String email, String firstName, 
             String lastName)throws Exception{

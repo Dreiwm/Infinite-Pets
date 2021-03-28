@@ -31,91 +31,67 @@
                 </div>
             </div>
 
-            <div class="appointment">
-                <div>
-                    <h1>Book an Appointment</h1>
-                </div>
-                <div class="colum">
-                    <div class="calendar">
-                        <div class="month"></div>
-                        <div class="daysHeader"></div>
-                        <div class="week">
-                            <div class="day"></div>
-                            <div class="day"></div>
-                            <div class="day"></div>
-                            <div class="day"></div>
-                            <div class="day"></div>
-                            <div class="day"></div>
-                            <div class="day"></div>
-                        </div>
-                        <div class="week">
-                            <div class="day"></div>
-                            <div class="day"></div>
-                            <div class="day"></div>
-                            <div class="day"></div>
-                            <div class="day"></div>
-                            <div class="day"></div>
-                            <div class="day"></div>
-                        </div>
-                        <div class="week">
-                            <div class="day"></div>
-                            <div class="day"></div>
-                            <div class="day"></div>
-                            <div class="day"></div>
-                            <div class="day"></div>
-                            <div class="day"></div>
-                            <div class="day"></div>
-                        </div>
-                        <div class="week">
-                            <div class="day"></div>
-                            <div class="day"></div>
-                            <div class="day"></div>
-                            <div class="day"></div>
-                            <div class="day"></div>
-                            <div class="day"></div>
-                            <div class="day"></div>
-                        </div>
-
+            <div class="appointmentContainer">
+                <div class="appointmentInput">
+                    <div class="appointmentTitle">
+                        <h1>Book an Appointment</h1>
+                    </div>
+    
+                    <div class="dateLabel">
+                        <label for="date">Date</label>
+                    </div>
+    
+                    <div class="dateInput">
+                        <input name="date" type="date" id="selectDate">
+                    </div>
+    
+                    <div class="timeLable">
+                        <label for="time">Time</label>
+                    </div>
+    
+                    <div class="timeInput">
+                        <select name="time" id="selectTime">
+                            <option value="Morning">Morning</option>
+                            <option value="Afternoon">Afternoon</option>
+                            <option value="Evening">Evening</option>
+                        </select>
+                    </div>
+    
+                    <div class="petLabel">
+                        <label for="pet">Select Pet</label>
+                    </div>
+                    <div class="petInput">
+                        <select name="pet" id="petSelect">
+                            <option value="Pet 1">Pet 1</option>
+                            <option value="Pet 2">Pet 2</option>
+                            <option value="Pet 3">Pet 3</option>
+                            <option value="Pet 4">Pet 4</option>
+                        </select>
+                    </div>
+    
+                    <div class="serviceLabel">
+                        <label for="service">Select service</label>
+                    </div>
+                    
+                    <div class="serviceInput">
+                        <select name="service" id="serviceSelect">
+                            <option value="Service 1">Service 1</option>
+                            <option value="Service 2">Service 2</option>
+                            <option value="Service 3">Service 3</option>
+                            <option value="Service 4">Service 4</option>
+                        </select>
                     </div>
 
-                    <img src="assets/img/infinitePetsLogo-black(3).png" width="150" height="200" alt="infinitePetsLogo-black(3)"/>
-                    <br>
-
-                    <label for="date">Date</label>
-                    <input name="date" type="date" id="selectDate">
-                    <br>
-                    <label for="time">Time</label>
-                    <select name="time" id="selectTime">
-                        <option value="morn">Morning</option>
-                        <option value="after">Afternoon</option>
-                        <option value="eve">Evening</option>
-                    </select>
-                    <br>
-                    <label for="pet">Select Pet</label>
-                    <select name="pet" id="petSelect">
-                        <option value="Pet 1">Pet 1</option>
-                        <option value="Pet 2">Pet 2</option>
-                        <option value="Pet 3">Pet 3</option>
-                        <option value="Pet 4">Pet 4</option>
-                    </select>
-                    <br>
-                    <label for="service">Select service</label>
-                    <select name="service" id="serviceSelect">
-                        <option value="Service 1">Service 1</option>
-                        <option value="Service 2">Service 2</option>
-                        <option value="Service 3">Service 3</option>
-                        <option value="Service 4">Service 4</option>
-                    </select>
-
-                    <button onclick="addService()" >Add another service for this pet</button>
-                    <br>
-                    <textarea name="notes" id="notes" cols="30" rows="3" placeholder="Additional Notes"></textarea>
-
-            </div>
+                    <div class="notesInput">
+                        <textarea name="notes" id="notes" cols="30" rows="3">Additional Notes</textarea>
+                    </div>
+                    <div class="addServiceBtn">
+                        <button onclick="addService()">Add Service</button>
+                    </div>
+    
+                </div>
                 <div class="colum">
-                    <h1>Appointment Summary:</h1>
-
-                     
+                    <h1>Appointment Summary:</h1>                     
                         <form method ="post">
                         <div id="displayDate">
                             <p id="selectedDate">Date: </p>

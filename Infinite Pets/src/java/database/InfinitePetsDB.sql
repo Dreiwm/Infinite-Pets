@@ -76,7 +76,7 @@ CREATE TABLE IF NOT EXISTS `infinitepetsdb`.`location` (
     `City` VARCHAR(30) NOT NULL,
     `Country` VARCHAR(30) NOT NULL,
     `Province` VARCHAR(30) NOT NULL,
-    `Area` CHAR(1) NOT NULL,
+    `Area` VARCHAR(2) NOT NULL,
     CONSTRAINT `chk_area`
             CHECK (`Area` IN ('N','S', 'W', 'E', 'NW', 'NE', 'SW', 'SE')),
     PRIMARY KEY (`LocationID`)
@@ -269,7 +269,8 @@ INSERT INTO `account` (`Username`,`Password`,`Email`,`FirstName`,`LastName`,`IsE
         ('admin','password','cprg352+admin@gmail.com','Admin','Admin',1,1),
         ('employee','password','cprg352+employee@gmail.com','employee','employee',1,1),
         ('anne','password','cprg352+anne@gmail.com','Anne','Annerson',0,1),
-        ('barb','password','cprg352+barb@gmail.com','Barb','Barber',0,1);
+        ('test','password','bccrsb+test@gmail.com','Test','Tester',0,1);
+        
 
 -- insert into animal_type
 INSERT INTO animal_Type (animal_Type)

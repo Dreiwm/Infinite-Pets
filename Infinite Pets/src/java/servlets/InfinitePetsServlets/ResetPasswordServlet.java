@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import models.Account;
+import services.AccountSerrvices;
 import services.AddPetServices;
 import services.EmailService;
 import services.PetServicesServices;
@@ -37,12 +38,13 @@ public class ResetPasswordServlet extends HttpServlet {
             throws ServletException, IOException {
         String email = request.getParameter("email");
         Account to = new Account();
-        AddPetServices pss = new AddPetServices();
+        AccountSerrvices as = new AccountSerrvices();
         boolean found = false;
         //connect to the database to see if the email is a valid on if so then call the email service to send the reset link
         try { 
-            to = pss.getAccount(email);  
+            to = as.getAcocuntEmail(email);
             if(to!=null){
+                found = true;
                 //get the path, and create a reset token 
                 EmailService gmail = new EmailService();
                 String path = getServletContext().getRealPath("/WEB-INF");
@@ -51,20 +53,21 @@ public class ResetPasswordServlet extends HttpServlet {
                 
                 //update the user account with the reset token
                 //to.setResetToken(resetToken);
-                //pss.updateAccount(to);
+                //as.updateAccount(to);
                 
                 //gmail.sendRecoveryPassword(to, path, url);
                 gmail.sendRecoveryPassword(to, path, url, resetToken);
-                found = true;
+                
             }
             
         } catch (Exception ex) {
-//            Logger.getLogger(ResetPasswordServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ResetPasswordServlet.class.getName()).log(Level.SEVERE, null, ex);
         } finally{
             if (found){
                  response.sendRedirect("Login");
             }  
             else{
+                request.setAttribute("message", "Error Email Not Found");
                 request.getRequestDispatcher("/WEB-INF/ResetPassword.jsp").forward(request, response);
             }  
         }

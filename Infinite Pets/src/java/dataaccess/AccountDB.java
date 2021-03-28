@@ -28,6 +28,18 @@ public class AccountDB {
        }
     }
   
+    public Account getAccountByEmail(String email) throws Exception{
+       EntityManager em = DBUtil.getEmFactory().createEntityManager();
+       try{
+           Account user = em.createNamedQuery("Account.findByEmail",Account.class).setParameter("email", email).getSingleResult();
+           
+           return user;
+       }
+       finally{
+           em.close();
+       }
+    }
+    
     public List<Account> getAllAccount(){
         EntityManager em = DBUtil.getEmFactory().createEntityManager();  
         try{
