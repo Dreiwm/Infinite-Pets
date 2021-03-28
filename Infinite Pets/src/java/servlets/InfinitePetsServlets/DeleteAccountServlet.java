@@ -41,6 +41,15 @@ public class DeleteAccountServlet extends HttpServlet {
             throws ServletException, IOException {
         
         HttpSession ses = request.getSession();
+        
+        
+        /*******************************
+         * 
+         * ***********
+         * REMOVE ME *
+         * ***********
+         * 
+         ******************************/
         ses.setAttribute("email", "bccrs.test@gmail.com"); 
         // Pretend that session is valid. Remove above when session is working properly.
         

@@ -15,6 +15,7 @@ import java.util.logging.Logger;
 import javax.mail.Address;
 import javax.mail.Message;
 import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
@@ -63,15 +64,23 @@ public class EmailService {
         Context env = (Context)new InitialContext().lookup("java:comp/env");
         String username = (String)env.lookup("webmail-username");
         String password = (String)env.lookup("webmail-password");
-        
+//        Properties props = new Properties();
+//        props.put("mai.transport.protocol", "smtps");
+//        props.put("mail.smtps.host", "smtp.gmail.com");
+//        props.put("mail.smtps.prot",465);
+//        props.put("mail.smtps.auth", "true");
+//        props.put("mail.smtps.quitwait", "false");
+//        Session session = Session.getDefaultInstance(props);
+//        session.setDebug(true);
+
         Properties props = new Properties();
-        props.put("mai.transport.protocol", "smtps");
+        props.put("mail.transport.protocol", "smtps");
         props.put("mail.smtps.host", "smtp.gmail.com");
-        props.put("mail.smtps.prot",465);
+        props.put("mail.smtps.port",465);
         props.put("mail.smtps.auth", "true");
         props.put("mail.smtps.quitwait", "false");
         Session session = Session.getDefaultInstance(props);
-        //session.setDebug(true);
+//        session.setDebug(true);
         
         //Create Message
         Message msg = new MimeMessage(session);
@@ -132,7 +141,8 @@ public class EmailService {
     public void sendDeletionConfirm(Account acc, String path, String url, String delConfirmToken) {
         try {
             String subj = "Infinite Pets - Confirm Account Deletion";
-            String template = "assets/emailTemplates/AccountDeletionConfirmTemplate";
+            String template = "/assets/emailTemplates/AccountDeletionConfirmTemplate";
+            
             
             // Tags to be used in the sendEmail method
             HashMap<String, String> tags = new HashMap<>();
