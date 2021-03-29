@@ -9,7 +9,7 @@
     grid-template-areas: 
         "title title"
         "addPetLeft addPetRight";
-    
+    width: fit-content;
     row-gap: 5px;
     column-gap: 20px;
     padding: 25px;
