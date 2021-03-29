@@ -69,7 +69,7 @@ body {
     font-family: 'Playfair Display', serif;;
 }
 
-a {
+body a {
     color: #696863;
     text-decoration: none;
     margin-bottom: 5px;
@@ -132,7 +132,7 @@ a {
         "leftPhone leftPhone"
         "leftEmail leftEmail"
         "leftFacebook leftInstagram";
-
+    row-gap: 10px;
     justify-content: center;
     align-items: center;
 }
@@ -149,6 +149,7 @@ a {
         "rightTitle"
         "newsMessage"
         "newsInput";
+    row-gap: 10px;
     max-width: 400px;
     justify-content: center;
     align-items: center;

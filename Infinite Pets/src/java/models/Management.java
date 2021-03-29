@@ -20,18 +20,18 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author BTran
+ * @author Riley
  */
 @Entity
 @Table(name = "management")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Management.findAll", query = "SELECT m FROM Management m")
-    , @NamedQuery(name = "Management.findByItemID", query = "SELECT m FROM Management m WHERE m.itemID = :itemID")
-    , @NamedQuery(name = "Management.findByItemName", query = "SELECT m FROM Management m WHERE m.itemName = :itemName")
-    , @NamedQuery(name = "Management.findByItemDescription", query = "SELECT m FROM Management m WHERE m.itemDescription = :itemDescription")
-    , @NamedQuery(name = "Management.findByItemLink", query = "SELECT m FROM Management m WHERE m.itemLink = :itemLink")
-    , @NamedQuery(name = "Management.findByItemPrice", query = "SELECT m FROM Management m WHERE m.itemPrice = :itemPrice")})
+    @NamedQuery(name = "Management.findAll", query = "SELECT m FROM Management m"),
+    @NamedQuery(name = "Management.findByItemID", query = "SELECT m FROM Management m WHERE m.itemID = :itemID"),
+    @NamedQuery(name = "Management.findByItemName", query = "SELECT m FROM Management m WHERE m.itemName = :itemName"),
+    @NamedQuery(name = "Management.findByItemDescription", query = "SELECT m FROM Management m WHERE m.itemDescription = :itemDescription"),
+    @NamedQuery(name = "Management.findByItemLink", query = "SELECT m FROM Management m WHERE m.itemLink = :itemLink"),
+    @NamedQuery(name = "Management.findByItemPrice", query = "SELECT m FROM Management m WHERE m.itemPrice = :itemPrice")})
 public class Management implements Serializable {
 
     private static final long serialVersionUID = 1L;

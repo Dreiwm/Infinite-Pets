@@ -8,13 +8,9 @@
 <!DOCTYPE html>
 <html>
     <head>
-
-    
     <title>Footer</title>
     </head>
     <body>
-        
-    
         <div class="footer">
             <!-- Left side of the footer -->
             <div class="footerLeft">
