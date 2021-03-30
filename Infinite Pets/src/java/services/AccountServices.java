@@ -40,14 +40,16 @@ public class AccountServices {
     }
     
     //Create a staff Account and add it to the Database
-     public void createStaffAccount(String password, String email, String firstName, 
+     public void createStaffAccount(String password, String email, String firstName, Location address,
             String lastName)throws Exception{
         AccountDB accountDB = new AccountDB();
         Account account = new Account(0, password, email, firstName, lastName, true, true);
+        account.setAddress(address);
         accountDB.insertAccount(account);
     }   
      
-    //Create an adress object for an account
+    //Create an adress object for an account 
+    //Note: locationType is (R)esident and will need to be set to (E)mployee
      public Location createAddress(String postalCode, String address, String city, String country, String province, String area) throws Exception{
         LocationDB locDB = new LocationDB();
         Location location = new Location (0, 'R', postalCode, address, city, country, province, area);
