@@ -5,6 +5,8 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -18,8 +20,98 @@
     <body>
         <div class="wrapper">
             <div class="generalContainer">
-                <h1>Update Appointment</h1>
+                <h1>Appointment With ${appt.getPetID().getPetName()}</h1>
+                <div class="">
+
+                    <table class="tableData">
+                        <tr>
+                            <td>Appointment Date: </td>
+                            <td>From 
+                                <form action="Appointment" method="GET">
+                                    <select name="selectMonth" onchange="this.form.submit()">
+                                        <c:forEach items="${months}" var="month">
+                                            <c:if test="${month == startMonth}">
+                                                <option value="${month}" selected="true">
+                                                    ${month}
+                                                </option>
+
+                                            </c:if>
+                                            <c:if test="${month != startMonth}">
+                                                <option value="${month}">
+                                                    ${month}
+
+                                                </option>
+
+                                            </c:if>
+                                        </c:forEach>
+                                        ${startMonth} 
+                                    </select>
+
+                                    <select name="selectDayOfMonth" onchange="this.form.submit()">
+                                        <c:forEach begin="1" end="${maxNumOfDays}" varStatus="loop">
+                                            <!--If day matches attribute of startDayOfMonth, have this option selected-->
+                                            <c:if test="${startDayOfMonth == loop.index}">
+                                                <option selected="true" value="${loop.index}">${loop.index}</option>
+                                            </c:if>
+                                            <c:if test="${startDayOfMonth != loop.index}">
+                                                <option value="${loop.index}">${loop.index}</option>
+                                            </c:if>
+                                        </c:forEach>
+                                    </select>
+
+                                        <input type="number" min="${minYearFromAppt}" step="1" name="selectYear" value="${startYear}" onchange="this.form.submit()">
+                                        at <select name="selectScheduleBlock" onchange="this.form.submit()">
+                                            <c:forEach items="${schBlocks}" var="schb">
+                                                <c:if test="${schBlock == schb}">
+                                                    <option value="${schb}" selected="true">
+                                                        ${schb}
+                                                    </option>
+                                                </c:if>
+                                                
+                                                <c:if test="${schBlock != schb}">
+                                                    <option value="${schb}">
+                                                        ${schb}
+                                                    </option>
+                                                </c:if>
+                                                    
+                                            </c:forEach>
+                                        </select>
+                                </form>
+                            </td>
+                        </tr>
+
+                        <!--Service-->
+                        <tr>
+                            <td>Service Name: </td>
+                            <td>${appt.getServiceID().getServiceName()}</td>
+                        </tr>
+
+                        <!--Vet-->
+                        <tr>
+                            <td>Vet:</td>
+                            <td>${appt.getEmployeeID().getUserID().getFirstName()} ${appt.getEmployeeID().getUserID().getLastName()}</td>
+                        </tr>
+                    </table>
+
+                    <table class="tableData">
+                        <tr>
+                            <td>Price:</td>
+                            <td>$<fmt:formatNumber maxFractionDigits="2" minFractionDigits="2" value="${appt.getServiceID().getBasePrice()}"/></td>
+                        </tr>
+                    </table>
+                    
+                    
+                    <!--Update-->
+                    <form action="Appointment" method="POST" name="updateAppt" class="miniForms">
+                        <button type="submit" value="updateAppt">Update</button>
+                    </form>
+                    <!--Cancel-->
+                    <form action="Appointment" method="POST" name="reqCancelAppt" class="miniForms">
+                        <button type="submit" value="reqCancelAppt" class="dangerButton">Request Appointment Cancellation</button> 
+                    </form>
+                </div>
             </div>
         </div>
+        <footer> <%@include file="testFiles/footer.jsp" %> </footer>
     </body>
 </html>

@@ -11,8 +11,7 @@
     
     column-gap: 30px;
     row-gap: 0px;
-    padding: 25px;
-
+    padding: 25px 50px 50px 50px;
     margin-top: 25px;
     margin-bottom: 25px;
     justify-content: center;
@@ -21,6 +20,19 @@
     border-style: solid;
     background-color: #F3F1EC;
 }
+
+/**********************************  
+* Table style - General
+**********************************/
+.tableData td {
+    padding: 0.5em;
+}
+
+.tableData tr td:nth-child(2n) {
+    padding-left: 3em;
+}
+
+
 
 input {
     background: #ffffff;
@@ -75,6 +87,20 @@ button {
     font-family: 'Playfair Display', serif;
     cursor: pointer;
 }
+
+/*************************************************
+* Form Styling 
+* for the buttons that will be next to each other
+*************************************************/
+.miniForms {
+    display: inline-block;
+    margin: 1em 0 1em 0;
+}
+
+.miniForms button:nth-child(1n) {
+    margin-right: 0.3em;
+}
+
 
 .dangerButton {
     background-color: lightcoral;
