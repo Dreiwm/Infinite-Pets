@@ -32,6 +32,7 @@ public class MyProfileServlet extends HttpServlet {
         HttpSession session = request.getSession();
         session.getAttribute("sessionID");
         
+        
         getServletContext().getRequestDispatcher("/WEB-INF/MyProfile.jsp").forward(request,response);
     }
 
