@@ -46,6 +46,9 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Account.findByPasswordResetActive", query = "SELECT a FROM Account a WHERE a.passwordResetActive = :passwordResetActive")})
 public class Account implements Serializable {
 
+    @Column(name = "DeleteAccountCode")
+    private String deleteAccountCode;
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -251,6 +254,14 @@ public class Account implements Serializable {
     @Override
     public String toString() {
         return "models.Account[ userId=" + userId + " ]";
+    }
+
+    public String getDeleteAccountCode() {
+        return deleteAccountCode;
+    }
+
+    public void setDeleteAccountCode(String deleteAccountCode) {
+        this.deleteAccountCode = deleteAccountCode;
     }
     
 }

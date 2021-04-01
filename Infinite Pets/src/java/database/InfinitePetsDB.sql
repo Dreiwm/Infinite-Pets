@@ -96,7 +96,8 @@ CREATE TABLE IF NOT EXISTS `infinitepetsdb`.`account` (
     `Address` INT NOT NULL,
     `IsEmployee` BIT NOT NULL,
     `IsConfirmed` BIT NOT NULL,
-	`PasswordResetCode` VARCHAR(30),
+	`PasswordResetCode` VARCHAR(36),
+    `DeleteAccountCode` VARCHAR(36),
 	`PasswordResetActive` BIT DEFAULT 0,
     PRIMARY KEY (`UserID`),
     INDEX `fk_address_idx` (`Address` ASC),
@@ -314,7 +315,8 @@ INSERT INTO `location` (`LocationType`, `PostalCode`, `Address`, `City`, `Countr
         ('E','A1A 1A1', '1 Center Street', 'Calgary', 'Canada', 'Alberta', 'N'),
         ('E','A2A 2A2', '2 Center Street', 'Calgary', 'Canada', 'Alberta', 'E'),
         ('R','A3A 3A3', '3 Center Street', 'Calgary', 'Canada', 'Alberta', 's'),
-        ('R','A4A 4A4', '4 Center Street', 'Calgary', 'Canada', 'Alberta', 'W');
+        ('R','A4A 4A4', '4 Center Street', 'Calgary', 'Canada', 'Alberta', 'W'),
+        ('R','A5A 454', '5 Center Street', 'Calgary', 'Canada', 'Alberta', 'NW');
 
 -- Insert into accounts
 INSERT INTO `account` (`Password`, `Email`, `FirstName`, `LastName`, `Address`, `IsEmployee`,`IsConfirmed`)
@@ -322,6 +324,7 @@ INSERT INTO `account` (`Password`, `Email`, `FirstName`, `LastName`, `Address`, 
         ('password','cprg352+admin@gmail.com','Admin','Admin', 1, 1, 1),
         ('password','cprg352+employee@gmail.com','employee','employee', 2, 1, 1),
         ('password','cprg352+anne@gmail.com','Anne','Annerson', 3, 0, 1),
+        ('password','bccrs.test@gmail.com', 'BCCRS', 'Test', 5, 0, 1),
         ('password','cprg352+barb@gmail.com','Barb','Barber', 4, 0, 1);
 
 -- insert into employee tables

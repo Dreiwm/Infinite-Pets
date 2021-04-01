@@ -54,20 +54,27 @@ public class SignUpServlet extends HttpServlet {
         try {
             String firstName = request.getParameter("firstName");
             String lastName = request.getParameter("lastName");
-            String street = request.getParameter("address");
+            String address = request.getParameter("address");
             String area = request.getParameter("area");
             String city = request.getParameter("city");
             String prov = request.getParameter("prov");
             String country = request.getParameter("country");
-            String postalCode = request.getParameter("postal");
+            String postal = request.getParameter("postal");
             String email = request.getParameter("email");
             String emailConf = request.getParameter("emailConfirm");
             String pass = request.getParameter("password");
             String passConf = request.getParameter("passwordConfirm");
+            
+            System.out.printf("Email: %s, First: %s, Last: %s, Pass: %s, Address: %s, City: %s, Country: %s, Prov: %s, Postal: %s", email, firstName, lastName, pass, address, city, country, prov, postal);
+
+            
             //will create an account if info is all valid
-            if (vs.verifyLogin(firstName, lastName, street, city, prov, country, postalCode, area, email, emailConf, pass, passConf)) {
-                Location address = as.createAddress(postalCode, street, city, country, prov, area);
-                as.createUserAccount(firstName, lastName, email, pass, address);
+            if (vs.verifyLogin(firstName, lastName, address, city, prov, country, postal, area, email, emailConf, pass, passConf)) {
+                System.out.println("creating location");
+                Location location = as.createAddress(postal, address, city, country, prov, area);
+                System.out.println("creating account");
+                as.createUserAccount(firstName, lastName, email, pass, location);
+                System.out.println("re-direct");
                 response.sendRedirect("Login");
             }
             else {
