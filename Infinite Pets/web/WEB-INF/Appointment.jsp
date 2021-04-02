@@ -48,6 +48,7 @@
                                     </select>
 
                                     <select name="selectDayOfMonth" onchange="this.form.submit()">
+                                        
                                         <c:forEach begin="1" end="${maxNumOfDays}" varStatus="loop">
                                             <!--If day matches attribute of startDayOfMonth, have this option selected-->
                                             <c:if test="${startDayOfMonth == loop.index}">
@@ -56,7 +57,11 @@
                                             <c:if test="${startDayOfMonth != loop.index}">
                                                 <option value="${loop.index}">${loop.index}</option>
                                             </c:if>
+                                            <c:if test="${loop.index == startDayOfMonth and startDayOfMonth > loop.index}">
+                                                <option value="${loop.index}" selected="true">${loop.index}</option>
+                                            </c:if>
                                         </c:forEach>
+                                            
                                     </select>
 
                                         <input type="number" min="${minYearFromAppt}" step="1" name="selectYear" value="${startYear}" onchange="this.form.submit()">
@@ -102,12 +107,18 @@
                     
                     
                     <!--Update-->
-                    <form action="Appointment" method="POST" name="updateAppt" class="miniForms">
-                        <button type="submit" value="updateAppt">Update</button>
+                    <form action="Appointment" method="POST" class="miniForms">
+                        
+                        <input type="submit" value="Update">
+                        <input type="hidden" name="action" value="updateAppt">
+                        <input type="hidden" name="tempApptDate" value="${tempAppt.getAppointmentDate()}">
+                               <span>${tempAppt.getAppointmentID()}</span>
+                        
+                        
                     </form>
                     <!--Cancel-->
-                    <form action="Appointment" method="POST" name="reqCancelAppt" class="miniForms">
-                        <button type="submit" value="reqCancelAppt" class="dangerButton">Request Appointment Cancellation</button> 
+                    <form action="Appointment" method="POST" class="miniForms">
+                        <button type="submit" name="action" value="reqCancelAppt" class="dangerButton">Request Appointment Cancellation</button> 
                     </form>
                 </div>
             </div>

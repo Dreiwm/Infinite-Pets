@@ -105,52 +105,32 @@ public class AppointmentServlet extends HttpServlet {
 
             
 
-            /*
-            1. We need to parse Dates to string for presenting
+            try {
+                /*
+                1. We need to parse Dates to string for presenting
                 - We'll need to format it to what we need using CalendarUtilities
                 - For presenting purposes, we don't need to be converned about
-                  time range, because when booking an appointment, it will be determined
-                  how long and such.
+                time range, because when booking an appointment, it will be determined
+                how long and such.
                 - however, in doPost part (where you update your dates), we'll need to construct
-                  a string to be parsed into Date, disgarding the day/year/month, only get hours and minutes values.
-             */
+                a string to be parsed into Date, disgarding the day/year/month, only get hours and minutes values.
+                */
 //            String startYear, startMonth, startDay, startHour, startMin;
 //            String endYear, endMonth, endDay, endHour, endMin;
-            /**
-             * **************************************
-             * Start Date Setting Attributes for presenting
-             **************************************
-             */
+/**
+ * **************************************
+ * Start Date Setting Attributes for presenting
+ **************************************
+ */
             setDateAttributes(appt, request, response);
-            
-            
-            
-            
-            // for months selection
-            request.setAttribute("months", CalendarUtilities.getMonths());
-            
-            
-            /**
-             * **************************************
-             * End Date Setting Attributes for presenting
-             * ABORTED - only use schedule blocks
-             **************************************
-             */
-//            setEndAttributes(appt, request, response);
+            } catch (ParseException ex) {
+                Logger.getLogger(AppointmentServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            setAppointmentAttribute(appt, request, response);
+
             
 
-            // We need to get all attributes, add to URL
-            String paramBuilder = "";
-            if (request.getParameter("selectYear") == null) {
-//                paramBuilder += "?selectYear=" + request.getAttribute("startYear");
-//                getServletContext().setInitParameter("selectYear", request.getAttribute("startYear").toString());
-            }
-            if (request.getParameter("selectMonth") == null) {
-//                paramBuilder += "?selectMonth" + request.getAttribute("startMonth");
-//                getServletContext().setInitParameter("selectMonth", (String) request.getAttribute("startMonth"));
-                
-            }
-            
+           
            
 
             getServletContext().getRequestDispatcher("/WEB-INF/Appointment.jsp").forward(request, response);
@@ -172,7 +152,60 @@ public class AppointmentServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        
+        /***************************
+         * TEMP ONLY - REMOVE ME
+         **************************/
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+            
 
+        Appointment appt = null;
+        try {
+            appt = new Appointment(1, sdf.parse("2021-03-30 06:00"), true, true, true);
+        } catch (ParseException ex) {
+            Logger.getLogger(AppointmentServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        appt.setEndDate(new Date());
+        appt.setPetID(new Pet(1, 'M', "Dog", "lab", "Eileen", new Date()));
+        appt.setServiceID(new Service(1, "test", new BigDecimal(12.0), true, true, true));
+        Employee emp = new Employee(1, false, false, true);
+        emp.setUserID(new Account(1, "asdf", "asdf", "asdf@asdf.com", "Jennifer", "Lovegreen", true, true));
+        appt.setEmployeeID(emp);
+
+
+        String action = (String) request.getParameter("action");
+        
+        // Update appt
+        // execute if attribute of updateAppt is not null
+
+        // Only exexcute if action is not null.
+        if (action != null) {
+            // now check for update
+            if (action.equals("updateAppt")) {
+                System.out.println("updating appointment...");
+                
+                
+                // Create appointment object and send email to staff (if not null)
+//                int apptId = Integer.parseInt(request.getParameter("apptId"));
+//                System.out.println(apptId);
+                System.out.println("temp appt date from JSP: " + request.getParameter("tempApptDate"));
+                
+//                setDateAttributes(appt, request, response);
+                setAppointmentAttribute(appt, request, response);
+//                try {
+//                    setTempAppointmentAttribute(appt, request, response);
+//                } catch (ParseException ex) {
+//                    Logger.getLogger(AppointmentServlet.class.getName()).log(Level.SEVERE, null, ex);
+//                }
+                getServletContext().getRequestDispatcher("/WEB-INF/Appointment.jsp").forward(request, response);
+            }
+        }
+        
+        
+        // request cancel appointment
+        // executes if the reqCancelAppt is not null.
+        
     }
 
     /**
@@ -185,12 +218,100 @@ public class AppointmentServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private void setDateAttributes(Appointment appt, HttpServletRequest request, HttpServletResponse response) {
+    /**
+     * Sets the appointment object to attribute called "appt".
+     * @param appt Appointment object to be used.
+     * @param request
+     * @param response 
+     */
+    private void setAppointmentAttribute(Appointment appt, HttpServletRequest request, HttpServletResponse response) {
+        request.setAttribute("appt", appt);
+    }
+    
+    /**
+     * Sets the temporary Appointment object constructed from inputs via doGet method.
+     * @param appt Appointment object to be used.
+     * @param request
+     * @param response 
+     */
+    private void setTempAppointmentAttribute(Appointment appt, HttpServletRequest request, HttpServletResponse response) throws ParseException {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(appt.getAppointmentDate());
+        
+        
+        String selectMonth = (String) request.getParameter("selectMonth");
+        String selectDayOfMonth = request.getParameter("selectDayOfMonth");
+        String selectStartYear = request.getParameter("selectYear");
+        String selectScheduleBlock = request.getParameter("selectScheduleBlock");
+        
+        // Now we need to test to see if either of them is not null, if not null
+        // means that part needs to be "updated".
+        
+        // We need to build string date using SDF (SimpleDateFormat)
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MMMM-dd hh");
+        String dateString = "";
+        
+        // year null?
+        if (selectStartYear != null) {
+            dateString += selectStartYear;
+        } else {
+            dateString += cal.get(Calendar.YEAR);
+        }
+        
+        // month null?
+        if (selectMonth != null) {
+            dateString += "-" + selectMonth;
+        } else {
+            dateString +=  "-" + CalendarUtilities.getMonthName(cal.get(Calendar.MONTH));
+        }
+        
+        // day null? 
+        if (selectDayOfMonth != null) {
+            dateString += "-" + selectDayOfMonth;
+        } else {
+            SimpleDateFormat sdfTemp = new SimpleDateFormat("MMM");
+            // test to see if days > allowed days
+            // we also need to see if month is not null or null.
+            // if null, use from appt
+            // if not null, use from selectDayOfMonth
+            if (selectMonth != null) {
+                // now test if day > allowed days
+//                int daySelected = Integer.parseInt(sdf);
+            }
+            
+            
+            dateString += "-" + cal.get(Calendar.DAY_OF_MONTH);
+        }
+        
+        if (selectScheduleBlock != null) {
+            ArrayList<String> list = (ArrayList) ScheduleServices.getScheduleBlockList();
+            
+            for (String schBlock : list) {
+                if (schBlock.equals(selectScheduleBlock)) {
+                    dateString += " " + ScheduleServices.getScheduleBlock(schBlock);
+                    break;
+                } 
+            } 
+        } else {
+            dateString += " " + ScheduleServices.getScheduleBLockStartTime(appt);
+        }
+        
+        Appointment tempAppt = appt;
+        appt.setAppointmentDate(sdf.parse(dateString));
+        request.setAttribute("tempAppt", tempAppt);
+    }
+    
+    /**
+     * Sets all necessary attributes every time page loads 
+     * @param appt Appointment object to be used
+     * @param request
+     * @param response 
+     */
+    private void setDateAttributes(Appointment appt, HttpServletRequest request, HttpServletResponse response) throws ParseException {
         // Start date
         Calendar calStart = Calendar.getInstance();
         calStart.setTime(appt.getAppointmentDate());
 
-        SimpleDateFormat sdf = new SimpleDateFormat("hh");        
         // Start date - year, month, day
         
         String selectMonth = request.getParameter("selectMonth");
@@ -216,7 +337,6 @@ public class AppointmentServlet extends HttpServlet {
             request.setAttribute("startDayOfMonth", selectDayOfMonth);
         } else {
             request.setAttribute("startDayOfMonth", calStart.get(Calendar.DAY_OF_MONTH));
-
         }
         
         /*
@@ -248,6 +368,9 @@ public class AppointmentServlet extends HttpServlet {
             request.setAttribute("schBlock", ScheduleServices.getScheduleBlock(appt));
 
         }
+        
+        // for months selection
+        request.setAttribute("months", CalendarUtilities.getMonths());
     }
     
     
