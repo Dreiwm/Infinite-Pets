@@ -306,9 +306,9 @@ ENGINE = InnoDB;
 -- Insert into accounts
 INSERT INTO `account` (`Username`,`Password`,`Email`,`FirstName`,`LastName`,`IsEmployee`,`IsConfirmed`)
     VALUES 
-        ('admin','password','cprg352+admin@gmail.com','Admin','Admin',1,1),
-        ('employee','password','cprg352+employee@gmail.com','employee','employee',1,1),
-        ('anne','password','cprg352+anne@gmail.com','Anne','Annerson',0,1),
+        ('admin','password','bccrsb+admin@gmail.com','Admin','Admin',1,1),
+        ('employee','password','bccrsb+employee@gmail.com','employee','employee',1,1),
+        ('anne','password','bccrsb+anne@gmail.com','Anne','Annerson',0,1),
         ('test','password','bccrsb+test@gmail.com','Test','Tester',0,1);
         
 

@@ -42,12 +42,12 @@ public class ResetPasswordServlet extends HttpServlet {
         boolean found = false;
         //connect to the database to see if the email is a valid on if so then call the email service to send the reset link
         try { 
-            to = as.getAcocuntEmail(email);
+            to = as.getAccountEmail(email);
             if(to!=null){
                 found = true;
                 //get the path, and create a reset token 
                 EmailService gmail = new EmailService();
-                String path = getServletContext().getRealPath("/WEB-INF");
+                String path = getServletContext().getRealPath("/assets");
                 String url =  request.getScheme() + "://" + request.getServerName();
                 String resetToken = UUID.randomUUID().toString();
                 
@@ -57,9 +57,7 @@ public class ResetPasswordServlet extends HttpServlet {
                 
                 //gmail.sendRecoveryPassword(to, path, url);
                 gmail.sendRecoveryPassword(to, path, url, resetToken);
-                
-            }
-            
+            }      
         } catch (Exception ex) {
             Logger.getLogger(ResetPasswordServlet.class.getName()).log(Level.SEVERE, null, ex);
         } finally{

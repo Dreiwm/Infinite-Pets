@@ -104,7 +104,7 @@ public class EmailService {
         
         try{
             String subject = "Infinite Pets Password Recovery";
-            String template = path + "assets/emailTemplates/ResetTemplate.html";
+            String template = path + "/emailTemplates/ResetTemplate.html";
             
             HashMap<String, String> tags = new HashMap<>();
                 tags.put("firstname", to.getFirstName());

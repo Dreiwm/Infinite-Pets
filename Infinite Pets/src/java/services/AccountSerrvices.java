@@ -30,7 +30,7 @@ public class AccountSerrvices {
     }
     
     //Retreave account by email
-    public Account getAcocuntEmail(String email)throws Exception{
+    public Account getAccountEmail(String email)throws Exception{
         AccountDB accountDB = new AccountDB();
         Account account = new Account();
         account = accountDB.getAccountByEmail(email);
