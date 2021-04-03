@@ -9,9 +9,13 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Forgot Password</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <form>
+            <tr><td>New Password:</td><td><input type="text" name="newPassword" id="newPassword" placeholder="New Password"></td></tr>
+            <tr><td>Confirm Password:</td><td><input type="text" name="confirmPassword" id="confirmPassword" placeholder="Confirm Password"></td></tr>
+            <input type="submit" value="Submit">
+        </form>
     </body>
 </html>

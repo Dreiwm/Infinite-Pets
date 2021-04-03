@@ -324,7 +324,7 @@ INSERT INTO `account` (`Password`, `Email`, `FirstName`, `LastName`, `Address`, 
         ('password','cprg352+admin@gmail.com','Admin','Admin', 1, 1, 1),
         ('password','cprg352+employee@gmail.com','employee','employee', 2, 1, 1),
         ('password','cprg352+anne@gmail.com','Anne','Annerson', 3, 0, 1),
-        ('password','bccrs.test@gmail.com', 'BCCRS', 'Test', 5, 0, 1),
+        ('password','asdf@gmail.com', 'BCCRS', 'Test', 5, 0, 1),
         ('password','cprg352+barb@gmail.com','Barb','Barber', 4, 0, 1);
 
 -- insert into employee tables
