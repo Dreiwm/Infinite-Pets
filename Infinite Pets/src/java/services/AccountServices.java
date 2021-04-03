@@ -68,25 +68,30 @@ public class AccountServices {
      }
     
     /**
-     * Updates an User Level Account with provided info.
+     * Updates an User Level Account and Address with provided info.
      * To insure security a new Account object is created using inputed info and
      * lists are added after
      */
     public void updateUserAccount(String password, String email, String firstName, 
-            String lastName, Boolean isConfermed)throws Exception{
+            String lastName, Boolean isConfermed, String address, String city, String prov, String country, String postal, String area)throws Exception{
         AccountDB accountDB = new AccountDB();
         try{
             Account account = accountDB.getAccountByEmail(email);
             Account tempAccount = account;
+            Location location = account.getAddress();
+            Location tempLocation = location;
+            location = new Location(tempLocation.getLocationID(), tempLocation.getLocationType(), postal, address, city, country, prov, area);
             account = new Account(account.getUserId(), password, email, firstName, lastName, false, isConfermed);
             account.setAppointmentList(tempAccount.getAppointmentList());
             account.setEmployeeList(tempAccount.getEmployeeList());
             account.setPetList(tempAccount.getPetList());
-            
+            account.setAddress(location);
+            LocationDB locDB = new LocationDB();
+            locDB.update(location);
             accountDB.updateAccount(account);
         }
-        catch(Exception e){
-            
+        catch(Exception ex){
+            Logger.getLogger(AccountServices.class.getName()).log(Level.SEVERE, null, ex);
         }   
     }
     
@@ -153,5 +158,5 @@ public class AccountServices {
             Logger.getLogger(AccountServices.class.getName()).log(Level.WARNING, null, e);
         }
         return account;
-    }
+    } 
 }

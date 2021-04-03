@@ -35,6 +35,7 @@
                         <td>${pet.species}</td>
                         <td>${pet.breed}</td>
                         <td>${pet.sex}</td>
+                        <!--make another link to go to the pet and an image as well-->
                     </tr>
                 </c:forEach>
             </tbody>
