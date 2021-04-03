@@ -42,14 +42,6 @@ public class AddPetServices {
         return breedDB.getAllAnimalBreeds();
     }
     
-    //Retrieves an account
-    public Account getAccount(String username)throws Exception{
-        AccountDB accountDB = new AccountDB();
-        Account account = new Account();
-        account = accountDB.getAccountByEmail(username);
-        return account;
-    }
-    
     public Pet getPetById(Integer id) throws Exception{
         PetDB ptdb = new PetDB();
         Pet pet = new Pet(); 

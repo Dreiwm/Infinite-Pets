@@ -7,6 +7,8 @@ package services;
 
 import dataaccess.AccountDB;
 import dataaccess.LocationDB;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import models.Account;
@@ -126,7 +128,7 @@ public class AccountServices {
             accountDB.updateAccount(account);
         }
         catch(Exception e){
-            
+            Logger.getLogger(AccountServices.class.getName()).log(Level.WARNING, null, e);
         }
     }
     
@@ -135,5 +137,21 @@ public class AccountServices {
         AccountDB accountDB = new AccountDB();
         Account toDelete = accountDB.getAccountByEmail(email);
         accountDB.deleteAccount(toDelete);
+    }
+    
+    public Account checkCreds(String email, String password){
+        Account account = null;
+        try {
+            AccountDB accDB = new AccountDB();
+            List<Account> accounts = accDB.getAllAccount();
+            for (int i = 0; i < accounts.size(); i++){
+                if (accounts.get(i).getEmail().equals(email) && accounts.get(i).getPassword().equals(password)){
+                    account = accounts.get(i);
+                }
+            }
+        } catch(Exception e) {
+            Logger.getLogger(AccountServices.class.getName()).log(Level.WARNING, null, e);
+        }
+        return account;
     }
 }
