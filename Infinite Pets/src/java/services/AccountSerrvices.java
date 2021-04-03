@@ -35,13 +35,13 @@ public class AccountSerrvices {
         Account account = new Account();
         account = accountDB.getAccountByEmail(email);
         return account;
-    }
+    } 
     
     //Creates a Customer account and sends it to the database to be added
     public void createUserAccount(String username, String password, String email, String firstName, 
             String lastName)throws Exception{
         AccountDB accountDB = new AccountDB();
-        Account account = new Account(0, username, password, email, firstName, lastName, false, false);
+        Account account = new Account(0, password, email, firstName, lastName, false, false);
         accountDB.insertAccount(account);
     }
     
@@ -49,7 +49,7 @@ public class AccountSerrvices {
      public void createStaffAccount(String username, String password, String email, String firstName, 
             String lastName)throws Exception{
         AccountDB accountDB = new AccountDB();
-        Account account = new Account(0, username, password, email, firstName, lastName, true, true);
+        Account account = new Account(0, password, email, firstName, lastName, true, true);
         accountDB.insertAccount(account);
     }   
     
@@ -64,7 +64,7 @@ public class AccountSerrvices {
         try{
             Account account = accountDB.getAccountByEmail(email);
             Account tempAccount = account;
-            account = new Account(account.getUserId(), username, password, email, firstName, lastName, false, isConfermed);
+            account = new Account(account.getUserId(), password, email, firstName, lastName, false, isConfermed);
             account.setAppointmentList(tempAccount.getAppointmentList());
             account.setEmployeeList(tempAccount.getEmployeeList());
             account.setPetList(tempAccount.getPetList());
@@ -86,7 +86,7 @@ public class AccountSerrvices {
         try{
             Account account = accountDB.getAccountByEmail(email);
             Account tempAccount = account;
-            account = new Account(account.getUserId(), username, password, email, firstName, lastName, isStaff, true);
+            account = new Account(account.getUserId(), password, email, firstName, lastName, isStaff, true);
             account.setAppointmentList(tempAccount.getAppointmentList());
             account.setEmployeeList(tempAccount.getEmployeeList());
             account.setPetList(tempAccount.getPetList());

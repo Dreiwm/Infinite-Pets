@@ -101,7 +101,7 @@ public class AppointmentServlet extends HttpServlet {
             appt.setPetID(new Pet(1, 'M', "Dog", "lab", "Eileen", new Date()));
             appt.setServiceID(new Service(1, "test", new BigDecimal(12.0), true, true, true));
             Employee emp = new Employee(1, false, false, true);
-            emp.setUserID(new Account(1, "asdf", "asdf", "asdf@asdf.com", "Jennifer", "Lovegreen", true, true));
+            emp.setUserID(new Account(1, "asdf", "asdf@asdf.com", "Jennifer", "Lovegreen", true, true));
             appt.setEmployeeID(emp);
 
             
@@ -168,7 +168,7 @@ public class AppointmentServlet extends HttpServlet {
         appt.setPetID(new Pet(1, 'M', "Dog", "lab", "Eileen", new Date()));
         appt.setServiceID(new Service(1, "test", new BigDecimal(12.0), true, true, true));
         Employee emp = new Employee(1, false, false, true);
-        emp.setUserID(new Account(1, "asdf", "asdf", "asdf@asdf.com", "Jennifer", "Lovegreen", true, true));
+        emp.setUserID(new Account(1, "asdf", "asdf@asdf.com", "Jennifer", "Lovegreen", true, true));
         appt.setEmployeeID(emp);
 
 
