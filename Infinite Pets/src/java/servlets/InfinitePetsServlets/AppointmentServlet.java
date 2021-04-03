@@ -30,6 +30,7 @@ import models.Pet;
 import models.Service;
 import services.AccountServices;
 import services.ScheduleServices;
+import services.ValidationServices;
 import utilities.CalendarUtilities;
 
 /**
@@ -105,7 +106,6 @@ public class AppointmentServlet extends HttpServlet {
 
             
 
-            try {
                 /*
                 1. We need to parse Dates to string for presenting
                 - We'll need to format it to what we need using CalendarUtilities
@@ -123,9 +123,7 @@ public class AppointmentServlet extends HttpServlet {
  **************************************
  */
             setDateAttributes(appt, request, response);
-            } catch (ParseException ex) {
-                Logger.getLogger(AppointmentServlet.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            
             setAppointmentAttribute(appt, request, response);
 
             
@@ -187,17 +185,13 @@ public class AppointmentServlet extends HttpServlet {
                 
                 
                 // Create appointment object and send email to staff (if not null)
-//                int apptId = Integer.parseInt(request.getParameter("apptId"));
-//                System.out.println(apptId);
-                System.out.println("temp appt date from JSP: " + request.getParameter("tempApptDate"));
+                int apptId = Integer.parseInt(request.getParameter("apptId"));
                 
+                  Appointment apptToUpdate = getAppointmentDateFromParameters(request, response);
+
 //                setDateAttributes(appt, request, response);
                 setAppointmentAttribute(appt, request, response);
-//                try {
-//                    setTempAppointmentAttribute(appt, request, response);
-//                } catch (ParseException ex) {
-//                    Logger.getLogger(AppointmentServlet.class.getName()).log(Level.SEVERE, null, ex);
-//                }
+                setDateAttributes(appt, request, response);
                 getServletContext().getRequestDispatcher("/WEB-INF/Appointment.jsp").forward(request, response);
             }
         }
@@ -307,7 +301,7 @@ public class AppointmentServlet extends HttpServlet {
      * @param request
      * @param response 
      */
-    private void setDateAttributes(Appointment appt, HttpServletRequest request, HttpServletResponse response) throws ParseException {
+    private void setDateAttributes(Appointment appt, HttpServletRequest request, HttpServletResponse response) {
         // Start date
         Calendar calStart = Calendar.getInstance();
         calStart.setTime(appt.getAppointmentDate());
@@ -393,6 +387,51 @@ public class AppointmentServlet extends HttpServlet {
         
         return cal.getActualMaximum(Calendar.DAY_OF_MONTH);
         
+    }
+    
+    /**
+     * Initializes the appointment from the form submission.
+     * @param request
+     * @param response
+     * @return returns Appointment object, which would be used to update an appointment.
+     */
+    private Appointment getAppointmentDateFromParameters(HttpServletRequest request, HttpServletResponse response) {
+        /*************
+         * Date
+        *************/
+        String year, month, dayOfMonth, scheduleBlock, hour;
+        
+        year = request.getParameter("selectYear");
+        month = request.getParameter("selectMonth");
+        dayOfMonth = request.getParameter("selectDayOfMonth");
+        
+        // hour/min
+        scheduleBlock = request.getParameter("selectScheduleBlock");
+        hour = Integer.toString(ScheduleServices.getScheduleBlock(scheduleBlock));
+        
+        // get appt id
+        int apptId = Integer.parseInt(request.getParameter("apptId"));
+        
+        
+        // get Appt from DB
+        ScheduleServices schs = new ScheduleServices();
+        Appointment appt = null;
+        
+        
+//        appt = schs.getAppointmentById(apptId);
+//        if (appt == null) {
+//            request.setAttribute("errorMsg", "Uh oh! Something went wrong with udpating your appointment.");
+//        }
+        
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MMM-dd-hh");
+        sdf.setLenient(false); // so that February 31 2021 will throw an error.
+        
+        try {
+            sdf.parse(year + "-" + month + "-" + dayOfMonth + "-" + hour);
+        } catch (ParseException e1) {
+            request.setAttribute("errorMsg", "An error in dates was found, please check again.");
+        }
+        return null;
     }
     
 

@@ -88,22 +88,21 @@ button {
     cursor: pointer;
 }
 
-/*************************************************
-* Form Styling 
-* for the buttons that will be next to each other
-*************************************************/
-.miniForms {
-    display: inline-block;
-    margin: 1em 0 1em 0;
-}
-
-.miniForms button:nth-child(1n) {
-    margin-right: 0.3em;
-}
-
-
 .dangerButton {
-    background-color: lightcoral;
+    background: lightcoral;
+    border: solid;
+    border-radius: 5px;
+    border-width: 2px;
+    border-color: lightcoral;
+    height: 30px;
+    width: auto;
+    color: #fff;
+    font-family: 'Playfair Display', serif;
+    padding-left: 5px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    outline: none;
+    cursor: text;
 }
 
 textarea {
@@ -289,3 +288,17 @@ body {
 .dropdown-content a:hover {background-color: white;}
 .dropdown:hover .dropdown-content {display: block;}
 .dropdown:hover .dropbtn {background-color: grey;}
+
+
+/*
+ * Used for errors in forms
+*/
+#errorBox {
+    border: 2px solid red;
+    /*color: red;*/
+    padding: 1.5em;
+    background-color: #ffe3e3;
+    margin-top: 1em;
+    margin-bottom: 1em;
+
+}

@@ -22,13 +22,17 @@
             <div class="generalContainer">
                 <h1>Appointment With ${appt.getPetID().getPetName()}</h1>
                 <div class="">
+                    <c:if test="${errorMsg != null}">
+                        <div id="errorBox">${errorMsg}</div>
+                    </c:if>
+                   
+                    <form action="Appointment" method="POST">
+                        <table class="tableData">
 
-                    <table class="tableData">
-                        <tr>
-                            <td>Appointment Date: </td>
-                            <td>From 
-                                <form action="Appointment" method="GET">
-                                    <select name="selectMonth" onchange="this.form.submit()">
+                            <tr>
+                                <td>Appointment Date: </td>
+                                <td> 
+                                    <select name="selectMonth">
                                         <c:forEach items="${months}" var="month">
                                             <c:if test="${month == startMonth}">
                                                 <option value="${month}" selected="true">
@@ -39,86 +43,66 @@
                                             <c:if test="${month != startMonth}">
                                                 <option value="${month}">
                                                     ${month}
-
                                                 </option>
-
                                             </c:if>
                                         </c:forEach>
                                         ${startMonth} 
                                     </select>
 
-                                    <select name="selectDayOfMonth" onchange="this.form.submit()">
-                                        
-                                        <c:forEach begin="1" end="${maxNumOfDays}" varStatus="loop">
-                                            <!--If day matches attribute of startDayOfMonth, have this option selected-->
-                                            <c:if test="${startDayOfMonth == loop.index}">
-                                                <option selected="true" value="${loop.index}">${loop.index}</option>
+                                    <input type="number" step="1" max="31" min="1" name="selectDayOfMonth" value="${startDayOfMonth}">
+
+                                    <input type="number" min="${minYearFromAppt}" step="1" name="selectYear" value="${startYear}">
+                                    at <select name="selectScheduleBlock">
+                                        <c:forEach items="${schBlocks}" var="schb">
+                                            <c:if test="${schBlock == schb}">
+                                                <option value="${schb}" selected="true">
+                                                    ${schb}
+                                                </option>
                                             </c:if>
-                                            <c:if test="${startDayOfMonth != loop.index}">
-                                                <option value="${loop.index}">${loop.index}</option>
+
+                                            <c:if test="${schBlock != schb}">
+                                                <option value="${schb}">
+                                                    ${schb}
+                                                </option>
                                             </c:if>
-                                            <c:if test="${loop.index == startDayOfMonth and startDayOfMonth > loop.index}">
-                                                <option value="${loop.index}" selected="true">${loop.index}</option>
-                                            </c:if>
+
                                         </c:forEach>
-                                            
                                     </select>
+                                </td>
+                            </tr>
 
-                                        <input type="number" min="${minYearFromAppt}" step="1" name="selectYear" value="${startYear}" onchange="this.form.submit()">
-                                        at <select name="selectScheduleBlock" onchange="this.form.submit()">
-                                            <c:forEach items="${schBlocks}" var="schb">
-                                                <c:if test="${schBlock == schb}">
-                                                    <option value="${schb}" selected="true">
-                                                        ${schb}
-                                                    </option>
-                                                </c:if>
-                                                
-                                                <c:if test="${schBlock != schb}">
-                                                    <option value="${schb}">
-                                                        ${schb}
-                                                    </option>
-                                                </c:if>
-                                                    
-                                            </c:forEach>
-                                        </select>
-                                </form>
-                            </td>
-                        </tr>
+                            <!--Service-->
+                            <tr>
+                                <td>Service Name: </td>
+                                <td>${appt.getServiceID().getServiceName()}</td>
+                            </tr>
 
-                        <!--Service-->
-                        <tr>
-                            <td>Service Name: </td>
-                            <td>${appt.getServiceID().getServiceName()}</td>
-                        </tr>
+                            <!--Vet-->
+                            <tr>
+                                <td>Vet:</td>
+                                <td>${appt.getEmployeeID().getUserID().getFirstName()} ${appt.getEmployeeID().getUserID().getLastName()}</td>
+                            </tr>
+                        </table>
 
-                        <!--Vet-->
-                        <tr>
-                            <td>Vet:</td>
-                            <td>${appt.getEmployeeID().getUserID().getFirstName()} ${appt.getEmployeeID().getUserID().getLastName()}</td>
-                        </tr>
-                    </table>
+                        <table class="tableData">
+                            <tr>
+                                <td>Price:</td>
+                                <td>$<fmt:formatNumber maxFractionDigits="2" minFractionDigits="2" value="${appt.getServiceID().getBasePrice()}"/></td>
+                            </tr>
+                        </table>
 
-                    <table class="tableData">
-                        <tr>
-                            <td>Price:</td>
-                            <td>$<fmt:formatNumber maxFractionDigits="2" minFractionDigits="2" value="${appt.getServiceID().getBasePrice()}"/></td>
-                        </tr>
-                    </table>
-                    
-                    
-                    <!--Update-->
-                    <form action="Appointment" method="POST" class="miniForms">
-                        
+                        <!--Update-->
+
                         <input type="submit" value="Update">
                         <input type="hidden" name="action" value="updateAppt">
-                        <input type="hidden" name="tempApptDate" value="${tempAppt.getAppointmentDate()}">
-                               <span>${tempAppt.getAppointmentID()}</span>
-                        
-                        
+                                                <input type="hidden" name="apptId" value="${appt.getAppointmentID()}">
                     </form>
-                    <!--Cancel-->
-                    <form action="Appointment" method="POST" class="miniForms">
-                        <button type="submit" name="action" value="reqCancelAppt" class="dangerButton">Request Appointment Cancellation</button> 
+                            <br/>
+                    <form action="Appointment" method="POST">
+                        <!--Cancel-->
+                        <input type="submit" value="Cancel Appointment" class="dangerButton">
+                        <input type="hidden" name="action" value="reqCancelAppt">
+                        <input type="hidden" name="apptId" value="${appt.getAppointmentID()}">
                     </form>
                 </div>
             </div>

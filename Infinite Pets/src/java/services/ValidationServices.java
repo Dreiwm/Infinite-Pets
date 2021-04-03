@@ -5,6 +5,7 @@
  */
 package services;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -19,7 +20,7 @@ import servlets.petServlets.AddPetServlet;
  * @author Chris
  */
 public class ValidationServices {
-       
+ 
     public String checkInput(String petName, String type, String breed, String birthday, String vet, String info, String sex, String owner){
         String msg = "";
         boolean found = false;

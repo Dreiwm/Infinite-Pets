@@ -309,7 +309,7 @@ INSERT INTO `account` (`Username`,`Password`,`Email`,`FirstName`,`LastName`,`IsE
     VALUES 
         ('admin','password','cprg352+admin@gmail.com','Admin','Admin',1,1),
         ('employee','password','cprg352+employee@gmail.com','employee','employee',1,1),
-        ('anne','password','asdf@asdf.com','Anne','Annerson',0,1),
+        ('anne','password','test@gmail.com','Anne','Annerson',0,1),
         ('barb','password','cprg352+barb@gmail.com','Barb','Barber',0,1);
 
 -- insert into employee tables
