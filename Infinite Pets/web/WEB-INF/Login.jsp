@@ -47,6 +47,7 @@
                     <img id="loginLogo"  src="assets/img/zacLoginPhotojpg.jpg" alt="">
                 </div>
                 <div class="inputs">
+                    <form action="Login" method="POST">
                     <div class="title">
                         <h1>Login</h1>
                     </div>
@@ -65,13 +66,13 @@
                     <div class="btns">
                         <button type="submit" name="action" value="login">Login</button>
                     </div>
+                    </form>
                     <div class="createAccount">
-                        <a id="createAccount" href="CreateAccount">Create Account</a>
+                        <a id="createAccount" href="SignUp">Create Account</a>
                     </div>
                 </div>
             </div>
     </div>
-
     </div>
   
 </body>  
