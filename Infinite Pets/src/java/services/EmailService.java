@@ -60,7 +60,7 @@ public class EmailService {
            System.out.println(e);
         }
 
-//        sendMail(to, subject, body, true);
+        sendMail(to, subject, body, true);
     }
     
     
@@ -102,15 +102,41 @@ public class EmailService {
     }
     
     
+    /**
+     * Sends an email to user to confirm account deletion.
+     * @param acc Account to be deleted.
+     * @param path the path 
+     * @param url the URL
+     * @param delConfirmToken a randomized string.
+     */
+    public void sendDeletionConfirm(Account acc, String path, String url, String delConfirmToken) {
+        try {
+            String subj = "Infinite Pets - Confirm Account Deletion";
+            String template = path + "/emailTemplates/AccountDeletionConfirmTemplate.html";
+     
+            // Tags to be used in the sendEmail method
+            HashMap<String, String> tags = new HashMap<>();
+            tags.put("fName", acc.getFirstName());
+            tags.put("lName", acc.getLastName());
+            
+            // finally, deletion token itself
+            tags.put("deleteAccount", url + "/DeleteAccount?delToken=" + delConfirmToken);
+            
+            // finally, send email
+            sendMail(acc.getEmail(), subj, template, tags);
+        } catch (Exception ex) {
+            Logger.getLogger(EmailService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     
-    /*
+  /*
     To Move Later added here so to test code
     */
     public void sendRecoveryPassword(Account to, String path, String url, String resetToken){
         
         try{
             String subject = "Infinite Pets Password Recovery";
-            String template = path + "assets/emailTemplates/ResetTemplate";
+            String template = path + "/emailTemplates/ResetTemplate.html";
             
             HashMap<String, String> tags = new HashMap<>();
                 tags.put("firstname", to.getFirstName());
@@ -125,40 +151,5 @@ public class EmailService {
             
         }
         
-    }
-    
-    /**
-     * Sends an email to user to confirm account deletion.
-     * @param acc Account to be deleted.
-     * @param path the path 
-     * @param url the URL
-     * @param delConfirmToken a randomized string.
-     */
-    public void sendDeletionConfirm(Account acc, String path, String url, String delConfirmToken) {
-        try {
-            String subj = "Infinite Pets - Confirm Account Deletion";
-            String template = "web/assets/emailTemplates/AccountDeletionConfirmTemplate.html";
-//            String template = "web/assets/emailTemplates/AccountDeletionConfirmTemplate.txt";
-            
-        System.out.println(Paths.get("/web/assets/emailTemplates/AccountDeletionConfirmTemplate.html").toFile().isFile());
-
-            // web/assets/emailTemplates/AccountDeletionConfirmTemplate.html
-            
-            
-            // Tags to be used in the sendEmail method
-            HashMap<String, String> tags = new HashMap<>();
-            tags.put("fName", acc.getFirstName());
-            tags.put("lName", acc.getLastName());
-            
-            // finally, deletion token itself
-            tags.put("deleteAccount", url + "/deleteAccount?delToken=" + delConfirmToken);
-            
-            // finally, send email
-            sendMail(acc.getEmail(), subj, template, tags);
-        } catch (Exception ex) {
-            Logger.getLogger(EmailService.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    
-    
+    }   
 }

@@ -72,11 +72,9 @@ public class DeleteAccountServlet extends HttpServlet {
             
             // Check if the deleteAccount is not null, if its not, then the link
         // is coming from an email that was sent.
-        String deleteAccount = request.getParameter("deleteAccount");
+        String deleteAccount = request.getParameter("delToken");
         
         
-        // test only, remove this later.
-        request.setAttribute("deleteAccount", "asdf");
         
         if (deleteAccount != null) {
             // Before we actually delete the account, we need to verify that
@@ -93,6 +91,7 @@ public class DeleteAccountServlet extends HttpServlet {
                  
 
                 try {
+                    
                     acs.deleteAccount(acc.getEmail());
                 } catch (Exception ex) {
                     Logger.getLogger(DeleteAccountServlet.class.getName()).log(Level.SEVERE, null, ex);
@@ -100,11 +99,8 @@ public class DeleteAccountServlet extends HttpServlet {
     
                 request.setAttribute("deleteAccountVerified", true);
                 ses.invalidate();
-                System.out.println("account deleted");
             }
         }
-            
-            
             
         getServletContext().getRequestDispatcher("/WEB-INF/DeleteAccount.jsp").forward(request,response);
         } else {
@@ -152,8 +148,11 @@ public class DeleteAccountServlet extends HttpServlet {
                     EmailService es = new EmailService();
                     
                     
-                    String path = getServletContext().getRealPath("/WEB-INF");
+                    String path = getServletContext().getRealPath("/assets");
                     String url =  request.getScheme() + "://" + request.getServerName();
+                    
+//                    String path = getServletContext().getRealPath("/WEB-INF");
+//                    String url =  request.getScheme() + "://" + request.getServerName();
                     // Create random token...
                     String delConfirmToken = UUID.randomUUID().toString();
                     acc.setDeleteAccountCode(delConfirmToken);

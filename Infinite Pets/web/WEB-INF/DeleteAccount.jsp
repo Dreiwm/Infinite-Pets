@@ -28,6 +28,9 @@
                     <h1>
                         Your account had been deleted.
                     </h1>
+                    <p>
+                        <a href="/Login">Return to Login page</a>
+                    </p>
                 </c:if>
                 
                 <c:if test="${deleteAccountVerified == false}">
