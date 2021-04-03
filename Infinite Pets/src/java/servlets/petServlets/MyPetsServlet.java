@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import models.Account;
+import services.AccountServices;
 import services.AddPetServices;
 
 /**
@@ -28,15 +29,17 @@ public class MyPetsServlet extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         
-//REMOVE ME LATER!!!!!!!!!!!!!!
-        session.setAttribute("owner", "anne");
-//REMOVE THE ABOVE LINE LATER!!!!!!!!!!!!      
+        //REMOVE ME LATER!!!!!!!!!!!!!!
+        session.setAttribute("user", "cprg352+anne@gmail.com");
+        //REMOVE THE ABOVE LINE LATER!!!!!!!!!!!!  
+
         Account owner = new Account();
-        AddPetServices aps = new AddPetServices();
+        AccountServices acs = new AccountServices();
         try {
-            owner = aps.getAccount((String)session.getAttribute("owner"));
+            owner = acs.getAccount((String)session.getAttribute("user"));
+            
         } catch (Exception ex) {
-            Logger.getLogger(MyPetsServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MyPetsServlet.class.getName()).log(Level.WARNING, null, ex);
         }
         
         request.setAttribute("pets", owner.getPetList());
@@ -46,13 +49,6 @@ public class MyPetsServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-       
-        
-        
-        
-        
+            throws ServletException, IOException {  
     }
-
-
 }
