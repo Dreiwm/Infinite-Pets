@@ -23,6 +23,7 @@ public class AccountDB {
      * @throws Exception  if something went wrong.
      */
     public Account getAccountByEmail(String email) throws Exception{
+        System.out.println("getting account from db");
        EntityManager em = DBUtil.getEmFactory().createEntityManager();
        try{
            Account user = em.createNamedQuery("Account.findByEmail",Account.class).setParameter("email", email).getSingleResult();

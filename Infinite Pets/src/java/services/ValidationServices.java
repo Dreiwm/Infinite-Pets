@@ -103,17 +103,32 @@ public class ValidationServices {
         return null;
     }
 
-    public boolean verifyLogin(String firstName, String lastName, String street, String city, String prov, String country, String postalCode, String area, String email, String emailConf, String pass, String passConf) {
+    public boolean verifyInfo(String firstName, String lastName, String street, String city, String prov, String country, String postalCode, String area, String email, String emailConf, String pass, String passConf) {
         boolean checked = false;
         try {
-            
-            if (!firstName.equals("") || !lastName.equals("") || !street.equals("") || !city.equals("") || !prov.equals("") || !country.equals("") ||  !postalCode.equals("") || !area.equals("") || !email.equals("") || !emailConf.equals("") || !pass.equals("") || !passConf.equals("")) {
-                if (checkEmailPass(email, emailConf, pass, passConf))
+            System.out.println("Verifying info");
+            if (!firstName.equals("") && !lastName.equals("") && locationChecked(street, city, prov, country, postalCode, area) && checkEmailPass(email, emailConf, pass, passConf)) {
+                    System.out.println("checked confirmed");
                     checked = true;                
             }
-            return checked; 
+            else {
+                System.out.println("FAILED");
+            }
         } catch(Exception e) {
             Logger.getLogger(AddPetServlet.class.getName()).log(Level.WARNING, null, e);
+        }
+        return checked;
+    }
+    
+    private boolean locationChecked(String street, String city, String prov, String country, String postalCode, String area){
+        boolean checked = false;
+        System.out.println("checking location");
+        if (!street.equals("") && !city.equals("") && !prov.equals("") && !country.equals("") && !postalCode.equals("") && !area.equals("")){
+            System.out.println("location cleared");
+            checked = true;
+        }
+        else {
+            System.out.println("location failed");
         }
         return checked;
     }
@@ -121,7 +136,11 @@ public class ValidationServices {
     private boolean checkEmailPass(String email, String email2, String pass, String pass2) {
         boolean checked = false;
         if (email.equals(email2) && pass.equals(pass2)) {
+            System.out.println("maching cleared");
             checked = true;
+        }
+        else {
+            System.out.println("matching failed");
         }
         return checked;
     }

@@ -18,7 +18,7 @@
     </head>
     <body>
         <div id="container"><div id="profile"><h1>Create an Account</h1>
-            <div id="table"><form>
+            <div id="table"><form method="POST" action="SignUp">
             <table>
                 <tr><td>First Name:</td><td><input type="text" name="firstName" placeholder="First Name" required></td></tr>
                 <tr><td>Last Name:</td><td><input type="text" name="lastName" placeholder="Last Name" required></td></tr>

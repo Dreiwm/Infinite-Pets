@@ -35,6 +35,7 @@ public class SignUpServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        System.out.println("GET");
         getServletContext().getRequestDispatcher("/WEB-INF/SignUp.jsp").forward(request, response);
     }
 
@@ -52,6 +53,7 @@ public class SignUpServlet extends HttpServlet {
         ValidationServices vs = new ValidationServices();
         AccountServices as = new AccountServices();
         try {
+            System.out.println("System getting info");
             String firstName = request.getParameter("firstName");
             String lastName = request.getParameter("lastName");
             String address = request.getParameter("address");
@@ -61,23 +63,25 @@ public class SignUpServlet extends HttpServlet {
             String country = request.getParameter("country");
             String postal = request.getParameter("postal");
             String email = request.getParameter("email");
-            String emailConf = request.getParameter("emailConfirm");
+            String emailConf = request.getParameter("emailConf");
             String pass = request.getParameter("password");
-            String passConf = request.getParameter("passwordConfirm");
+            String passConf = request.getParameter("passwordConf");
             
-            System.out.printf("Email: %s, First: %s, Last: %s, Pass: %s, Address: %s, City: %s, Country: %s, Prov: %s, Postal: %s", email, firstName, lastName, pass, address, city, country, prov, postal);
+            System.out.printf("Email1: %s, Email2: %s, Pass1: %s, Pass2: %s, First: %s, Last: %s, Pass: %s, Address: %s, City: %s, Country: %s, Prov: %s, Postal: %s%n", email, emailConf, pass, passConf, firstName, lastName, pass, address, city, country, prov, postal);
 
             
             //will create an account if info is all valid
-            if (vs.verifyLogin(firstName, lastName, address, city, prov, country, postal, area, email, emailConf, pass, passConf)) {
+            System.out.println("System verifying info");
+            if (vs.verifyInfo(firstName, lastName, address, city, prov, country, postal, area, email, emailConf, pass, passConf)) {
                 System.out.println("creating location");
                 Location location = as.createAddress(postal, address, city, country, prov, area);
                 System.out.println("creating account");
                 as.createUserAccount(firstName, lastName, email, pass, location);
-                System.out.println("re-direct");
+                System.out.println("re-direct to Login");
                 response.sendRedirect("Login");
             }
             else {
+                System.out.println("SignUp");
                 getServletContext().getRequestDispatcher("/WEB-INF/SignUp.jsp").forward(request, response);
             }
         } catch (Exception e) {
