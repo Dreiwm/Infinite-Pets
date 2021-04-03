@@ -23,16 +23,16 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Riley
+ * @author BTran
  */
 @Entity
 @Table(name = "discount")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Discount.findAll", query = "SELECT d FROM Discount d"),
-    @NamedQuery(name = "Discount.findByDiscountID", query = "SELECT d FROM Discount d WHERE d.discountID = :discountID"),
-    @NamedQuery(name = "Discount.findByDiscount", query = "SELECT d FROM Discount d WHERE d.discount = :discount"),
-    @NamedQuery(name = "Discount.findByDiscountType", query = "SELECT d FROM Discount d WHERE d.discountType = :discountType")})
+    @NamedQuery(name = "Discount.findAll", query = "SELECT d FROM Discount d")
+    , @NamedQuery(name = "Discount.findByDiscountID", query = "SELECT d FROM Discount d WHERE d.discountID = :discountID")
+    , @NamedQuery(name = "Discount.findByDiscount", query = "SELECT d FROM Discount d WHERE d.discount = :discount")
+    , @NamedQuery(name = "Discount.findByDiscountType", query = "SELECT d FROM Discount d WHERE d.discountType = :discountType")})
 public class Discount implements Serializable {
 
     private static final long serialVersionUID = 1L;

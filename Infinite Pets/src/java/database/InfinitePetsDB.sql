@@ -71,7 +71,7 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `infinitepetsdb`.`location` (
     `LocationID` INT NOT NULL AUTO_INCREMENT,
     `LocationType` CHAR(1) NOT NULL,
-    `PostalCode` VARCHAR(6) NOT NULL,
+    `PostalCode` VARCHAR(7) NOT NULL,
     `Address` VARCHAR(30) NOT NULL,
     `City` VARCHAR(30) NOT NULL,
     `Country` VARCHAR(30) NOT NULL,
@@ -87,19 +87,25 @@ ENGINE = InnoDB;
 -- WARNING: PasswordHash and PasswordSalt is TEMPORARILY allowed to be null
 CREATE TABLE IF NOT EXISTS `infinitepetsdb`.`account` (
     `UserId` INT NOT NULL AUTO_INCREMENT,
-    `Username` VARCHAR(30) NOT NULL,
     `Password` VARCHAR(30) NOT NULL,
 	`PasswordHash` VARCHAR(32),
 	`PasswordSalt` VARCHAR(32),
     `Email` VARCHAR(100) UNIQUE NOT NULL,
     `FirstName` VARCHAR(50) NOT NULL,
     `LastName` VARCHAR(50) NOT NULL,
+    `Address` INT NOT NULL,
     `IsEmployee` BIT NOT NULL,
     `IsConfirmed` BIT NOT NULL,
 	`PasswordResetCode` VARCHAR(36),
     `DeleteAccountCode` VARCHAR(36),
 	`PasswordResetActive` BIT DEFAULT 0,
-    PRIMARY KEY (`UserId`)
+    PRIMARY KEY (`UserID`),
+    INDEX `fk_address_idx` (`Address` ASC),
+    CONSTRAINT `fk_address_id`
+            FOREIGN KEY (`Address`)
+            REFERENCES `infinitepetsdb`.`location` (`LocationID`)
+            ON DELETE CASCADE
+            ON UPDATE NO ACTION
 )
 ENGINE = InnoDB;
 
@@ -295,7 +301,7 @@ ENGINE = InnoDB;
         INDEX `fk_schedule_employee_employeeIdx` (`EmployeeID` ASC),
         CONSTRAINT `fk_schedule_employee_employeeID`
 			FOREIGN KEY (`EmployeeID`)
-            REFERENCES `infinitepetsdb`.`employee` (`EmployeeiD`)
+            REFERENCES `infinitepetsdb`.`employee` (`EmployeeID`)
             ON DELETE NO ACTION,
         PRIMARY KEY (`ScheduleID`, `EmployeeID`)
     )
@@ -303,14 +309,23 @@ ENGINE = InnoDB;
 
 
 -- Inserts 
+-- Inserts into location
+INSERT INTO `location` (`LocationType`, `PostalCode`, `Address`, `City`, `Country`, `Province`, `Area`)
+    VALUES
+        ('E','A1A 1A1', '1 Center Street', 'Calgary', 'Canada', 'Alberta', 'N'),
+        ('E','A2A 2A2', '2 Center Street', 'Calgary', 'Canada', 'Alberta', 'E'),
+        ('R','A3A 3A3', '3 Center Street', 'Calgary', 'Canada', 'Alberta', 's'),
+        ('R','A4A 4A4', '4 Center Street', 'Calgary', 'Canada', 'Alberta', 'W'),
+        ('R','A5A 454', '5 Center Street', 'Calgary', 'Canada', 'Alberta', 'NW');
 
 -- Insert into accounts
-INSERT INTO `account` (`Username`,`Password`,`Email`,`FirstName`,`LastName`,`IsEmployee`,`IsConfirmed`)
+INSERT INTO `account` (`Password`, `Email`, `FirstName`, `LastName`, `Address`, `IsEmployee`,`IsConfirmed`)
     VALUES 
-        ('admin','password','cprg352+admin@gmail.com','Admin','Admin',1,1),
-        ('employee','password','cprg352+employee@gmail.com','employee','employee',1,1),
-        ('anne','password','asdf@gmail.com','Anne','Annerson',0,1),
-        ('barb','password','cprg352+barb@gmail.com','Barb','Barber',0,1);
+        ('password','cprg352+admin@gmail.com','Admin','Admin', 1, 1, 1),
+        ('password','cprg352+employee@gmail.com','employee','employee', 2, 1, 1),
+        ('password','cprg352+anne@gmail.com','Anne','Annerson', 3, 0, 1),
+        ('password','bccrs.test@gmail.com', 'BCCRS', 'Test', 5, 0, 1),
+        ('password','cprg352+barb@gmail.com','Barb','Barber', 4, 0, 1);
 
 -- insert into employee tables
    -- `UserID` INT NOT NULL,

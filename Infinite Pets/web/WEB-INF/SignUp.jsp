@@ -10,25 +10,32 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="assets/css/main.css">
+        <link rel="stylesheet" href="assets/css/MyProfile.css">
         <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
         <%@include file="testFiles/header.jsp" %>
         <title>Sign Up</title>
     </head>
     <body>
-        <h1>Create an Account</h1>
-        <form>
+        <div id="container"><div id="profile"><h1>Create an Account</h1>
+            <div id="table"><form method="POST" action="SignUp">
             <table>
-                <tr><td>First Name:</td><td><input type="text" name="firstName" placeholder="First Name"></td></tr>
-                <tr><td>Last Name:</td><td><input type="text" name="lastName" placeholder="Last Name"></td></tr>
-                <tr><td>Email:</td><td><input type="text" name="email" placeholder="Email"></td></tr>
-                <tr><td>Confirm Email:</td><td><input type="text" name="emailConfirm" placeholder="Confirm Email"></td></tr>
-                <tr><td>Password:</td><td><input type="password" name="password" placeholder="Password"></td></tr>
-                <tr><td>Confirm Password:</td><td><input type="passwordConfirm" name="firstName" placeholder="Confirm Password"></td></tr>
-            </table>
-            <input type="hidden" name="action" value="create">
-            <input type="submit" value="Submit">
-        </form>
+                <tr><td>First Name:</td><td><input type="text" name="firstName" placeholder="First Name" required></td></tr>
+                <tr><td>Last Name:</td><td><input type="text" name="lastName" placeholder="Last Name" required></td></tr>
+                <tr><td>Street Address:</td><td><input type="text" name="address" placeholder="123 Sesame Street" required></td></tr>
+                <tr><td>Area:</td><td><input type="text" name="area" placeholder="N, S, W, E" required></td></tr>
+                <tr><td>City:</td><td><input type="text" name="city" placeholder="Calgary" required></td></tr>
+                <tr><td>Province:</td><td><input type="text" name="prov" placeholder="Alberta" required></td></tr>
+                <tr><td>Country:</td><td><input type="text" name="country" placeholder="Canada" required></td></tr>
+                <tr><td>Postal Code:</td><td><input type="text" name="postal" placeholder="A1A 1A1" pattern="([A-Z][0-9][A-Z] [0-9][A-Z][0-9])" required></td></tr>
+                <tr><td>Email:</td><td><input type="text" name="email" placeholder="Email" required></td></tr>
+                <tr><td>Confirm Email:</td><td><input type="text" name="emailConf" placeholder="Email" required></td></tr>
+                <tr><td>Password:</td><td><input required type="password" name="password" placeholder="Password" required></td></tr>
+                <tr><td>Confirm Password:</td><td><input required type="password" name="passwordConf" placeholder="Password" required></td></tr>
+            </table> <br></div>
+            <input type="hidden" name="action" value="edit">
+            <input type="submit" value="Create Account">
+                </form><br></div></div><br>
     </body>
     <footer> <%@include file="testFiles/footer.jsp" %> </footer>
 </html>

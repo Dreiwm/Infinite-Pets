@@ -88,6 +88,20 @@ button {
     cursor: pointer;
 }
 
+/*************************************************
+* Form Styling 
+* for the buttons that will be next to each other
+*************************************************/
+.miniForms {
+    display: inline-block;
+    margin: 1em 0 1em 0;
+}
+
+.miniForms button:nth-child(1n) {
+    margin-right: 0.3em;
+}
+
+
 .dangerButton {
     background: lightcoral;
     border: solid;
@@ -213,7 +227,6 @@ body {
     grid-template-rows: 1fr;
     background: #9A9891;
     color: #696863;
-    
 }
 
 .footer h4{
