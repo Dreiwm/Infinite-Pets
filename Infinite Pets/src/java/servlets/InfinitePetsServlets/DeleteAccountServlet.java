@@ -39,7 +39,79 @@ public class DeleteAccountServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-                getServletContext().getRequestDispatcher("/WEB-INF/DeleteAccount.jsp").forward(request,response);
+        
+        HttpSession ses = request.getSession();
+        
+        
+        /*******************************
+         * 
+         * ***********
+         * REMOVE ME *
+         * ***********
+         * 
+         ******************************/
+        ses.setAttribute("email", "bccrs.test@gmail.com"); 
+        // Pretend that session is valid. Remove above when session is working properly.
+        
+        String email = (String) ses.getAttribute("email");
+        System.out.println(email);
+        AccountServices acs = new AccountServices();
+        Account acc = null;
+        try {
+            acc = acs.getAccount(email);
+        } catch (Exception ex) {
+            Logger.getLogger(DeleteAccountServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+;
+        if (acc != null) {
+            // if account is not null, means email in session matches from DB
+            
+            // Set attribute for deleteAccountVerified on front end to present 
+            // form to delete account by default.
+            request.setAttribute("deleteAccountVerified", false);
+            
+            // Check if the deleteAccount is not null, if its not, then the link
+        // is coming from an email that was sent.
+        String deleteAccount = request.getParameter("delToken");
+        
+        
+        
+        if (deleteAccount != null) {
+            // Before we actually delete the account, we need to verify that
+            // the token matches the token on account.
+            
+            // get token
+            String tokenFromAcc = acc.getDeleteAccountCode();
+            System.out.println(tokenFromAcc);
+            // Check if token from account is valid.
+            if (tokenFromAcc != null && deleteAccount.equals(tokenFromAcc)) {
+                // actually delete now.
+                // actually delete account 
+                 // invalidate the session
+                 
+
+                try {
+                    
+                    acs.deleteAccount(acc.getEmail());
+                } catch (Exception ex) {
+                    Logger.getLogger(DeleteAccountServlet.class.getName()).log(Level.SEVERE, null, ex);
+                }
+    
+                request.setAttribute("deleteAccountVerified", true);
+                ses.invalidate();
+            }
+        }
+            
+        getServletContext().getRequestDispatcher("/WEB-INF/DeleteAccount.jsp").forward(request,response);
+        } else {
+            ses.invalidate();
+            response.sendRedirect("Login");
+        }
+
+        
+        
+        
+         
     }
         
         
@@ -76,11 +148,14 @@ public class DeleteAccountServlet extends HttpServlet {
                     EmailService es = new EmailService();
                     
                     
-                    String path = getServletContext().getRealPath("/WEB-INF");
+                    String path = getServletContext().getRealPath("/assets");
                     String url =  request.getScheme() + "://" + request.getServerName();
+                    
+//                    String path = getServletContext().getRealPath("/WEB-INF");
+//                    String url =  request.getScheme() + "://" + request.getServerName();
                     // Create random token...
                     String delConfirmToken = UUID.randomUUID().toString();
-//                    acc.setDeleteAccountCode(delConfirmToken);
+                    acc.setDeleteAccountCode(delConfirmToken);
                     acs.updateDeleteToken(delConfirmToken, acc.getEmail());
                     System.out.println("path: " + path + " url: " + url + "token: " + delConfirmToken);
                     es.sendDeletionConfirm(acc, path, url, delConfirmToken);

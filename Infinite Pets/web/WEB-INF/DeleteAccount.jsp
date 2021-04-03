@@ -22,14 +22,27 @@
 
         <div class="wrapper">
             <div class="generalContainer">
-            <h1>Delete Account</h1>
-            <form>
-                    <button type="submit" name="action" value="deleteAccount" class="dangerButton">Delete Account</button>                    
-            </form>
-            <form method="GET" action="MyProfile">
-                    <button type="submit" name="action" value="cancel">Cancel</button>
-            </form>
-        </div>
+                <!-- If deleteAccount parameter is not null, then present 
+                the successful account deletion. Otherwise, present button to send an email-->
+                <c:if test="${deleteAccountVerified == true}">
+                    <h1>
+                        Your account had been deleted.
+                    </h1>
+                    <p>
+                        <a href="/Login">Return to Login page</a>
+                    </p>
+                </c:if>
+                
+                <c:if test="${deleteAccountVerified == false}">
+                    <h1>Delete Account</h1>
+                    <span>We will send an email to you to confirm your account deletion.</span>
+                    <br/>
+                    <form name="deleteAccountForm" method="POST">
+                            <button type="submit" name="action" value="deleteAccount" class="dangerButton">Delete Account</button>
+                            <button type="submit" name="action" value="cancel">Cancel</button>
+                    </form>
+                </c:if>
+            </div>
         </div>
     </body>
     <footer> <%@include file="testFiles/footer.jsp" %> </footer>

@@ -10,7 +10,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
-import models.Empqualificationtype;
+import models.EmpQualificationType;
 
 /**
  * Responsible for interacting with EmpQualificationType table in the database.
@@ -21,11 +21,11 @@ public class EmpQualificationTypeDB {
      * Returns all of the EmpQualificationTypes from DB
      * @return list of EmpQualificationTypes
      */
-    public List<Empqualificationtype> getAllLocations() {
+    public List<EmpQualificationType> getAllLocations() {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         
         try {
-            return em.createNamedQuery("EmpQualificationType.findAll", Empqualificationtype.class).getResultList();
+            return em.createNamedQuery("EmpQualificationType.findAll", EmpQualificationType.class).getResultList();
         } finally {
             em.close();
         }
@@ -36,11 +36,11 @@ public class EmpQualificationTypeDB {
      * @param id the id of location to retrieve from DB
      * @return the EmpQualificationType.
      */
-    public Empqualificationtype get(int id) {
+    public EmpQualificationType get(int id) {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         
         try {
-            return em.find(Empqualificationtype.class, id);
+            return em.find(EmpQualificationType.class, id);
         } finally {
             em.close();
         }
@@ -53,7 +53,7 @@ public class EmpQualificationTypeDB {
     * @throws java.lang.Exception if something went wrong with transaction.
 
      */
-    public boolean insert(Empqualificationtype empQType) throws Exception {
+    public boolean insert(EmpQualificationType empQType) throws Exception {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         EntityTransaction tr = em.getTransaction();
         
@@ -67,7 +67,7 @@ public class EmpQualificationTypeDB {
             if (tr.isActive()) {
                 tr.rollback();
             }
-            Logger.getLogger(Empqualificationtype.class.getName()).log(Level.SEVERE, "Cannot insert " + empQType.toString(), e); 
+            Logger.getLogger(EmpQualificationType.class.getName()).log(Level.SEVERE, "Cannot insert " + empQType.toString(), e); 
 
         } finally {
             em.close();
@@ -81,7 +81,7 @@ public class EmpQualificationTypeDB {
      * @return returns true if successfully updated.
      * @throws java.lang.Exception if something went wrong with transaction.
      */
-    public boolean update(Empqualificationtype empQType) throws Exception {
+    public boolean update(EmpQualificationType empQType) throws Exception {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         EntityTransaction tr = em.getTransaction();
         
@@ -93,7 +93,7 @@ public class EmpQualificationTypeDB {
         } catch (Exception e) {
             if (tr.isActive())
                 tr.rollback();
-            Logger.getLogger(Empqualificationtype.class.getName()).log(Level.SEVERE, "Cannot update " + empQType.toString(), e); 
+            Logger.getLogger(EmpQualificationType.class.getName()).log(Level.SEVERE, "Cannot update " + empQType.toString(), e); 
         } finally {
             em.close();
         }
@@ -106,7 +106,7 @@ public class EmpQualificationTypeDB {
      * @return if successfully deleted from the database.
      * @throws Exception  if something went with accessing the database.
      */
-    public boolean delete(Empqualificationtype empQType) throws Exception {
+    public boolean delete(EmpQualificationType empQType) throws Exception {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         EntityTransaction tr = em.getTransaction();
         try{
@@ -117,7 +117,7 @@ public class EmpQualificationTypeDB {
        } catch (Exception e){
            if (tr.isActive())
                tr.rollback();
-            Logger.getLogger(Empqualificationtype.class.getName()).log(Level.SEVERE, "Cannot delete " + empQType.toString(), e); 
+            Logger.getLogger(EmpQualificationType.class.getName()).log(Level.SEVERE, "Cannot delete " + empQType.toString(), e); 
            
        }
        finally {
@@ -130,8 +130,8 @@ public class EmpQualificationTypeDB {
     public static void main(String[] args) throws Exception {
         EmpQualificationTypeDB empQTDB = new EmpQualificationTypeDB();
         
-        Empqualificationtype empQType0 = new Empqualificationtype(0, "Dog Nail Clipping", "Skilled in nail clipping on the dogs");
-        Empqualificationtype empQType1 = new Empqualificationtype(0, "Puppy Trainer", "Skilled in training the puppies.");
+        EmpQualificationType empQType0 = new EmpQualificationType(0, "Dog Nail Clipping", "Skilled in nail clipping on the dogs");
+        EmpQualificationType empQType1 = new EmpQualificationType(0, "Puppy Trainer", "Skilled in training the puppies.");
         
         
         // test insert two items

@@ -22,7 +22,7 @@
             Please enter your login email:
             </p>
 
-            <form id="resetForm" action="reset_password" method="post">
+            <form id="resetForm" method="post">
                 <table class="center">
                     <tr>
                         <td>Email:</td>
@@ -35,6 +35,7 @@
                     </tr>    
                 </table>
             </form>
+            <label>${message}</label>
         </div>
         
         

@@ -98,7 +98,7 @@ public class AccountServices {
     /**
      * Updates an account with newly created DeleteAccountCode
      * @param deleteToken randomized token generated when submitting form to send an account deletion request. 
-     * @param email email to identify which account to be updated with new deleteAccountcCode.
+     * @param email email to iedentify which account to be updated with new deleteAccountcCode.
      */
     public void updateDeleteToken(String deleteToken, String email) {
         try {
@@ -106,7 +106,7 @@ public class AccountServices {
             Account acc = acDB.getAccountByEmail(email);
             
             // now we have account to work with, update Token
-//            acc.setDeleteAccountCode(deleteToken);
+            acc.setDeleteAccountCode(deleteToken);
             acDB.updateAccount(acc);
             
             
