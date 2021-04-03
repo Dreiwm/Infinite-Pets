@@ -20,6 +20,7 @@
         <%@include file="testFiles/header.jsp" %>
     </head>
     <body>
+
         <div class="wrapper">
             <div class="viewPetsContainer">
                 <div class="title">
@@ -57,5 +58,33 @@
             </div>
         </div>
         <footer> <%@include file="testFiles/footer.jsp" %> </footer>
+  
+<!--         <h1>My Pets</h1>
+        
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Pet Name</th>
+                    <th>Animal</th>
+                    <th>Breed</th>
+                    <th>Sex</th>
+                </tr>
+            </thead>
+            <tbody>
+                <c:forEach items="${pets}" var="pet">
+                    <tr>
+                        <td>${pet.petName}</td>
+                        <td>${pet.species}</td>
+                        <td>${pet.breed}</td>
+                        <td>${pet.sex}</td> -->
+                        <!--make another link to go to the pet and an image as well
+                    </tr>
+                </c:forEach>
+            </tbody>
+        </table>
+
+        <a href="/InfinitePets/AddPet">Add a new pet</a>
+         -->
+
     </body>
 </html>

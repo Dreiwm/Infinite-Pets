@@ -1,4 +1,37 @@
 
+.wrapper {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+}
+
+.generalContainer {
+    display: grid;
+    
+    
+    column-gap: 30px;
+    row-gap: 0px;
+    padding: 25px 50px 50px 50px;
+    margin-top: 25px;
+    margin-bottom: 25px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    border-style: solid;
+    background-color: #F3F1EC;
+}
+
+/**********************************  
+* Table style - General
+**********************************/
+.tableData td {
+    padding: 0.5em;
+}
+
+.tableData tr td:nth-child(2n) {
+    padding-left: 3em;
+}
+
 input {
     background: #ffffff;
     border: solid;
@@ -44,7 +77,36 @@ button {
     font-family: 'Playfair Display', serif;
     cursor: pointer;
 }
+/*************************************************
+* Form Styling 
+* for the buttons that will be next to each other
+*************************************************/
+.miniForms {
+    display: inline-block;
+    margin: 1em 0 1em 0;
+}
 
+.miniForms button:nth-child(1n) {
+    margin-right: 0.3em;
+}
+
+
+.dangerButton {
+    background: lightcoral;
+    border: solid;
+    border-radius: 5px;
+    border-width: 2px;
+    border-color: lightcoral;
+    height: 30px;
+    width: auto;
+    color: #fff;
+    font-family: 'Playfair Display', serif;
+    padding-left: 5px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    outline: none;
+    cursor: text;
+}
 textarea {
     background: #ffffff;
     border: solid;
@@ -104,11 +166,11 @@ body a {
     padding: 15px;
     background: #9A9891;
     color: #696863;
+
     position: absolute;
     bottom: 0;
     justify-content: center;
     align-items: center;
-    
 }
 
 .footer h4{
@@ -223,3 +285,17 @@ body a {
 .dropdown-content a:hover {background-color: white;}
 .dropdown:hover .dropdown-content {display: block;}
 .dropdown:hover .dropbtn {background-color: grey;}
+
+
+/*
+ * Used for errors in forms
+*/
+#errorBox {
+    border: 2px solid red;
+    /*color: red;*/
+    padding: 1.5em;
+    background-color: #ffe3e3;
+    margin-top: 1em;
+    margin-bottom: 1em;
+
+}

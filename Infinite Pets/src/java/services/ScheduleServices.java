@@ -8,6 +8,10 @@ package services;
 import dataaccess.AccountDB;
 import dataaccess.AppointmentDB;
 import dataaccess.PetDB;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -23,6 +27,17 @@ import models.Appointment;
  * @author BTran
  */
 public class ScheduleServices {
+    
+    public final static String EARLY_MORNING = "Early Morning (6AM to 9AM)";
+    public final static String MORNING = "Morning (9AM to 12AM";
+    public final static String AFTERNOON = "Afternoon (12PM to 4PM)";
+    public final static String EVENING = "Evening (4PM to 6PM)";
+    
+    // Time corrspends to schedule block.
+    public final static int EARLY_MORNING_TIME_START = 6;
+    public final static int MORNING_TIME_START = 9;
+    public final static int AFTERNOON_TIME_START = 12;
+    public final static int EVENING_TIME_START = 4;
     
 //    //Retrieves a list of ScheduleBlockTypes
 //    public List<ScheduleBlockType> getScheduleBlockTypes() throws Exception{
@@ -123,5 +138,78 @@ public class ScheduleServices {
         } catch (Exception e) {
             Logger.getLogger(ScheduleServices.class.getName()).log(Level.SEVERE, null, e);
         }
+    }
+    
+    public static List<String> getScheduleBlockList() {
+        ArrayList<String> list = new ArrayList<>();
+        
+        list.add(EARLY_MORNING);
+        list.add(MORNING);
+        list.add(AFTERNOON);
+        list.add(EVENING);
+        
+        
+        return (List) list;
+    }
+    
+    /**
+     * Returns a string representing a schedule block - Early Morning, Morning, Afternoon, and on.
+     * Intended to be used with select and option HTML elements.
+     * Determined by start appointment date, ie. 06:00 is Early Morning.
+     * @param appt Appointment object to be used to determine the schedule block.
+     * @return a string representing a schedule block
+     */
+    public static String getScheduleBlock(Appointment appt) {
+        SimpleDateFormat sdf = new SimpleDateFormat("hh");
+        int hour = Integer.parseInt(sdf.format(appt.getAppointmentDate()));
+        System.out.println("hour: " + hour);
+        
+        
+        // case switch 
+        switch (hour) {
+            case EARLY_MORNING_TIME_START:
+                return EARLY_MORNING;
+            case MORNING_TIME_START:
+                return MORNING;
+            case AFTERNOON_TIME_START:
+                return AFTERNOON;
+            case EVENING_TIME_START: 
+                return EVENING;
+            default:
+                return "Unrecognized schedule block";
+        }  
+    }
+    
+    /**
+     * Returns an integer representing hour that corrsepends to a given schedule block.
+     * @param scheduleBlock a string representing a fully named schedule block (ie. Afternoon (12pm to 4pm).
+     * @return an integer representing a hour that corrspends to a given schedule block. Returns -1 if no match is found.
+     */
+    public static int getScheduleBlock(String scheduleBlock) {
+        switch (scheduleBlock) {
+            case EARLY_MORNING:
+                return EARLY_MORNING_TIME_START;
+            case MORNING:
+                return MORNING_TIME_START;
+            case AFTERNOON:
+                return AFTERNOON_TIME_START;
+            case EVENING:
+                return EVENING_TIME_START;
+            default:
+                return -1;
+        }   
+    }
+    
+    /**
+     * Returns an integer representing start time of given Appointment object.
+     * used with schedule blocks.
+     * @param appt the Appointment object to determine start time.
+     * @return an integer representing start time of an appointment.
+     */
+    public static int getScheduleBLockStartTime(Appointment appt) {
+        if (appt == null || appt.getAppointmentDate() == null) return -1;
+        
+        SimpleDateFormat sdf = new SimpleDateFormat("hh");
+        return Integer.parseInt(sdf.format(appt.getAppointmentDate()));
     }
 }
