@@ -16,10 +16,17 @@ import models.Account;
  */
 public class AccountDB {
     
-    public Account getAccountByUsername(String username) throws Exception{
+    /**
+     * Retrieves account using email
+     * @param email the email to be found from DB.
+     * @return returns Account
+     * @throws Exception  if something went wrong.
+     */
+    public Account getAccountByEmail(String email) throws Exception{
+        System.out.println("getting account from db");
        EntityManager em = DBUtil.getEmFactory().createEntityManager();
        try{
-           Account user = em.createNamedQuery("Account.findByUsername",Account.class).setParameter("username", username).getSingleResult();
+           Account user = em.createNamedQuery("Account.findByEmail",Account.class).setParameter("email", email).getSingleResult();
            
            return user;
        }
@@ -27,7 +34,7 @@ public class AccountDB {
            em.close();
        }
     }
-  
+    
     public List<Account> getAllAccount(){
         EntityManager em = DBUtil.getEmFactory().createEntityManager();  
         try{

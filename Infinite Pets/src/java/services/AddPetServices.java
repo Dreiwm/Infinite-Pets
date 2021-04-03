@@ -42,14 +42,6 @@ public class AddPetServices {
         return breedDB.getAllAnimalBreeds();
     }
     
-    //Retrieves an account
-    public Account getAccount(String username)throws Exception{
-        AccountDB accountDB = new AccountDB();
-        Account account = new Account();
-        account = accountDB.getAccountByUsername(username);
-        return account;
-    }
-    
     public Pet getPetById(Integer id) throws Exception{
         PetDB ptdb = new PetDB();
         Pet pet = new Pet(); 
@@ -70,7 +62,7 @@ public class AddPetServices {
         newPet.setMedicalInfo(medical);
         
         
-        newPet.setOwner(accountDB.getAccountByUsername(owner));
+        newPet.setOwner(accountDB.getAccountByEmail(owner));
                 
         System.out.println(newPet.getBreed()+"\n"+newPet.getPetName());
         petDB.insertPet(newPet);

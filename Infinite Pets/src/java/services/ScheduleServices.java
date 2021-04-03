@@ -8,6 +8,10 @@ package services;
 import dataaccess.AccountDB;
 import dataaccess.AppointmentDB;
 import dataaccess.PetDB;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -23,6 +27,12 @@ import models.Appointment;
  * @author BTran
  */
 public class ScheduleServices {
+    
+    public final static String earlyMorning = "Early Morning (6AM to 9AM)";
+    public final static String morning = "Morning (9AM to 12AM";
+    public final static String afternoon = "Afternoon (12PM to 4PM)";
+    public final static String evening = "Evening (4PM to 6PM)";
+    
     
 //    //Retrieves a list of ScheduleBlockTypes
 //    public List<ScheduleBlockType> getScheduleBlockTypes() throws Exception{
@@ -123,5 +133,49 @@ public class ScheduleServices {
         } catch (Exception e) {
             Logger.getLogger(ScheduleServices.class.getName()).log(Level.SEVERE, null, e);
         }
+    }
+    
+    public static List<String> getScheduleBlockList() {
+        ArrayList<String> list = new ArrayList<>();
+        
+        list.add(earlyMorning);
+        list.add(morning);
+        list.add(afternoon);
+        list.add(evening);
+        
+        
+        return (List) list;
+    }
+    
+    /**
+     * Returns a string representing a schedule block - Early Morning, Morning, Afternoon, and on.
+     * Intended to be used with select and option HTML elements.
+     * Determined by start appointment date, ie. 06:00 is Early Morning.
+     * @param appt Appointment object to be used to determine the schedule block.
+     * @return a string representing a schedule block
+     */
+    public static String getScheduleBlock(Appointment appt) {
+        SimpleDateFormat sdf = new SimpleDateFormat("hh");
+        int hour = Integer.parseInt(sdf.format(appt.getAppointmentDate()));
+        System.out.println("hour: " + hour);
+        
+        final int earlyMorning = 6;
+        final int morning = 9;
+        final int afternoon = 12;
+        final int evening = 4; // luckily, they don't work in 4am, else I'll have to use strings 
+        
+        // case switch 
+        switch (hour) {
+            case earlyMorning:
+                return "Early Morning (6AM to 9AM)";
+            case morning:
+                return "Morning (9AM to 12PM)";
+            case afternoon:
+                return "Afternoon (12PM to 4PM)";
+            case evening: 
+                return "Evening (4PM to 6PM)";
+            default:
+                return "Unrecognized schedule block";
+        }  
     }
 }
