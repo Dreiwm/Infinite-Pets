@@ -81,7 +81,7 @@ public class SignUpServlet extends HttpServlet {
                 response.sendRedirect("Login");
             }
             else {
-                System.out.println("SignUp");
+                System.out.println("SignUp FAILED");
                 getServletContext().getRequestDispatcher("/WEB-INF/SignUp.jsp").forward(request, response);
             }
         } catch (Exception e) {

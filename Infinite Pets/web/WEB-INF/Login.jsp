@@ -26,7 +26,7 @@
                     <img id="loginLogo"  src="assets/img/zacLoginPhotojpg.jpg" alt="">
                 </div>
 
-                <form>
+                <form method="POST" action="Login">
                 
                     <div class="inputs">
                         <div class="title">

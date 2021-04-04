@@ -40,12 +40,12 @@ public class MyProfileServlet extends HttpServlet {
         try {
             System.out.println("My profile servlet");
             //get session information
-            HttpSession session = request.getSession();
-            String email = (String) session.getAttribute("user");
-            if (email.equals("") || email == null){
-                response.sendRedirect("Login");
-            }
-//            String email = "cprg352+anne@gmail.com"; //REMOVE THIS PART AND UNCOMMENT ABOVE
+//            HttpSession session = request.getSession();
+//            String email = (String) session.getAttribute("email");
+//            if (email.equals("") || email == null){
+//                response.sendRedirect("Login");
+//            }
+            String email = "cprg352+anne@gmail.com"; //REMOVE THIS PART AND UNCOMMENT ABOVE
             AccountDB accDB = new AccountDB();
             Account account =  accDB.getAccountByEmail(email);
             System.out.println("getting account information");
@@ -95,7 +95,7 @@ public class MyProfileServlet extends HttpServlet {
             throws ServletException, IOException {
         try {
             HttpSession session = request.getSession();
-            String email = (String) session.getAttribute("user");
+            String email = (String) session.getAttribute("email");
             if (email.equals("") || email == null){
                 response.sendRedirect("Login");
             }
