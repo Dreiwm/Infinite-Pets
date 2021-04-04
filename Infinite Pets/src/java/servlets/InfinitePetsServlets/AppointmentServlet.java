@@ -67,7 +67,7 @@ public class AppointmentServlet extends HttpServlet {
          *
          *****************************
          */
-        ses.setAttribute("email", "bccrs.test@gmail.com");
+//        ses.setAttribute("email", "bccrs.test@gmail.com");
         // Pretend that session is valid. Remove above when session is working properly.
 
         String email = (String) ses.getAttribute("email");

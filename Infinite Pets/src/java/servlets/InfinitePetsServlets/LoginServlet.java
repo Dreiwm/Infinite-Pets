@@ -74,7 +74,7 @@ public class LoginServlet extends HttpServlet {
                 if(found){
                     System.out.println("account found");
                      HttpSession session = request.getSession();
-                     session.setAttribute("user", account.getEmail());
+                     session.setAttribute("email", account.getEmail());
                      response.sendRedirect("MyPets");
                 }
                 else
