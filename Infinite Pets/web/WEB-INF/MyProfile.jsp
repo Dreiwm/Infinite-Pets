@@ -27,20 +27,23 @@
         <div id="container"><div id="profile"><h1>My Profile</h1>
         <form method="POST" action="MyProfile">
             <table> 
-                <tr><td>First Name:</td><td><input type="text" name="firstName" value=${firstName} readOnly></td></tr>
-                <tr><td>Last Name:</td><td><input type="text" name="lastName" value=${lastName} readOnly></td></tr>
-                <tr><td>Street Address:</td><td><input type="text" name="address" value=${address} readOnly></td></tr>
-                <tr><td>Area:</td><td><input type="text" name="area" value=${area} readOnly></td></tr>
-                <tr><td>City:</td><td><input type="text" name="city" value=${city} readOnly></td></tr>
-                <tr><td>Province:</td><td><input type="text" name="prov" value=${prov} readOnly></td></tr>
-                <tr><td>Country:</td><td><input type="text" name="country" value=${country} readOnly></td></tr>               
+                <tr><td>First Name:</td><td><input type="text" name="firstName" value=${firstName} readonly></td></tr>
+                <tr><td>Last Name:</td><td><input type="text" name="lastName" value=${lastName} readonly></td></tr>
+                <tr><td>Street Address:</td><td><input type="text" name="address" value=${address} readonly></td></tr>
+                <tr><td>Area:</td><td><input type="text" name="area" value=${area} readonly></td></tr>
+                <tr><td>City:</td><td><input type="text" name="city" value=${city} readonly></td></tr>
+                <tr><td>Province:</td><td><input type="text" name="prov" value=${prov} readonly></td></tr>
+                <tr><td>Country:</td><td><input type="text" name="country" value=${country} readonly></td></tr>               
                 <!--NOTE POSTAL IS MISSING LAST 3 DIGITS-->
-                <tr><td>Postal Code:</td><td><input type="text" name="postal" value=${postal} readOnly></td></tr>
-                <tr><td>Email:</td><td><input type="text" name="email" value=${email} readOnly></td></tr>
-                <tr><td>Password:</td><td><input type="password" name="password" value=${password} readOnly></td></tr>
+                <tr><td>Postal Code:</td><td><input type="text" name="postal" value=${postal} readonly></td></tr>
+                <tr><td>Email:</td><td><input type="text" name="email" value=${email} readonly></td></tr>
+                <tr><td>Password:</td><td><input type="password" name="password" value=${password} readonly></td></tr>
             </table>
-            <input type="hidden" name="action" value="create">
-            <input type="submit" value="Submit">
+            <div id="saveBtn" style="display:none" value="btn">
+                <input type="hidden" name="action" value="save">
+                <input type="submit" value="Save">
+            </div>
+            <button onclick="editProfile" id="editBtn">Edit</button>
         </form>
         <form method="get" action="DeleteAccount">
             
