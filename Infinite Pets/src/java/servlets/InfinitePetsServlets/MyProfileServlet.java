@@ -101,6 +101,7 @@ public class MyProfileServlet extends HttpServlet {
             if (email.equals("") || email == null){
                 response.sendRedirect("Login");
             }
+            
             String action = request.getParameter("action");
             if (action.equals("save")){
                 System.out.println("action is on save");
@@ -120,15 +121,13 @@ public class MyProfileServlet extends HttpServlet {
                 System.out.println(session);
                 System.out.printf("Email1: %s, Pass1: %s, First: %s, Last: %s, Pass: %s, Address: %s, City: %s, Country: %s, Prov: %s, Postal: %s%n", email, pass, firstName, lastName, pass, address, city, country, prov, postal);
             
-            //will create an account if info is all valid
-            System.out.println("System verifying info");
-            if (vs.verifyInfo(firstName, lastName, address, city, prov, country, postal, area, email, pass)) {
-                AccountServices accs = new AccountServices();
-                accs.updateUserAccount(pass, email, firstName, lastName, true, address, city, prov, country, postal, area);
-            }
-            else if (action.equals("edit")){
-                System.out.println("action is on edit");
-            }
+                //will create an account if info is all valid
+                System.out.println("System verifying info");
+                if (vs.verifyInfo(firstName, lastName, address, city, prov, country, postal, area, email, pass)) {
+                    AccountServices accs = new AccountServices();
+                    accs.updateUserAccount(pass, email, firstName, lastName, true, address, city, prov, country, postal, area);
+                    System.out.println("System verified and updated");
+                }            
             }
             getServletContext().getRequestDispatcher("/WEB-INF/MyProfile.jsp").forward(request,response);
         } catch(Exception e) {
