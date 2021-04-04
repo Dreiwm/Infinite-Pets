@@ -198,6 +198,9 @@ public class AppointmentServlet extends HttpServlet {
                 setAppointmentAttribute(appt, request, response);
                 setDateAttributes(appt, request, response);
                 getServletContext().getRequestDispatcher("/WEB-INF/Appointment.jsp").forward(request, response);
+            } else if (action.equals("reqCancelAppt")) {
+                System.out.println("cancelling appointment...");
+                                getServletContext().getRequestDispatcher("/WEB-INF/Appointment.jsp").forward(request, response);
             }
         }
         
