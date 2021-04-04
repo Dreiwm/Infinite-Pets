@@ -104,6 +104,7 @@ public class ValidationServices {
         return null;
     }
 
+    //checks information before signing up
     public boolean verifyInfo(String firstName, String lastName, String street, String city, String prov, String country, String postalCode, String area, String email, String emailConf, String pass, String passConf) {
         boolean checked = false;
         try {
@@ -121,6 +122,7 @@ public class ValidationServices {
         return checked;
     }
     
+    //checks if the address information is valid
     private boolean locationChecked(String street, String city, String prov, String country, String postalCode, String area){
         boolean checked = false;
         System.out.println("checking location");
@@ -134,6 +136,7 @@ public class ValidationServices {
         return checked;
     }
     
+    //checks if the sign up email and password match
     private boolean checkEmailPass(String email, String email2, String pass, String pass2) {
         boolean checked = false;
         if (email.equals(email2) && pass.equals(pass2)) {
@@ -142,6 +145,24 @@ public class ValidationServices {
         }
         else {
             System.out.println("matching failed");
+        }
+        return checked;
+    }
+
+    //checks info when editing MyProfile
+    public boolean verifyInfo(String firstName, String lastName, String address, String city, String prov, String country, String postal, String area, String email, String pass) {
+        boolean checked = false;
+        try {
+            System.out.println("Verifying info");
+            if (!firstName.equals("") && !lastName.equals("") && locationChecked(address, city, prov, country, postal, area)) {
+                    System.out.println("checked confirmed");
+                    checked = true;                
+            }
+            else {
+                System.out.println("FAILED");
+            }
+        } catch(Exception e) {
+            Logger.getLogger(AddPetServlet.class.getName()).log(Level.WARNING, null, e);
         }
         return checked;
     }

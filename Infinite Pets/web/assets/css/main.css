@@ -32,8 +32,6 @@
     padding-left: 3em;
 }
 
-
-
 input {
     background: #ffffff;
     border: solid;
@@ -49,14 +47,6 @@ input {
     padding-bottom: 0px;
     outline: none;
     cursor: text;
-}
-
-.colum{
-    flex: 50%;
-}
-
-.row{
-    display: flex;
 }
 
 select {
@@ -87,7 +77,6 @@ button {
     font-family: 'Playfair Display', serif;
     cursor: pointer;
 }
-
 /*************************************************
 * Form Styling 
 * for the buttons that will be next to each other
@@ -118,7 +107,6 @@ button {
     outline: none;
     cursor: text;
 }
-
 textarea {
     background: #ffffff;
     border: solid;
@@ -143,12 +131,10 @@ body {
     font-family: 'Playfair Display', serif;;
 }
 
-.container {
-    display: grid;
-    height: 100vh;
-    grid-template-columns: 1fr;
-    grid-template-rows: 0.2fr 0.1fr 2fr 1fr;
-    
+body a {
+    color: #696863;
+    text-decoration: none;
+    margin-bottom: 5px;
 }
 
 .navbar {
@@ -170,6 +156,79 @@ body {
     align-items: center;
 }
 
+.footer {
+    display: grid;
+    height: auto;
+    width: 100%;
+    grid-template-areas:
+        "footerLeft footerRight";
+    column-gap: 30px;
+    padding: 15px;
+    background: #9A9891;
+    color: #696863;
+
+    position: absolute;
+    bottom: 0;
+    justify-content: center;
+    align-items: center;
+}
+
+.footer h4{
+    color: #ffffff;
+    text-decoration: none;
+    margin-bottom: 5px;
+}
+
+.footer a{
+    color: #696863;
+    text-decoration: none;
+    margin-bottom: 5px;
+    
+}
+
+.footerLeft {
+    grid-area: footerLeft;
+    display: grid;
+    grid-template-areas:
+        "leftTitle leftTitle"
+        "leftPhone leftPhone"
+        "leftEmail leftEmail"
+        "leftFacebook leftInstagram";
+    row-gap: 10px;
+    justify-content: center;
+    align-items: center;
+}
+.leftTitle{grid-area: leftTitle;}
+.leftPhone{grid-area: leftPhone;}
+.leftEmail{grid-area: leftEmail;}
+.leftFacebook{grid-area: leftFacebook;}
+.leftInstagram{grid-area: leftInstagram;}
+
+.footerRight{
+    grid-area: footerRight;
+    display: grid;
+    grid-template-areas:
+        "rightTitle"
+        "newsMessage"
+        "newsInput";
+    row-gap: 10px;
+    max-width: 400px;
+    justify-content: center;
+    align-items: center;
+}
+
+.rightTitle{grid-area: rightTitle;}
+.newsMessage{grid-area: newsMessage;}
+.newsInput{grid-area: newsInput;}
+
+
+.footerItem {
+    display: flex;
+    max-height: 50px;
+    width: auto;
+    margin-left: 15px;
+}
+
 #menu {
     width: 40px;
     height: auto;
@@ -183,81 +242,6 @@ body {
 #logo {
     width: 300px;
     height: auto;
-}
-
-.path {
-    display: grid;
-    grid-template-columns: 1fr .1fr 1fr .1fr 1fr .1fr 1fr;
-    grid-template-rows: 1fr;
-    margin-left: 40px;
-    margin-right: 40px;
-    margin-bottom: 15px;
-    height: 25px;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    column-width: auto;
-}
-
-.path a {
-    text-decoration: none;
-    color: #696863;
-    cursor: pointer;
-}
-
-#chevronRight {
-    height: 15px;
-    width: auto;
-}
-
-.appointment{
-    margin-left: 50px;
-    margin-right: 50px;
-    padding-left: 20px;
-    padding-right: 20px;
-    border-radius: 10px;
-    background-color: #F3F1EC;
-}
-
-.footer {
-    display: grid;
-    height: 200px;
-    width: auto;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr;
-    background: #9A9891;
-    color: #696863;
-}
-
-.footer h4{
-    color: #ffffff;
-    text-decoration: none;
-    margin-bottom: 5px;
-}
-
-.footer a{
-    color: #696863;;
-    text-decoration: none;
-    margin-bottom: 5px;
-    
-}
-
-.footerLeft {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr 1fr;
-    justify-content: center;
-    align-content: center;
-    padding-left: 15px;
-    margin-left: 15px;
-    column-width: auto;
-}
-
-.footerItem {
-    display: flex;
-    max-height: 50px;
-    width: auto;
-    margin-left: 15px;
 }
 
 #facebook {

@@ -41,7 +41,16 @@ public class DeleteAccountServlet extends HttpServlet {
             throws ServletException, IOException {
         
         HttpSession ses = request.getSession();
-
+        
+        
+        /*******************************
+         * 
+         * ***********
+         * REMOVE ME *
+         * ***********
+         * 
+         ******************************/
+//        ses.setAttribute("email", "bccrs.test@gmail.com"); 
         // Pretend that session is valid. Remove above when session is working properly.
         
         String email = (String) ses.getAttribute("email");
@@ -53,7 +62,7 @@ public class DeleteAccountServlet extends HttpServlet {
         } catch (Exception ex) {
             Logger.getLogger(DeleteAccountServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
-;
+
         if (acc != null) {
             // if account is not null, means email in session matches from DB
             
