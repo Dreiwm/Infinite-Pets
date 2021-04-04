@@ -52,10 +52,10 @@
                         <h1>Login</h1>
                     </div>
                     <div class="userLabel">
-                        <label for="username">Username</label>
+                        <label for="username">Email</label>
                     </div>
                     <div class="userInput">
-                        <input id="username" name="username" type="username">
+                        <input id="username" name="username" type="email">
                     </div>
                     <div class="passLabel">
                         <label for="password">Password</label>

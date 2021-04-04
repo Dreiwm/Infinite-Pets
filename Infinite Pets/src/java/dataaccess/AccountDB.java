@@ -26,7 +26,7 @@ public class AccountDB {
        EntityManager em = DBUtil.getEmFactory().createEntityManager();
        try{
            Account user = em.createNamedQuery("Account.findByEmail",Account.class).setParameter("email", email).getSingleResult();
-           
+//           
            return user;
        }
        finally{
@@ -89,4 +89,11 @@ public class AccountDB {
            em.close();
        }
     }     
+    
+    public static void main(String[] args) throws Exception {
+        AccountDB acDB = new AccountDB();
+        
+        System.out.println(acDB.getAccountByEmail("bccrs.test@gmail.com"));
+        
+    }
 }

@@ -34,7 +34,7 @@ public class MyPetsServlet extends HttpServlet {
         Account owner = new Account();
         AddPetServices aps = new AddPetServices();
         try {
-            owner = aps.getAccount((String)session.getAttribute("owner"));
+//            owner = aps.getAccount((String)session.getAttribute("owner"));
         } catch (Exception ex) {
             Logger.getLogger(MyPetsServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
