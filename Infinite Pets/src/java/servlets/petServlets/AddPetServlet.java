@@ -78,7 +78,7 @@ public class AddPetServlet extends HttpServlet {
             AddPetServices aps = new AddPetServices();
             
             System.out.println("making pet");
-            String owner = (String)session.getAttribute("owner");
+            String owner = (String)session.getAttribute("email");
             String petName = request.getParameter("petName");
             String sex = request.getParameter("sex");
             String type = request.getParameter("animal");
