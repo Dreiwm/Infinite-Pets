@@ -14,6 +14,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import models.Discount;
 import models.Promotion;
+import models.Service;
 
 /**
  * Responsible for interacting with discount table in the database.
@@ -75,7 +76,7 @@ public class DiscountDB {
     }
     
     /**
-     * Deleted a row with given Discount object from the database.
+     * Delete a row with given Discount object from the database.
      * @param disc the Discount object to be deleted from the database.
      * @return true if successfully removed.
      * @throws Exception if something went wrong with process of deleting ab object from database.
@@ -138,10 +139,16 @@ public class DiscountDB {
         Discount disc1 = new Discount(0, new BigDecimal(12.00), 'a');
         Discount disc2 = new Discount(0, new BigDecimal(11.00), 'b');
         
-        Promotion pr = new Promotion(2, "asdf", "Some cool promo", new Date(), new Date(), true);
+        PromotionDB pDB = new PromotionDB();
+        ServiceDB sDB = new ServiceDB();
+        Promotion pr = pDB.get(2);
+        
+        Service s = sDB.getServiceById(1);
         
         disc1.setPromoID(pr);
+        disc1.setServiceID(s);
         disc2.setPromoID(pr);
+        disc2.setServiceID(s);
         
         dDB.insert(disc1);
         dDB.insert(disc2);

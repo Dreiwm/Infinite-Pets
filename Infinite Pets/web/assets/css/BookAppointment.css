@@ -1,0 +1,119 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 14-Mar-2021, 11:10:06 PM
+    Author     : Cashton
+*/
+
+.path {
+    display: grid;
+    grid-template-columns: 1fr .1fr 1fr .1fr 1fr .1fr 1fr;
+    grid-template-rows: 1fr;
+    margin-left: 40px;
+    margin-right: 40px;
+    margin-bottom: 15px;
+    height: 25px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    column-width: auto;
+}
+
+.path a {
+    text-decoration: none;
+    color: #696863;
+    cursor: pointer;
+}
+
+#chevronRight {
+    height: 15px;
+    width: auto;
+}
+
+.wrapper {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+}
+
+.appointmentContainer{
+    display: grid;
+    grid-template-areas: 
+        "apptInput apptSum";
+
+    column-gap: 30px;
+    row-gap: 0px;
+    padding: 25px;
+
+    margin-top: 25px;
+    margin-bottom: 25px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    border-style: solid;
+    background-color: #F3F1EC;
+}
+
+.appointmentInput {
+    display: grid;
+    grid-template-areas:
+        "appointmentTitle appointmentTitle" 
+        "dateLabel timeLabel"
+        "dateInput timeInput"
+        "petLabel petLabel"
+        "petInput petInput"
+        "serviceLabel serviceLabel"
+        "serviceInput serviceInput"
+        "notesInput notesInput"
+        "addPetToApptBtn addPetToApptBtn"
+        "addServiceBtn addServiceBtn";
+    align-items: center;
+    row-gap: 5px;
+    column-gap: 5px;
+    column-width: auto;
+}
+
+.appointmentTitle{grid-area: appointmentTitle;}
+.dateLabel{grid-area: dateLabel;}
+.dateInput{grid-area: dateInput;}
+.petLabel{grid-area: petLabel;}
+.petInput{grid-area: petInput;}
+.serviceLabel{grid-area: serviceLabel;}
+.serviceInput{grid-area: serviceInput;}
+.notesInput{grid-area: notesInput;}
+.addPetToApptBtn{grid-area: addPetToApptBtn;}
+.addServiceBtn{grid-area: addServiceBtn;}
+
+.appointmentSum {
+    display: grid;
+    grid-template-areas: 
+        "sumTitle sumTitle"
+        "sumDate sumTime"
+        "sumDetails sumDetails"
+        "sumPetName sumService"
+        "cancelBtn bookBtn";
+    
+    align-items: center;
+    justify-content: start;
+    row-gap: 5px;
+    column-gap: 5px;
+    background-color: #69686342;
+    padding: 15px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-radius: 10px;
+    box-shadow: 5px 5px 5px #00000049;
+}
+
+.sumTitle{grid-area: sumTitle;}
+.sumDate{grid-area: sumDate;}
+.sumTime{grid-area: sumTime;}
+.sumDetails{grid-area: sumDetails;}
+.sumPetname{grid-area: sumPetName;}
+.sumService{grid-area: sumService;}
+.cancelBtn{grid-area: cancelBtn;}
+.bookBtn{grid-area: bookBtn;}
+

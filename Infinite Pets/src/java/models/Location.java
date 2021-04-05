@@ -6,16 +6,21 @@
 package models;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -62,7 +67,9 @@ public class Location implements Serializable {
     private String province;
     @Basic(optional = false)
     @Column(name = "Area")
-    private Character area;
+    private String area;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "address", fetch = FetchType.EAGER)
+    private List<Account> accountList;
 
     public Location() {
     }
@@ -71,7 +78,7 @@ public class Location implements Serializable {
         this.locationID = locationID;
     }
 
-    public Location(Integer locationID, Character locationType, String postalCode, String address, String city, String country, String province, Character area) {
+    public Location(Integer locationID, Character locationType, String postalCode, String address, String city, String country, String province, String area) {
         this.locationID = locationID;
         this.locationType = locationType;
         this.postalCode = postalCode;
@@ -138,12 +145,21 @@ public class Location implements Serializable {
         this.province = province;
     }
 
-    public Character getArea() {
+    public String getArea() {
         return area;
     }
 
-    public void setArea(Character area) {
+    public void setArea(String area) {
         this.area = area;
+    }
+
+    @XmlTransient
+    public List<Account> getAccountList() {
+        return accountList;
+    }
+
+    public void setAccountList(List<Account> accountList) {
+        this.accountList = accountList;
     }
 
     @Override
