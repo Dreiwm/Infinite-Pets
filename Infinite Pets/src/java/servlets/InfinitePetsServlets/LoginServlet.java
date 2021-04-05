@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import models.Account;
+import services.AccountServices;
 import services.AddPetServices;
 
 /**
@@ -31,7 +32,13 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+                System.out.println("page loading..");
+        //gets session and invalidates if you go to the login page specifically
+        HttpSession session = request.getSession();
+        session.invalidate();
+        
         getServletContext().getRequestDispatcher("/WEB-INF/Login.jsp").forward(request,response);
+
     }
 
     /**
@@ -45,32 +52,35 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String password, email = "";
-       
-        
-        email = request.getParameter("username");
-        password = request.getParameter("password");
+        System.out.println("processing the doPost..");
+              
+        String email = request.getParameter("username");
+        String password = request.getParameter("password");
         boolean found = false;
-        Account acc = new Account();
+        Account account = null;
         
-        if((email!=null)&&(password!=null)){
+        if((email!=null) && !email.equals("") && (password!=null) && (!password.equals(""))){
             try{
-                AddPetServices pss = new AddPetServices();
-                acc = pss.getAccount(email);
-                if(acc!=null)
+                AccountServices accServ = new AccountServices();
+                account = accServ.checkCreds(email, password);
+                if (account != null){
                     found = true;
+                }
             }
             catch(Exception e){
                 
             }
             finally{
                 if(found){
+                    System.out.println("account found");
                      HttpSession session = request.getSession();
-                     session.setAttribute("owner", acc.getUserId());
+                     session.setAttribute("user", account.getEmail());
                      response.sendRedirect("MyPets");
                 }
                 else
                 {
+                    System.out.println("Wrong creds");
+                    request.setAttribute("message", "Wrong Username or Password");
                     getServletContext().getRequestDispatcher("/WEB-INF/Login.jsp").forward(request,response);
                 }
             }     

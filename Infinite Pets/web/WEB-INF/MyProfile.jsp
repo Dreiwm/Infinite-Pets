@@ -18,8 +18,8 @@
         <%@include file="testFiles/header.jsp" %>
     </head>
     <body>
-        <h1>My Profile</h1>
-        <form>
+        <div id="container"><div id="profile"><h1>My Profile</h1>
+        <form method="POST" action="MyProfile">
             <table>
                 <tr><td>First Name:</td><td><input type="text" name="firstName" placeholder="First Name"></td></tr>
                 <tr><td>Last Name:</td><td><input type="text" name="lastName" placeholder="Last Name"></td></tr>

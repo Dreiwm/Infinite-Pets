@@ -1,10 +1,10 @@
-function addAppointment(){
+        function addAppointment(){
             var div = document.getElementById("tempTableSpace");
             var final = document.getElementById("detailsTable");
             var temp = div.innerHTML; 
             div.innerHTML="";
             final.innerHTML+=temp;
-         
+
         }
 
         function removeBtn(parent, selector){
