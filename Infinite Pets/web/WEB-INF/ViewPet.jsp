@@ -34,11 +34,11 @@
             <br>
             <label for=""> Select animal type</label>
             <br>
-            <input type="text" name="animal"readonly>
+            <input type="text" name="animal" readonly>
             <br>
             <label for=""> Select animal breed</label>
             <br>
-            <input type="text" name="breed"readonly>
+            <input type="text" name="breed" readonly>
             </select>
             <br>
             <label for="">Birthday</label>
@@ -66,10 +66,10 @@
             
         </form>
         
-        <div></div> 
-     
-    </body>
-    <footer> <%@include file="testFiles/footer.jsp" %> </footer>
+         
+        <footer> <%@include file="testFiles/footer.jsp" %> </footer>
+    
+    
        <script>
             function editPet() {
                 document.getElementById("bday").readOnly = false;
@@ -82,4 +82,5 @@
                 document.getElementById("btnSave").disabled= false;
             }
         </script>
+        </body>
 </html>

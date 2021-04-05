@@ -36,9 +36,17 @@
                     <label for="lastName">Last Name:</label>
                     <input name="lastName" id="lastName" type="text">
                 </div>
-                <div class="email">
+                <div class="address">
+                    <label for="address">Home Address:</label>
+                    <input name="address" id="address" type="text">
+                </div>
+                <div class="email1">
                     <label for="email">Email:</label>
                     <input name="email" id="email" type="email">
+                </div>
+                <div class="email2">
+                    <label for="emailConfirm">Confirm Email:</label>
+                    <input name="emailConfirm" id="emailConfirm" type="email">
                 </div>
                 <div class="pass1">
                     <label for="pass1">Password:</label>
