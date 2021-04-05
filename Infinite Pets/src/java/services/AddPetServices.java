@@ -32,7 +32,7 @@ public class AddPetServices {
     //Retrieves a list of breeds for an animal type
     public List getBreeds(String animal)throws Exception{
         BreedDB breedDB = new BreedDB();
-        return breedDB.getBreedByAnimalType(animal);
+        return breedDB.getBreedByAnimalId(animal);
     }
     
     //DO WE NEED THIS????
@@ -40,14 +40,6 @@ public class AddPetServices {
     public List getAllAnimalBreeds()throws Exception{
         BreedDB breedDB = new BreedDB();
         return breedDB.getAllAnimalBreeds();
-    }
-    
-    //Retrieves an account
-    public Account getAccount(String username)throws Exception{
-        AccountDB accountDB = new AccountDB();
-        Account account = new Account();
-        account = accountDB.getAccountByUsername(username);
-        return account;
     }
     
     public Pet getPetById(Integer id) throws Exception{
@@ -70,7 +62,7 @@ public class AddPetServices {
         newPet.setMedicalInfo(medical);
         
         
-        newPet.setOwner(accountDB.getAccountByUsername(owner));
+        newPet.setOwner(accountDB.getAccountByEmail(owner));
                 
         System.out.println(newPet.getBreed()+"\n"+newPet.getPetName());
         petDB.insertPet(newPet);

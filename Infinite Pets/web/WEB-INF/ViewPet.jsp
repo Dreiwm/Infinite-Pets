@@ -10,6 +10,10 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" href="assets/css/main.css">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
+        <%@include file="testFiles/header.jsp" %>
         <title>View Pet</title>
     </head>
     <body>
@@ -63,6 +67,7 @@
         <div></div> 
      
     </body>
+    <footer> <%@include file="testFiles/footer.jsp" %> </footer>
        <script>
             function editPet() {
                 document.getElementById("bday").readOnly = false;

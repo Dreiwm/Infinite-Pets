@@ -1,4 +1,39 @@
 
+.wrapper {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+}
+
+.generalContainer {
+    display: grid;
+    
+    
+    column-gap: 30px;
+    row-gap: 0px;
+    padding: 25px 50px 50px 50px;
+    margin-top: 25px;
+    margin-bottom: 25px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    border-style: solid;
+    background-color: #F3F1EC;
+}
+
+/**********************************  
+* Table style - General
+**********************************/
+.tableData td {
+    padding: 0.5em;
+}
+
+.tableData tr td:nth-child(2n) {
+    padding-left: 3em;
+}
+
+
+
 input {
     background: #ffffff;
     border: solid;
@@ -14,6 +49,14 @@ input {
     padding-bottom: 0px;
     outline: none;
     cursor: text;
+}
+
+.colum{
+    flex: 50%;
+}
+
+.row{
+    display: flex;
 }
 
 select {
@@ -45,6 +88,37 @@ button {
     cursor: pointer;
 }
 
+/*************************************************
+* Form Styling 
+* for the buttons that will be next to each other
+*************************************************/
+.miniForms {
+    display: inline-block;
+    margin: 1em 0 1em 0;
+}
+
+.miniForms button:nth-child(1n) {
+    margin-right: 0.3em;
+}
+
+
+.dangerButton {
+    background: lightcoral;
+    border: solid;
+    border-radius: 5px;
+    border-width: 2px;
+    border-color: lightcoral;
+    height: 30px;
+    width: auto;
+    color: #fff;
+    font-family: 'Playfair Display', serif;
+    padding-left: 5px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    outline: none;
+    cursor: text;
+}
+
 textarea {
     background: #ffffff;
     border: solid;
@@ -69,10 +143,12 @@ body {
     font-family: 'Playfair Display', serif;;
 }
 
-a {
-    color: #696863;
-    text-decoration: none;
-    margin-bottom: 5px;
+.container {
+    display: grid;
+    height: 100vh;
+    grid-template-columns: 1fr;
+    grid-template-rows: 0.2fr 0.1fr 2fr 1fr;
+    
 }
 
 .navbar {
@@ -94,18 +170,63 @@ a {
     align-items: center;
 }
 
+#menu {
+    width: 40px;
+    height: auto;
+}
+
+#account {
+    width: 40px;
+    height: auto;
+}
+
+#logo {
+    width: 300px;
+    height: auto;
+}
+
+.path {
+    display: grid;
+    grid-template-columns: 1fr .1fr 1fr .1fr 1fr .1fr 1fr;
+    grid-template-rows: 1fr;
+    margin-left: 40px;
+    margin-right: 40px;
+    margin-bottom: 15px;
+    height: 25px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    column-width: auto;
+}
+
+.path a {
+    text-decoration: none;
+    color: #696863;
+    cursor: pointer;
+}
+
+#chevronRight {
+    height: 15px;
+    width: auto;
+}
+
+.appointment{
+    margin-left: 50px;
+    margin-right: 50px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 10px;
+    background-color: #F3F1EC;
+}
+
 .footer {
     display: grid;
     height: 200px;
-    width: 100%;
+    width: auto;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr;
     background: #9A9891;
     color: #696863;
-    position: absolute;
-    bottom: 0;
-    
-    
 }
 
 .footer h4{
@@ -115,7 +236,7 @@ a {
 }
 
 .footer a{
-    color: #696863;
+    color: #696863;;
     text-decoration: none;
     margin-bottom: 5px;
     
@@ -137,21 +258,6 @@ a {
     max-height: 50px;
     width: auto;
     margin-left: 15px;
-}
-
-#menu {
-    width: 40px;
-    height: auto;
-}
-
-#account {
-    width: 40px;
-    height: auto;
-}
-
-#logo {
-    width: 300px;
-    height: auto;
 }
 
 #facebook {
@@ -195,3 +301,17 @@ a {
 .dropdown-content a:hover {background-color: white;}
 .dropdown:hover .dropdown-content {display: block;}
 .dropdown:hover .dropbtn {background-color: grey;}
+
+
+/*
+ * Used for errors in forms
+*/
+#errorBox {
+    border: 2px solid red;
+    /*color: red;*/
+    padding: 1.5em;
+    background-color: #ffe3e3;
+    margin-top: 1em;
+    margin-bottom: 1em;
+
+}

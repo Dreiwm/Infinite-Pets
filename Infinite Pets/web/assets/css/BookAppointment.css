@@ -7,6 +7,7 @@ and open the template in the editor.
     Created on : 14-Mar-2021, 11:10:06 PM
     Author     : Cashton
 */
+
 .path {
     display: grid;
     grid-template-columns: 1fr .1fr 1fr .1fr 1fr .1fr 1fr;
@@ -63,16 +64,16 @@ and open the template in the editor.
         "dateLabel timeLabel"
         "dateInput timeInput"
         "petLabel petLabel"
-        "petInput addServiceBtn"
-        "serviceLabel serviceInput"
+        "petInput petInput"
+        "serviceLabel serviceLabel"
+        "serviceInput serviceInput"
         "notesInput notesInput"
-        "addPetToApptBtn addPetToApptBtn";
+        "addPetToApptBtn addPetToApptBtn"
+        "addServiceBtn addServiceBtn";
     align-items: center;
     row-gap: 5px;
     column-gap: 5px;
     column-width: auto;
-    
-
 }
 
 .appointmentTitle{grid-area: appointmentTitle;}
@@ -82,9 +83,9 @@ and open the template in the editor.
 .petInput{grid-area: petInput;}
 .serviceLabel{grid-area: serviceLabel;}
 .serviceInput{grid-area: serviceInput;}
-.addServiceBtn{grid-area: addServiceBtn;}
 .notesInput{grid-area: notesInput;}
 .addPetToApptBtn{grid-area: addPetToApptBtn;}
+.addServiceBtn{grid-area: addServiceBtn;}
 
 .appointmentSum {
     display: grid;
@@ -115,6 +116,4 @@ and open the template in the editor.
 .sumService{grid-area: sumService;}
 .cancelBtn{grid-area: cancelBtn;}
 .bookBtn{grid-area: bookBtn;}
-
-
 

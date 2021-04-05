@@ -48,6 +48,20 @@ public class ServiceDB {
         }
     }
     
+        /**
+     * Returns the service from DB. 
+     * @param serviceName the name of service to retrieve from DB
+     * @return the Service.
+     */
+    public Service getServiceByName(String serviceName) {
+        EntityManager em = DBUtil.getEmFactory().createEntityManager();
+        
+        try {
+            return em.find(Service.class, serviceName);
+        } finally {
+            em.close();
+        }
+    }
     
     /*********************************
      * Admin Use only

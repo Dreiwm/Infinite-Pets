@@ -126,41 +126,41 @@ public class LocationDB {
         return false;
     }
     
-    // test
-    public static void main(String[] args) throws Exception {
-        LocationDB lDB = new LocationDB();
-        Location l0 = new Location(0, 'R', "A1A1A1", "123 ST N.W", "Calgary", "Canada", "Alberta", "NW");
-        Location l1 = new Location(0, 'R', "A1A1A1", "1 ST SW", "Calgary", "Canada", "Alberta", "SW");
-//        new Location(Integer.SIZE, Character.MAX_VALUE, postalCode, address, city, country, province, Character.MAX_VALUE)
-        // test insert twice
-        lDB.insert(l0);
-        lDB.insert(l1);
-        
-        System.out.println("Let's see what in DB after inserting two items");
-        // test get all
-        List<Location> li = lDB.getAllLocations();
-        li.forEach(loc -> {
-            System.out.println(loc.getAddress());
-        });
-        
-        // test update last item
-        l1 = lDB.get(2);
-        l1.setCity("Edmonton");
-        
-        System.out.println("l1 updated: " + lDB.update(l1));
-        
-        
-        // test get result
-        System.out.println("City should be Edmonton, and it is... " + lDB.get(2).getCity());
-        
-        // delete last item
-        lDB.delete(l1); // Edmonton sucks
-        
-        System.out.println("Edmonton (last item) is removed. Let's see what in DB now...");
-        // see results
-        li = lDB.getAllLocations();
-        li.forEach(loc -> {
-            System.out.println(loc.getAddress());
-        });
-    }
+//    // test
+//    public static void main(String[] args) throws Exception {
+//        LocationDB lDB = new LocationDB();
+//        Location l0 = new Location(0, 'R', "A1A1A1", "123 ST N.W", "Calgary", "Canada", "Alberta", "NW");
+//        Location l1 = new Location(0, 'R', "A1A1A1", "1 ST SW", "Calgary", "Canada", "Alberta", "SW");
+////        new Location(Integer.SIZE, Character.MAX_VALUE, postalCode, address, city, country, province, Character.MAX_VALUE)
+//        // test insert twice
+//        lDB.insert(l0);
+//        lDB.insert(l1);
+//        
+//        System.out.println("Let's see what in DB after inserting two items");
+//        // test get all
+//        List<Location> li = lDB.getAllLocations();
+//        li.forEach(loc -> {
+//            System.out.println(loc.getAddress());
+//        });
+//        
+//        // test update last item
+//        l1 = lDB.get(2);
+//        l1.setCity("Edmonton");
+//        
+//        System.out.println("l1 updated: " + lDB.update(l1));
+//        
+//        
+//        // test get result
+//        System.out.println("City should be Edmonton, and it is... " + lDB.get(2).getCity());
+//        
+//        // delete last item
+//        lDB.delete(l1); // Edmonton sucks
+//        
+//        System.out.println("Edmonton (last item) is removed. Let's see what in DB now...");
+//        // see results
+//        li = lDB.getAllLocations();
+//        li.forEach(loc -> {
+//            System.out.println(loc.getAddress());
+//        });
+//    }
 }
