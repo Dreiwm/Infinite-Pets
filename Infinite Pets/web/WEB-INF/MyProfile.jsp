@@ -79,6 +79,6 @@
     </body>
         </div></div><br>
     </body>
-    <footer><%@include file="testFiles/footer.jsp" %>  </footer> -->
+    <footer><%@include file="testFiles/footer.jsp" %>  </footer>
 
 </html>

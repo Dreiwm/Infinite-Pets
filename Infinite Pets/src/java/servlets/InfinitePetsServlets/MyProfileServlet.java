@@ -96,11 +96,11 @@ public class MyProfileServlet extends HttpServlet {
             throws ServletException, IOException {
         try {
             HttpSession session = request.getSession();
-            String email = (String) session.getAttribute("user");
-            
-            if (email.equals("") || email == null){
-                response.sendRedirect("Login");
-            }
+//            String email = (String) session.getAttribute("user");
+//            
+//            if (email.equals("") || email == null){
+//                response.sendRedirect("Login");
+//            }
             
             String action = request.getParameter("action");
             if (action.equals("save")){
@@ -114,7 +114,7 @@ public class MyProfileServlet extends HttpServlet {
                 String prov = request.getParameter("prov");
                 String country = request.getParameter("country");
                 String postal = request.getParameter("postal");
-//                String email = request.getParameter("email");
+                String email = request.getParameter("email");
                 String pass = request.getParameter("password");
                 
                 ValidationServices vs = new ValidationServices();
@@ -127,6 +127,7 @@ public class MyProfileServlet extends HttpServlet {
                     AccountServices accs = new AccountServices();
                     accs.updateUserAccount(pass, email, firstName, lastName, true, address, city, prov, country, postal, area);
                     System.out.println("System verified and updated");
+                    session.setAttribute("email", email);
                 }            
             }
             getServletContext().getRequestDispatcher("/WEB-INF/MyProfile.jsp").forward(request,response);

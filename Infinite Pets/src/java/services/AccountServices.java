@@ -159,4 +159,12 @@ public class AccountServices {
         }
         return account;
     } 
+    
+    //Retreave account by email
+    public Account getAccountEmail(String email)throws Exception{
+        AccountDB accountDB = new AccountDB();
+        Account account = new Account();
+        account = accountDB.getAccountByEmail(email);
+        return account;
+    } 
 }

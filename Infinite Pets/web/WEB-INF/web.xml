@@ -48,6 +48,14 @@
         <servlet-name>ViewPetServlet</servlet-name>
         <servlet-class>servlets.petServlets.ViewPetServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AdminPetServices</servlet-name>
+        <servlet-class>servlets.adminServlets.AdminPetServicesServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PetServiceServlet</servlet-name>
+        <servlet-class>servlets.adminServlets.PetServiceServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ViewPetServlet</servlet-name>
         <url-pattern>/ViewPet</url-pattern>
@@ -92,6 +100,14 @@
         <servlet-name>AppointmentServlet</servlet-name>
         <url-pattern>/Appointment</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminPetServices</servlet-name>
+        <url-pattern>/PetServices</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PetServiceServlet</servlet-name>
+        <url-pattern>/Service</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
@@ -103,11 +119,11 @@
     <env-entry>
         <env-entry-name>webmail-username</env-entry-name>
         <env-entry-type>java.lang.String</env-entry-type>
-        <env-entry-value></env-entry-value>
+        <env-entry-value/>
     </env-entry>
     <env-entry>
         <env-entry-name>webmail-password</env-entry-name>
         <env-entry-type>java.lang.String</env-entry-type>
-        <env-entry-value></env-entry-value>
+        <env-entry-value/>
     </env-entry>
 </web-app>
