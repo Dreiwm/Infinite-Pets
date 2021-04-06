@@ -44,7 +44,7 @@
                                     <td>${pet.breed}</td>
                                     <td>${pet.sex}</td>
                                     <td>
-                                        <button>Remove</button>
+                                        <button>Edit</button>
                                     </td>
                                 </tr>
                              </c:forEach> 
