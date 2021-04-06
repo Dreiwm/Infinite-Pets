@@ -6,12 +6,14 @@
 package services;
 
 import dataaccess.AccountDB;
+import dataaccess.EmployeeDB;
 import dataaccess.LocationDB;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import models.Account;
+import models.Employee;
 import models.Location;
 
 /**
@@ -159,4 +161,15 @@ public class AccountServices {
         }
         return account;
     } 
+    
+    /**
+     * Returns the Employee model that is attached to the userID
+     * @param userId
+     * @return
+     * @throws Exception 
+     */
+    public Employee getEmployeeByUserId(int userId)throws Exception{
+        EmployeeDB empdb = new EmployeeDB();
+        return empdb.getByUserId(userId);
+    }
 }
