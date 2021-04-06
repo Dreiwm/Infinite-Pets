@@ -8,12 +8,15 @@ package services;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Properties;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.mail.Address;
 import javax.mail.Message;
 import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
@@ -40,7 +43,9 @@ public class EmailService {
             BufferedReader br = new BufferedReader(new FileReader(new File(template)));
 
             String line = br.readLine();
+            System.out.println("printing the template");
             while (line != null) {
+                System.out.println(line);
                 body += line;
                 line = br.readLine();
             }
@@ -51,7 +56,8 @@ public class EmailService {
             }
 
         } catch (Exception e) {
-           // Logger.getLogger(EmailService.class.getName()).log(Level.SEVERE, null, e);
+//            Logger.getLogger(EmailService.class.getName()).log(Level.SEVERE, null, e);
+           System.out.println(e);
         }
 
         sendMail(to, subject, body, true);
@@ -62,7 +68,7 @@ public class EmailService {
         Context env = (Context)new InitialContext().lookup("java:comp/env");
         String username = (String)env.lookup("webmail-username");
         String password = (String)env.lookup("webmail-password");
-        
+
         Properties props = new Properties();
         props.put("mail.transport.protocol", "smtps");
         props.put("mail.smtps.host", "smtp.gmail.com");
@@ -70,7 +76,7 @@ public class EmailService {
         props.put("mail.smtps.auth", "true");
         props.put("mail.smtps.quitwait", "false");
         Session session = Session.getDefaultInstance(props);
-        session.setDebug(true);
+//        session.setDebug(true);
         
         //Create Message
         Message msg = new MimeMessage(session);
@@ -96,8 +102,34 @@ public class EmailService {
     }
     
     
+    /**
+     * Sends an email to user to confirm account deletion.
+     * @param acc Account to be deleted.
+     * @param path the path 
+     * @param url the URL
+     * @param delConfirmToken a randomized string.
+     */
+    public void sendDeletionConfirm(Account acc, String path, String url, String delConfirmToken) {
+        try {
+            String subj = "Infinite Pets - Confirm Account Deletion";
+            String template = path + "/emailTemplates/AccountDeletionConfirmTemplate.html";
+     
+            // Tags to be used in the sendEmail method
+            HashMap<String, String> tags = new HashMap<>();
+            tags.put("fName", acc.getFirstName());
+            tags.put("lName", acc.getLastName());
+            
+            // finally, deletion token itself
+            tags.put("deleteAccount", url + "/DeleteAccount?delToken=" + delConfirmToken);
+            
+            // finally, send email
+            sendMail(acc.getEmail(), subj, template, tags);
+        } catch (Exception ex) {
+            Logger.getLogger(EmailService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     
-    /*
+  /*
     To Move Later added here so to test code
     */
     public void sendRecoveryPassword(Account to, String path, String url, String resetToken){
@@ -119,7 +151,5 @@ public class EmailService {
             
         }
         
-    }
-    
-    
+    }   
 }
