@@ -1,5 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+    <filter>
+        <filter-name>UserFilter</filter-name>
+        <filter-class>filters.UserFilter</filter-class>
+    </filter>
+    <filter>
+        <filter-name>StaffFilter</filter-name>
+        <filter-class>filters.StaffFilter</filter-class>
+    </filter>
+    <filter>
+        <filter-name>AdminFilter</filter-name>
+        <filter-class>filters.AdminFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>AdminFilter</filter-name>
+        <url-pattern>/Admin/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>StaffFilter</filter-name>
+        <url-pattern>/Staff/*</url-pattern>
+        <url-pattern>/Admin/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>UserFilter</filter-name>
+        <url-pattern>/User/*</url-pattern>
+        <url-pattern>/Staff/*</url-pattern>
+        <url-pattern>/Admin/*</url-pattern>
+    </filter-mapping>
     <servlet>
         <servlet-name>AddPetServlet</servlet-name>
         <servlet-class>servlets.petServlets.AddPetServlet</servlet-class>
@@ -33,8 +60,16 @@
         <servlet-class>servlets.InfinitePetsServlets.ForgotPasswordServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>DeleteAccountServlet</servlet-name>
+        <servlet-class>servlets.InfinitePetsServlets.DeleteAccountServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>MyProfileServlet</servlet-name>
         <servlet-class>servlets.InfinitePetsServlets.MyProfileServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AppointmentServlet</servlet-name>
+        <servlet-class>servlets.InfinitePetsServlets.AppointmentServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>AddPetServlet</servlet-name>
@@ -68,15 +103,26 @@
         <servlet-name>MyProfileServlet</servlet-name>
         <url-pattern>/MyProfile</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteAccountServlet</servlet-name>
+        <url-pattern>/DeleteAccount</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AppointmentServlet</servlet-name>
+        <url-pattern>/Appointment</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
         </session-timeout>
     </session-config>
+    <welcome-file-list>
+        <welcome-file>Login</welcome-file>
+    </welcome-file-list>
     <env-entry>
         <env-entry-name>webmail-username</env-entry-name>
         <env-entry-type>java.lang.String</env-entry-type>
-        <env-entry-value>bccrsb@gmail.com</env-entry-value>
+        <env-entry-value></env-entry-value>
     </env-entry>
     <env-entry>
         <env-entry-name>webmail-password</env-entry-name>
@@ -84,4 +130,3 @@
         <env-entry-value></env-entry-value>
     </env-entry>
 </web-app>
-
