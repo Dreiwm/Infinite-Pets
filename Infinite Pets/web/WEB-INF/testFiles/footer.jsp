@@ -11,6 +11,15 @@
     <title>Footer</title>
     </head>
     <body>
+        <style>
+            footer {
+                position: fixed;
+                left: 0;
+                bottom: 0;
+                width: 100%;
+            }
+        </style>
+    <footer>
         <div class="footer">
             <!-- Left side of the footer -->
             <div class="footerLeft">
