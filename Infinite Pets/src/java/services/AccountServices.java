@@ -6,12 +6,14 @@
 package services;
 
 import dataaccess.AccountDB;
+import dataaccess.EmployeeDB;
 import dataaccess.LocationDB;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import models.Account;
+import models.Employee;
 import models.Location;
 
 /**
@@ -159,4 +161,56 @@ public class AccountServices {
         }
         return account;
     } 
+    
+    /**
+     * Returns whether given email is associated with is an admin.
+     * @param email the email to be used to query the DB.
+     * @return true the email associated is an admin. Otherwise, false.
+     * @throws Exception if somethign went wrong with querying the DB.
+     */
+    public boolean isEmployee(String email) throws Exception {
+        AccountDB acDB = new AccountDB();
+        EmployeeDB eDB = new EmployeeDB();
+        
+        Account acc = acDB.getAccountByEmail(email);
+        
+        
+        if (acc != null) {
+            // check if is admin
+            return acc.getIsEmployee();
+        }
+        
+        
+        return false;
+    }
+    
+    
+    /**
+     * Returns the employee account based on Account object.
+     * @param email the email to get an Employee object.
+     * @return the Employee object. Null if not found.
+     */
+    public Employee getEmployeeAccount(String email) throws Exception {
+        try {
+            if (!isEmployee(email)) return null;
+        } catch (Exception ex) {
+            Logger.getLogger(AccountServices.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+        
+        AccountDB aDB = new AccountDB();
+        EmployeeDB eDB = new EmployeeDB();
+        Account acc = aDB.getAccountByEmail(email);
+        
+        List<Employee> eList = eDB.getAllEmployees();
+        
+        
+        for (Employee e : eList) {
+            if (e.getUserID().getUserId() == acc.getUserId()) {
+                return e;
+            }
+        }
+        
+        return null;
+    }
 }

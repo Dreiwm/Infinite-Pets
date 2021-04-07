@@ -321,7 +321,7 @@ INSERT INTO `location` (`LocationType`, `PostalCode`, `Address`, `City`, `Countr
 -- Insert into accounts
 INSERT INTO `account` (`Password`, `Email`, `FirstName`, `LastName`, `Address`, `IsEmployee`,`IsConfirmed`)
     VALUES 
-        ('password','cprg352+admin@gmail.com','Admin','Admin', 1, 1, 1),
+        ('password','asdf+admin@gmail.com','Admin','Admin', 1, 1, 1),
         ('password','asdf+staff@gmail.com','employee','employee', 2, 1, 1),
         ('password','cprg352+anne@gmail.com','Anne','Annerson', 3, 0, 1),
         ('password','asdf+client@gmail.com', 'BCCRS', 'Test', 5, 0, 1),
@@ -333,7 +333,8 @@ INSERT INTO `account` (`Password`, `Email`, `FirstName`, `LastName`, `Address`, 
    -- `OnVacation` BIT NOT NULL,
     -- `Active` BIT NOT NULL,
 INSERT INTO `employee` (`UserID`, `IsAdmin`, `OnVacation`, `Active`)
-	VALUES (2, 0, 0, 1);
+	VALUES (2, 0, 0, 1),
+                (1, 1, 0, 1);
 
 
 -- Insert into schedule for testing
