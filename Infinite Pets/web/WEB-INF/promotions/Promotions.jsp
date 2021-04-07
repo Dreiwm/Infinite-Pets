@@ -19,7 +19,7 @@
         <div class="wrapper">
             <div class="path">
                 <div class="link">
-                    <a href="">My Profile</a>
+                    <a href="">???</a>
                 </div>
                 <div class="link">
                     <img id="chevronRight" src="assets/img/chevronRight.svg" alt="">
@@ -31,10 +31,57 @@
             <div class="generalContainer">
                 
                 <!--Table of Promotions here-->
-                <!--Will contain two buttons, one to deactivate and one to edit-->
-                <!--All will be mini form with GET method-->
-                
-                
+                <table>
+                    <!--Header--> 
+                    <thead>
+                        <tr>
+                            <th>Promotion Name</th>
+                            <th>Promotion Description</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <c:forEach items="${promos}" var="promo">
+                            <tr>
+                                <td>${promo.getPromotionName()}</td>
+                                <td>${promo.getPromoDescription()}</td>
+                                <td>
+                                    <form action="Promotion" method="GET">
+                                        <input type="submit" value="Edit">
+                                        <input type="hidden" name="promoId" value="${promo.getPromoID()}">
+                                        <input type="hidden" name="action" value="edit">
+                                    </form>
+                                    <!--Deactivate/activate-->
+                                    <form action="Promotions" method="GET">
+                                        <!--If true-->
+                                        <c:if test="${promo.getActive()}">
+                                            <input type="submit" value="Deactivate">
+                                            <input type="hidden" name="promoId" value="${promo.getPromoID}">
+                                            <input type="hidden" name="action" value="deactivate">
+                                        </c:if>
+                                            <c:if test="${promo.getActive() == false}">
+                                            <input type="submit" value="Activate">
+                                            <input type="hidden" name="promoId" value="${promo.getPromoID()}">
+                                            <input type="hidden" name="action" value="activate">
+                                        </c:if>
+                                    </form>
+                                </td>
+                            </tr>
+                        </c:forEach>
+                        
+                        <!--new promo-->
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td>
+                                <form action="NewPromotion" method="GET">
+                                    <input type="submit" value="Add new promotion">
+                                </form>
+                            </td>
+                        </tr>
+                        
+                    </tbody>
+                </table>
             </div>
         </div>
         <footer> <%@include file="../testFiles/footer.jsp" %> </footer>

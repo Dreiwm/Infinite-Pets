@@ -21,9 +21,8 @@ import services.AccountServices;
  *
  * @author Riley
  */
-public class PromotionsServlet extends HttpServlet {
-    private final String path = "/WEB-INF/promotions/Promotions.jsp";
-
+public class NewPromotionServlet extends HttpServlet {
+    private final String path = "/WEB-INF/promotions/NewPromotion.jsp";
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -36,8 +35,7 @@ public class PromotionsServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        // This page is only for admin. So, first we need to check if it is in session,
+          // This page is only for admin. So, first we need to check if it is in session,
         // if yes, check is this account an admin?
         // If yes, serve the page. Otherwise, redirect to login page.
         String email = (String) request.getSession().getAttribute("email");
@@ -80,10 +78,9 @@ public class PromotionsServlet extends HttpServlet {
                 response.sendRedirect(response.encodeRedirectURL("Login"));
                 return;
             }
-        
         }
         
-        
+             
         // if tests were passed, this section will be read.
         getServletContext().getRequestDispatcher(path).forward(request, response);
     }

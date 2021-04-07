@@ -52,6 +52,14 @@
         <servlet-name>PromotionsServlet</servlet-name>
         <servlet-class>servlets.InfinitePetsServlets.promotions.PromotionsServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>PromotionServlet</servlet-name>
+        <servlet-class>servlets.InfinitePetsServlets.promotions.PromotionServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>NewPromotionServlet</servlet-name>
+        <servlet-class>servlets.InfinitePetsServlets.promotions.NewPromotionServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>AddPetServlet</servlet-name>
         <url-pattern>/AddPet</url-pattern>
@@ -99,6 +107,14 @@
     <servlet-mapping>
         <servlet-name>PromotionsServlet</servlet-name>
         <url-pattern>/Promotions</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PromotionServlet</servlet-name>
+        <url-pattern>/Promotion</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>NewPromotionServlet</servlet-name>
+        <url-pattern>/NewPromotion</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
