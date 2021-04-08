@@ -8,13 +8,11 @@
     <class>models.Breed</class>
     <class>models.Discount</class>
     <class>models.Employee</class>
-    <class>models.Empqualificationtype</class>
     <class>models.Location</class>
     <class>models.Management</class>
     <class>models.Pet</class>
     <class>models.Promotion</class>
     <class>models.Service</class>
-    <class>models.Servicetype</class>
     <class>models.ServiceType</class>
     <class>models.EmpQualificationType</class>
     <class>models.Gallery</class>

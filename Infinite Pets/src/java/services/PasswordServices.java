@@ -24,7 +24,8 @@ import java.security.SecureRandom;
 public class PasswordServices {
     
     private static SecureRandom secrand;
-    private static final String chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ`1234567890~-=!@#$%^&*()_+[]{};|,./<>?";
+    private static final String SALTCHARS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ`1234567890~-=!@#$%^&*()_+[]{};|,./<>?";
+    
     static{
         try {
             secrand= SecureRandom.getInstance("SHA1PRNG", "SUN");
@@ -58,7 +59,7 @@ public class PasswordServices {
         String out = "";
         
         for (int i = 0; i < 32; i++) {
-            out+=chars.charAt(secrand.nextInt(chars.length()));
+            out+=SALTCHARS.charAt(secrand.nextInt(SALTCHARS.length()));
         }
         
         return out;
@@ -70,24 +71,28 @@ public class PasswordServices {
         return out;
     }
     /*
+    
+    // this can be used to make password hash/salts for direct injection into the database.
+    //
+    
     public static void main(String[] args) throws NoSuchAlgorithmException, IOException {
         String pass = "password";
         String salt = getRandomSalt();
         String hash = generatePasswordHash(pass, salt);
-        FileWriter fw = new FileWriter(new File("hash.txt"));
-        fw.write(hash);
-        fw.flush();
-        fw.close();
+        //FileWriter fw = new FileWriter(new File("hash.txt"));
+        //fw.write(hash);
+        //fw.flush();
+        //fw.close();
         System.out.println(pass);
         System.out.println(salt);
         System.out.println(hash);
         System.out.printf("'%s','%s','%s',\n", pass, hash, salt);
         
-        BufferedReader br =  new BufferedReader(new FileReader(new File("hash.txt")));
-        String hashin =  br.readLine();
-        br.close();
-        System.out.println(hashin);
-        System.out.println(hash.equals(hashin));
+        //BufferedReader br =  new BufferedReader(new FileReader(new File("hash.txt")));
+        //String hashin =  br.readLine();
+        //br.close();
+        //System.out.println(hashin);
+        //System.out.println(hash.equals(hashin));
         
     }
     */

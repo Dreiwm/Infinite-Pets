@@ -33,7 +33,6 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Account.findAll", query = "SELECT a FROM Account a"),
     @NamedQuery(name = "Account.findByUserId", query = "SELECT a FROM Account a WHERE a.userId = :userId"),
     @NamedQuery(name = "Account.findByUsername", query = "SELECT a FROM Account a WHERE a.username = :username"),
-    @NamedQuery(name = "Account.findByPassword", query = "SELECT a FROM Account a WHERE a.password = :password"),
     @NamedQuery(name = "Account.findByPasswordHash", query = "SELECT a FROM Account a WHERE a.passwordHash = :passwordHash"),
     @NamedQuery(name = "Account.findByPasswordSalt", query = "SELECT a FROM Account a WHERE a.passwordSalt = :passwordSalt"),
     @NamedQuery(name = "Account.findByEmail", query = "SELECT a FROM Account a WHERE a.email = :email"),
@@ -55,10 +54,9 @@ public class Account implements Serializable {
     @Column(name = "Username")
     private String username;
     @Basic(optional = false)
-    @Column(name = "Password")
-    private String password;
     @Column(name = "PasswordHash")
     private String passwordHash;
+    @Basic(optional = false)
     @Column(name = "PasswordSalt")
     private String passwordSalt;
     @Basic(optional = false)
@@ -94,10 +92,11 @@ public class Account implements Serializable {
         this.userId = userId;
     }
 
-    public Account(Integer userId, String username, String password, String email, String firstName, String lastName, boolean isEmployee, boolean isConfirmed) {
+    public Account(Integer userId, String username, String passwordHash, String passwordSalt, String email, String firstName, String lastName, boolean isEmployee, boolean isConfirmed) {
         this.userId = userId;
         this.username = username;
-        this.password = password;
+        this.passwordHash = passwordHash;
+        this.passwordSalt = passwordSalt;
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -119,14 +118,6 @@ public class Account implements Serializable {
 
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public String getPasswordHash() {
