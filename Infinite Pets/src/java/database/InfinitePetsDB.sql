@@ -1,7 +1,7 @@
 
 DROP SCHEMA IF EXISTS `infinitepetsdb` ;
 
-CREATE SCHEMA IF NOT EXISTS `infinitepetsdb` DEFAULT CHARACTER SET latin1 ;
+CREATE SCHEMA IF NOT EXISTS `infinitepetsdb` DEFAULT CHARACTER SET utf8 ;
 USE `infinitepetsdb` ;
 
 -- ServiceType
@@ -84,13 +84,11 @@ CREATE TABLE IF NOT EXISTS `infinitepetsdb`.`location` (
 ENGINE = InnoDB;
 
 -- Account
--- WARNING: PasswordHash and PasswordSalt is TEMPORARILY allowed to be null
 CREATE TABLE IF NOT EXISTS `infinitepetsdb`.`account` (
     `UserId` INT NOT NULL AUTO_INCREMENT,
     `Username` VARCHAR(30) NOT NULL,
-    `Password` VARCHAR(30) NOT NULL,
-	`PasswordHash` VARCHAR(32),
-	`PasswordSalt` VARCHAR(32),
+	`PasswordHash` VARCHAR(64) NOT NULL,
+	`PasswordSalt` VARCHAR(32) NOT NULL,
     `Email` VARCHAR(100) UNIQUE NOT NULL,
     `FirstName` VARCHAR(50) NOT NULL,
     `LastName` VARCHAR(50) NOT NULL,
@@ -304,12 +302,13 @@ ENGINE = InnoDB;
 -- Inserts 
 
 -- Insert into accounts
-INSERT INTO `account` (`Username`,`Password`,`Email`,`FirstName`,`LastName`,`IsEmployee`,`IsConfirmed`)
+INSERT INTO `account` (`Username`,`PasswordHash`,`PasswordSalt`,`Email`,`FirstName`,`LastName`,`IsEmployee`,`IsConfirmed`)-- all passwords are password
+
     VALUES 
-        ('admin','password','cprg352+admin@gmail.com','Admin','Admin',1,1),
-        ('employee','password','cprg352+employee@gmail.com','employee','employee',1,1),
-        ('anne','password','cprg352+anne@gmail.com','Anne','Annerson',0,1),
-        ('barb','password','cprg352+barb@gmail.com','Barb','Barber',0,1);
+        ('admin','F9A24809961A6191D77C6835A7672B7657B405A9399D146D6C3F4AA10A5D0367','-dEt#9&DStu!n}&N)$Q1&wf2~fFGh?Qr','cprg352+admin@gmail.com','Admin','Admin',1,1),
+        ('employee','8A3D18812F48173DBB7EC4027C675D5A7FDA1545B64D1A4FE7969C5EF0DF486C','N2+DoX6vp$kPf/tQ1}_zh*;WE`;QID5x','cprg352+employee@gmail.com','employee','employee',1,1),
+        ('anne','8DCC49B77BA19EA674DD910F630B4D0A91EFB335789475160F38F1225981D210','[Y+S^?N2[?gf?.>u.[#;XIQEc^i]6F{^','cprg352+anne@gmail.com','Anne','Annerson',0,1),
+        ('barb','46F34FC6F09D6E9FC6E4036468D1DDE040CC3E702EE1FD7231002F31CC1237DA',')H+Sj2sb,J!4J$g@wY,>>.]VW.WjdNn?','cprg352+barb@gmail.com','Barb','Barber',0,1);
 
 -- insert into employee tables
    -- `UserID` INT NOT NULL,
