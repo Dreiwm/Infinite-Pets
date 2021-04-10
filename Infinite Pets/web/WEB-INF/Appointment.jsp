@@ -17,6 +17,24 @@
         <%@include file="testFiles/header.jsp" %>
         <title>Appointment</title>
     </head>
+    <script type="text/javascript">
+        console.log("test js");
+        function testing(){
+            console.log("TEST FUNCTION");
+            let answer = confirm("Are you sure? This action cannot be undone.<br/> Note: You can only cancel an appointment 24 hours prior.");
+
+            if (answer === true) {
+                this.form.submit();
+            }
+        }
+//        function confirmDelete() {
+//            let answer = confirm(("Are you sure? This action cannot be undone.<br/> Note: You can only cancel an appointment 24 hours prior.");
+//
+//            if (answer === true) {
+//                this.form.submit();
+//            }
+//        }
+    </script>
     <body>
         <div class="wrapper">
              <div class="path">
@@ -131,6 +149,10 @@
                         
                         <!--<input type="submit" value="Cancel Appointment" class="dangerButton">-->
                         <button type="button" onclick="confirmDelete()">Cancel Appointment</button>
+
+                        <!--<input type="submit" value="Cancel Appointment" class="dangerButton">-->
+<!--                         <button onclick="testing()">Cancel Appointment</button> -->
+
                         <input type="hidden" name="action" value="reqCancelAppt">
                         <input type="hidden" name="apptId" value="${appt.getAppointmentID()}">
                     </form>

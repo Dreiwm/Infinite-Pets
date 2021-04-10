@@ -34,6 +34,17 @@ public class AccountDB {
        }
     }
     
+    public List<Account> getAllIsEmployee(){
+        EntityManager em = DBUtil.getEmFactory().createEntityManager();
+        System.out.println("Getting IsEmployeeList");
+        try{
+            List<Account> employees = em.createNamedQuery("Account.findByIsEmployee", Account.class).setParameter("isEmployee", true).getResultList();
+            return employees;
+        } finally {
+            em.close();
+        }
+    }
+    
     public List<Account> getAllAccount(){
         EntityManager em = DBUtil.getEmFactory().createEntityManager();  
         try{

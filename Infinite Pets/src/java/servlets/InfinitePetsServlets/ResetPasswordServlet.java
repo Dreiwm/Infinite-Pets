@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import models.Account;
-import services.AccountSerrvices;
+import services.AccountServices;
 import services.AddPetServices;
 import services.EmailService;
 import services.PetServicesServices;
@@ -38,7 +38,7 @@ public class ResetPasswordServlet extends HttpServlet {
             throws ServletException, IOException {
         String email = request.getParameter("email");
         Account to = new Account();
-        AccountSerrvices as = new AccountSerrvices();
+        AccountServices as = new AccountServices();
         boolean found = false;
         //connect to the database to see if the email is a valid on if so then call the email service to send the reset link
         try { 

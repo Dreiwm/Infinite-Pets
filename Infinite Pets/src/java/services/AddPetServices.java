@@ -60,8 +60,7 @@ public class AddPetServices {
         Pet newPet = new Pet(0, sx, animal, breed, name, bday);
         newPet.setPreferredVet(vet);
         newPet.setMedicalInfo(medical);
-        
-        
+
         newPet.setOwner(accountDB.getAccountByEmail(owner));
                 
         System.out.println(newPet.getBreed()+"\n"+newPet.getPetName());
