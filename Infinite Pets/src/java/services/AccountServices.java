@@ -6,12 +6,14 @@
 package services;
 
 import dataaccess.AccountDB;
+import dataaccess.EmployeeDB;
 import dataaccess.LocationDB;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import models.Account;
+import models.Employee;
 import models.Location;
 
 /**
@@ -55,6 +57,11 @@ public class AccountServices {
         AccountDB accountDB = new AccountDB();
         Account account = new Account(0, password, email, firstName, lastName, true, true);
         account.setAddress(address);
+        //
+        Employee employee = new Employee(0, false, false, true);
+        employee.setUserID(account);
+        EmployeeDB empDB = new EmployeeDB();
+        empDB.insert(employee);
         accountDB.insertAccount(account);
     }   
      
@@ -141,9 +148,12 @@ public class AccountServices {
     public void deleteAccount(String email)throws Exception{
         AccountDB accountDB = new AccountDB();
         Account toDelete = accountDB.getAccountByEmail(email);
+        
         accountDB.deleteAccount(toDelete);
     }
     
+    
+    //Checks login information to check if the password and email match the account/user logging in
     public Account checkCreds(String email, String password){
         Account account = null;
         try {
@@ -159,4 +169,85 @@ public class AccountServices {
         }
         return account;
     } 
+    
+    /**
+     * Returns the Employee model that is attached to the userID
+     * @param userId
+     * @return
+     * @throws Exception 
+     */
+    public Employee getEmployeeByUserId(int userId)throws Exception{
+        EmployeeDB empdb = new EmployeeDB();
+        return empdb.getByUserId(userId);
+    }
+  
+     /* Returns whether given email is associated with is an admin.
+     * @param email the email to be used to query the DB.
+     * @return true the email associated is an admin. Otherwise, false.
+     * @throws Exception if somethign went wrong with querying the DB.
+     */
+    public boolean isEmployee(String email) throws Exception {
+        AccountDB acDB = new AccountDB();
+        EmployeeDB eDB = new EmployeeDB();
+        
+        Account acc = acDB.getAccountByEmail(email);
+        
+        
+        if (acc != null) {
+            // check if is admin
+            return acc.getIsEmployee();
+        }
+        
+        
+        return false;
+    }
+    
+    
+    /**
+     * Returns the employee account based on Account object.
+     * @param email the email to get an Employee object.
+     * @return the Employee object. Null if not found.
+     */
+    public Employee getEmployeeAccount(String email) throws Exception {
+        try {
+            if (!isEmployee(email)) return null;
+        } catch (Exception ex) {
+            Logger.getLogger(AccountServices.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+        
+        AccountDB aDB = new AccountDB();
+        EmployeeDB eDB = new EmployeeDB();
+        Account acc = aDB.getAccountByEmail(email);
+        
+        List<Employee> eList = eDB.getAllEmployees();
+        
+        
+        for (Employee e : eList) {
+            if (e.getUserID().getUserId() == acc.getUserId()) {
+                return e;
+            }
+        }
+        
+        return null;
+      
+    //Retreive account by email
+    public Account getAccountEmail(String email)throws Exception{
+        AccountDB accountDB = new AccountDB();
+        Account account = new Account();
+        account = accountDB.getAccountByEmail(email);
+        return account;
+    } 
+
+    public List<Account> getEmployees() {
+        List<Account> employees = null;
+        try {
+            AccountDB accntDB = new AccountDB();
+            employees = accntDB.getAllIsEmployee();
+        } catch(Exception e) {
+            Logger.getLogger(AccountServices.class.getName()).log(Level.WARNING, null, e);
+            System.out.println("couldn't get employee list");
+        }
+        return employees;
+    }
 }

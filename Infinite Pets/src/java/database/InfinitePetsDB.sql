@@ -321,10 +321,10 @@ INSERT INTO `location` (`LocationType`, `PostalCode`, `Address`, `City`, `Countr
 -- Insert into accounts
 INSERT INTO `account` (`Password`, `Email`, `FirstName`, `LastName`, `Address`, `IsEmployee`,`IsConfirmed`)
     VALUES 
-        ('password','cprg352+admin@gmail.com','Admin','Admin', 1, 1, 1),
-        ('password','cprg352+employee@gmail.com','employee','employee', 2, 1, 1),
+        ('password','asdf+admin@gmail.com','Admin','Admin', 1, 1, 1),
+        ('password','asdf+staff@gmail.com','employee','employee', 2, 1, 1),
         ('password','cprg352+anne@gmail.com','Anne','Annerson', 3, 0, 1),
-        ('password','asdf@gmail.com', 'BCCRS', 'Test', 5, 0, 1),
+        ('password','asdf+client@gmail.com', 'BCCRS', 'Test', 5, 0, 1),
         ('password','cprg352+barb@gmail.com','Barb','Barber', 4, 0, 1);
 
 -- insert into employee tables
@@ -333,7 +333,8 @@ INSERT INTO `account` (`Password`, `Email`, `FirstName`, `LastName`, `Address`, 
    -- `OnVacation` BIT NOT NULL,
     -- `Active` BIT NOT NULL,
 INSERT INTO `employee` (`UserID`, `IsAdmin`, `OnVacation`, `Active`)
-	VALUES (2, 0, 0, 1);
+	VALUES (2, 0, 0, 1),
+                (1, 1, 0, 1);
 
 
 -- Insert into schedule for testing
@@ -350,6 +351,13 @@ INSERT INTO animal_Type (animal_Type)
         ('Dog'),
         ('Cat'),
         ('Bird');
+
+-- -- Insert into discounts for promotions
+--     `ServiceID` INT NOT NULL,
+--     `PromoID` INT NOT NULL,
+--     `Discount` DECIMAL(6,2) NOT NULL,
+--     `DiscountType` CHAR(1) NOT NULL,
+INSERT INTO discount(ServiceID, 
 		
 -- Insert all of the dog breeds
 SELECT `animal_Type_ID`

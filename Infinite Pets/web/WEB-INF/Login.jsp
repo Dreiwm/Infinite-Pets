@@ -25,7 +25,8 @@
                 <div class="photo">
                     <img id="loginLogo"  src="assets/img/zacLoginPhotojpg.jpg" alt="">
                 </div>
-                <form>
+
+                <form method="POST" action="Login">
                 
                     <div class="inputs">
                         <div class="title">
@@ -55,6 +56,38 @@
             </div>
         </div>
   <footer> <%@include file="testFiles/footer.jsp" %> </footer>
+
+
+<!--                 <div class="inputs">
+                    <form action="Login" method="POST">
+                    <div class="title">
+                        <h1>Login</h1>
+                    </div>
+                    <div class="userLabel">
+                        <label for="username">Email</label>
+                    </div>
+                    <div class="userInput">
+                        <input id="username" name="username" type="email">
+                    </div>
+                    <div class="passLabel">
+                        <label for="password">Password</label>
+                    </div>
+                    <div class="passInput">
+                        <input id="password" name="password" type="password">
+                    </div>
+                    <div class="btns">
+                        <button type="submit" name="action" value="login">Login</button>
+                    </div>
+                    </form>
+                    <div class="createAccount">
+                        <a id="createAccount" href="SignUp">Create Account</a>
+                    </div>
+                </div>
+            </div>
+    </div>
+    </div> -->
+  
+
 </body>  
 
       

@@ -9,6 +9,8 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Properties;
 import java.util.logging.Level;
@@ -25,6 +27,7 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import models.Account;
+import models.Appointment;
 
 /**
  *
@@ -32,7 +35,7 @@ import models.Account;
  */
 public class EmailService {
     
-    
+    private final String ownerEmail = "bccrsb@gmail.com"; // temporary email for owner.
     
     public static void sendMail(String to, String subject, String template, HashMap<String, String> tags) throws Exception {
         // {{firstname}} -> Anne
@@ -152,4 +155,42 @@ public class EmailService {
         }
         
     }   
+
+    /**
+     * Email the appointment cancellation notification to staff and owner
+     * @param appt the appointment that bad neen cancelled by client.
+     * @param today the date when the client requested cancellation.
+     * @param path the path
+     */
+    public void sendCancellationNotification(Appointment appt, Date today, String path) throws Exception {
+        SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, yyyy");
+        
+        // Staff account associated with appointment (if any)
+        Account acc = appt.getEmployeeID().getUserID();
+        
+        String subj = "Infinite Pets - Client Cancelled An Appointment";
+        String template = path + "/emailTemplates/AppointmentCancellationNotificationTemplate.html";
+
+        
+        
+        // Tags to be used in the sendEmail method
+        HashMap<String, String> tags = new HashMap<>();
+        tags.put("clientFirstName", acc.getFirstName());
+        tags.put("clientLastName", acc.getLastName());
+
+        /****************
+        *
+        ****************/
+        // loop over pets
+        // for now just a pet 
+        tags.put("pets", appt.getPetID().getPetName());
+        
+        // Cancellation date
+        tags.put("cancellationDate", sdf.format(today));
+        
+        // finally, send email
+        sendMail(acc.getEmail(), subj, template, tags);
+        // to owner
+        sendMail(ownerEmail, subj, template, tags);
+    }
 }

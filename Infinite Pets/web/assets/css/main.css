@@ -1,3 +1,28 @@
+.path {
+    display: grid;
+    grid-template-columns: 1fr .1fr 1fr .1fr 1fr .1fr 1fr;
+    grid-template-rows: 1fr;
+    margin-left: 40px;
+    margin-right: 40px;
+    margin-bottom: 15px;
+    height: 25px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    column-width: auto;
+}
+
+.path a {
+    text-decoration: none;
+    color: #696863;
+    cursor: pointer;
+}
+
+#chevronRight {
+    height: 15px;
+    width: auto;
+} 
+
 
 .wrapper {
     display: grid;
@@ -337,3 +362,5 @@ body a {
     margin-bottom: 1em;
 
 }
+
+
