@@ -111,6 +111,16 @@ public class EmployeeDB {
         }
     }
     
+    public Employee getByUserId(int userId)throws Exception{
+          EntityManager em = DBUtil.getEmFactory().createEntityManager();
+        
+        try {
+            return em.createNamedQuery("Employee.findByUserID", Employee.class).setParameter("userID", userId).getSingleResult();
+        } finally {
+            em.close();
+        }
+    }
+    
     /**
      * Returns List of all Employee objects
      * @return the List of Employee objects from the Employee table.

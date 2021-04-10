@@ -61,6 +61,11 @@ and open the template in the editor.
     box-shadow: 5px 5px 5px #00000049;
 }
 
+.inputs button{
+    align-content: center;
+    justify-content: center;
+}
+
 .title{
     grid-area: title;
     color: #5a5955;

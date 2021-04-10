@@ -26,12 +26,23 @@ public class AccountDB {
        EntityManager em = DBUtil.getEmFactory().createEntityManager();
        try{
            Account user = em.createNamedQuery("Account.findByEmail",Account.class).setParameter("email", email).getSingleResult();
-           
+//           
            return user;
        }
        finally{
            em.close();
        }
+    }
+    
+    public List<Account> getAllIsEmployee(){
+        EntityManager em = DBUtil.getEmFactory().createEntityManager();
+        System.out.println("Getting IsEmployeeList");
+        try{
+            List<Account> employees = em.createNamedQuery("Account.findByIsEmployee", Account.class).setParameter("isEmployee", true).getResultList();
+            return employees;
+        } finally {
+            em.close();
+        }
     }
     
     public List<Account> getAllAccount(){
@@ -89,4 +100,11 @@ public class AccountDB {
            em.close();
        }
     }     
+    
+    public static void main(String[] args) throws Exception {
+        AccountDB acDB = new AccountDB();
+        
+        System.out.println(acDB.getAccountByEmail("bccrs.test@gmail.com"));
+        
+    }
 }

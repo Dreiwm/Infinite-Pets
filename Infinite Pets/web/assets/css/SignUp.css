@@ -1,0 +1,55 @@
+
+
+.wrapper{
+    display: grid;
+    justify-content: center;
+    align-items: center;
+}
+
+.accountContainer{
+    display: grid;
+    grid-template-areas:
+        "title title" 
+        "firstname photo"
+        "lastname photo"
+        "address photo"
+        "email1 photo"
+        "email2 photo"
+        "pass1 photo"
+        "pass2 photo"
+        "createbtn createbtn";
+
+    row-gap: 5px;
+    column-gap: 20px;
+    padding: 25px;
+    margin-top: 25px;
+    margin-bottom: 25px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    border-style: solid;
+    background-color: #F3F1EC;
+}
+
+.createbtn{
+    margin-top: 10px;
+    grid-area: createbtn;
+}
+
+.title{grid-area: title;}
+.photo{grid-area: photo;}
+
+.photo img{
+    height: 500px;
+    box-shadow: 5px 5px 5px #00000049;
+    border-radius: 10px;
+}
+
+.firstname{grid-area: firstname; display: grid;}
+.lastname{grid-area: lastname; display: grid;}
+.address{grid-area: address; display: grid;}
+.email1{grid-area: email1; display: grid;}
+.email2{grid-area: email2; display: grid;}
+.pass1{grid-area: pass1; display: grid;}
+.pass2{grid-area: pass2; display: grid;}
+

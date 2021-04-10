@@ -10,17 +10,29 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="assets/css/main.css">
-        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link rel="stylesheet" href="assets/css/DeleteAccount.css">
         <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
+        <title>Delete Account</title>
         <%@include file="testFiles/header.jsp" %>
-        <title>Delete Account</title> <!-- Overwrite title in header.jsp -->
-        <link rel="stylesheet" href="assets/css/deleteAccount.css"/>
     </head>
     <body>
 
         <div class="wrapper">
+            <div class="path">
+                <div class="link">
+                    <a href="<c:url value='/MyProfile'></c:url>">My Profile</a>
+                </div>
+                <div class="link">
+                    <img id="chevronRight" src="assets/img/chevronRight.svg" alt="">
+                </div>
+                <div class="link">
+                    <a>Delete Account</a>
+                </div>
+            </div>
             <div class="generalContainer">
                 <!-- If deleteAccount parameter is not null, then present 
                 the successful account deletion. Otherwise, present button to send an email-->
@@ -44,6 +56,7 @@
                 </c:if>
             </div>
         </div>
+        <footer> <%@include file="testFiles/footer.jsp" %> </footer>
     </body>
-    <footer> <%@include file="testFiles/footer.jsp" %> </footer>
+    
 </html>
