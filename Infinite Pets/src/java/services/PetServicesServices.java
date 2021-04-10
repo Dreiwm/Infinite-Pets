@@ -39,21 +39,4 @@ public class PetServicesServices {
 //        ServiceDB serviceDB = new ServiceDB();
 //        return apDB.getAllServiceTypes();
 //    }
-    
-    public void createService(){
-        try {
-            ServiceDB serviceDB = new ServiceDB();
-            if (checkServiceInfo()){
-                Service service = new Service();
-            }
-        } catch (Exception e) {
-            Logger.getLogger(PetServicesServices.class.getName()).log(Level.SEVERE, null, e);
-        }
-    }
-    
-    private boolean checkServiceInfo(){
-        boolean checked = false;
-        return checked;
-    }
-    
 }

@@ -1,0 +1,50 @@
+.wrapper{
+    display: grid;
+    justify-content: center;
+    align-items: center;
+}
+
+.viewPetsContainer{
+    display: grid;
+    grid-template-areas: 
+        "title"
+        "tableWrapper"
+        "petTable"
+        "addPetLink";
+
+    row-gap: 10px;
+    column-gap: 20px;
+    padding: 25px;
+    margin-top: 25px;
+    margin-bottom: 25px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    border-style: solid;
+    background-color: #F3F1EC;
+
+}
+
+.title {grid-area: title;}
+.petTable {
+    grid-area: petTable;
+    border: none;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.petTable th, td{
+    padding: 10px;
+    text-align: left;
+    border-collapse: collapse;
+    border: none;
+    border-bottom: 2px solid #696863;
+}
+
+.petTable tbody tr:hover{
+    color: #F3F1EC;
+    background-color: #808080af;
+}
+
+.tableWrapper {grid-area: tableWrapper;}
+.addPetLink{grid-area: addPetLink;}

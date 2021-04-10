@@ -41,11 +41,12 @@ public class MyProfileServlet extends HttpServlet {
             System.out.println("My profile servlet");
             //get session information
             HttpSession session = request.getSession();
-            String email = (String) session.getAttribute("user");
+            String email = (String) session.getAttribute("email");
             if (email.equals("") || email == null){
                 response.sendRedirect("Login");
             }
 //            String email = "cprg352+anne@gmail.com"; //REMOVE THIS PART AND UNCOMMENT ABOVE
+//            session.setAttribute("email", email);  //REMOVE THIS AS WELL SINCE SESSION SHOULD ALREADY BE SET FROM LOGIN
             AccountDB accDB = new AccountDB();
             Account account =  accDB.getAccountByEmail(email);
             System.out.println("getting account information");
@@ -95,10 +96,12 @@ public class MyProfileServlet extends HttpServlet {
             throws ServletException, IOException {
         try {
             HttpSession session = request.getSession();
-            String email = (String) session.getAttribute("user");
-            if (email.equals("") || email == null){
-                response.sendRedirect("Login");
-            }
+//            String email = (String) session.getAttribute("user");
+//            
+//            if (email.equals("") || email == null){
+//                response.sendRedirect("Login");
+//            }
+            
             String action = request.getParameter("action");
             if (action.equals("save")){
                 System.out.println("action is on save");
@@ -111,22 +114,21 @@ public class MyProfileServlet extends HttpServlet {
                 String prov = request.getParameter("prov");
                 String country = request.getParameter("country");
                 String postal = request.getParameter("postal");
-//                String email = request.getParameter("email");
+                String email = request.getParameter("email");
                 String pass = request.getParameter("password");
                 
                 ValidationServices vs = new ValidationServices();
                 System.out.println(session);
                 System.out.printf("Email1: %s, Pass1: %s, First: %s, Last: %s, Pass: %s, Address: %s, City: %s, Country: %s, Prov: %s, Postal: %s%n", email, pass, firstName, lastName, pass, address, city, country, prov, postal);
             
-            //will create an account if info is all valid
-            System.out.println("System verifying info");
-            if (vs.verifyInfo(firstName, lastName, address, city, prov, country, postal, area, email, pass)) {
-                AccountServices accs = new AccountServices();
-                accs.updateUserAccount(pass, email, firstName, lastName, true, address, city, prov, country, postal, area);
-            }
-            else if (action.equals("edit")){
-                System.out.println("action is on edit");
-            }
+                //will create an account if info is all valid
+                System.out.println("System verifying info");
+                if (vs.verifyInfo(firstName, lastName, address, city, prov, country, postal, area, email, pass)) {
+                    AccountServices accs = new AccountServices();
+                    accs.updateUserAccount(pass, email, firstName, lastName, true, address, city, prov, country, postal, area);
+                    System.out.println("System verified and updated");
+                    session.setAttribute("email", email);
+                }            
             }
             getServletContext().getRequestDispatcher("/WEB-INF/MyProfile.jsp").forward(request,response);
         } catch(Exception e) {
