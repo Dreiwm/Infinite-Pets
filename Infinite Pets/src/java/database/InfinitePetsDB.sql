@@ -139,9 +139,10 @@ ENGINE = InnoDB;
 -- Employee Service Preferences
 -- This table will be referring (FK) to ServiceType and Employee
 CREATE TABLE IF NOT EXISTS `infinitepetsdb`.`empServicePreference` (
+    `EmpServicePreferenceID` INT NOT NULL AUTO_INCREMENT,
     `EmployeeID` INT NOT NULL,
     `ServiceTypeID` INT NOT NULL,
-    PRIMARY KEY (EmployeeID, ServiceTypeID),
+    PRIMARY KEY (EmpServicePreferenceID, EmployeeID, ServiceTypeID),
     INDEX `fk_employee_idx` (`EmployeeID` ASC),
     CONSTRAINT `fk_employee_id`
         FOREIGN KEY (EmployeeID)
@@ -321,10 +322,10 @@ INSERT INTO `location` (`LocationType`, `PostalCode`, `Address`, `City`, `Countr
 -- Insert into accounts
 INSERT INTO `account` (`Password`, `Email`, `FirstName`, `LastName`, `Address`, `IsEmployee`,`IsConfirmed`)
     VALUES 
-        ('password','asdf+admin@gmail.com','Admin','Admin', 1, 1, 1),
-        ('password','asdf+staff@gmail.com','employee','employee', 2, 1, 1),
+        ('password','+admin@gmail.com','Admin','Admin', 1, 1, 1),
+        ('password','+staff@gmail.com','employee','employee', 2, 1, 1),
         ('password','cprg352+anne@gmail.com','Anne','Annerson', 3, 0, 1),
-        ('password','asdf+client@gmail.com', 'BCCRS', 'Test', 5, 0, 1),
+        ('password','+client@gmail.com', 'BCCRS', 'Test', 5, 0, 1),
         ('password','cprg352+barb@gmail.com','Barb','Barber', 4, 0, 1);
 
 -- insert into employee tables

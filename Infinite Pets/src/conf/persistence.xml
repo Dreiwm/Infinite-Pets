@@ -19,6 +19,7 @@
     <class>models.EmpQualificationType</class>
     <class>models.Gallery</class>
     <class>models.Schedule</class>
+    <class>models.EmpServicePreference</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/infinitepetsdb"/>

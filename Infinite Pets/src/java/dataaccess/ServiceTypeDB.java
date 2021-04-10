@@ -133,8 +133,8 @@ public class ServiceTypeDB {
         ServiceType catGrooming = new ServiceType(0, "Cat Grooming");
         ServiceType dogGrooming = new ServiceType(0, "Dog Grooming");
 //        
-//        sTDB.insert(catGrooming);
-//        sTDB.insert(dogGrooming);
+        sTDB.insert(catGrooming);
+        sTDB.insert(dogGrooming);
         
         // test get
         System.out.println(sTDB.get(1));
