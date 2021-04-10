@@ -365,7 +365,7 @@ INSERT INTO animal_Type (animal_Type)
 --     `PromoID` INT NOT NULL,
 --     `Discount` DECIMAL(6,2) NOT NULL,
 --     `DiscountType` CHAR(1) NOT NULL,
-INSERT INTO discount(ServiceID, 
+--INSERT INTO discount(ServiceID, 
 		
 -- Insert all of the dog breeds
 SELECT `animal_Type_ID`

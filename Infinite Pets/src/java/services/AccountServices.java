@@ -230,7 +230,8 @@ public class AccountServices {
         }
         
         return null;
-      
+    }
+    
     //Retreive account by email
     public Account getAccountEmail(String email)throws Exception{
         AccountDB accountDB = new AccountDB();

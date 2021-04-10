@@ -26,24 +26,24 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Riley
+ * @author BTran
  */
 @Entity
 @Table(name = "account")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Account.findAll", query = "SELECT a FROM Account a"),
-    @NamedQuery(name = "Account.findByUserId", query = "SELECT a FROM Account a WHERE a.userId = :userId"),
-    @NamedQuery(name = "Account.findByPasswordHash", query = "SELECT a FROM Account a WHERE a.passwordHash = :passwordHash"),
-    @NamedQuery(name = "Account.findByPasswordSalt", query = "SELECT a FROM Account a WHERE a.passwordSalt = :passwordSalt"),
-    @NamedQuery(name = "Account.findByEmail", query = "SELECT a FROM Account a WHERE a.email = :email"),
-    @NamedQuery(name = "Account.findByFirstName", query = "SELECT a FROM Account a WHERE a.firstName = :firstName"),
-    @NamedQuery(name = "Account.findByLastName", query = "SELECT a FROM Account a WHERE a.lastName = :lastName"),
-    @NamedQuery(name = "Account.findByIsEmployee", query = "SELECT a FROM Account a WHERE a.isEmployee = :isEmployee"),
-    @NamedQuery(name = "Account.findByIsConfirmed", query = "SELECT a FROM Account a WHERE a.isConfirmed = :isConfirmed"),
-    @NamedQuery(name = "Account.findByPasswordResetCode", query = "SELECT a FROM Account a WHERE a.passwordResetCode = :passwordResetCode"),
-    @NamedQuery(name = "Account.findByDeleteAccountCode", query = "SELECT a FROM Account a WHERE a.deleteAccountCode = :deleteAccountCode"),
-    @NamedQuery(name = "Account.findByPasswordResetActive", query = "SELECT a FROM Account a WHERE a.passwordResetActive = :passwordResetActive")})
+    @NamedQuery(name = "Account.findAll", query = "SELECT a FROM Account a")
+    , @NamedQuery(name = "Account.findByUserId", query = "SELECT a FROM Account a WHERE a.userId = :userId")
+    , @NamedQuery(name = "Account.findByPasswordHash", query = "SELECT a FROM Account a WHERE a.passwordHash = :passwordHash")
+    , @NamedQuery(name = "Account.findByPasswordSalt", query = "SELECT a FROM Account a WHERE a.passwordSalt = :passwordSalt")
+    , @NamedQuery(name = "Account.findByEmail", query = "SELECT a FROM Account a WHERE a.email = :email")
+    , @NamedQuery(name = "Account.findByFirstName", query = "SELECT a FROM Account a WHERE a.firstName = :firstName")
+    , @NamedQuery(name = "Account.findByLastName", query = "SELECT a FROM Account a WHERE a.lastName = :lastName")
+    , @NamedQuery(name = "Account.findByIsEmployee", query = "SELECT a FROM Account a WHERE a.isEmployee = :isEmployee")
+    , @NamedQuery(name = "Account.findByIsConfirmed", query = "SELECT a FROM Account a WHERE a.isConfirmed = :isConfirmed")
+    , @NamedQuery(name = "Account.findByPasswordResetCode", query = "SELECT a FROM Account a WHERE a.passwordResetCode = :passwordResetCode")
+    , @NamedQuery(name = "Account.findByDeleteAccountCode", query = "SELECT a FROM Account a WHERE a.deleteAccountCode = :deleteAccountCode")
+    , @NamedQuery(name = "Account.findByPasswordResetActive", query = "SELECT a FROM Account a WHERE a.passwordResetActive = :passwordResetActive")})
 public class Account implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -96,7 +96,7 @@ public class Account implements Serializable {
         this.userId = userId;
     }
 
-    public Account(Integer userId, String username, String passwordHash, String passwordSalt, String email, String firstName, String lastName, boolean isEmployee, boolean isConfirmed) {
+    public Account(Integer userId, String passwordHash, String passwordSalt, String email, String firstName, String lastName, boolean isEmployee, boolean isConfirmed) {
         this.userId = userId;
         this.passwordHash = passwordHash;
         this.passwordSalt = passwordSalt;
@@ -113,8 +113,6 @@ public class Account implements Serializable {
 
     public void setUserId(Integer userId) {
         this.userId = userId;
-    }
-
     }
 
     public String getPasswordHash() {

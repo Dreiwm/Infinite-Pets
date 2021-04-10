@@ -27,19 +27,19 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Riley
+ * @author BTran
  */
 @Entity
 @Table(name = "promotion")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Promotion.findAll", query = "SELECT p FROM Promotion p"),
-    @NamedQuery(name = "Promotion.findByPromoID", query = "SELECT p FROM Promotion p WHERE p.promoID = :promoID"),
-    @NamedQuery(name = "Promotion.findByPromotionName", query = "SELECT p FROM Promotion p WHERE p.promotionName = :promotionName"),
-    @NamedQuery(name = "Promotion.findByPromoDescription", query = "SELECT p FROM Promotion p WHERE p.promoDescription = :promoDescription"),
-    @NamedQuery(name = "Promotion.findByStartDate", query = "SELECT p FROM Promotion p WHERE p.startDate = :startDate"),
-    @NamedQuery(name = "Promotion.findByEndDate", query = "SELECT p FROM Promotion p WHERE p.endDate = :endDate"),
-    @NamedQuery(name = "Promotion.findByActive", query = "SELECT p FROM Promotion p WHERE p.active = :active")})
+    @NamedQuery(name = "Promotion.findAll", query = "SELECT p FROM Promotion p")
+    , @NamedQuery(name = "Promotion.findByPromoID", query = "SELECT p FROM Promotion p WHERE p.promoID = :promoID")
+    , @NamedQuery(name = "Promotion.findByPromotionName", query = "SELECT p FROM Promotion p WHERE p.promotionName = :promotionName")
+    , @NamedQuery(name = "Promotion.findByPromoDescription", query = "SELECT p FROM Promotion p WHERE p.promoDescription = :promoDescription")
+    , @NamedQuery(name = "Promotion.findByStartDate", query = "SELECT p FROM Promotion p WHERE p.startDate = :startDate")
+    , @NamedQuery(name = "Promotion.findByEndDate", query = "SELECT p FROM Promotion p WHERE p.endDate = :endDate")
+    , @NamedQuery(name = "Promotion.findByActive", query = "SELECT p FROM Promotion p WHERE p.active = :active")})
 public class Promotion implements Serializable {
 
     private static final long serialVersionUID = 1L;
