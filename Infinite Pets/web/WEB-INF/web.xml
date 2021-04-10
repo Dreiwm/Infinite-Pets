@@ -56,6 +56,14 @@
         <servlet-name>PetServiceServlet</servlet-name>
         <servlet-class>servlets.adminServlets.PetServiceServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AdminAccntServlet</servlet-name>
+        <servlet-class>servlets.adminServlets.AdminAccntServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminNewEmployeeServlet</servlet-name>
+        <servlet-class>servlets.adminServlets.AdminNewEmployeeServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ViewPetServlet</servlet-name>
         <url-pattern>/ViewPet</url-pattern>
@@ -107,6 +115,14 @@
     <servlet-mapping>
         <servlet-name>PetServiceServlet</servlet-name>
         <url-pattern>/Service</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminAccntServlet</servlet-name>
+        <url-pattern>/Employment</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminNewEmployeeServlet</servlet-name>
+        <url-pattern>/NewEmployee</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

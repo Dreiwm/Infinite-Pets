@@ -15,15 +15,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import models.Service;
-import services.AdminPetServices;
-import services.PetServicesServices;
+import models.Account;
+import services.AccountServices;
 
 /**
  *
  * @author BTran
  */
-public class AdminPetServicesServlet extends HttpServlet {
+public class AdminAccntServlet extends HttpServlet {
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -40,25 +39,37 @@ public class AdminPetServicesServlet extends HttpServlet {
         if (email.equals("") || email == null){
             response.sendRedirect("Login");
         }
+        String action = request.getParameter("action");
+        String empEmail = request.getParameter("email");
+        System.out.println("Action: "+action);
         try {
-            String action = request.getParameter("action");            
-            if (action.equals("edit")){
-                response.sendRedirect("Service");
-            }
-            else if(action.equals("delete")){
-                String serviceID = request.getParameter("serviceID");
-                AdminPetServices aps = new AdminPetServices();
-                aps.deleteService(serviceID);
-            }
-            
-            PetServicesServices petSS = new PetServicesServices();
-            List<Service> services = petSS.getAllServices();
-            System.out.println("Setting services");
-            request.setAttribute("services", services);
+            if (!action.equals("") && action != null){
+                switch (action) {
+                case "edit":
+                    response.sendRedirect("NewEmployee");
+                    break;
+                case "delete":
+                    AccountServices as = new AccountServices();
+                    as.deleteAccount(empEmail);
+                    break;
+                default:
+                    break;
+                }
+            }           
         } catch(Exception e) {
             Logger.getLogger(AdminPetServicesServlet.class.getName()).log(Level.WARNING, null, e);
+            System.out.println("Action not processable: "+action);
         }
-        getServletContext().getRequestDispatcher("/WEB-INF/AdminPetServices.jsp").forward(request,response);
+        
+        try {
+            AccountServices as = new AccountServices();
+            List<Account> employees = as.getEmployees();
+            System.out.println("Setting employees");
+            request.setAttribute("employees", employees);
+        } catch (Exception e){
+            Logger.getLogger(AdminPetServicesServlet.class.getName()).log(Level.WARNING, null, e);
+        }
+        getServletContext().getRequestDispatcher("/WEB-INF/AdminAccntServices.jsp").forward(request,response);
     }
 
     /**

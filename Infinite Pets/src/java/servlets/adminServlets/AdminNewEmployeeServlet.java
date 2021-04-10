@@ -7,23 +7,17 @@ package servlets.adminServlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import models.Service;
-import services.AdminPetServices;
-import services.PetServicesServices;
 
 /**
  *
  * @author BTran
  */
-public class AdminPetServicesServlet extends HttpServlet {
+public class AdminNewEmployeeServlet extends HttpServlet {
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -40,25 +34,7 @@ public class AdminPetServicesServlet extends HttpServlet {
         if (email.equals("") || email == null){
             response.sendRedirect("Login");
         }
-        try {
-            String action = request.getParameter("action");            
-            if (action.equals("edit")){
-                response.sendRedirect("Service");
-            }
-            else if(action.equals("delete")){
-                String serviceID = request.getParameter("serviceID");
-                AdminPetServices aps = new AdminPetServices();
-                aps.deleteService(serviceID);
-            }
-            
-            PetServicesServices petSS = new PetServicesServices();
-            List<Service> services = petSS.getAllServices();
-            System.out.println("Setting services");
-            request.setAttribute("services", services);
-        } catch(Exception e) {
-            Logger.getLogger(AdminPetServicesServlet.class.getName()).log(Level.WARNING, null, e);
-        }
-        getServletContext().getRequestDispatcher("/WEB-INF/AdminPetServices.jsp").forward(request,response);
+        getServletContext().getRequestDispatcher("/WEB-INF/NewEmployee.jsp").forward(request,response);
     }
 
     /**
