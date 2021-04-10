@@ -171,7 +171,17 @@ public class AccountServices {
     } 
     
     /**
-     * Returns whether given email is associated with is an admin.
+     * Returns the Employee model that is attached to the userID
+     * @param userId
+     * @return
+     * @throws Exception 
+     */
+    public Employee getEmployeeByUserId(int userId)throws Exception{
+        EmployeeDB empdb = new EmployeeDB();
+        return empdb.getByUserId(userId);
+    }
+  
+     /* Returns whether given email is associated with is an admin.
      * @param email the email to be used to query the DB.
      * @return true the email associated is an admin. Otherwise, false.
      * @throws Exception if somethign went wrong with querying the DB.
@@ -239,6 +249,5 @@ public class AccountServices {
             System.out.println("couldn't get employee list");
         }
         return employees;
-
     }
 }
