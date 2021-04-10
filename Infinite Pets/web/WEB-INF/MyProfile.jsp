@@ -13,14 +13,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="assets/css/main.css">
         <link rel="stylesheet" href="assets/css/MyProfile.css">
-
-        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
-
-        <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
         <script src="assests/js/MyProfile.js"></script> <!-- this is not fetching for some reason -->
-
-         <title>User Profile</title>
+        <title>User Profile</title>
         <%@include file="testFiles/header.jsp" %>
     </head>
     <script>
@@ -53,8 +48,15 @@
     </script>
     <body>
         <div id="container"><div id="profile"><h1>My Profile</h1>
-        <form method="POST" action="MyProfile">
-            <table> 
+<!--             <table>
+                <tr><td>First Name:</td><td><input type="text" name="firstName" placeholder="First Name"></td></tr>
+                <tr><td>Last Name:</td><td><input type="text" name="lastName" placeholder="Last Name"></td></tr>
+                <tr><td>Email:</td><td><input type="text" name="email" placeholder="Email"></td></tr>
+                <tr><td>Confirm Email:</td><td><input type="text" name="emailConfirm" placeholder="Confirm Email"></td></tr>
+                <tr><td>Password:</td><td><input type="password" name="password" placeholder="Password"></td></tr>
+                <tr><td>Confirm Password:</td><td><input type="password" name="firstName" placeholder="Confirm Password"></td></tr>
+            </table> -->
+           <table> 
                 <tr><td>First Name:</td><td><input type="text" name="firstName" class="inputFields" value=${firstName} readOnly></td></tr>
                 <tr><td>Last Name:</td><td><input type="text" name="lastName" class="inputFields" value=${lastName} readOnly></td></tr>
                 <tr><td>Street Address:</td><td><input type="text" name="address" class="inputFields" value=${address} readOnly></td></tr>
@@ -67,12 +69,14 @@
                 <tr><td>Email:</td><td><input type="text" name="email" class="inputFields" value=${email} readOnly></td></tr>
                 <tr><td>Password:</td><td><input type="password" name="password" class="inputFields" value=${password} readOnly></td></tr>
             </table>
-            <div id="saveBtn" style="display:none" value="btn">
+             <div id="saveBtn" style="display:none" value="btn">
                 <input type="hidden" name="action" value="save">
                 <input type="submit" value="Save">
             </div>
         </form>
         <button onclick="editProfile()" id="editBtn" style="display:block">Edit</button>
+        <footer> <%@include file="testFiles/footer.jsp" %> </footer>
+    </body>      
         <form method="get" action="DeleteAccount">
             <button type="submit" id="delBtn">Delete Account</button>
         </form>
@@ -80,5 +84,6 @@
         </div></div><br>
     </body>
     <footer><%@include file="testFiles/footer.jsp" %>  </footer>
+
 
 </html>

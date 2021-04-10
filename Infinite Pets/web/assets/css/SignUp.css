@@ -12,7 +12,9 @@
         "title title" 
         "firstname photo"
         "lastname photo"
-        "email photo"
+        "address photo"
+        "email1 photo"
+        "email2 photo"
         "pass1 photo"
         "pass2 photo"
         "createbtn createbtn";
@@ -38,14 +40,16 @@
 .photo{grid-area: photo;}
 
 .photo img{
-    height: 350px;
+    height: 500px;
     box-shadow: 5px 5px 5px #00000049;
     border-radius: 10px;
 }
 
 .firstname{grid-area: firstname; display: grid;}
 .lastname{grid-area: lastname; display: grid;}
-.email{grid-area: email; display: grid;}
+.address{grid-area: address; display: grid;}
+.email1{grid-area: email1; display: grid;}
+.email2{grid-area: email2; display: grid;}
 .pass1{grid-area: pass1; display: grid;}
 .pass2{grid-area: pass2; display: grid;}
 
