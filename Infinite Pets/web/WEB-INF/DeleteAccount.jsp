@@ -22,6 +22,17 @@
     <body>
 
         <div class="wrapper">
+            <div class="path">
+                <div class="link">
+                    <a href="<c:url value='/MyProfile'></c:url>">My Profile</a>
+                </div>
+                <div class="link">
+                    <img id="chevronRight" src="assets/img/chevronRight.svg" alt="">
+                </div>
+                <div class="link">
+                    <a>Delete Account</a>
+                </div>
+            </div>
             <div class="generalContainer">
                 <!-- If deleteAccount parameter is not null, then present 
                 the successful account deletion. Otherwise, present button to send an email-->

@@ -37,6 +37,17 @@
     </script>
     <body>
         <div class="wrapper">
+             <div class="path">
+                <div class="link">
+                    <a href="<c:url value='/MyAppointments'></c:url>">My appointments</a>
+                </div>
+                <div class="link">
+                    <img id="chevronRight" src="assets/img/chevronRight.svg" alt="">
+                </div>
+                <div class="link">
+                    <a>Edit Appointment</a>
+                </div>
+            </div>
             <div class="generalContainer">
                 <h1>Appointment With ${appt.getPetID().getPetName()}</h1>
                 <div class="">
@@ -109,22 +120,39 @@
                             </tr>
                         </table>
                             
-                        <!--View Client Contract-->
-                        <!--Will open a tab with plain html with print button and close button-->
-                        <a href="${pdfURL}" target="_blank" class="linkBtn">View Contract</a>
                         
 
                         <!--Update-->
 
                         <input type="submit" value="Update">
                         <input type="hidden" name="action" value="updateAppt">
-                                                <input type="hidden" name="apptId" value="${appt.getAppointmentID()}">
+                        <input type="hidden" name="apptId" value="${appt.getAppointmentID()}">
+                        
+                        <!--View Client Contract-->
+                        <!--Will open a tab with plain html with print button and close button-->
+                        <a href="<c:url value='/ClientContract'></c:url>" target="_blank">View Contract</a>          
+
                     </form>
-                            <br/>
-                    <form action="Appointment" method="POST">
+                    <br/>
+                    <form action="Appointment" method="POST" id="cancelForm">
                         <!--Cancel-->
+                        
+                        <script type="text/javascript">
+                            function confirmDelete() {
+                                let answer = confirm("Are you sure? This action cannot be undone.<br/> Note: You can only cancel an appointment 24 hours prior.");
+                                console.log(answer);
+                                if (answer === true) {
+                                    document.getElementById("cancelForm").submit();
+                                }
+                            }
+                        </script>
+                        
                         <!--<input type="submit" value="Cancel Appointment" class="dangerButton">-->
-                        <button onclick="testing()">Cancel Appointment</button>
+                        <button type="button" onclick="confirmDelete()">Cancel Appointment</button>
+
+                        <!--<input type="submit" value="Cancel Appointment" class="dangerButton">-->
+<!--                         <button onclick="testing()">Cancel Appointment</button> -->
+
                         <input type="hidden" name="action" value="reqCancelAppt">
                         <input type="hidden" name="apptId" value="${appt.getAppointmentID()}">
                     </form>

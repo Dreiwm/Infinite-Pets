@@ -7,7 +7,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -37,9 +36,17 @@
                     <label for="lastName">Last Name:</label>
                     <input name="lastName" id="lastName" type="text">
                 </div>
-                <div class="email">
+                <div class="address">
+                    <label for="address">Home Address:</label>
+                    <input name="address" id="address" type="text">
+                </div>
+                <div class="email1">
                     <label for="email">Email:</label>
                     <input name="email" id="email" type="email">
+                </div>
+                <div class="email2">
+                    <label for="emailConfirm">Confirm Email:</label>
+                    <input name="emailConfirm" id="emailConfirm" type="email">
                 </div>
                 <div class="pass1">
                     <label for="pass1">Password:</label>
@@ -73,6 +80,7 @@
         </form>
     </div>
 
+
 <!-- <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -104,6 +112,7 @@
             <input type="submit" value="Create Account">
         </form><br></div></div><br>
     </body> -->
+
 
     <footer> <%@include file="testFiles/footer.jsp" %> </footer>
 </body>

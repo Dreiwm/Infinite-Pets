@@ -1,3 +1,28 @@
+.path {
+    display: grid;
+    grid-template-columns: 1fr .1fr 1fr .1fr 1fr .1fr 1fr;
+    grid-template-rows: 1fr;
+    margin-left: 40px;
+    margin-right: 40px;
+    margin-bottom: 15px;
+    height: 25px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    column-width: auto;
+}
+
+.path a {
+    text-decoration: none;
+    color: #696863;
+    cursor: pointer;
+}
+
+#chevronRight {
+    height: 15px;
+    width: auto;
+} 
+
 
 .wrapper {
     display: grid;
@@ -31,6 +56,8 @@
 .tableData tr td:nth-child(2n) {
     padding-left: 3em;
 }
+
+
 
 input {
     background: #ffffff;
@@ -77,6 +104,7 @@ button {
     font-family: 'Playfair Display', serif;
     cursor: pointer;
 }
+
 /*************************************************
 * Form Styling 
 * for the buttons that will be next to each other
@@ -107,6 +135,7 @@ button {
     outline: none;
     cursor: text;
 }
+
 textarea {
     background: #ffffff;
     border: solid;
@@ -166,11 +195,11 @@ body a {
     padding: 15px;
     background: #9A9891;
     color: #696863;
-
-    position: absolute;
-    bottom: 0;
+    position: relative;
+    bottom: 0px;
     justify-content: center;
     align-items: center;
+    margin-top: 15px;
 }
 
 .footer h4{
@@ -244,6 +273,40 @@ body a {
     height: auto;
 }
 
+.path {
+    display: grid;
+    grid-template-columns: 1fr .1fr 1fr .1fr 1fr .1fr 1fr;
+    grid-template-rows: 1fr;
+    margin-left: 40px;
+    margin-right: 40px;
+    margin-bottom: 15px;
+    height: 25px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    column-width: auto;
+}
+
+.path a {
+    text-decoration: none;
+    color: #696863;
+    cursor: pointer;
+}
+
+#chevronRight {
+    height: 15px;
+    width: auto;
+}
+
+.appointment{
+    margin-left: 50px;
+    margin-right: 50px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 10px;
+    background-color: #F3F1EC;
+}
+
 #facebook {
     height: 30px;
 }
@@ -299,3 +362,5 @@ body a {
     margin-bottom: 1em;
 
 }
+
+

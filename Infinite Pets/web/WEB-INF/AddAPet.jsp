@@ -32,7 +32,7 @@
                                 <label for="animal"> Select animal type</label>
                                 <select name="animal" id="animal">
                                     <option value="">
-                                        animal type
+                                        Animal type
                                     </option>
                                     <c:forEach items="${animalList}" var="anlst">
                                         <option value="${anlst.animalType}">${anlst.animalType}</option>
@@ -44,7 +44,7 @@
                                 <label for="breed"> Select animal breed</label>
                                 <select name="breed" id="breed">
                                     <option value="">
-                                        animal breed
+                                        Animal breed
                                     </option>
                                     <c:forEach items="${breedList}" var="lst">
                                         <option value="${lst.breedName}">${lst.breedName}</option>
@@ -59,16 +59,12 @@
                         </div>
 
                         
-
-                        
                         <div class="addPetRight">
                             <div class="petSex">
                                 <label for="sex">Sex</label>
                                 <select name="sex" id="sex">
                                     <option value="Male">Male</option>
                                     <option value="Female">Female</option>
-                                    <option value="Neutered">Neutered</option>
-                                    <option value="Spaded">Spaded</option>
                                 </select>
                             </div>
 
@@ -87,6 +83,10 @@
                                 <!--<input name="picture" id="picture" type="image" alt="image" accept="image/*">-->
                                  <input name="picture" id="picture" type="image" > 
                                 <!-- <input type="submit" value="Choose photo..."> -->
+                            </div>
+                            <div class="choosePicture">
+                                <button type="submit" name="action" value="btnChoose">Choose Photo...</button>
+                                <!-- <input name="choosePhoto" type="submit" value="Choose photo..."> -->
                             </div>
 
                             <div class="saveBtn">
@@ -111,5 +111,7 @@
                 </c:forEach>
             </p>
         </div>
+        
+        <footer> <%@include file="testFiles/footer.jsp" %> </footer>
     </body>
 </html>
