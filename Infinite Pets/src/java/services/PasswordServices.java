@@ -37,9 +37,7 @@ public class PasswordServices {
         secrand.setSeed(SecureRandom.getSeed(128));
     }
     
-    public static boolean doesMatchHash(String password,String salt,String hash) {
-        
-        
+    public static boolean doesMatchHash(String password,String salt,String hash) {   
         try {
             return hash(password+salt).equals(hash);
         } catch (NoSuchAlgorithmException e) {
@@ -48,20 +46,17 @@ public class PasswordServices {
             
             return false;
         }
-    }
-    
+    }    
     
     public static String generatePasswordHash(String password,String salt) throws NoSuchAlgorithmException{
         return hash(password+salt);
     }
     
     public static String getRandomSalt(){
-        String out = "";
-        
+        String out = "";        
         for (int i = 0; i < 32; i++) {
             out+=SALTCHARS.charAt(secrand.nextInt(SALTCHARS.length()));
-        }
-        
+        }        
         return out;
     }
     
