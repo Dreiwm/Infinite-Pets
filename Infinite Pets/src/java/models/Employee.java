@@ -28,17 +28,17 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Riley
+ * @author BTran
  */
 @Entity
 @Table(name = "employee")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Employee.findAll", query = "SELECT e FROM Employee e"),
-    @NamedQuery(name = "Employee.findByEmployeeID", query = "SELECT e FROM Employee e WHERE e.employeeID = :employeeID"),
-    @NamedQuery(name = "Employee.findByIsAdmin", query = "SELECT e FROM Employee e WHERE e.isAdmin = :isAdmin"),
-    @NamedQuery(name = "Employee.findByOnVacation", query = "SELECT e FROM Employee e WHERE e.onVacation = :onVacation"),
-    @NamedQuery(name = "Employee.findByActive", query = "SELECT e FROM Employee e WHERE e.active = :active")})
+    @NamedQuery(name = "Employee.findAll", query = "SELECT e FROM Employee e")
+    , @NamedQuery(name = "Employee.findByEmployeeID", query = "SELECT e FROM Employee e WHERE e.employeeID = :employeeID")
+    , @NamedQuery(name = "Employee.findByIsAdmin", query = "SELECT e FROM Employee e WHERE e.isAdmin = :isAdmin")
+    , @NamedQuery(name = "Employee.findByOnVacation", query = "SELECT e FROM Employee e WHERE e.onVacation = :onVacation")
+    , @NamedQuery(name = "Employee.findByActive", query = "SELECT e FROM Employee e WHERE e.active = :active")})
 public class Employee implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -56,16 +56,16 @@ public class Employee implements Serializable {
     @Basic(optional = false)
     @Column(name = "Active")
     private boolean active;
-    @JoinTable(name = "empServicePreference", joinColumns = {
+    @JoinTable(name = "empservicepreference", joinColumns = {
         @JoinColumn(name = "EmployeeID", referencedColumnName = "EmployeeID")}, inverseJoinColumns = {
         @JoinColumn(name = "ServiceTypeID", referencedColumnName = "ServiceTypeID")})
     @ManyToMany(fetch = FetchType.EAGER)
-    private List<ServiceType> serviceTypeList;
-    @JoinTable(name = "empQualification", joinColumns = {
+    private List<ServiceType> servicetypeList;
+    @JoinTable(name = "empqualification", joinColumns = {
         @JoinColumn(name = "EmployeeID", referencedColumnName = "EmployeeID")}, inverseJoinColumns = {
         @JoinColumn(name = "QualificationID", referencedColumnName = "QualificationTypeID")})
     @ManyToMany(fetch = FetchType.EAGER)
-    private List<EmpQualificationType> empQualificationTypeList;
+    private List<EmpQualificationType> empqualificationtypeList;
     @OneToMany(mappedBy = "employeeID", fetch = FetchType.EAGER)
     private List<Appointment> appointmentList;
     @JoinColumn(name = "UserID", referencedColumnName = "UserId")
@@ -121,21 +121,21 @@ public class Employee implements Serializable {
     }
 
     @XmlTransient
-    public List<ServiceType> getServiceTypeList() {
-        return serviceTypeList;
+    public List<ServiceType> getServicetypeList() {
+        return servicetypeList;
     }
 
-    public void setServiceTypeList(List<ServiceType> serviceTypeList) {
-        this.serviceTypeList = serviceTypeList;
+    public void setServicetypeList(List<ServiceType> servicetypeList) {
+        this.servicetypeList = servicetypeList;
     }
 
     @XmlTransient
-    public List<EmpQualificationType> getEmpQualificationTypeList() {
-        return empQualificationTypeList;
+    public List<EmpQualificationType> getEmpqualificationtypeList() {
+        return empqualificationtypeList;
     }
 
-    public void setEmpQualificationTypeList(List<EmpQualificationType> empQualificationTypeList) {
-        this.empQualificationTypeList = empQualificationTypeList;
+    public void setEmpqualificationtypeList(List<EmpQualificationType> empqualificationtypeList) {
+        this.empqualificationtypeList = empqualificationtypeList;
     }
 
     @XmlTransient

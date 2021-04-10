@@ -102,6 +102,25 @@ public class AppointmentDB {
         return false;
     }
     
+    public boolean delete(Appointment appt) {
+        
+        EntityManager em = DBUtil.getEmFactory().createEntityManager();
+       EntityTransaction trans = em.getTransaction();
+       try{
+           trans.begin();
+           em.remove(em.merge(appt));
+           trans.commit();
+           return true;
+       } catch (Exception e){
+           trans.rollback();
+       }
+       finally{
+           em.close();
+       }
+        
+        return false;
+    }
+    
     
         /*********************************
      * Admin Use only

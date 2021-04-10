@@ -12,6 +12,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -20,6 +21,7 @@ import models.Pet;
 import java.util.List;
 import models.Account;
 import models.Appointment;
+import services.exceptions.AppointmentException;
 
 
 /**
@@ -138,6 +140,47 @@ public class ScheduleServices {
         } catch (Exception e) {
             Logger.getLogger(ScheduleServices.class.getName()).log(Level.SEVERE, null, e);
         }
+    }
+    
+    /**
+     * Cancels the appointment - removing from DB. Returns the cancelled Appointment.
+     * @param apptId the id of Appointment to be removed from DB.
+     * @return Appointment the object which was removed from DB.
+     * @throws AppointmentException if client attempted to cancel appointment the appointment is within 24 hours.
+     * @throws NullPointerException if appt is null.
+     */
+    public Appointment cancelAppointment(int apptId) throws AppointmentException, NullPointerException {        
+        AppointmentDB apDB = new AppointmentDB();
+        
+        // get appointment from db
+        Appointment appt = apDB.getAppointmentById(apptId);
+        if (appt == null) throw new NullPointerException();
+        
+        // get today date
+        Calendar calToday = Calendar.getInstance();
+        calToday.setTime(new Date());
+        
+        Calendar calApptDate = Calendar.getInstance();
+        calApptDate.setTime(appt.getAppointmentDate());
+        
+        // add appt one day and then compare, if appt is still before today, then
+        // it is 24 hours before.
+        calApptDate.add(Calendar.DAY_OF_MONTH, 1);
+        
+        // throw exception if it is after today date -- after adding one day.
+        if (calApptDate.compareTo(calToday) > 0) {
+            throw new AppointmentException("Appointment can not be cancelled within 24 hours of appointment date.");
+        }
+        
+        if (appt != null) {
+            if (apDB.delete(appt)) // return appt if actually removed.
+                return appt;
+            
+        }
+        
+        
+        
+        return null;
     }
     
     public static List<String> getScheduleBlockList() {

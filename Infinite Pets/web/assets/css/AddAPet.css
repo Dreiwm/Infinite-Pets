@@ -1,0 +1,96 @@
+.wrapper{
+    display: grid;
+    justify-content: center;
+    align-items: center;
+}
+
+.addPetContainer{
+    display: grid;
+    grid-template-areas: 
+        "title title"
+        "addPetLeft addPetRight";
+    
+    row-gap: 5px;
+    column-gap: 20px;
+    padding: 25px;
+    margin-top: 25px;
+    margin-bottom: 25px;
+    padding-bottom: 40px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    border-style: solid;
+    background-color: #F3F1EC;
+}
+
+.title{
+    grid-area: title;
+    padding: 0px;
+    margin-bottom: 20px;
+    border-bottom: solid #696863;
+}
+
+.title h1{margin: 0px;}
+
+.addPetLeft{
+    grid-area: addPetLeft;
+    display: grid;
+    height: 100%;
+    padding: 10px;
+    grid-template-areas: 
+        "petName petName"
+        "petType petBreed"
+        "petNotes petNotes";
+    column-gap: 10px;
+    row-gap: 1px;
+    
+}
+.petNameLbl{grid-area: petNameLbl;}
+.petName{grid-area: petName;}
+.petName input{
+    width: 100%;
+}
+.petTypeLbl{grid-area: petTypeLbl;}
+.petType{grid-area: petType;}
+.petBreedLbl{grid-area: petBreedLbl;}
+.petBreed{grid-area: petBreed;}
+.petNotesLbl{grid-area: petNotesLbl;}
+.petNotes{grid-area: petNotes;}
+
+.petNotes textarea{
+    width: 100%;
+    height: 100%;
+}
+
+.addPetRight{
+    grid-area: addPetRight;
+    display: grid;
+    height: 100%;
+    grid-template-areas: 
+        "petSex petPicture"
+        "petBirthday petPicture"
+        "petVet choosePicture"
+        "cancelBtn saveBtn";
+    row-gap: 10px;
+    column-gap: 10px;
+
+}
+
+
+.petSex{grid-area: petSex;}
+.petSex input, label{display: block;}
+
+.petVet{grid-area: petVet;}
+.petVet input, label{display: block;}
+
+
+.petPicture{grid-area: petPicture; width: 95px; height: 95px;}
+.petPicture input {display: block; width: 100%; height: 100%;}
+
+.choosePicture{grid-area: choosePicture;}
+.choosePicture button{cursor: pointer; width: 110px;}
+
+
+
+.saveBtn{grid-area: saveBtn;}
+.cancelBtn{grid-area: cancelBtn;}

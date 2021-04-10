@@ -23,16 +23,16 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Riley
+ * @author BTran
  */
 @Entity
-@Table(name = "empQualificationType")
+@Table(name = "empqualificationtype")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "EmpQualificationType.findAll", query = "SELECT e FROM EmpQualificationType e"),
-    @NamedQuery(name = "EmpQualificationType.findByQualificationTypeID", query = "SELECT e FROM EmpQualificationType e WHERE e.qualificationTypeID = :qualificationTypeID"),
-    @NamedQuery(name = "EmpQualificationType.findByQualificationName", query = "SELECT e FROM EmpQualificationType e WHERE e.qualificationName = :qualificationName"),
-    @NamedQuery(name = "EmpQualificationType.findByQualificationDescription", query = "SELECT e FROM EmpQualificationType e WHERE e.qualificationDescription = :qualificationDescription")})
+    @NamedQuery(name = "Empqualificationtype.findAll", query = "SELECT e FROM Empqualificationtype e")
+    , @NamedQuery(name = "Empqualificationtype.findByQualificationTypeID", query = "SELECT e FROM Empqualificationtype e WHERE e.qualificationTypeID = :qualificationTypeID")
+    , @NamedQuery(name = "Empqualificationtype.findByQualificationName", query = "SELECT e FROM Empqualificationtype e WHERE e.qualificationName = :qualificationName")
+    , @NamedQuery(name = "Empqualificationtype.findByQualificationDescription", query = "SELECT e FROM Empqualificationtype e WHERE e.qualificationDescription = :qualificationDescription")})
 public class EmpQualificationType implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -47,7 +47,7 @@ public class EmpQualificationType implements Serializable {
     @Basic(optional = false)
     @Column(name = "QualificationDescription")
     private String qualificationDescription;
-    @ManyToMany(mappedBy = "empQualificationTypeList", fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "empqualificationtypeList", fetch = FetchType.EAGER)
     private List<Employee> employeeList;
 
     public EmpQualificationType() {
@@ -118,7 +118,7 @@ public class EmpQualificationType implements Serializable {
 
     @Override
     public String toString() {
-        return "models.EmpQualificationType[ qualificationTypeID=" + qualificationTypeID + " ]";
+        return "models.Empqualificationtype[ qualificationTypeID=" + qualificationTypeID + " ]";
     }
     
 }

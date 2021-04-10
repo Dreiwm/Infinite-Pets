@@ -25,15 +25,15 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Riley
+ * @author BTran
  */
 @Entity
-@Table(name = "serviceType")
+@Table(name = "servicetype")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "ServiceType.findAll", query = "SELECT s FROM ServiceType s"),
-    @NamedQuery(name = "ServiceType.findByServiceTypeID", query = "SELECT s FROM ServiceType s WHERE s.serviceTypeID = :serviceTypeID"),
-    @NamedQuery(name = "ServiceType.findByServiceType", query = "SELECT s FROM ServiceType s WHERE s.serviceType = :serviceType")})
+    @NamedQuery(name = "Servicetype.findAll", query = "SELECT s FROM Servicetype s")
+    , @NamedQuery(name = "Servicetype.findByServiceTypeID", query = "SELECT s FROM Servicetype s WHERE s.serviceTypeID = :serviceTypeID")
+    , @NamedQuery(name = "Servicetype.findByServiceType", query = "SELECT s FROM Servicetype s WHERE s.serviceType = :serviceType")})
 public class ServiceType implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -45,7 +45,7 @@ public class ServiceType implements Serializable {
     @Basic(optional = false)
     @Column(name = "ServiceType")
     private String serviceType;
-    @ManyToMany(mappedBy = "serviceTypeList", fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "servicetypeList", fetch = FetchType.EAGER)
     private List<Employee> employeeList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "serviceTypeID", fetch = FetchType.EAGER)
     private List<Service> serviceList;
@@ -118,7 +118,7 @@ public class ServiceType implements Serializable {
 
     @Override
     public String toString() {
-        return "models.ServiceType[ serviceTypeID=" + serviceTypeID + " ]";
+        return "models.Servicetype[ serviceTypeID=" + serviceTypeID + " ]";
     }
     
 }
