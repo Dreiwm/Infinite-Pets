@@ -74,7 +74,7 @@ public class Service implements Serializable {
     private List<Appointment> appointmentList;
     @JoinColumn(name = "ServiceTypeID", referencedColumnName = "ServiceTypeID")
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
-    private ServiceType serviceTypeID;
+    private Servicetype serviceTypeID;
 
     public Service() {
     }
@@ -166,11 +166,11 @@ public class Service implements Serializable {
         this.appointmentList = appointmentList;
     }
 
-    public ServiceType getServiceTypeID() {
+    public Servicetype getServiceTypeID() {
         return serviceTypeID;
     }
 
-    public void setServiceTypeID(ServiceType serviceTypeID) {
+    public void setServiceTypeID(Servicetype serviceTypeID) {
         this.serviceTypeID = serviceTypeID;
     }
 

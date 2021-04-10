@@ -60,12 +60,12 @@ public class Employee implements Serializable {
         @JoinColumn(name = "EmployeeID", referencedColumnName = "EmployeeID")}, inverseJoinColumns = {
         @JoinColumn(name = "ServiceTypeID", referencedColumnName = "ServiceTypeID")})
     @ManyToMany(fetch = FetchType.EAGER)
-    private List<ServiceType> servicetypeList;
+    private List<Servicetype> servicetypeList;
     @JoinTable(name = "empqualification", joinColumns = {
         @JoinColumn(name = "EmployeeID", referencedColumnName = "EmployeeID")}, inverseJoinColumns = {
         @JoinColumn(name = "QualificationID", referencedColumnName = "QualificationTypeID")})
     @ManyToMany(fetch = FetchType.EAGER)
-    private List<EmpQualificationType> empqualificationtypeList;
+    private List<Empqualificationtype> empqualificationtypeList;
     @OneToMany(mappedBy = "employeeID", fetch = FetchType.EAGER)
     private List<Appointment> appointmentList;
     @JoinColumn(name = "UserID", referencedColumnName = "UserId")
@@ -121,20 +121,20 @@ public class Employee implements Serializable {
     }
 
     @XmlTransient
-    public List<ServiceType> getServicetypeList() {
+    public List<Servicetype> getServicetypeList() {
         return servicetypeList;
     }
 
-    public void setServicetypeList(List<ServiceType> servicetypeList) {
+    public void setServicetypeList(List<Servicetype> servicetypeList) {
         this.servicetypeList = servicetypeList;
     }
 
     @XmlTransient
-    public List<EmpQualificationType> getEmpqualificationtypeList() {
+    public List<Empqualificationtype> getEmpqualificationtypeList() {
         return empqualificationtypeList;
     }
 
-    public void setEmpqualificationtypeList(List<EmpQualificationType> empqualificationtypeList) {
+    public void setEmpqualificationtypeList(List<Empqualificationtype> empqualificationtypeList) {
         this.empqualificationtypeList = empqualificationtypeList;
     }
 
