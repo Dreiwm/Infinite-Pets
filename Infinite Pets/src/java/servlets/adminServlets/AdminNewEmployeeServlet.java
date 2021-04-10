@@ -29,11 +29,12 @@ public class AdminNewEmployeeServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        HttpSession session = request.getSession();
-//        String email = (String) session.getAttribute("email");
-//        if (email.equals("") || email == null){
-//            response.sendRedirect("Login");
-//        }
+        HttpSession session = request.getSession();
+        String email = (String) session.getAttribute("email");
+        if (email.equals("") || email == null){
+            session.invalidate();
+            response.sendRedirect("Login");
+        }
         getServletContext().getRequestDispatcher("/WEB-INF/NewEmployee.jsp").forward(request,response);
     }
 
