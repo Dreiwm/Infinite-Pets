@@ -107,6 +107,10 @@
         <servlet-name>AdminNewEmployeeServlet</servlet-name>
         <servlet-class>servlets.adminServlets.AdminNewEmployeeServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>EmployeeServicePreferenceServlet</servlet-name>
+        <servlet-class>servlets.InfinitePetsServlets.employeePreferences.EmployeePreferencesServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ViewPetServlet</servlet-name>
         <url-pattern>/ViewPet</url-pattern>
@@ -166,8 +170,8 @@
     <servlet-mapping>
         <servlet-name>NewPromotionServlet</servlet-name>
         <url-pattern>/NewPromotion</url-pattern>
-    </servlet-mapping> 
-    <servlet-mapping>   
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>AdminPetServices</servlet-name>
         <url-pattern>/PetServices</url-pattern>
     </servlet-mapping>
@@ -184,8 +188,8 @@
         <url-pattern>/NewEmployee</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>EmployeePreferencesServlet</servlet-name>
-        <url-pattern>/EmployeePreferences</url-pattern>
+        <servlet-name>EmployeeServicePreferenceServlet</servlet-name>
+        <url-pattern>/WorkPreferences</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
