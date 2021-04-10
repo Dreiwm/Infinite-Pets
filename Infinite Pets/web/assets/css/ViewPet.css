@@ -4,11 +4,11 @@
     align-items: center;
 }
 
-.addPetContainer{
+.viewPetContainer{
     display: grid;
     grid-template-areas: 
-        "title title"
-        "addPetLeft addPetRight";
+        "title btnEdit"
+        "viewPetLeft viewPetRight";
     
     row-gap: 5px;
     column-gap: 20px;
@@ -32,8 +32,10 @@
 
 .title h1{margin: 0px;}
 
-.addPetLeft{
-    grid-area: addPetLeft;
+.btnEdit{grid-area: btnEdit;}
+
+.viewPetLeft{
+    grid-area: viewPetLeft;
     display: grid;
     height: 100%;
     padding: 10px;
@@ -62,8 +64,8 @@
     height: 100%;
 }
 
-.addPetRight{
-    grid-area: addPetRight;
+.viewPetRight{
+    grid-area: viewPetRight;
     display: grid;
     height: 100%;
     grid-template-areas: 
@@ -73,7 +75,6 @@
         "cancelBtn saveBtn";
     row-gap: 10px;
     column-gap: 10px;
-
 }
 
 
@@ -83,9 +84,10 @@
 .petVet{grid-area: petVet;}
 .petVet input, label{display: block;}
 
+.petPicture{grid-area: petPicture;  width: 95px; height: 95px;}
+.petPicture input{display: block; width: 100%; height: 100%;}
 
-.petPicture{grid-area: petPicture; width: 95px; height: 95px;}
-.petPicture input {display: block; width: 100%; height: 100%;}
+
 
 .choosePicture{grid-area: choosePicture;}
 .choosePicture button{cursor: pointer; width: 110px;}
