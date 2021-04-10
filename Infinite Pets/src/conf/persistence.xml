@@ -15,9 +15,10 @@
     <class>models.Promotion</class>
     <class>models.Service</class>
     <class>models.ServiceType</class>
-    <class>models.EmpQualificationType</class>
     <class>models.Gallery</class>
     <class>models.Schedule</class>
+    <class>models.Empqualificationtype</class>
+    <class>models.Servicetype</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
   </persistence-unit>
 </persistence>
