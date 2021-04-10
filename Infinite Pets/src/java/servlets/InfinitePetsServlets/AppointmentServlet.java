@@ -8,6 +8,7 @@ package servlets.InfinitePetsServlets;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.math.BigDecimal;
+import java.security.NoSuchAlgorithmException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -31,6 +32,7 @@ import models.Pet;
 import models.Service;
 import services.AccountServices;
 import services.EmailService;
+import services.PasswordServices;
 import services.ScheduleServices;
 import services.ValidationServices;
 import services.exceptions.AppointmentException;
@@ -94,7 +96,13 @@ public class AppointmentServlet extends HttpServlet {
             appt.setPetID(new Pet(1, 'M', "Dog", "lab", "Eileen", new Date()));
             appt.setServiceID(new Service(1, "test", new BigDecimal(12.0), true, true, true));
             Employee emp = new Employee(1, false, false, true);
-            emp.setUserID(new Account(1, "asdf", "asdf@asdf.com", "Jennifer", "Lovegreen", true, true));
+            PasswordServices pServ = new PasswordServices();
+            String passwordSalt = pServ.getRandomSalt();
+            try {
+                emp.setUserID(new Account(0, pServ.generatePasswordHash("password", passwordSalt), passwordSalt, "asdf@asdf.com", "asdf", "asdf", true, true));
+            } catch (NoSuchAlgorithmException ex) {
+                Logger.getLogger(AppointmentServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
             appt.setEmployeeID(emp);
 
 /**
