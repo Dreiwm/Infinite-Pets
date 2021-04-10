@@ -6,12 +6,14 @@
 package services;
 
 import dataaccess.AccountDB;
+import dataaccess.EmployeeDB;
 import dataaccess.LocationDB;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import models.Account;
+import models.Employee;
 import models.Location;
 
 /**
@@ -55,6 +57,11 @@ public class AccountServices {
         AccountDB accountDB = new AccountDB();
         Account account = new Account(0, password, email, firstName, lastName, true, true);
         account.setAddress(address);
+        //
+        Employee employee = new Employee(0, false, false, true);
+        employee.setUserID(account);
+        EmployeeDB empDB = new EmployeeDB();
+        empDB.insert(employee);
         accountDB.insertAccount(account);
     }   
      
@@ -141,9 +148,12 @@ public class AccountServices {
     public void deleteAccount(String email)throws Exception{
         AccountDB accountDB = new AccountDB();
         Account toDelete = accountDB.getAccountByEmail(email);
+        
         accountDB.deleteAccount(toDelete);
     }
     
+    
+    //Checks login information to check if the password and email match the account/user logging in
     public Account checkCreds(String email, String password){
         Account account = null;
         try {
@@ -159,4 +169,24 @@ public class AccountServices {
         }
         return account;
     } 
+    
+    //Retreive account by email
+    public Account getAccountEmail(String email)throws Exception{
+        AccountDB accountDB = new AccountDB();
+        Account account = new Account();
+        account = accountDB.getAccountByEmail(email);
+        return account;
+    } 
+
+    public List<Account> getEmployees() {
+        List<Account> employees = null;
+        try {
+            AccountDB accntDB = new AccountDB();
+            employees = accntDB.getAllIsEmployee();
+        } catch(Exception e) {
+            Logger.getLogger(AccountServices.class.getName()).log(Level.WARNING, null, e);
+            System.out.println("couldn't get employee list");
+        }
+        return employees;
+    }
 }

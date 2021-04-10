@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -52,7 +53,6 @@ public class AppointmentServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession ses = request.getSession();
-            
         
         
         
@@ -67,11 +67,16 @@ public class AppointmentServlet extends HttpServlet {
          *
          *****************************
          */
-        ses.setAttribute("email", "bccrs.test@gmail.com");
+//        ses.setAttribute("email", "bccrs.test@gmail.com");
         // Pretend that session is valid. Remove above when session is working properly.
-
+        Enumeration<String> e = ses.getAttributeNames();
+        System.out.println("stuff in session");
+        while (e.hasMoreElements()) {
+            System.out.println(e.nextElement());
+        }
+        
         String email = (String) ses.getAttribute("email");
-//        System.out.println(email);
+        System.out.println(email);
         AccountServices acs = new AccountServices();
         Account acc = null;
         try {
@@ -193,6 +198,9 @@ public class AppointmentServlet extends HttpServlet {
                 setAppointmentAttribute(appt, request, response);
                 setDateAttributes(appt, request, response);
                 getServletContext().getRequestDispatcher("/WEB-INF/Appointment.jsp").forward(request, response);
+            } else if (action.equals("reqCancelAppt")) {
+                System.out.println("cancelling appointment...");
+                                getServletContext().getRequestDispatcher("/WEB-INF/Appointment.jsp").forward(request, response);
             }
         }
         

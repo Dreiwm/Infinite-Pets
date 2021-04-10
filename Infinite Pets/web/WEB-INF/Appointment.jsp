@@ -17,6 +17,24 @@
         <%@include file="testFiles/header.jsp" %>
         <title>Appointment</title>
     </head>
+    <script type="text/javascript">
+        console.log("test js");
+        function testing(){
+            console.log("TEST FUNCTION");
+            let answer = confirm("Are you sure? This action cannot be undone.<br/> Note: You can only cancel an appointment 24 hours prior.");
+
+            if (answer === true) {
+                this.form.submit();
+            }
+        }
+//        function confirmDelete() {
+//            let answer = confirm(("Are you sure? This action cannot be undone.<br/> Note: You can only cancel an appointment 24 hours prior.");
+//
+//            if (answer === true) {
+//                this.form.submit();
+//            }
+//        }
+    </script>
     <body>
         <div class="wrapper">
             <div class="generalContainer">
@@ -90,6 +108,11 @@
                                 <td>$<fmt:formatNumber maxFractionDigits="2" minFractionDigits="2" value="${appt.getServiceID().getBasePrice()}"/></td>
                             </tr>
                         </table>
+                            
+                        <!--View Client Contract-->
+                        <!--Will open a tab with plain html with print button and close button-->
+                        <a href="${pdfURL}" target="_blank" class="linkBtn">View Contract</a>
+                        
 
                         <!--Update-->
 
@@ -100,7 +123,8 @@
                             <br/>
                     <form action="Appointment" method="POST">
                         <!--Cancel-->
-                        <input type="submit" value="Cancel Appointment" class="dangerButton">
+                        <!--<input type="submit" value="Cancel Appointment" class="dangerButton">-->
+                        <button onclick="testing()">Cancel Appointment</button>
                         <input type="hidden" name="action" value="reqCancelAppt">
                         <input type="hidden" name="apptId" value="${appt.getAppointmentID()}">
                     </form>

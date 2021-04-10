@@ -21,7 +21,7 @@
 </head>
 <body>
     <div class="wrapper">
-        <form>
+        <form method="POST" action="SignUp">
             <div class="accountContainer">
                 <div class="photo">
                     <img src="assets/img/SignUp.jpg" alt="">
@@ -29,7 +29,7 @@
                 <div class="title">
                     <h1>Create a new Account</h1>
                 </div>
-                <div class="firstname">
+<!--                <div class="firstname">
                     <label for="fname">First Name:</label>
                     <input name="firstName" id="firstName" type="text">
                 </div>
@@ -48,6 +48,22 @@
                 <div class="pass2">
                     <label for="pass2">Confirm Password:</label>
                     <input name="passwordConfirm" id="passwordConfirm" type="password">
+                </div>-->
+                <div class="firstname">
+                    <table>
+                            <tr><td>First Name:</td><td><input type="text" name="firstName" placeholder="First Name" required></td></tr>
+                            <tr><td>Last Name:</td><td><input type="text" name="lastName" placeholder="Last Name" required></td></tr>
+                            <tr><td>Street Address:</td><td><input type="text" name="address" placeholder="123 Sesame Street" required></td></tr>
+                            <tr><td>Area:</td><td><input type="text" name="area" placeholder="N, S, W, E" required></td></tr>
+                            <tr><td>City:</td><td><input type="text" name="city" placeholder="Calgary" required></td></tr>
+                            <tr><td>Province:</td><td><input type="text" name="prov" placeholder="Alberta" required></td></tr>
+                            <tr><td>Country:</td><td><input type="text" name="country" placeholder="Canada" required></td></tr>
+                            <tr><td>Postal Code:</td><td><input type="text" name="postal" placeholder="A1A 1A1" pattern="([A-Z][0-9][A-Z] [0-9][A-Z][0-9])" required></td></tr>
+                            <tr><td>Email:</td><td><input type="text" name="email" placeholder="Email" required></td></tr>
+                            <tr><td>Confirm Email:</td><td><input type="text" name="emailConf" placeholder="Email" required></td></tr>
+                            <tr><td>Password:</td><td><input required type="password" name="password" placeholder="Password" required></td></tr>
+                            <tr><td>Confirm Password:</td><td><input required type="password" name="passwordConf" placeholder="Password" required></td></tr>
+                        </table>
                 </div>
                 <div class="createbtn">
                     <input type="hidden" name="action" value="create">
@@ -84,9 +100,9 @@
                 <tr><td>Password:</td><td><input required type="password" name="password" placeholder="Password" required></td></tr>
                 <tr><td>Confirm Password:</td><td><input required type="password" name="passwordConf" placeholder="Password" required></td></tr>
             </table> <br></div>
-            <input type="hidden" name="action" value="edit">
+            <input type="hidden" name="action" value="create">
             <input type="submit" value="Create Account">
-                </form><br></div></div><br>
+        </form><br></div></div><br>
     </body> -->
 
     <footer> <%@include file="testFiles/footer.jsp" %> </footer>
