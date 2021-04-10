@@ -45,6 +45,21 @@
         <servlet-class>servlets.InfinitePetsServlets.AppointmentServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>ClientContractServlet</servlet-name>
+        <servlet-class>servlets.InfinitePetsServlets.contracts.ClientContractServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PromotionsServlet</servlet-name>
+        <servlet-class>servlets.InfinitePetsServlets.promotions.PromotionsServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PromotionServlet</servlet-name>
+        <servlet-class>servlets.InfinitePetsServlets.promotions.PromotionServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>NewPromotionServlet</servlet-name>
+        <servlet-class>servlets.InfinitePetsServlets.promotions.NewPromotionServlet</servlet-class>
+    </servlet>
         <servlet-name>ViewPetServlet</servlet-name>
         <servlet-class>servlets.petServlets.ViewPetServlet</servlet-class>
     </servlet>
@@ -109,6 +124,20 @@
         <url-pattern>/Appointment</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>ClientContractServlet</servlet-name>
+        <url-pattern>/ClientContract</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PromotionsServlet</servlet-name>
+        <url-pattern>/Promotions</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PromotionServlet</servlet-name>
+        <url-pattern>/Promotion</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>NewPromotionServlet</servlet-name>
+        <url-pattern>/NewPromotion</url-pattern>
         <servlet-name>AdminPetServices</servlet-name>
         <url-pattern>/PetServices</url-pattern>
     </servlet-mapping>
