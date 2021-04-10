@@ -53,7 +53,7 @@ public class MyProfileServlet extends HttpServlet {
             //get all account info for logged in user TEST PURPOSES
             String firstName = account.getFirstName();
             String lastName = account.getLastName();
-            String password = account.getPassword();
+            String password = account.getPasswordHash();  ///DO I GET THE PASSWORD HASH HERE?
             Location location = account.getAddress();
             String address = location.getAddress();
             String city = location.getCity();
@@ -75,7 +75,7 @@ public class MyProfileServlet extends HttpServlet {
             request.setAttribute("country", location.getCountry());
             request.setAttribute("postal", location.getPostalCode());
             request.setAttribute("email", account.getEmail());
-            request.setAttribute("password", account.getPassword());
+            request.setAttribute("password", account.getPasswordHash()); ///DO I GET THE PASSWORD HASH HERE?
 ;
             getServletContext().getRequestDispatcher("/WEB-INF/MyProfile.jsp").forward(request,response);
         } catch (Exception e) {

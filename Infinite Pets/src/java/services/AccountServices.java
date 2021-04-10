@@ -46,7 +46,10 @@ public class AccountServices {
     //Creates a Customer account and sends it to the database to be added
     public void createUserAccount(String firstName, String lastName, String email, String pass, Location address)throws Exception{
         AccountDB accountDB = new AccountDB();
-        Account account = new Account(0, pass, email, firstName, lastName, false, false);
+        PasswordServices pServ = new PasswordServices();
+        String passwordSalt = pServ.getRandomSalt();
+        String passwordHash = pServ.generatePasswordHash(pass, passwordSalt);
+        Account account = new Account(0, passwordHash, passwordSalt, email, firstName, lastName, false, false);
         account.setAddress(address);
         accountDB.insertAccount(account);
     }
@@ -55,7 +58,10 @@ public class AccountServices {
      public void createStaffAccount(String password, String email, String firstName, Location address,
             String lastName)throws Exception{
         AccountDB accountDB = new AccountDB();
-        Account account = new Account(0, password, email, firstName, lastName, true, true);
+        PasswordServices pServ = new PasswordServices();
+        String passwordSalt = pServ.getRandomSalt();
+        String passwordHash = pServ.generatePasswordHash(password, passwordSalt);
+        Account account = new Account(0, passwordHash, passwordSalt, email, firstName, lastName, true, true);
         account.setAddress(address);
         //
         Employee employee = new Employee(0, false, false, true);
@@ -88,7 +94,18 @@ public class AccountServices {
             Location location = account.getAddress();
             Location tempLocation = location;
             location = new Location(tempLocation.getLocationID(), tempLocation.getLocationType(), postal, address, city, country, prov, area);
-            account = new Account(account.getUserId(), password, email, firstName, lastName, false, isConfermed);
+            PasswordServices pServ = new PasswordServices();
+            String passwordHash = null;
+            String passwordSalt = null;
+            if (pServ.doesMatchHash(password, account.getPasswordSalt(), account.getPasswordHash())){
+                passwordHash = account.getPasswordHash();
+                passwordSalt = account.getPasswordSalt();
+            }
+            else{
+                passwordSalt = pServ.getRandomSalt();
+                passwordHash = pServ.generatePasswordHash(password, passwordSalt);
+            }
+            account = new Account(0, passwordHash, passwordSalt, email, firstName, lastName, false, false);
             account.setAppointmentList(tempAccount.getAppointmentList());
             account.setEmployeeList(tempAccount.getEmployeeList());
             account.setPetList(tempAccount.getPetList());
@@ -128,12 +145,24 @@ public class AccountServices {
      * lists are added after
      */
     public void updateStaffAccount(String password, String email, String firstName, 
-            String lastName, boolean isStaff)throws Exception{
+            String lastName, boolean isEmployee, boolean isConfirmed)throws Exception{
                 AccountDB accountDB = new AccountDB();
         try{
             Account account = accountDB.getAccountByEmail(email);
             Account tempAccount = account;
-            account = new Account(account.getUserId(), password, email, firstName, lastName, isStaff, true);
+            //check if old password and new passwords are the same if so use old password and salt else creat new hash and salt
+            PasswordServices pServ = new PasswordServices();
+            String passwordHash = null;
+            String passwordSalt = null;
+            if (pServ.doesMatchHash(password, account.getPasswordSalt(), account.getPasswordHash())){
+                passwordHash = account.getPasswordHash();
+                passwordSalt = account.getPasswordSalt();
+            }
+            else{
+                passwordSalt = pServ.getRandomSalt();
+                passwordHash = pServ.generatePasswordHash(password, passwordSalt);
+            }
+            account = new Account(0, passwordHash, passwordSalt, email, firstName, lastName, isEmployee, isConfirmed);
             account.setAppointmentList(tempAccount.getAppointmentList());
             account.setEmployeeList(tempAccount.getEmployeeList());
             account.setPetList(tempAccount.getPetList());
@@ -159,8 +188,9 @@ public class AccountServices {
         try {
             AccountDB accDB = new AccountDB();
             List<Account> accounts = accDB.getAllAccount();
+            PasswordServices pServ = new PasswordServices();
             for (int i = 0; i < accounts.size(); i++){
-                if (accounts.get(i).getEmail().equals(email) && accounts.get(i).getPassword().equals(password)){
+                if (accounts.get(i).getEmail().equals(email) && pServ.doesMatchHash(password, accounts.get(i).getPasswordSalt(), accounts.get(i).getPasswordHash())){
                     account = accounts.get(i);
                 }
             }
