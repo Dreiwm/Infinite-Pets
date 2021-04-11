@@ -5,6 +5,7 @@
  */
 package services;
 
+import dataaccess.EmpQualificationTypeDB;
 import dataaccess.EmpServicePreferenceDB;
 import dataaccess.ServiceTypeDB;
 import java.util.ArrayList;
@@ -23,7 +24,17 @@ import models.ServiceType;
  * @author Riley
  */
 public class ServiceServices {
-
+    
+    private final ServiceTypeDB sTDB;
+    private final EmpServicePreferenceDB eSPDB;
+    private final EmpQualificationTypeDB eQTDB;
+    
+    public ServiceServices() {
+        sTDB = new ServiceTypeDB();
+        eSPDB = new EmpServicePreferenceDB();
+        eQTDB = new EmpQualificationTypeDB();
+    }
+    
     /**
      * Returns list of serviceTypes.
      *
@@ -31,15 +42,29 @@ public class ServiceServices {
      * or an exception was thrown.
      */
     public List<ServiceType> getAllServiceTypes() {
-        ServiceTypeDB sTDB = new ServiceTypeDB();
-
         try {
             return sTDB.getAllServiceTypes();
         } catch (Exception ex) {
             Logger.getLogger(ServiceServices.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
-
+    }
+    
+    public List<ServiceType> getAllServiceTypesSpecificToEmployee(Employee e) {
+        List<EmpQualificationType> qList = eQTDB.getAllEmployeeQualificationTypes();
+        ArrayList<ServiceType> qualifiedServiceTypeList = new ArrayList<>();
+        
+        // Get all qualified that belongs to given e Employee.
+        
+        qList = e.getEmpQualificationTypeList();
+        for (EmpQualificationType eQT : qList) {
+            System.out.println(eQT.getQualificationName());
+        }
+        // Now we need to loop thr the eList, remove if can't be found in eList.
+        // Nested loop.
+        
+        
+        return null;
     }
 
     /**
@@ -47,11 +72,9 @@ public class ServiceServices {
      *
      * @param id id used to queery the DB.
      * @return returns null if there was an exception or table is empty.
-     * Otherwise returns lsit of ServiceTypes.
+     * Otherwise returns list of ServiceTypes.
      */
     public ServiceType getServiceType(int id) {
-        ServiceTypeDB sTDB = new ServiceTypeDB();
-
         try {
             return sTDB.get(id);
         } catch (Exception ex) {
@@ -76,10 +99,8 @@ public class ServiceServices {
      * @param id the id of EmpServicePreference to be deleted.
      * @return true if successfully deleted.
      */
-    public boolean deleteEmpServicePreference(int id) {
-        EmpServicePreferenceDB empSPDB = new EmpServicePreferenceDB();
-        try {
-            empSPDB.delete(empSPDB.get(id));
+    public boolean deleteEmpServicePreference(int id) {        try {
+            eSPDB.delete(eSPDB.get(id));
         } catch (Exception ex) {
             Logger.getLogger(ServiceServices.class.getName()).log(Level.SEVERE, null, ex);
             return false;
@@ -92,8 +113,7 @@ public class ServiceServices {
      * @return list of all EmpServicePreference.
      */
     public List<EmpServicePreference> getAllEmpServicePreferences() {
-        EmpServicePreferenceDB eDB = new EmpServicePreferenceDB();
-        return eDB.getAllEmpServicePreferences();
+        return eSPDB.getAllEmpServicePreferences();
     }
     
     /**
@@ -113,15 +133,4 @@ public class ServiceServices {
         return list;
 
     }
-    
-//    public List<ServiceType> getAllServiceTypesForEmployeeSpecific(Employee e) {
-//        List<ServiceType> list = getAllServiceTypes();
-//        
-//        // Get qualified list
-//        List<EmpQualificationType> qualifiedForList = e.getEmpQualificationTypeList();
-//        
-//        for (ServiceType st : list) {
-//            //
-//        }
-//    }
 }
