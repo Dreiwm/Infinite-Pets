@@ -24,15 +24,15 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author BTran
+ * @author Riley
  */
 @Entity
 @Table(name = "animal_type")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "AnimalType.findAll", query = "SELECT a FROM AnimalType a")
-    , @NamedQuery(name = "AnimalType.findByAnimalTypeID", query = "SELECT a FROM AnimalType a WHERE a.animalTypeID = :animalTypeID")
-    , @NamedQuery(name = "AnimalType.findByAnimalType", query = "SELECT a FROM AnimalType a WHERE a.animalType = :animalType")})
+    @NamedQuery(name = "AnimalType.findAll", query = "SELECT a FROM AnimalType a"),
+    @NamedQuery(name = "AnimalType.findByAnimalTypeID", query = "SELECT a FROM AnimalType a WHERE a.animalTypeID = :animalTypeID"),
+    @NamedQuery(name = "AnimalType.findByAnimalType", query = "SELECT a FROM AnimalType a WHERE a.animalType = :animalType")})
 public class AnimalType implements Serializable {
 
     private static final long serialVersionUID = 1L;

@@ -10,7 +10,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
-import models.Servicetype;
+import models.ServiceType;
 
 /**
  * Responsible for interacting with Servicetype table in the database
@@ -23,7 +23,7 @@ public class ServiceTypeDB {
      * @return returns true if successfully inserted.
      * @throws Exception if something went wrong in process of inserting into the database.
      */
-    public boolean insert(Servicetype serviceType) throws Exception {
+    public boolean insert(ServiceType serviceType) throws Exception {
        EntityManager em = DBUtil.getEmFactory().createEntityManager();
        EntityTransaction tr = em.getTransaction();
         
@@ -37,7 +37,7 @@ public class ServiceTypeDB {
             if (tr.isActive()) {
                 tr.rollback();
             }
-            Logger.getLogger(Servicetype.class.getName()).log(Level.SEVERE, "Cannot insert " + serviceType.toString(), e); 
+            Logger.getLogger(ServiceType.class.getName()).log(Level.SEVERE, "Cannot insert " + serviceType.toString(), e); 
 
         } finally {
             em.close();
@@ -46,12 +46,12 @@ public class ServiceTypeDB {
     }
     
     /**
-     * Updates the given Servicetype on the Servicetype table.
-     * @param serviceType the Servicetype to be updated.
+     * Updates the given ServiceType on the ServiceType table.
+     * @param serviceType the ServiceType to be updated.
      * @return returns true if successfully updated.
      * @throws Exception if something went wrong in process of updating object in the database.
      */
-    public boolean update(Servicetype serviceType) throws Exception {
+    public boolean update(ServiceType serviceType) throws Exception {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         EntityTransaction tr = em.getTransaction();
         
@@ -63,7 +63,7 @@ public class ServiceTypeDB {
         } catch (Exception e) {
             if (tr.isActive())
                 tr.rollback();
-            Logger.getLogger(Servicetype.class.getName()).log(Level.SEVERE, "Cannot update " + serviceType.toString(), e); 
+            Logger.getLogger(ServiceType.class.getName()).log(Level.SEVERE, "Cannot update " + serviceType.toString(), e); 
         } finally {
             em.close();
         }
@@ -71,12 +71,12 @@ public class ServiceTypeDB {
     }
     
     /**
-     * Deletes the Servicetype from the database.
+     * Deletes the ServiceType from the database.
      * @param serviceType the object to be deleted from the database.
      * @return if successfully deleted from the database.
      * @throws Exception  if something went with accessing the database.
      */
-    public boolean delete(Servicetype serviceType) throws Exception {
+    public boolean delete(ServiceType serviceType) throws Exception {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         EntityTransaction tr = em.getTransaction();
         try{
@@ -86,7 +86,7 @@ public class ServiceTypeDB {
        } catch (Exception e){
            if (tr.isActive())
                tr.rollback();
-            Logger.getLogger(Servicetype.class.getName()).log(Level.SEVERE, "Cannot delete " + serviceType.toString(), e); 
+            Logger.getLogger(ServiceType.class.getName()).log(Level.SEVERE, "Cannot delete " + serviceType.toString(), e); 
            
        }
        finally {
@@ -101,11 +101,11 @@ public class ServiceTypeDB {
      * @return returns ServiceType if found on the database. 
      * @throws Exception if something went wrong with process of accessing database.
      */
-    public Servicetype get(int id) throws Exception {
+    public ServiceType get(int id) throws Exception {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         
         try {
-            return em.find(Servicetype.class, id);
+            return em.find(ServiceType.class, id);
         } finally {
             em.close();
         }
@@ -116,11 +116,11 @@ public class ServiceTypeDB {
      * @return List of the ServiceType.
      * @throws Exception if something went wrong with process of accessing the database.
      */
-    public List<Servicetype> getAllServiceTypes() throws Exception {
+    public List<ServiceType> getAllServiceTypes() throws Exception {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         
         try {
-            return em.createNamedQuery("Servicetype.findAll", Servicetype.class).getResultList();
+            return em.createNamedQuery("ServiceType.findAll", ServiceType.class).getResultList();
         } finally {
             em.close();
         }
@@ -130,8 +130,8 @@ public class ServiceTypeDB {
     public static void main(String[] args) throws Exception {
         ServiceTypeDB sTDB = new ServiceTypeDB();
         // test insert twice
-        Servicetype catGrooming = new Servicetype(0, "Cat Grooming");
-        Servicetype dogGrooming = new Servicetype(0, "Dog Grooming");
+        ServiceType catGrooming = new ServiceType(0, "Cat Grooming");
+        ServiceType dogGrooming = new ServiceType(0, "Dog Grooming");
 //        
         sTDB.insert(catGrooming);
         sTDB.insert(dogGrooming);
@@ -141,8 +141,8 @@ public class ServiceTypeDB {
         System.out.println(sTDB.get(2));
         
         // test get all
-        List<Servicetype> list = sTDB.getAllServiceTypes();
-        for (Servicetype st : list) {
+        List<ServiceType> list = sTDB.getAllServiceTypes();
+        for (ServiceType st : list) {
             System.out.println(st.getServiceTypeID() + " " + st.getServiceType());
         }
         
