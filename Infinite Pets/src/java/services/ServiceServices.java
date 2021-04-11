@@ -61,16 +61,21 @@ public class ServiceServices {
     }
 
     /**
-     * Removes empServicePrefrence from DB.
+     * Inserts empServicePrefrence from DB.
      *
-     * @param empSP
-     * @return
+     * @param empSP the EmpServicePreference to be inserted into.
+     * @return returns true if successfully inserted into DB.
      */
     public boolean insertEmpServicePreference(EmpServicePreference empSP) throws Exception {
         EmpServicePreferenceDB empSPDB = new EmpServicePreferenceDB();
                     return empSPDB.insert(empSP);
     }
 
+    /**
+     * Deletes the EmpServicePreference from DB.
+     * @param id the id of EmpServicePreference to be deleted.
+     * @return true if successfully deleted.
+     */
     public boolean deleteEmpServicePreference(int id) {
         EmpServicePreferenceDB empSPDB = new EmpServicePreferenceDB();
         try {
@@ -82,11 +87,20 @@ public class ServiceServices {
         return false;
     }
 
+    /**
+     * Returns all of the EmpServicePreference objects from EmpServicePreference table.
+     * @return list of all EmpServicePreference.
+     */
     public List<EmpServicePreference> getAllEmpServicePreferences() {
         EmpServicePreferenceDB eDB = new EmpServicePreferenceDB();
         return eDB.getAllEmpServicePreferences();
     }
-
+    
+    /**
+     * Returns all of EmpServicePreferences from empServicePreference that belongs to an employee.
+     * @param e the Employee object which is used for matching.
+     * @return the list that belongs to given Employee.
+     */
     public List<EmpServicePreference> getAllEmpServicePreferencesBelongToEmp(Employee e) {
         List<EmpServicePreference> list = getAllEmpServicePreferences();
 
