@@ -9,7 +9,6 @@
     <class>models.Gallery</class>
     <class>models.Service</class>
     <class>models.Location</class>
-    <class>models.EmpServicePreference</class>
     <class>models.ServiceType</class>
     <class>models.AnimalType</class>
     <class>models.Account</class>
@@ -18,6 +17,7 @@
     <class>models.Management</class>
     <class>models.Promotion</class>
     <class>models.EmpQualificationType</class>
+    <class>models.EmpServicePreference</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/infinitepetsdb"/>

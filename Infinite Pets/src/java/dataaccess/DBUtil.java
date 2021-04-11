@@ -13,7 +13,7 @@ import javax.persistence.Persistence;
  * @author BTran
  */
 public class DBUtil {
-    private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("InfinitePetsPU");
+    private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("InfinitePets");
     
     public static EntityManagerFactory getEmFactory() {
         return emf;

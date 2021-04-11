@@ -31,6 +31,12 @@
                     </div>
                 </div>
                 <div class="generalContainer">
+                <c:if test="${errorMsg != null}">  
+                    <div id="errorBox">
+                        ${errorMsg}
+                    </div>
+                </c:if>
+                    
                     <!--Table of sorts here, showing what preferences currently have-->
                     <!--Also will contain buttons: delete and add-->
                     <!--delete will be for per row-->
@@ -48,13 +54,13 @@
                         <c:forEach items="${empPreferenceList}" var="empPreference">
 
                         <tr>
-                            <td>${empPreference.getServiceType().getServiceType()}</td>
+                            <td>${empPreference.getServiceTypeID().getServiceType()}</td>
                         
                         <td>
                             <!--// delete button-->
-                        <form action="EmployeePreferences" method="GET">
+                        <form action="WorkPreferences" method="GET">
                             <input type="submit" name="action" value="Delete">
-                            <input type="hidden" name="empPrefID" value="${empPreference.getEmpServicePreferencePK().getEmpServicePreferenceID()}">
+                            <input type="hidden" name="empPrefID" value="${empPreference.getEmpServicePreferenceID()}">
                         </form>
                         </td>
                     </c:forEach>
@@ -65,7 +71,7 @@
                         </tr>
                         
                     <tr>
-                    <form action="EmployeePreferences" method="POST">
+                    <form action="WorkPreferences" method="POST">
 
                         <td>
                             <label for="serviceTypeSelection">Service Type: </label>

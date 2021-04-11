@@ -44,7 +44,7 @@ public class ServiceType implements Serializable {
     @Basic(optional = false)
     @Column(name = "ServiceType")
     private String serviceType;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "serviceType", fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "serviceTypeID", fetch = FetchType.EAGER)
     private List<EmpServicePreference> empServicePreferenceList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "serviceTypeID", fetch = FetchType.EAGER)
     private List<Service> serviceList;

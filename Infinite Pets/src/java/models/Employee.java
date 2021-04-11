@@ -61,7 +61,7 @@ public class Employee implements Serializable {
         @JoinColumn(name = "QualificationID", referencedColumnName = "QualificationTypeID")})
     @ManyToMany(fetch = FetchType.EAGER)
     private List<EmpQualificationType> empQualificationTypeList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employee", fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employeeID", fetch = FetchType.EAGER)
     private List<EmpServicePreference> empServicePreferenceList;
     @OneToMany(mappedBy = "employeeID", fetch = FetchType.EAGER)
     private List<Appointment> appointmentList;

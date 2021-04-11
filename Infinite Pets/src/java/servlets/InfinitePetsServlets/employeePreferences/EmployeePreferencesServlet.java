@@ -44,7 +44,7 @@ public class EmployeePreferencesServlet extends HttpServlet {
             throws ServletException, IOException {
         // This page is only for staff. So, first we need to check if it is in session,
         // if yes, check is this account is associated with employee obj?
-        // If yes, serve the page. Otherwise, redirect to login page.
+        // If yes, serve the page. Otherwise, redirect to login page. 
         String email = (String) request.getSession().getAttribute("email");
 
         AccountServices acs = new AccountServices();
@@ -78,12 +78,15 @@ public class EmployeePreferencesServlet extends HttpServlet {
                 // Don't care if there is an error in try block, kick out just in case.
             }
         }
+
         // if tests were passed, this section will be read.
         // Sets attribute for employee's service preference
-
-        List<EmpServicePreference> list = emp.getEmpServicePreferenceList();
+        ServiceServices ss = new ServiceServices();
+        List<EmpServicePreference> list = ss.getAllEmpServicePreferences();
         for (EmpServicePreference esp : list) {
-            System.out.println(esp.getServiceType().getServiceType());
+            if (esp.getEmployeeID().equals(emp)) {
+                System.out.println(esp.getServiceTypeID().getServiceType());
+            }
         }
 
 //        EmpServicePreference empS = new EmpServicePreference();
@@ -97,25 +100,13 @@ public class EmployeePreferencesServlet extends HttpServlet {
             if (action.equals("Delete")) {
                 // delete emp preference
                 int empPId = Integer.parseInt(request.getParameter("empPrefID"));
-                
-                ServiceServices ss = new ServiceServices();
-                
+
                 ss.deleteEmpServicePreference(empPId);
-                
-                
-                try {
-                    acs.updateEmployeeAccount(emp);
-                } catch (Exception ex) {
-                    Logger.getLogger(EmployeePreferencesServlet.class.getName()).log(Level.SEVERE, null, ex);
-                }
+
             }
 
         }
-        ServiceServices sS = new ServiceServices();
-        ServiceType ss = new ServiceType();
-        List<ServiceType> sTList = sS.getAllServiceTypes();
-        request.setAttribute("serviceTypes", sTList);
-        request.setAttribute("empPreferenceList", emp.getEmpServicePreferenceList());
+        setAttributes(request, response, emp);
 
         getServletContext().getRequestDispatcher(path).forward(request, response);
     }
@@ -137,10 +128,10 @@ public class EmployeePreferencesServlet extends HttpServlet {
             if (action.equals("add")) {
                 // get email from session
                 String email = (String) request.getSession().getAttribute("email");
-                
+
                 // Add work preference
                 // get selectServiceType
-                int id = Integer.parseInt(request.getParameter("selectServiceType"));
+                int serviceTypeId = Integer.parseInt(request.getParameter("selectServiceType"));
 
                 // get employee account
                 AccountServices acs = new AccountServices();
@@ -150,28 +141,29 @@ public class EmployeePreferencesServlet extends HttpServlet {
                 } catch (Exception ex) {
                     Logger.getLogger(EmployeePreferencesServlet.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                
-                List<EmpServicePreference> empP = e.getEmpServicePreferenceList();
-                EmpServicePreference empPs = new EmpServicePreference(0, e.getEmployeeID(), id);
-                
-                if (empP == null) {
-                    empP = (List) new ArrayList<EmpServicePreference>();
-                }
-                
-                // add to list
-                empP.add(empPs);
-                
-                e.setEmpServicePreferenceList(empP);
-                
+                ServiceServices ss = new ServiceServices();
+
+                EmpServicePreference empSP = new EmpServicePreference(0);
+                empSP.setServiceTypeID(ss.getServiceType(serviceTypeId));
+                empSP.setEmployeeID(e);
+                boolean success = false;
                 try {
-                    acs.updateEmployeeAccount(e);
+                    ss.insertEmpServicePreference(empSP);
                 } catch (Exception ex) {
-                    Logger.getLogger(EmployeePreferencesServlet.class.getName()).log(Level.SEVERE, null, ex);
+//                    Logger.getLogger(EmployeePreferencesServlet.class.getName()).log(Level.SEVERE, null, ex);
+                        String str = "An error has occured. Please try again.";
+                        str += "<br/>One of possible reason(s):";
+                        
+                        str += "<ul>";
+                        str += "<li>Work Preferences cannot be duplicated</li>";
+                        str += "</ul>";
+                    request.setAttribute("errorMsg", str);
                 }
-               
-                request.setAttribute("empPreferenceList", empP);
-                getServletContext().getRequestDispatcher(path).forward(request, response);
+
                 
+                setAttributes(request, response, e);
+                getServletContext().getRequestDispatcher(path).forward(request, response);
+
             }
         }
     }
@@ -185,5 +177,14 @@ public class EmployeePreferencesServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
+    private void setAttributes(HttpServletRequest request, HttpServletResponse response, Employee e) {
+        ServiceServices sS = new ServiceServices();
+        List<ServiceType> sTList = sS.getAllServiceTypes();
+        request.setAttribute("serviceTypes", sTList);
+
+        request.setAttribute("empPreferenceList", sS.getAllEmpServicePreferencesBelongToEmp(e));
+
+    }
 
 }

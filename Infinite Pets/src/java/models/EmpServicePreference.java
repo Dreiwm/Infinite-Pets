@@ -6,9 +6,13 @@
 package models;
 
 import java.io.Serializable;
-import javax.persistence.EmbeddedId;
+import javax.persistence.Basic;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
@@ -25,60 +29,57 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "EmpServicePreference.findAll", query = "SELECT e FROM EmpServicePreference e"),
-    @NamedQuery(name = "EmpServicePreference.findByEmpServicePreferenceID", query = "SELECT e FROM EmpServicePreference e WHERE e.empServicePreferencePK.empServicePreferenceID = :empServicePreferenceID"),
-    @NamedQuery(name = "EmpServicePreference.findByEmployeeID", query = "SELECT e FROM EmpServicePreference e WHERE e.empServicePreferencePK.employeeID = :employeeID"),
-    @NamedQuery(name = "EmpServicePreference.findByServiceTypeID", query = "SELECT e FROM EmpServicePreference e WHERE e.empServicePreferencePK.serviceTypeID = :serviceTypeID")})
+    @NamedQuery(name = "EmpServicePreference.findByEmpServicePreferenceID", query = "SELECT e FROM EmpServicePreference e WHERE e.empServicePreferenceID = :empServicePreferenceID")})
 public class EmpServicePreference implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @EmbeddedId
-    protected EmpServicePreferencePK empServicePreferencePK;
-    @JoinColumn(name = "EmployeeID", referencedColumnName = "EmployeeID", insertable = false, updatable = false)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "EmpServicePreferenceID")
+    private Integer empServicePreferenceID;
+    @JoinColumn(name = "EmployeeID", referencedColumnName = "EmployeeID")
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
-    private Employee employee;
-    @JoinColumn(name = "ServiceTypeID", referencedColumnName = "ServiceTypeID", insertable = false, updatable = false)
+    private Employee employeeID;
+    @JoinColumn(name = "ServiceTypeID", referencedColumnName = "ServiceTypeID")
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
-    private ServiceType serviceType;
+    private ServiceType serviceTypeID;
 
     public EmpServicePreference() {
     }
 
-    public EmpServicePreference(EmpServicePreferencePK empServicePreferencePK) {
-        this.empServicePreferencePK = empServicePreferencePK;
+    public EmpServicePreference(Integer empServicePreferenceID) {
+        this.empServicePreferenceID = empServicePreferenceID;
     }
 
-    public EmpServicePreference(int empServicePreferenceID, int employeeID, int serviceTypeID) {
-        this.empServicePreferencePK = new EmpServicePreferencePK(empServicePreferenceID, employeeID, serviceTypeID);
+    public Integer getEmpServicePreferenceID() {
+        return empServicePreferenceID;
     }
 
-    public EmpServicePreferencePK getEmpServicePreferencePK() {
-        return empServicePreferencePK;
+    public void setEmpServicePreferenceID(Integer empServicePreferenceID) {
+        this.empServicePreferenceID = empServicePreferenceID;
     }
 
-    public void setEmpServicePreferencePK(EmpServicePreferencePK empServicePreferencePK) {
-        this.empServicePreferencePK = empServicePreferencePK;
+    public Employee getEmployeeID() {
+        return employeeID;
     }
 
-    public Employee getEmployee() {
-        return employee;
+    public void setEmployeeID(Employee employeeID) {
+        this.employeeID = employeeID;
     }
 
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
+    public ServiceType getServiceTypeID() {
+        return serviceTypeID;
     }
 
-    public ServiceType getServiceType() {
-        return serviceType;
-    }
-
-    public void setServiceType(ServiceType serviceType) {
-        this.serviceType = serviceType;
+    public void setServiceTypeID(ServiceType serviceTypeID) {
+        this.serviceTypeID = serviceTypeID;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (empServicePreferencePK != null ? empServicePreferencePK.hashCode() : 0);
+        hash += (empServicePreferenceID != null ? empServicePreferenceID.hashCode() : 0);
         return hash;
     }
 
@@ -89,7 +90,7 @@ public class EmpServicePreference implements Serializable {
             return false;
         }
         EmpServicePreference other = (EmpServicePreference) object;
-        if ((this.empServicePreferencePK == null && other.empServicePreferencePK != null) || (this.empServicePreferencePK != null && !this.empServicePreferencePK.equals(other.empServicePreferencePK))) {
+        if ((this.empServicePreferenceID == null && other.empServicePreferenceID != null) || (this.empServicePreferenceID != null && !this.empServicePreferenceID.equals(other.empServicePreferenceID))) {
             return false;
         }
         return true;
@@ -97,7 +98,7 @@ public class EmpServicePreference implements Serializable {
 
     @Override
     public String toString() {
-        return "models.EmpServicePreference[ empServicePreferencePK=" + empServicePreferencePK + " ]";
+        return "models.EmpServicePreference[ empServicePreferenceID=" + empServicePreferenceID + " ]";
     }
     
 }

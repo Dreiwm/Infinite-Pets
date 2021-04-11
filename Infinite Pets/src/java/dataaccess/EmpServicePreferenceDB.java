@@ -5,13 +5,14 @@
  */
 package dataaccess;
 
+import dataaccess.exceptions.EmpServicePreferenceDuplicationException;
+import java.sql.SQLDataException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import models.EmpServicePreference;
-import models.EmpServicePreferencePK;
 
 /**
  *
@@ -22,7 +23,7 @@ public class EmpServicePreferenceDB {
      * Returns all of the EmpServicePreference from DB
      * @return list of EmpServicePreference
      */
-    public List<EmpServicePreference> getAllLocations() {
+    public List<EmpServicePreference> getAllEmpServicePreferences() {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         
         try {
@@ -70,11 +71,11 @@ public class EmpServicePreferenceDB {
                 tr.rollback();
             }
             Logger.getLogger(EmpServicePreference.class.getName()).log(Level.SEVERE, "Cannot insert " + empSP.toString(), e); 
-
-        } finally {
+            throw new Exception(e);
+        }
+        finally {
             em.close();
         }
-        return false;
     }
     
     /**
