@@ -7,6 +7,7 @@ package models;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Collection;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -42,6 +43,9 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Service.findBySpecifyPet", query = "SELECT s FROM Service s WHERE s.specifyPet = :specifyPet")
     , @NamedQuery(name = "Service.findByDateRange", query = "SELECT s FROM Service s WHERE s.dateRange = :dateRange")})
 public class Service implements Serializable {
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "serviceID")
+    private Collection<Appointmentservice> appointmentserviceCollection;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -197,6 +201,15 @@ public class Service implements Serializable {
     @Override
     public String toString() {
         return "models.Service[ serviceID=" + serviceID + " ]";
+    }
+
+    @XmlTransient
+    public Collection<Appointmentservice> getAppointmentserviceCollection() {
+        return appointmentserviceCollection;
+    }
+
+    public void setAppointmentserviceCollection(Collection<Appointmentservice> appointmentserviceCollection) {
+        this.appointmentserviceCollection = appointmentserviceCollection;
     }
     
 }

@@ -6,9 +6,11 @@
 package models;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -45,6 +47,9 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Pet.findByMedicalInfo", query = "SELECT p FROM Pet p WHERE p.medicalInfo = :medicalInfo")
     , @NamedQuery(name = "Pet.findByImagePath", query = "SELECT p FROM Pet p WHERE p.imagePath = :imagePath")})
 public class Pet implements Serializable {
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "petID")
+    private Collection<Appointmentservice> appointmentserviceCollection;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -208,6 +213,15 @@ public class Pet implements Serializable {
     @Override
     public String toString() {
         return "models.Pet[ petID=" + petID + " ]";
+    }
+
+    @XmlTransient
+    public Collection<Appointmentservice> getAppointmentserviceCollection() {
+        return appointmentserviceCollection;
+    }
+
+    public void setAppointmentserviceCollection(Collection<Appointmentservice> appointmentserviceCollection) {
+        this.appointmentserviceCollection = appointmentserviceCollection;
     }
     
 }

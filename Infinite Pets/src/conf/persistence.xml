@@ -19,6 +19,7 @@
     <class>models.Schedule</class>
     <class>models.Empqualificationtype</class>
     <class>models.Servicetype</class>
+    <class>models.Appointmentservice</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
   </persistence-unit>
 </persistence>

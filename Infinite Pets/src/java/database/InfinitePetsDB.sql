@@ -239,8 +239,6 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `infinitepetsdb`.`appointment` (
 	`AppointmentID` INT NOT NULL AUTO_INCREMENT,
 	`ClientID` INT NOT NULL,
-	`ServiceID` INT NOT NULL,
-	`PetID` INT DEFAULT NULL,
 	`AppointmentDate` DATE NOT NULL,
 	`EndDate` DATE DEFAULT NULL, -- used for range
 	`AppointmentTime` TIME DEFAULT NULL,
@@ -248,32 +246,47 @@ CREATE TABLE IF NOT EXISTS `infinitepetsdb`.`appointment` (
 	`EmployeeID` INT DEFAULT NULL,
 	`Paid` BOOLEAN NOT NULL,
 	`Active` BOOLEAN NOT NULL,
-	PRIMARY KEY (`appointmentID`),
-	INDEX `fk_appointments_clients_idx` (`ClientID` ASC),
-    CONSTRAINT `fk_appointments_clients`
+	PRIMARY KEY (`AppointmentID`),
+	INDEX `fk_appointment_client_idx` (`ClientID` ASC),
+    CONSTRAINT `fk_appointment_client`
             FOREIGN KEY (`ClientID`)
             REFERENCES `infinitepetsdb`.`account` (`UserId`)
             ON DELETE CASCADE
             ON UPDATE NO ACTION,
-	INDEX `fk_appointments_employees_idx` (`EmployeeID` ASC),
-    CONSTRAINT `fk_appointments_employees`
+	INDEX `fk_appointment_employee_idx` (`EmployeeID` ASC),
+    CONSTRAINT `fk_appointment_employee`
             FOREIGN KEY (`EmployeeID`)
             REFERENCES `infinitepetsdb`.`employee` (`EmployeeID`)
             ON DELETE NO ACTION
-            ON UPDATE NO ACTION,
-	INDEX `fk_appointments_services_idx` (`ServiceID` ASC),
-    CONSTRAINT `fk_appointments_services`
-            FOREIGN KEY (`ServiceID`)
-            REFERENCES `infinitepetsdb`.`service` (`ServiceID`)
-            ON DELETE NO ACTION
-            ON UPDATE NO ACTION,
-	INDEX `fk_appointments_pets_idx` (`PetID` ASC),
-    CONSTRAINT `fk_appointments_pets`
-            FOREIGN KEY (`PetID`)
-            REFERENCES `infinitepetsdb`.`pet` (`PetID`)
-            ON DELETE CASCADE
             ON UPDATE NO ACTION
 ) 
+ENGINE = InnoDB;
+
+CREATE TABLE IF NOT EXISTS `infinitepetsdb`.`appointmentservice` (
+    `AppServID` INT NOT NULL AUTO_INCREMENT,
+    `AppointmentID` INT NOT NULL,
+    `ServiceID` INT NOT NULL,
+    `PetID` INT NOT NULL,
+    PRIMARY KEY (`AppServID`),
+    INDEX `fk_appointmentservice_appointment_idx` (`AppointmentID` ASC),
+    CONSTRAINT `fk_appointmentservice_appointment`
+        FOREIGN KEY (`AppointmentID`)
+        REFERENCES `infinitepetsdb`.`appointment` (`AppointmentID`)
+        ON DELETE CASCADE
+        ON UPDATE NO ACTION,
+    INDEX `fk_appointmentservice_service_idx` (`ServiceID` ASC),
+    CONSTRAINT `fk_appointmentservice_service`
+        FOREIGN KEY (`ServiceID`)
+        REFERENCES `infinitepetsdb`.`service` (`ServiceID`)
+        ON DELETE NO ACTION
+        ON UPDATE NO ACTION,
+    INDEX `fk_appointmentservice_pet_idx` (`PetID` ASC),
+    CONSTRAINT `fk_appointmentservice_pet`
+        FOREIGN KEY (`PetID`)
+        REFERENCES `infinitepetsdb`.`pet` (`PetID`)
+        ON DELETE CASCADE
+        ON UPDATE NO ACTION
+)
 ENGINE = InnoDB;
 
 -- Content Management
@@ -543,3 +556,14 @@ INSERT INTO breed (animal_type_id, breed_name)
         (@dog, 'Wirehaired Pointing Griffon'),
         (@dog, 'Xoloitzcuintli'),
         (@dog, 'Yorkshire Terrier');		
+
+-- Insert "all" of the cat breeds
+SELECT `animal_Type_ID`
+    INTO @cat
+    FROM `animal_Type`
+    WHERE `animal_Type` = 'Cat';
+    
+INSERT INTO breed (animal_type_id, breed_name)
+    VALUES (@cat, 'Long Hair'),
+        (@cat, 'Short Hair'),
+        (@cat, 'Hairless');
