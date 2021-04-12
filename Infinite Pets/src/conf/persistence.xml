@@ -5,19 +5,9 @@
     <class>models.Pet</class>
     <class>models.Appointment</class>
     <class>models.Schedule</class>
-    <class>models.Discount</class>
-    <class>models.Gallery</class>
-    <class>models.Service</class>
-    <class>models.Location</class>
-    <class>models.ServiceType</class>
-    <class>models.AnimalType</class>
-    <class>models.Account</class>
-    <class>models.Employee</class>
-    <class>models.Breed</class>
-    <class>models.Management</class>
-    <class>models.Promotion</class>
-    <class>models.EmpQualificationType</class>
-    <class>models.EmpServicePreference</class>
+    <class>models.Empqualificationtype</class>
+    <class>models.Servicetype</class>
+    <class>models.Appointmentservice</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/infinitepetsdb"/>

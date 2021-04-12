@@ -6,8 +6,10 @@
 package models;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -18,28 +20,33 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Riley
+ * @author BTran
  */
 @Entity
 @Table(name = "appointment")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Appointment.findAll", query = "SELECT a FROM Appointment a"),
-    @NamedQuery(name = "Appointment.findByAppointmentID", query = "SELECT a FROM Appointment a WHERE a.appointmentID = :appointmentID"),
-    @NamedQuery(name = "Appointment.findByAppointmentDate", query = "SELECT a FROM Appointment a WHERE a.appointmentDate = :appointmentDate"),
-    @NamedQuery(name = "Appointment.findByEndDate", query = "SELECT a FROM Appointment a WHERE a.endDate = :endDate"),
-    @NamedQuery(name = "Appointment.findByAppointmentTime", query = "SELECT a FROM Appointment a WHERE a.appointmentTime = :appointmentTime"),
-    @NamedQuery(name = "Appointment.findByConfirmed", query = "SELECT a FROM Appointment a WHERE a.confirmed = :confirmed"),
-    @NamedQuery(name = "Appointment.findByPaid", query = "SELECT a FROM Appointment a WHERE a.paid = :paid"),
-    @NamedQuery(name = "Appointment.findByActive", query = "SELECT a FROM Appointment a WHERE a.active = :active")})
+    @NamedQuery(name = "Appointment.findAll", query = "SELECT a FROM Appointment a")
+    , @NamedQuery(name = "Appointment.findByAppointmentID", query = "SELECT a FROM Appointment a WHERE a.appointmentID = :appointmentID")
+    , @NamedQuery(name = "Appointment.findByAppointmentDate", query = "SELECT a FROM Appointment a WHERE a.appointmentDate = :appointmentDate")
+    , @NamedQuery(name = "Appointment.findByEndDate", query = "SELECT a FROM Appointment a WHERE a.endDate = :endDate")
+    , @NamedQuery(name = "Appointment.findByAppointmentTime", query = "SELECT a FROM Appointment a WHERE a.appointmentTime = :appointmentTime")
+    , @NamedQuery(name = "Appointment.findByConfirmed", query = "SELECT a FROM Appointment a WHERE a.confirmed = :confirmed")
+    , @NamedQuery(name = "Appointment.findByPaid", query = "SELECT a FROM Appointment a WHERE a.paid = :paid")
+    , @NamedQuery(name = "Appointment.findByActive", query = "SELECT a FROM Appointment a WHERE a.active = :active")})
 public class Appointment implements Serializable {
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "appointmentID")
+    private Collection<Appointmentservice> appointmentserviceCollection;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -166,22 +173,6 @@ public class Appointment implements Serializable {
         this.employeeID = employeeID;
     }
 
-    public Pet getPetID() {
-        return petID;
-    }
-
-    public void setPetID(Pet petID) {
-        this.petID = petID;
-    }
-
-    public Service getServiceID() {
-        return serviceID;
-    }
-
-    public void setServiceID(Service serviceID) {
-        this.serviceID = serviceID;
-    }
-
     @Override
     public int hashCode() {
         int hash = 0;
@@ -205,6 +196,15 @@ public class Appointment implements Serializable {
     @Override
     public String toString() {
         return "models.Appointment[ appointmentID=" + appointmentID + " ]";
+    }
+
+    @XmlTransient
+    public Collection<Appointmentservice> getAppointmentserviceCollection() {
+        return appointmentserviceCollection;
+    }
+
+    public void setAppointmentserviceCollection(Collection<Appointmentservice> appointmentserviceCollection) {
+        this.appointmentserviceCollection = appointmentserviceCollection;
     }
     
 }
