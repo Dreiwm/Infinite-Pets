@@ -265,7 +265,7 @@ CREATE TABLE IF NOT EXISTS `infinitepetsdb`.`appointment` (
 ) 
 ENGINE = InnoDB;
 
-CREATE TABLE IF NOT EXISTS `infinitepetsdb`.`appointmentservice` (
+CREATE TABLE IF NOT EXISTS `infinitepetsdb`.`appointmentService` (
     `AppServID` INT NOT NULL AUTO_INCREMENT,
     `AppointmentID` INT NOT NULL,
     `ServiceID` INT NOT NULL,

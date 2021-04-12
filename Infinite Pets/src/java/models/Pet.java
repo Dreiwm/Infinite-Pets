@@ -6,7 +6,6 @@
 package models;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
@@ -30,26 +29,23 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author BTran
+ * @author Riley
  */
 @Entity
 @Table(name = "pet")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Pet.findAll", query = "SELECT p FROM Pet p")
-    , @NamedQuery(name = "Pet.findByPetID", query = "SELECT p FROM Pet p WHERE p.petID = :petID")
-    , @NamedQuery(name = "Pet.findBySex", query = "SELECT p FROM Pet p WHERE p.sex = :sex")
-    , @NamedQuery(name = "Pet.findBySpecies", query = "SELECT p FROM Pet p WHERE p.species = :species")
-    , @NamedQuery(name = "Pet.findByBreed", query = "SELECT p FROM Pet p WHERE p.breed = :breed")
-    , @NamedQuery(name = "Pet.findByPetName", query = "SELECT p FROM Pet p WHERE p.petName = :petName")
-    , @NamedQuery(name = "Pet.findByBirthday", query = "SELECT p FROM Pet p WHERE p.birthday = :birthday")
-    , @NamedQuery(name = "Pet.findByPreferredVet", query = "SELECT p FROM Pet p WHERE p.preferredVet = :preferredVet")
-    , @NamedQuery(name = "Pet.findByMedicalInfo", query = "SELECT p FROM Pet p WHERE p.medicalInfo = :medicalInfo")
-    , @NamedQuery(name = "Pet.findByImagePath", query = "SELECT p FROM Pet p WHERE p.imagePath = :imagePath")})
+    @NamedQuery(name = "Pet.findAll", query = "SELECT p FROM Pet p"),
+    @NamedQuery(name = "Pet.findByPetID", query = "SELECT p FROM Pet p WHERE p.petID = :petID"),
+    @NamedQuery(name = "Pet.findBySex", query = "SELECT p FROM Pet p WHERE p.sex = :sex"),
+    @NamedQuery(name = "Pet.findBySpecies", query = "SELECT p FROM Pet p WHERE p.species = :species"),
+    @NamedQuery(name = "Pet.findByBreed", query = "SELECT p FROM Pet p WHERE p.breed = :breed"),
+    @NamedQuery(name = "Pet.findByPetName", query = "SELECT p FROM Pet p WHERE p.petName = :petName"),
+    @NamedQuery(name = "Pet.findByBirthday", query = "SELECT p FROM Pet p WHERE p.birthday = :birthday"),
+    @NamedQuery(name = "Pet.findByPreferredVet", query = "SELECT p FROM Pet p WHERE p.preferredVet = :preferredVet"),
+    @NamedQuery(name = "Pet.findByMedicalInfo", query = "SELECT p FROM Pet p WHERE p.medicalInfo = :medicalInfo"),
+    @NamedQuery(name = "Pet.findByImagePath", query = "SELECT p FROM Pet p WHERE p.imagePath = :imagePath")})
 public class Pet implements Serializable {
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "petID")
-    private Collection<Appointmentservice> appointmentserviceCollection;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -79,8 +75,8 @@ public class Pet implements Serializable {
     private String medicalInfo;
     @Column(name = "ImagePath")
     private String imagePath;
-    @OneToMany(mappedBy = "petID", fetch = FetchType.EAGER)
-    private List<Appointment> appointmentList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "petID", fetch = FetchType.EAGER)
+    private List<AppointmentService> appointmentServiceList;
     @JoinColumn(name = "Owner", referencedColumnName = "UserId")
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Account owner;
@@ -174,12 +170,12 @@ public class Pet implements Serializable {
     }
 
     @XmlTransient
-    public List<Appointment> getAppointmentList() {
-        return appointmentList;
+    public List<AppointmentService> getAppointmentServiceList() {
+        return appointmentServiceList;
     }
 
-    public void setAppointmentList(List<Appointment> appointmentList) {
-        this.appointmentList = appointmentList;
+    public void setAppointmentServiceList(List<AppointmentService> appointmentServiceList) {
+        this.appointmentServiceList = appointmentServiceList;
     }
 
     public Account getOwner() {
@@ -213,15 +209,6 @@ public class Pet implements Serializable {
     @Override
     public String toString() {
         return "models.Pet[ petID=" + petID + " ]";
-    }
-
-    @XmlTransient
-    public Collection<Appointmentservice> getAppointmentserviceCollection() {
-        return appointmentserviceCollection;
-    }
-
-    public void setAppointmentserviceCollection(Collection<Appointmentservice> appointmentserviceCollection) {
-        this.appointmentserviceCollection = appointmentserviceCollection;
     }
     
 }

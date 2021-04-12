@@ -6,15 +6,15 @@
 package models;
 
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -24,16 +24,16 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author StormCloud
+ * @author Riley
  */
 @Entity
-@Table(name = "servicetype")
+@Table(name = "serviceType")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Servicetype.findAll", query = "SELECT s FROM Servicetype s")
-    , @NamedQuery(name = "Servicetype.findByServiceTypeID", query = "SELECT s FROM Servicetype s WHERE s.serviceTypeID = :serviceTypeID")
-    , @NamedQuery(name = "Servicetype.findByServiceType", query = "SELECT s FROM Servicetype s WHERE s.serviceType = :serviceType")})
-public class Servicetype implements Serializable {
+    @NamedQuery(name = "ServiceType.findAll", query = "SELECT s FROM ServiceType s"),
+    @NamedQuery(name = "ServiceType.findByServiceTypeID", query = "SELECT s FROM ServiceType s WHERE s.serviceTypeID = :serviceTypeID"),
+    @NamedQuery(name = "ServiceType.findByServiceType", query = "SELECT s FROM ServiceType s WHERE s.serviceType = :serviceType")})
+public class ServiceType implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -44,19 +44,19 @@ public class Servicetype implements Serializable {
     @Basic(optional = false)
     @Column(name = "ServiceType")
     private String serviceType;
-    @ManyToMany(mappedBy = "servicetypeCollection")
-    private Collection<Employee> employeeCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "serviceTypeID")
-    private Collection<Service> serviceCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "serviceTypeID", fetch = FetchType.EAGER)
+    private List<EmpServicePreference> empServicePreferenceList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "serviceTypeID", fetch = FetchType.EAGER)
+    private List<Service> serviceList;
 
-    public Servicetype() {
+    public ServiceType() {
     }
 
-    public Servicetype(Integer serviceTypeID) {
+    public ServiceType(Integer serviceTypeID) {
         this.serviceTypeID = serviceTypeID;
     }
 
-    public Servicetype(Integer serviceTypeID, String serviceType) {
+    public ServiceType(Integer serviceTypeID, String serviceType) {
         this.serviceTypeID = serviceTypeID;
         this.serviceType = serviceType;
     }
@@ -78,21 +78,21 @@ public class Servicetype implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Employee> getEmployeeCollection() {
-        return employeeCollection;
+    public List<EmpServicePreference> getEmpServicePreferenceList() {
+        return empServicePreferenceList;
     }
 
-    public void setEmployeeCollection(Collection<Employee> employeeCollection) {
-        this.employeeCollection = employeeCollection;
+    public void setEmpServicePreferenceList(List<EmpServicePreference> empServicePreferenceList) {
+        this.empServicePreferenceList = empServicePreferenceList;
     }
 
     @XmlTransient
-    public Collection<Service> getServiceCollection() {
-        return serviceCollection;
+    public List<Service> getServiceList() {
+        return serviceList;
     }
 
-    public void setServiceCollection(Collection<Service> serviceCollection) {
-        this.serviceCollection = serviceCollection;
+    public void setServiceList(List<Service> serviceList) {
+        this.serviceList = serviceList;
     }
 
     @Override
@@ -105,10 +105,10 @@ public class Servicetype implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Servicetype)) {
+        if (!(object instanceof ServiceType)) {
             return false;
         }
-        Servicetype other = (Servicetype) object;
+        ServiceType other = (ServiceType) object;
         if ((this.serviceTypeID == null && other.serviceTypeID != null) || (this.serviceTypeID != null && !this.serviceTypeID.equals(other.serviceTypeID))) {
             return false;
         }
@@ -117,7 +117,7 @@ public class Servicetype implements Serializable {
 
     @Override
     public String toString() {
-        return "models.Servicetype[ serviceTypeID=" + serviceTypeID + " ]";
+        return "models.ServiceType[ serviceTypeID=" + serviceTypeID + " ]";
     }
     
 }

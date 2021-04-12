@@ -7,7 +7,6 @@ package models;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Collection;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -29,23 +28,20 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author BTran
+ * @author Riley
  */
 @Entity
 @Table(name = "service")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Service.findAll", query = "SELECT s FROM Service s")
-    , @NamedQuery(name = "Service.findByServiceID", query = "SELECT s FROM Service s WHERE s.serviceID = :serviceID")
-    , @NamedQuery(name = "Service.findByServiceName", query = "SELECT s FROM Service s WHERE s.serviceName = :serviceName")
-    , @NamedQuery(name = "Service.findByBasePrice", query = "SELECT s FROM Service s WHERE s.basePrice = :basePrice")
-    , @NamedQuery(name = "Service.findByActive", query = "SELECT s FROM Service s WHERE s.active = :active")
-    , @NamedQuery(name = "Service.findBySpecifyPet", query = "SELECT s FROM Service s WHERE s.specifyPet = :specifyPet")
-    , @NamedQuery(name = "Service.findByDateRange", query = "SELECT s FROM Service s WHERE s.dateRange = :dateRange")})
+    @NamedQuery(name = "Service.findAll", query = "SELECT s FROM Service s"),
+    @NamedQuery(name = "Service.findByServiceID", query = "SELECT s FROM Service s WHERE s.serviceID = :serviceID"),
+    @NamedQuery(name = "Service.findByServiceName", query = "SELECT s FROM Service s WHERE s.serviceName = :serviceName"),
+    @NamedQuery(name = "Service.findByBasePrice", query = "SELECT s FROM Service s WHERE s.basePrice = :basePrice"),
+    @NamedQuery(name = "Service.findByActive", query = "SELECT s FROM Service s WHERE s.active = :active"),
+    @NamedQuery(name = "Service.findBySpecifyPet", query = "SELECT s FROM Service s WHERE s.specifyPet = :specifyPet"),
+    @NamedQuery(name = "Service.findByDateRange", query = "SELECT s FROM Service s WHERE s.dateRange = :dateRange")})
 public class Service implements Serializable {
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "serviceID")
-    private Collection<Appointmentservice> appointmentserviceCollection;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -73,12 +69,12 @@ public class Service implements Serializable {
     @Column(name = "DateRange")
     private boolean dateRange;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "serviceID", fetch = FetchType.EAGER)
-    private List<Discount> discountList;
+    private List<AppointmentService> appointmentServiceList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "serviceID", fetch = FetchType.EAGER)
-    private List<Appointment> appointmentList;
+    private List<Discount> discountList;
     @JoinColumn(name = "ServiceTypeID", referencedColumnName = "ServiceTypeID")
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
-    private Servicetype serviceTypeID;
+    private ServiceType serviceTypeID;
 
     public Service() {
     }
@@ -153,6 +149,15 @@ public class Service implements Serializable {
     }
 
     @XmlTransient
+    public List<AppointmentService> getAppointmentServiceList() {
+        return appointmentServiceList;
+    }
+
+    public void setAppointmentServiceList(List<AppointmentService> appointmentServiceList) {
+        this.appointmentServiceList = appointmentServiceList;
+    }
+
+    @XmlTransient
     public List<Discount> getDiscountList() {
         return discountList;
     }
@@ -161,20 +166,11 @@ public class Service implements Serializable {
         this.discountList = discountList;
     }
 
-    @XmlTransient
-    public List<Appointment> getAppointmentList() {
-        return appointmentList;
-    }
-
-    public void setAppointmentList(List<Appointment> appointmentList) {
-        this.appointmentList = appointmentList;
-    }
-
-    public Servicetype getServiceTypeID() {
+    public ServiceType getServiceTypeID() {
         return serviceTypeID;
     }
 
-    public void setServiceTypeID(Servicetype serviceTypeID) {
+    public void setServiceTypeID(ServiceType serviceTypeID) {
         this.serviceTypeID = serviceTypeID;
     }
 
@@ -201,15 +197,6 @@ public class Service implements Serializable {
     @Override
     public String toString() {
         return "models.Service[ serviceID=" + serviceID + " ]";
-    }
-
-    @XmlTransient
-    public Collection<Appointmentservice> getAppointmentserviceCollection() {
-        return appointmentserviceCollection;
-    }
-
-    public void setAppointmentserviceCollection(Collection<Appointmentservice> appointmentserviceCollection) {
-        this.appointmentserviceCollection = appointmentserviceCollection;
     }
     
 }

@@ -9,6 +9,7 @@ import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -21,15 +22,15 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author StormCloud
+ * @author Riley
  */
 @Entity
-@Table(name = "appointmentservice")
+@Table(name = "appointmentService")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Appointmentservice.findAll", query = "SELECT a FROM Appointmentservice a")
-    , @NamedQuery(name = "Appointmentservice.findByAppServID", query = "SELECT a FROM Appointmentservice a WHERE a.appServID = :appServID")})
-public class Appointmentservice implements Serializable {
+    @NamedQuery(name = "AppointmentService.findAll", query = "SELECT a FROM AppointmentService a"),
+    @NamedQuery(name = "AppointmentService.findByAppServID", query = "SELECT a FROM AppointmentService a WHERE a.appServID = :appServID")})
+public class AppointmentService implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -38,19 +39,19 @@ public class Appointmentservice implements Serializable {
     @Column(name = "AppServID")
     private Integer appServID;
     @JoinColumn(name = "AppointmentID", referencedColumnName = "AppointmentID")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Appointment appointmentID;
     @JoinColumn(name = "PetID", referencedColumnName = "PetID")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Pet petID;
     @JoinColumn(name = "ServiceID", referencedColumnName = "ServiceID")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Service serviceID;
 
-    public Appointmentservice() {
+    public AppointmentService() {
     }
 
-    public Appointmentservice(Integer appServID) {
+    public AppointmentService(Integer appServID) {
         this.appServID = appServID;
     }
 
@@ -96,10 +97,10 @@ public class Appointmentservice implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Appointmentservice)) {
+        if (!(object instanceof AppointmentService)) {
             return false;
         }
-        Appointmentservice other = (Appointmentservice) object;
+        AppointmentService other = (AppointmentService) object;
         if ((this.appServID == null && other.appServID != null) || (this.appServID != null && !this.appServID.equals(other.appServID))) {
             return false;
         }
@@ -108,7 +109,7 @@ public class Appointmentservice implements Serializable {
 
     @Override
     public String toString() {
-        return "models.Appointmentservice[ appServID=" + appServID + " ]";
+        return "models.AppointmentService[ appServID=" + appServID + " ]";
     }
     
 }
