@@ -140,7 +140,7 @@ CREATE TABLE IF NOT EXISTS `infinitepetsdb`.`empServicePreference` (
     `EmpServicePreferenceID` INT NOT NULL AUTO_INCREMENT,
     `EmployeeID` INT NOT NULL,
     `ServiceTypeID` INT NOT NULL,
-    PRIMARY KEY (EmpServicePreferenceID, EmployeeID, ServiceTypeID),
+    PRIMARY KEY (EmpServicePreferenceID),
     INDEX `fk_employee_idx` (`EmployeeID` ASC),
     CONSTRAINT `fk_employee_id`
         FOREIGN KEY (EmployeeID)
@@ -152,7 +152,9 @@ CREATE TABLE IF NOT EXISTS `infinitepetsdb`.`empServicePreference` (
         FOREIGN KEY (ServiceTypeID)
     REFERENCES infinitepetsdb.serviceType (ServiceTypeID)
     ON DELETE CASCADE
-    ON UPDATE NO ACTION
+    ON UPDATE NO ACTION,
+    CONSTRAINT `UC_EmployeeID_SericeID`
+        UNIQUE(EmployeeID, ServiceTypeID)
     )
 ENGINE = InnoDB;
 
@@ -322,9 +324,9 @@ INSERT INTO `location` (`LocationType`, `PostalCode`, `Address`, `City`, `Countr
 INSERT INTO `account` (`PasswordHash`,`PasswordSalt`, `Email`, `FirstName`, `LastName`, `Address`, `IsEmployee`,`IsConfirmed`) -- all passwords are password
     VALUES 
 
-        ('F9A24809961A6191D77C6835A7672B7657B405A9399D146D6C3F4AA10A5D0367','-dEt#9&DStu!n}&N)$Q1&wf2~fFGh?Qr','cprg352+admin@gmail.com','Admin','Admin', 1, 1, 1),
-        ('8A3D18812F48173DBB7EC4027C675D5A7FDA1545B64D1A4FE7969C5EF0DF486C','N2+DoX6vp$kPf/tQ1}_zh*;WE`;QID5x','cprg352+employee@gmail.com','employee','employee', 2, 1, 1),
-        ('8DCC49B77BA19EA674DD910F630B4D0A91EFB335789475160F38F1225981D210','[Y+S^?N2[?gf?.>u.[#;XIQEc^i]6F{^','cprg352+anne@gmail.com','Anne','Annerson', 3, 0, 1),
+        ('F9A24809961A6191D77C6835A7672B7657B405A9399D146D6C3F4AA10A5D0367','-dEt#9&DStu!n}&N)$Q1&wf2~fFGh?Qr','zxc+admin@gmail.com','Admin','Admin', 1, 1, 1),
+        ('8A3D18812F48173DBB7EC4027C675D5A7FDA1545B64D1A4FE7969C5EF0DF486C','N2+DoX6vp$kPf/tQ1}_zh*;WE`;QID5x','zxc+employee@gmail.com','employee','employee', 2, 1, 1),
+        ('8DCC49B77BA19EA674DD910F630B4D0A91EFB335789475160F38F1225981D210','[Y+S^?N2[?gf?.>u.[#;XIQEc^i]6F{^','zxc+anne@gmail.com','Anne','Annerson', 3, 0, 1),
         ('46F34FC6F09D6E9FC6E4036468D1DDE040CC3E702EE1FD7231002F31CC1237DA',')H+Sj2sb,J!4J$g@wY,>>.]VW.WjdNn?','asdf@gmail.com', 'BCCRS', 'Test', 5, 0, 1),
         ('854DA3FB2A11166FB908499032F9CD50B932109BA67E0C26F2E08918BA91388F',']&J5jjL&=BxU<UEqn%Z`|O#XH9DxncN4','cprg352+barb@gmail.com','Barb','Barber', 4, 0, 1);
 

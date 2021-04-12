@@ -111,6 +111,10 @@
         <servlet-name>EmployeeServicePreferenceServlet</servlet-name>
         <servlet-class>servlets.InfinitePetsServlets.employeePreferences.EmployeePreferencesServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AvailableAppointmentsServleet</servlet-name>
+        <servlet-class>servlets.InfinitePetsServlets.employeeAppointments.AvailableAppointmentsServleet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ViewPetServlet</servlet-name>
         <url-pattern>/ViewPet</url-pattern>
@@ -190,6 +194,10 @@
     <servlet-mapping>
         <servlet-name>EmployeeServicePreferenceServlet</servlet-name>
         <url-pattern>/WorkPreferences</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AvailableAppointmentsServleet</servlet-name>
+        <url-pattern>/AvailableAppointments</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

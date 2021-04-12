@@ -8,6 +8,7 @@ package services;
 import dataaccess.AccountDB;
 import dataaccess.AppointmentDB;
 import dataaccess.PetDB;
+import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -21,6 +22,7 @@ import models.Pet;
 import java.util.List;
 import models.Account;
 import models.Appointment;
+import models.Service;
 import services.exceptions.AppointmentException;
 
 
@@ -254,5 +256,32 @@ public class ScheduleServices {
         
         SimpleDateFormat sdf = new SimpleDateFormat("hh");
         return Integer.parseInt(sdf.format(appt.getAppointmentDate()));
+    }
+    
+    /**
+     * Returns all available appointments - unconfirmed appointments.
+     * @return returns list of available appointments.
+     */
+    public List<Appointment> getAllAvailableAppointments() throws ParseException {
+        AppointmentDB apptDB = new AppointmentDB();
+//        List<Appointment> allAppts = apptDB.getAllAppointments();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd-HH");
+        sdf.setLenient(false);
+        ArrayList<Appointment> allAppts = new ArrayList<>();
+        allAppts.add(new Appointment(1, sdf.parse("2021-04-11-09"), true, false, false));
+        allAppts.get(0).setServiceID(new Service(1, "test", new BigDecimal(12.0), true, true, true));
+        allAppts.add(new Appointment(2, sdf.parse("2021-04-11-06"), true, false, false));
+        allAppts.get(1).setServiceID(new Service(1, "test", new BigDecimal(12.0), true, true, true));
+        allAppts.add(new Appointment(3, sdf.parse("2021-04-11-12"), false, false, false));
+        allAppts.get(2).setServiceID(new Service(1, "test", new BigDecimal(12.0), true, true, true));
+        ArrayList<Appointment> unConfirmedAppts = new ArrayList<>();
+        // now filter out all confirmed appointments
+        allAppts.forEach(appt -> {
+            if (!appt.getConfirmed()) {
+                unConfirmedAppts.add(appt);
+            }
+        });
+        
+        return (List) unConfirmedAppts;
     }
 }

@@ -5,8 +5,6 @@
  */
 package dataaccess;
 
-import dataaccess.exceptions.EmpServicePreferenceDuplicationException;
-import java.sql.SQLDataException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;

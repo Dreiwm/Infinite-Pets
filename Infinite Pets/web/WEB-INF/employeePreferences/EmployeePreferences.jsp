@@ -65,10 +65,7 @@
                         </td>
                     </c:forEach>
                         </tr>
-                        <tr>
-                            <td>service tyep 1</td>
-                            <td><input type="submit" value="Delee"> </td>
-                        </tr>
+                       
                         
                     <tr>
                     <form action="WorkPreferences" method="POST">
@@ -94,5 +91,7 @@
                 <a href="<c:url value='/MyProfile'></c:url>">Return to MyProfile</a>
             </div>
         </div>
+        <footer> <%@include file="../testFiles/footer.jsp" %> </footer>
+ 
     </body>
 </html>
