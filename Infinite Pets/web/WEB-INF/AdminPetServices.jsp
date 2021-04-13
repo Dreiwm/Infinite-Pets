@@ -19,25 +19,28 @@
     <body>
         <div id="container">
             <h1>Services List</h1>
+            <div id="newService"><form method="GET" action="Service">
+                <input type="Submit" value="Add New Service">
+            </form></div>
             <div><table>
                     <tr><th>ID</th><th>Name</th><th>Price</th><th>Description</th><th>Active</th><th>Animal Type</th><th>Edit</th><th>Delete</th></tr>
                 <c:forEach var="service" items="${services}">
                     <tr><td>${service.serviceID}</td><td>${service.serviceName}</td><td>${service.basePrice}</td><td>${service.serviceDescription}</td><td>service.active</td><td>service.specifyPet</td>
-                    <c:url value="inventory" var="editurl">
+                    <c:url value="Service" var="editurl">
                         <c:param name="method" value="GET"/>
                         <c:param name="action" value="edit"/>
                         <c:param name="serviceID" value="${service.serviceID}"/>
                     </c:url>
                     <td><a href="${editurl}">Edit</a></td>
-                        <c:url value="inventory" var="deleteurl">
-                            <c:param name="method" value="GET"/>
-                            <c:param name="action" value="delete"/>
-                            <c:param name="serviceID" value="${service.serviceID}"/>
-                        </c:url>                     
+                    <c:url value="Service" var="deleteurl">
+                        <c:param name="method" value="GET"/>
+                        <c:param name="action" value="delete"/>
+                        <c:param name="serviceID" value="${service.serviceID}"/>
+                    </c:url>                     
                     <td><a href="${deleteurl}">Delete</a></td></tr>
                 </c:forEach>
             </table></div>
         </div>
     </body>
-    <footer><%@include file="testFiles/footer.jsp" %>  </footer>
+    <footer><%@include file="testFiles/footer.jsp" %> </footer>
 </html>

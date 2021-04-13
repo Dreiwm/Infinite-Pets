@@ -17,23 +17,23 @@
     </head>
     <body>
         <div id="mainContainer"><h1>Employment</h1>
-            <div id="newEMP"><form method="GET" action="NewEmployee">
+            <div id="newEMP"><form method="GET" action="Employee">
                 <input type="Submit" value="Add New Employee">
             </form></div>
             <div id="empTable"><table>
             <tr><th>First Name</th><th>Last Name</th><th>Email</th><th>Edit</th><th>Delete</th></tr>
             <c:forEach var="employee" items="${employees}">
                 <tr><td>${employee.firstName}</td><td>${employee.lastName}</td><td>${employee.email}</td>
-                    <c:url value="Employment" var="editurl">
+                    <c:url value="Employee" var="editurl">
                         <c:param name="method" value="GET"/>
                         <c:param name="action" value="edit"/>
-                        <c:param name="email" value="${employee.email}"/>
+                        <c:param name="empEmail" value="${employee.email}"/>
                     </c:url>
                     <td><a href="${editurl}">Edit</a></td>
-                    <c:url value="Employment" var="deleteurl">
+                    <c:url value="Employee" var="deleteurl">
                         <c:param name="method" value="GET"/>
                         <c:param name="action" value="delete"/>
-                        <c:param name="email" value="${employee.email}"/>
+                        <c:param name="empEmail" value="${employee.email}"/>
                     </c:url>                     
                 <td><a href="${deleteurl}">Delete</a></td></tr>
             </c:forEach>

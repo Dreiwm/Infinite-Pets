@@ -181,7 +181,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AdminNewEmployeeServlet</servlet-name>
-        <url-pattern>/NewEmployee</url-pattern>
+        <url-pattern>/Employee</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

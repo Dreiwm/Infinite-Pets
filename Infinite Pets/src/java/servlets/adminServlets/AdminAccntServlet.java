@@ -43,25 +43,7 @@ public class AdminAccntServlet extends HttpServlet {
         String action = request.getParameter("action");
         String empEmail = request.getParameter("email");
         System.out.println("Action: "+action);
-        try {
-            if (!action.equals("") && action != null){
-                switch (action) {
-                case "edit":
-                    response.sendRedirect("NewEmployee");
-                    break;
-                case "delete":
-                    AccountServices as = new AccountServices();
-                    as.deleteAccount(empEmail);
-                    break;
-                default:
-                    break;
-                }
-            }           
-        } catch(Exception e) {
-            Logger.getLogger(AdminPetServicesServlet.class.getName()).log(Level.WARNING, null, e);
-            System.out.println("Action not processable: "+action);
-        }
-        
+
         try {
             AccountServices as = new AccountServices();
             List<Account> employees = as.getEmployees();

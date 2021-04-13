@@ -14,6 +14,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import models.Account;
 import models.Employee;
+import models.Empqualificationtype;
 import models.Location;
 
 /**
@@ -56,19 +57,22 @@ public class AccountServices {
     
     //Create a staff Account and add it to the Database
      public void createStaffAccount(String password, String email, String firstName, Location address,
-            String lastName)throws Exception{
+            String lastName, List<Empqualificationtype> empqualificationtypeList)throws Exception{
+        //Create an account
         AccountDB accountDB = new AccountDB();
         PasswordServices pServ = new PasswordServices();
         String passwordSalt = pServ.getRandomSalt();
         String passwordHash = pServ.generatePasswordHash(password, passwordSalt);
         Account account = new Account(0, passwordHash, passwordSalt, email, firstName, lastName, true, true);
         account.setAddress(address);
-        //
+        accountDB.insertAccount(account);
+        //Set employee with an acount
         Employee employee = new Employee(0, false, false, true);
         employee.setUserID(account);
+        //Set employee qualifications
+        employee.setEmpqualificationtypeList(empqualificationtypeList);
         EmployeeDB empDB = new EmployeeDB();
         empDB.insert(employee);
-        accountDB.insertAccount(account);
     }   
      
     //Create an adress object for an account 
@@ -84,6 +88,7 @@ public class AccountServices {
      * Updates an User Level Account and Address with provided info.
      * To insure security a new Account object is created using inputed info and
      * lists are added after
+     * NOTE: NEED TO CHECK IF NEW EMAIL == CURRENT OR SHOULD REPLACE WHICH MEANS YOU CAN SEARCH BY EMAIL BUT BY ID
      */
     public void updateUserAccount(String password, String email, String firstName, 
             String lastName, Boolean isConfermed, String address, String city, String prov, String country, String postal, String area)throws Exception{

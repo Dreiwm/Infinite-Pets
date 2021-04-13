@@ -14,7 +14,6 @@
     <class>models.Pet</class>
     <class>models.Promotion</class>
     <class>models.Service</class>
-    <class>models.ServiceType</class>
     <class>models.Gallery</class>
     <class>models.Schedule</class>
     <class>models.Empqualificationtype</class>
