@@ -56,7 +56,7 @@ public class ServiceServices {
         
         // Get all qualified that belongs to given e Employee.
         
-        qList = e.getEmpQualificationTypeList();
+        qList = e.getEmpQualificationTypeList(); // IDK if this will work or not.
         for (EmpQualificationType eQT : qList) {
             System.out.println(eQT.getQualificationName());
         }

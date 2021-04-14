@@ -37,19 +37,25 @@
                          <tr>
                              <th>Appointment Services</th>
                              <th>Date</th>
-                             <th>View</th>
+                             <th>Details</th>
                          </tr>
                      </thead>
                      <tbody>
                      <c:forEach items="${availableAppts}" var="availableAppt">
                          <tr>
                              <td>
-                                 <!--For now just one service until then...-->
-                                 ${availableAppt.getServiceID().getServiceName()}
+                                 <c:forEach items="${availableAppt.getAppointmentServiceList()}" var="apptService" varStatus="index">
+                                     <c:if test="${index.isLast() == false}">
+                                         ${apptService.getServiceID().getServiceName()} with ${apptService.getPetID().getPetName()},
+                                     </c:if>
+                                     <c:if test="${index.isLast()}">
+                                        ${apptService.getServiceID().getServiceName()} with ${apptService.getPetID().getPetName()}
+                                     </c:if>
+                                 </c:forEach>
                              </td>
                              <td>
                                  <fmt:formatDate type="both" pattern="MMM dd, yyyy" value="${availableAppt.getAppointmentDate()}"/>
-                                 at <fmt:formatDate type="time" pattern="ha" value="${availableAppt.getAppointmentDate()}"/>
+                                 at <fmt:formatDate type="time" pattern="ha" value="${availableAppt.getAppointmentTime()}"/>
                              </td>
                              <td>
                                  <!--Btn to view appointment to accept/reject-->
@@ -63,6 +69,8 @@
                      </c:forEach>
                      </tbody>
                  </table>
+                 
+                 <span>Don't see available appointments you'd like to take? <br/>You can change your <a href='<c:url value="WorkPreferences"></c:url>'>work preferences</a>.</span>
                  
                  <a href='<c:url value="/MyProfile"></c:url>'>Back to MyProfile</a>
              </div>

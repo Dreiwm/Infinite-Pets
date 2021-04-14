@@ -113,7 +113,7 @@
     </servlet>
     <servlet>
         <servlet-name>AvailableAppointmentsServleet</servlet-name>
-        <servlet-class>servlets.InfinitePetsServlets.employeeAppointments.AvailableAppointmentsServleet</servlet-class>
+        <servlet-class>servlets.InfinitePetsServlets.employeeAppointments.AvailableAppointmentsServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ViewPetServlet</servlet-name>
