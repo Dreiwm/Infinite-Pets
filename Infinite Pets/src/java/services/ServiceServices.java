@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import models.Empqualificationtype;
-import models.EmpServicePreference;
+import models.Empservicepreference;
 import models.Employee;
 import models.Servicetype;
 
@@ -89,7 +89,7 @@ public class ServiceServices {
      * @param empSP the EmpServicePreference to be inserted into.
      * @return returns true if successfully inserted into DB.
      */
-    public boolean insertEmpServicePreference(EmpServicePreference empSP) throws Exception {
+    public boolean insertEmpServicePreference(Empservicepreference empSP) throws Exception {
         EmpServicePreferenceDB empSPDB = new EmpServicePreferenceDB();
                     return empSPDB.insert(empSP);
     }
@@ -113,7 +113,7 @@ public class ServiceServices {
      * Returns all of the EmpServicePreference objects from EmpServicePreference table.
      * @return list of all EmpServicePreference.
      */
-    public List<EmpServicePreference> getAllEmpServicePreferences() {
+    public List<Empservicepreference> getAllEmpServicePreferences() {
         return eSPDB.getAllEmpServicePreferences();
     }
     
@@ -122,10 +122,10 @@ public class ServiceServices {
      * @param e the Employee object which is used for matching.
      * @return the list that belongs to given Employee.
      */
-    public List<EmpServicePreference> getAllEmpServicePreferencesBelongToEmp(Employee e) {
-        List<EmpServicePreference> list = getAllEmpServicePreferences();
+    public List<Empservicepreference> getAllEmpServicePreferencesBelongToEmp(Employee e) {
+        List<Empservicepreference> list = getAllEmpServicePreferences();
 
-        for (EmpServicePreference esp : list) {
+        for (Empservicepreference esp : list) {
             if (!esp.getEmployeeID().equals(e)) {
                 list.remove(esp);
             }

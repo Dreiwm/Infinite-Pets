@@ -63,7 +63,7 @@ public class Service implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "serviceID", fetch = FetchType.EAGER)
     private List<Discount> discountList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "serviceID", fetch = FetchType.EAGER)
-    private List<Appointment> appointmentList;
+    private List<Appointmentservice> appointmentserviceList;
     @JoinColumn(name = "ServiceTypeID", referencedColumnName = "ServiceTypeID")
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Servicetype serviceTypeID;
@@ -132,12 +132,12 @@ public class Service implements Serializable {
     }
 
     @XmlTransient
-    public List<Appointment> getAppointmentList() {
-        return appointmentList;
+    public List<Appointmentservice> getAppointmentserviceList() {
+        return appointmentserviceList;
     }
 
-    public void setAppointmentList(List<Appointment> appointmentList) {
-        this.appointmentList = appointmentList;
+    public void setAppointmentserviceList(List<Appointmentservice> appointmentserviceList) {
+        this.appointmentserviceList = appointmentserviceList;
     }
 
     public Servicetype getServiceTypeID() {

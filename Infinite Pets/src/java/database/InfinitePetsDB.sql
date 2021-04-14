@@ -328,7 +328,7 @@ ENGINE = InnoDB;
 INSERT INTO `location` (`LocationType`, `PostalCode`, `Address`, `City`, `Country`, `Province`, `Area`)
     VALUES
         ('E','A1A 1A1', '1 Center Street', 'Calgary', 'Canada', 'Alberta', 'N'),
-        ('E','A2A 2A2', '2 Center Street', 'Calgary', 'Canada', 'Alberta', 'E'),
+        ('E','A2A2A2', '2CenterStreet', 'Calgary', 'Canada', 'Alberta', 'E'),
         ('R','A3A 3A3', '3 Center Street', 'Calgary', 'Canada', 'Alberta', 's'),
         ('R','A4A 4A4', '4 Center Street', 'Calgary', 'Canada', 'Alberta', 'W'),
         ('R','A5A 454', '5 Center Street', 'Calgary', 'Canada', 'Alberta', 'NW');
@@ -626,12 +626,12 @@ INSERT INTO ServiceType(ServiceType)
 --     `Active` BIT NOT NULL, -- currently available
 --     `SpecifyPet` BIT NOT NULL, -- if the client needs to specify what pet will have the service, things like pet/house sitting, don't I'd imagine.
 --     `DateRange` BIT NOT NULL, -- if it's a long term thing, again, the sitting
-INSERT INTO service(ServiceTypeID, ServiceName, ServiceDescription, BasePrice, Active, SpecifyPet, DateRange)
+INSERT INTO service(ServiceTypeID, ServiceName, ServiceDescription, BasePrice, Active)
     VALUES
-        (1, 'Dog Nail Clipping', 'The dog''s nails will be clipped to an appropriate length', 20.00, 1, 0, 0),
-        (1, 'Dog Bath & Brushing', 'The dog would be bathed and then brushed afterwards', 22.00, 1, 0, 0),
-        (2, 'Cat Nail Clipping', 'The cat''s nails would be clipped to appropriate length', 25.00, 1, 1, 0),
-        (2, 'Cat Bath', 'The cat woild be bathed', 30.00, 1, 1, 0);
+        (1, 'Dog Nail Clipping', 'The dog''s nails will be clipped to an appropriate length', 20.00, 1),
+        (1, 'Dog Bath & Brushing', 'The dog would be bathed and then brushed afterwards', 22.00, 1),
+        (2, 'Cat Nail Clipping', 'The cat''s nails would be clipped to appropriate length', 25.00, 1),
+        (2, 'Cat Bath', 'The cat woild be bathed', 30.00, 1);
 
 -- Insert Appointments
 -- -- Remember this is appointment holds only general info, not Pet or services.

@@ -28,7 +28,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import models.Account;
 import models.Appointment;
-import models.AppointmentService;
+import models.Appointmentservice;
 
 /**
  *

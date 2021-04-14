@@ -56,16 +56,13 @@ public class Employee implements Serializable {
     @Basic(optional = false)
     @Column(name = "Active")
     private boolean active;
-    @JoinTable(name = "empservicepreference", joinColumns = {
-        @JoinColumn(name = "EmployeeID", referencedColumnName = "EmployeeID")}, inverseJoinColumns = {
-        @JoinColumn(name = "ServiceTypeID", referencedColumnName = "ServiceTypeID")})
-    @ManyToMany(fetch = FetchType.EAGER)
-    private List<Servicetype> servicetypeList;
     @JoinTable(name = "empqualification", joinColumns = {
         @JoinColumn(name = "EmployeeID", referencedColumnName = "EmployeeID")}, inverseJoinColumns = {
         @JoinColumn(name = "QualificationID", referencedColumnName = "QualificationTypeID")})
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Empqualificationtype> empqualificationtypeList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employeeID", fetch = FetchType.EAGER)
+    private List<Empservicepreference> empservicepreferenceList;
     @OneToMany(mappedBy = "employeeID", fetch = FetchType.EAGER)
     private List<Appointment> appointmentList;
     @JoinColumn(name = "UserID", referencedColumnName = "UserId")
@@ -121,21 +118,21 @@ public class Employee implements Serializable {
     }
 
     @XmlTransient
-    public List<Servicetype> getServicetypeList() {
-        return servicetypeList;
-    }
-
-    public void setServicetypeList(List<Servicetype> servicetypeList) {
-        this.servicetypeList = servicetypeList;
-    }
-
-    @XmlTransient
     public List<Empqualificationtype> getEmpqualificationtypeList() {
         return empqualificationtypeList;
     }
 
     public void setEmpqualificationtypeList(List<Empqualificationtype> empqualificationtypeList) {
         this.empqualificationtypeList = empqualificationtypeList;
+    }
+
+    @XmlTransient
+    public List<Empservicepreference> getEmpservicepreferenceList() {
+        return empservicepreferenceList;
+    }
+
+    public void setEmpservicepreferenceList(List<Empservicepreference> empservicepreferenceList) {
+        this.empservicepreferenceList = empservicepreferenceList;
     }
 
     @XmlTransient

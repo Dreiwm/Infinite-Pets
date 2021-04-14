@@ -23,10 +23,11 @@ import models.Pet;
 import java.util.List;
 import models.Account;
 import models.Appointment;
-import models.AppointmentService;
-import models.EmpServicePreference;
+import models.Appointmentservice;
+import models.Empservicepreference;
 import models.Employee;
 import models.Service;
+import models.Appointmentservice;
 import services.exceptions.AppointmentException;
 
 /**
@@ -130,12 +131,16 @@ public class ScheduleServices {
             AppointmentDB apDB = new AppointmentDB();
             if (verifyInfo(appointmentID, appointmentDate, confirmed, paid, active, petID, userID) && verifyOwner(petID, userID)) {
                 Appointment appointment = apDB.getAppointmentById(appointmentID);
+               
                 appointment.setAppointmentDate(appointmentDate);
                 appointment.setConfirmed(confirmed);
                 appointment.setPaid(paid);
                 appointment.setActive(active);
                 Pet pet = new PetDB().getItemById(petID);
-                appointment.setPetID(pet); //this should be the pet id and not the who pet object i think...
+                Appointmentservice aps = new Appointmentservice(); //this should be the pet id and not the who pet object i think...
+/******************NEEDS MORE LOGIC FOR PROPERLY PERSISTING EACH PET ON THE APPOINTMENT************************************/
+                aps.setPetID(pet);
+                aps.setAppointmentID(appointment);
                 appointment.setClientID(pet.getOwner());
                 apDB.update(appointment);
                 //persist to the Pets appointment List
@@ -313,7 +318,7 @@ public class ScheduleServices {
 
         // Get EmpServicePreference list
         ServiceServices ss = new ServiceServices();
-        List<EmpServicePreference> empSPList = ss.getAllEmpServicePreferencesBelongToEmp(e);
+        List<Empservicepreference> empSPList = ss.getAllEmpServicePreferencesBelongToEmp(e);
         List<Appointment> allAppts = getAllAvailableAppointments();
         
         ArrayList<Appointment> filteredAppointments = new ArrayList<>();
@@ -322,13 +327,13 @@ public class ScheduleServices {
             // we need to loop through appointment, then loop through appointmentServices.
             // You msut be certain that all services is preferred, not one of them. 
             // Break out loop immeidately if found one of them not match.
-            List<AppointmentService> apptServices = null;
+            List<Appointmentservice> apptServices = null;
 
             for (Appointment appt : allAppts) {
                 System.out.println("appt id: " + appt.getAppointmentID());
                 boolean allQualified = true;
                 apptServices = getAllAppointmentServices(appt);
-                for (AppointmentService apptService : apptServices) {
+                for (Appointmentservice apptService : apptServices) {
                     System.out.println("AppointmentService id: " + apptService.getAppServID() + "with serviceTypeID: " + apptService.getServiceID().getServiceTypeID().getServiceType());
                     if (!isAppointmentServiceInWorkPrefence(apptService, empSPList)) {
                         allQualified = false;
@@ -361,10 +366,10 @@ public class ScheduleServices {
      * @param apptS AppointmentService used to match with EmpServicePreference
      * @return
      */
-    private boolean isAppointmentServiceInWorkPrefence(AppointmentService appS, List<EmpServicePreference> empSPList) {
+    private boolean isAppointmentServiceInWorkPrefence(Appointmentservice appS, List<Empservicepreference> empSPList) {
         // looping joys.
 
-        for (EmpServicePreference empSP : empSPList) {
+        for (Empservicepreference empSP : empSPList) {
             if (appS.getServiceID().getServiceTypeID().getServiceTypeID() == empSP.getServiceTypeID().getServiceTypeID()) {
                 return true;
             }
@@ -380,15 +385,15 @@ public class ScheduleServices {
      * @return returns list of AppointmentServices with given appointment
      * object.
      */
-    public List<AppointmentService> getAllAppointmentServices(Appointment appt) {
+    public List<Appointmentservice> getAllAppointmentServices(Appointment appt) {
         AppointmentServiceDB aptSDB = new AppointmentServiceDB();
 
-        List<AppointmentService> allApptServices = aptSDB.getAllAppointmentServices();
+        List<Appointmentservice> allApptServices = aptSDB.getAllAppointmentServices();
 
-        ArrayList<AppointmentService> apptServices = new ArrayList<>();
+        ArrayList<Appointmentservice> apptServices = new ArrayList<>();
 
         if (allApptServices != null) {
-                for (AppointmentService apptService : allApptServices) {
+                for (Appointmentservice apptService : allApptServices) {
                     if (appt.getAppointmentID() == apptService.getAppointmentID().getAppointmentID()) {
                         apptServices.add(apptService);
                         System.out.println("adding appt from  appt services with id: " + appt.getAppointmentID());

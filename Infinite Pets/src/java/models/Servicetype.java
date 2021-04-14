@@ -15,7 +15,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -45,8 +44,8 @@ public class Servicetype implements Serializable {
     @Basic(optional = false)
     @Column(name = "ServiceType")
     private String serviceType;
-    @ManyToMany(mappedBy = "servicetypeList", fetch = FetchType.EAGER)
-    private List<Employee> employeeList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "serviceTypeID", fetch = FetchType.EAGER)
+    private List<Empservicepreference> empservicepreferenceList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "serviceTypeID", fetch = FetchType.EAGER)
     private List<Service> serviceList;
 
@@ -79,12 +78,12 @@ public class Servicetype implements Serializable {
     }
 
     @XmlTransient
-    public List<Employee> getEmployeeList() {
-        return employeeList;
+    public List<Empservicepreference> getEmpservicepreferenceList() {
+        return empservicepreferenceList;
     }
 
-    public void setEmployeeList(List<Employee> employeeList) {
-        this.employeeList = employeeList;
+    public void setEmpservicepreferenceList(List<Empservicepreference> empservicepreferenceList) {
+        this.empservicepreferenceList = empservicepreferenceList;
     }
 
     @XmlTransient

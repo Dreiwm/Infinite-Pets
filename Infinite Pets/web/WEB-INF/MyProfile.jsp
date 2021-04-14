@@ -57,17 +57,17 @@
                 <tr><td>Confirm Password:</td><td><input type="password" name="firstName" placeholder="Confirm Password"></td></tr>
             </table> -->
         <form><table> 
-                <tr><td>First Name:</td><td><input type="text" name="firstName" class="inputFields" value=${firstName} readOnly></td></tr>
-                <tr><td>Last Name:</td><td><input type="text" name="lastName" class="inputFields" value=${lastName} readOnly></td></tr>
-                <tr><td>Street Address:</td><td><input type="text" name="address" class="inputFields" value=${address} readOnly></td></tr>
-                <tr><td>Area:</td><td><input type="text" name="area" class="inputFields" value=${area} readOnly></td></tr>
-                <tr><td>City:</td><td><input type="text" name="city" class="inputFields" value=${city} readOnly></td></tr>
-                <tr><td>Province:</td><td><input type="text" name="prov" class="inputFields" value=${prov} readOnly></td></tr>
-                <tr><td>Country:</td><td><input type="text" name="country" class="inputFields" value=${country} readOnly></td></tr>               
+                <tr><td>First Name:</td><td><input type="text" name="firstName" class="inputFields" value="${firstName}" readOnly></td></tr>
+                <tr><td>Last Name:</td><td><input type="text" name="lastName" class="inputFields" value="${lastName}" readOnly></td></tr>
+                <tr><td>Street Address:</td><td><input type="text" name="address" class="inputFields" value="${address}" readOnly></td></tr>
+                <tr><td>Area:</td><td><input type="text" name="area" class="inputFields" value="${area}" readOnly></td></tr>
+                <tr><td>City:</td><td><input type="text" name="city" class="inputFields" value="${city}" readOnly></td></tr>
+                <tr><td>Province:</td><td><input type="text" name="prov" class="inputFields" value="${prov}" readOnly></td></tr>
+                <tr><td>Country:</td><td><input type="text" name="country" class="inputFields" value="${country}" readOnly></td></tr>               
                 <!--NOTE POSTAL IS MISSING LAST 3 DIGITS-->
-                <tr><td>Postal Code:</td><td><input type="text" name="postal" class="inputFields" value=${postal} readOnly></td></tr>
-                <tr><td>Email:</td><td><input type="text" name="email" class="inputFields" value=${email} readOnly></td></tr>
-                <tr><td>Password:</td><td><input type="password" name="password" class="inputFields" value=${password} readOnly></td></tr>
+                <tr><td>Postal Code:</td><td><input type="text" name="postal" class="inputFields" value="${postal}" readOnly></td></tr>
+                <tr><td>Email:</td><td><input type="text" name="email" class="inputFields" value="${email}" readOnly></td></tr>
+                <tr><td>Password:</td><td><input type="password" name="password" class="inputFields" value="${password}" readOnly></td></tr>
             </table>
              <div id="saveBtn" style="display:none" value="btn">
                 <input type="hidden" name="action" value="save">
