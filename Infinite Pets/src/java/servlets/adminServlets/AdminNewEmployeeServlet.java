@@ -19,7 +19,9 @@ import javax.servlet.http.HttpSession;
 import models.Account;
 import models.Empqualificationtype;
 import models.Location;
+import models.Service;
 import services.AccountServices;
+import services.PetServicesServices;
 import services.ValidationServices;
 import servlets.AddPetServlet;
 
@@ -47,6 +49,8 @@ public class AdminNewEmployeeServlet extends HttpServlet {
         }
         String action = request.getParameter("action");
         try {
+            PetServicesServices pss = new PetServicesServices();
+            List<Service> services = pss.getAllServices();
             if ((!action.equals("") || action != null) && action.equals("edit")){
             String empEmail = request.getParameter("empEmail");
             AccountServices as = new AccountServices();
