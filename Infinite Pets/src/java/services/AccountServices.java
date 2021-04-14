@@ -127,7 +127,7 @@ public class AccountServices {
     /**
      * Updates an account with newly created DeleteAccountCode
      * @param deleteToken randomized token generated when submitting form to send an account deletion request. 
-     * @param email email to iedentify which account to be updated with new deleteAccountcCode.
+     * @param email email to identify which account to be updated with new deleteAccountcCode.
      */
     public void updateDeleteToken(String deleteToken, String email) {
         try {
@@ -150,7 +150,7 @@ public class AccountServices {
      * lists are added after
      */
     public void updateStaffAccount(String password, String email, String firstName, 
-            String lastName, boolean isEmployee, boolean isConfirmed)throws Exception{
+            String lastName, String address, String city, String prov, String country, String postal, String area, boolean isEmployee, boolean isConfirmed)throws Exception{
                 AccountDB accountDB = new AccountDB();
         try{
             Account account = accountDB.getAccountByEmail(email);

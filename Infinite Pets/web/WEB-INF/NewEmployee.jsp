@@ -28,13 +28,21 @@
                 <tr><td>Postal Code:</td><td><input type="text" name="postal" class="inputFields" value=${empAddress.postalCode}></td></tr>
                 <tr><td>Email:</td><td><input type="text" name="email" class="inputFields" value=${empAccount.email}></td></tr>
                 <tr><td>Password:</td><td><input type="password" name="password" class="inputFields" value=${empAccount.passwordHash}></td></tr>
+                <tr><td>Employee:</td><td><select><option value="false">No</option><option value="true" selected="true">Yes</option></select></td></tr>                
             </table>
             <h3>Employee Qualifications</h3>
             <table>
-                <tr><th></th></tr>
+                <tr><th>Service Type</th><th>Service Description</th><th>Delete</th></tr>
+                <tr><td></td><td></td><c:url value="Employee" var="deleteurl">
+                        <c:param name="method" value="GET"/>
+                        <c:param name="action" value="delete"/>
+                        <c:param name="qualificationID" value=""/>
+                    </c:url>                     
+                    <td><a href="${deleteurl}">Delete</a></td></tr>
+                <tr><td>Confirm</td><td><select><option value="false">No</option><option value="true" selected="true">Yes</option></select></td></tr>
             </table>
              <div id="saveBtn" value="btn">
-                <input type="hidden" name="action" value="save">
+                <input type="hidden" name="action" value="${action}">
                 <input type="submit" value="Save">
             </div>
         </form>

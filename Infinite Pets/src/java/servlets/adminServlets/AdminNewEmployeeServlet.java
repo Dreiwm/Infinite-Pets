@@ -7,6 +7,7 @@ package servlets.adminServlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import static java.lang.Boolean.getBoolean;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -53,6 +54,10 @@ public class AdminNewEmployeeServlet extends HttpServlet {
             Location empAddress = empAccount.getAddress();
             request.setAttribute("empAddress", empAddress);
             request.setAttribute("empAccount", empAccount);
+            request.setAttribute("action", "update");
+            }
+            else if ((!action.equals("") || action != null) && action.equals("create")){
+                request.setAttribute("action", "create");
             }
         } catch(Exception e) {
             Logger.getLogger(AddPetServlet.class.getName()).log(Level.SEVERE, null, e);
@@ -73,29 +78,42 @@ public class AdminNewEmployeeServlet extends HttpServlet {
             throws ServletException, IOException {
         String action = request.getParameter("action");
         try {
-            if ((!action.equals("") || action != null) && action.equals("save")){
-                String firstName = request.getParameter("firstName");
-                String lastName = request.getParameter("lastName");
-                String address = request.getParameter("address");
-                String area = request.getParameter("area");
-                String city = request.getParameter("city");
-                String prov = request.getParameter("prov");
-                String country = request.getParameter("country");
-                String postal = request.getParameter("postal");
-                String email = request.getParameter("email");
-                String password = request.getParameter("password");
-                AccountServices as = new AccountServices();
-                ValidationServices vs = new ValidationServices();
-                if(vs.verifyInfo(firstName, lastName, address, city, prov, country, postal, area, email, prov)){
-                    Location location = as.createAddress(postal, area, city, country, prov, area);
+            String firstName = request.getParameter("firstName");
+            String lastName = request.getParameter("lastName");
+            String address = request.getParameter("address");
+            String area = request.getParameter("area");
+            String city = request.getParameter("city");
+            String prov = request.getParameter("prov");
+            String country = request.getParameter("country");
+            String postal = request.getParameter("postal");
+            String email = request.getParameter("email");
+            String password = request.getParameter("password");
+            boolean isEmployee = getBoolean(request.getParameter("isEmployee"));
+            boolean isConfirmed = getBoolean(request.getParameter("isConfirmed"));
+            AccountServices as = new AccountServices();
+            ValidationServices vs = new ValidationServices();
+            System.out.println("Print Employee Info");
+            System.out.printf("Email: %s, First: %s, Last: %s, Pass: %s, Address: %s, Area: %s, City: %s, Country: %s, Prov: %s, Postal: %s, IsEmployee: %s, IsConfirmed: %s, Action: %s%n", email, firstName, lastName, password, address, area, city, country, prov, postal, isEmployee, isConfirmed, action);
+            //check the action being performed
+            if ((!action.equals("") || action != null) && vs.verifyInfo(firstName, lastName, address, city, prov, country, postal, area, email, prov)) {
+                if (action.equals("create")){          
+             
+                    Location location = as.createAddress(postal, address, city, country, prov, area);
                     List<Empqualificationtype> empqualificationtypeList = null;
-                    as.createStaffAccount(password, email, firstName, location, lastName, empqualificationtypeList);
+                    as.createStaffAccount(password, email, firstName, location, lastName, empqualificationtypeList);                    
+                }
+                else if ((!action.equals("") || action != null) && action.equals("update")){
+                    as.updateStaffAccount(password, email, firstName, lastName, address, city, prov, country, postal, area, isEmployee, isConfirmed);
+                }
+                else {
+                    getServletContext().getRequestDispatcher("/WEB-INF/Employee.jsp").forward(request,response);
                 }
             }
+             
         } catch(Exception e) {
             Logger.getLogger(AddPetServlet.class.getName()).log(Level.SEVERE, null, e);
             request.setAttribute("message", "Something went wrong :"+action);
         }
-        getServletContext().getRequestDispatcher("/WEB-INF/NewEmployee.jsp").forward(request,response);
+        response.sendRedirect("Employment");
     }
 }

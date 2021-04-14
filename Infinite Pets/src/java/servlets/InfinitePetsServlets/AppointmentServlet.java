@@ -94,7 +94,7 @@ public class AppointmentServlet extends HttpServlet {
             }
             appt.setEndDate(new Date());
             appt.setPetID(new Pet(1, 'M', "Dog", "lab", "Eileen", new Date()));
-            appt.setServiceID(new Service(1, "test", new BigDecimal(12.0), true, true, true));
+            appt.setServiceID(new Service(1, "test", new BigDecimal(12.0), true));
             Employee emp = new Employee(1, false, false, true);
             PasswordServices pServ = new PasswordServices();
             String passwordSalt = pServ.getRandomSalt();
@@ -162,7 +162,7 @@ public class AppointmentServlet extends HttpServlet {
         }
         appt.setEndDate(new Date());
         appt.setPetID(new Pet(1, 'M', "Dog", "lab", "Eileen", new Date()));
-        appt.setServiceID(new Service(1, "test", new BigDecimal(12.0), true, true, true));
+        appt.setServiceID(new Service(1, "test", new BigDecimal(12.0), true));
         Employee emp = new Employee(1, false, false, true);
         emp.setUserID(acc);
         appt.setEmployeeID(emp);

@@ -38,9 +38,7 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Service.findByServiceID", query = "SELECT s FROM Service s WHERE s.serviceID = :serviceID")
     , @NamedQuery(name = "Service.findByServiceName", query = "SELECT s FROM Service s WHERE s.serviceName = :serviceName")
     , @NamedQuery(name = "Service.findByBasePrice", query = "SELECT s FROM Service s WHERE s.basePrice = :basePrice")
-    , @NamedQuery(name = "Service.findByActive", query = "SELECT s FROM Service s WHERE s.active = :active")
-    , @NamedQuery(name = "Service.findBySpecifyPet", query = "SELECT s FROM Service s WHERE s.specifyPet = :specifyPet")
-    , @NamedQuery(name = "Service.findByDateRange", query = "SELECT s FROM Service s WHERE s.dateRange = :dateRange")})
+    , @NamedQuery(name = "Service.findByActive", query = "SELECT s FROM Service s WHERE s.active = :active")})
 public class Service implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -62,12 +60,6 @@ public class Service implements Serializable {
     @Basic(optional = false)
     @Column(name = "Active")
     private boolean active;
-    @Basic(optional = false)
-    @Column(name = "SpecifyPet")
-    private boolean specifyPet;
-    @Basic(optional = false)
-    @Column(name = "DateRange")
-    private boolean dateRange;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "serviceID", fetch = FetchType.EAGER)
     private List<Discount> discountList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "serviceID", fetch = FetchType.EAGER)
@@ -83,13 +75,11 @@ public class Service implements Serializable {
         this.serviceID = serviceID;
     }
 
-    public Service(Integer serviceID, String serviceName, BigDecimal basePrice, boolean active, boolean specifyPet, boolean dateRange) {
+    public Service(Integer serviceID, String serviceName, BigDecimal basePrice, boolean active) {
         this.serviceID = serviceID;
         this.serviceName = serviceName;
         this.basePrice = basePrice;
         this.active = active;
-        this.specifyPet = specifyPet;
-        this.dateRange = dateRange;
     }
 
     public Integer getServiceID() {
@@ -130,22 +120,6 @@ public class Service implements Serializable {
 
     public void setActive(boolean active) {
         this.active = active;
-    }
-
-    public boolean getSpecifyPet() {
-        return specifyPet;
-    }
-
-    public void setSpecifyPet(boolean specifyPet) {
-        this.specifyPet = specifyPet;
-    }
-
-    public boolean getDateRange() {
-        return dateRange;
-    }
-
-    public void setDateRange(boolean dateRange) {
-        this.dateRange = dateRange;
     }
 
     @XmlTransient

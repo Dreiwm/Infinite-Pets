@@ -18,6 +18,7 @@
     <body>
         <div id="mainContainer"><h1>Employment</h1>
             <div id="newEMP"><form method="GET" action="Employee">
+                <input type="hidden" name="action" value="create">
                 <input type="Submit" value="Add New Employee">
             </form></div>
             <div id="empTable"><table>
