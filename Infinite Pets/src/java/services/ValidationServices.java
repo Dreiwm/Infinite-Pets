@@ -7,6 +7,7 @@ package services;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -165,5 +166,59 @@ public class ValidationServices {
             Logger.getLogger(AddPetServlet.class.getName()).log(Level.WARNING, null, e);
         }
         return checked;
+    }
+    
+    /**
+     * Returns a boolean on whether input values were valid for new Promotion obj
+     * creation.
+     * @param prName the promotion name
+     * @param prDescription the promotion description
+     * @param discountPercent the discount percent (String due to nature of input)
+     * @param serviceId the service ID (in String)
+     * @param startDate the start date of promo
+     * @param endDate the end date of promo
+     * @return returns true if inputs were valid. Otherwise false.
+     */
+    public boolean isPromotionInputsValid(String prName, String prDescription, 
+                                            String discountPercent, String serviceId,
+                                            String startDate, String endDate) {
+        if (prName == null || prName.equals("")) return false;
+        if (prDescription == null || prDescription.equals("")) return false;
+        if (discountPercent == null || discountPercent.equals("")) return false;
+        if (serviceId == null || serviceId.equals("")) return false;
+        
+        // Dates
+        if (!isDateRangeValid(startDate, endDate)) return false;
+        
+        return true;
+    }
+    
+    /**
+     * Checks the input given by the user regarding dates.
+     * Due to fact that input type of date is not supported on Safari, also need
+     * to check it as well. Will be using SImpleDateFormat with lenient = false.
+     * @param startDate the start date in String YYYY-MM-DD
+     * @param endDate the end date in String: YYYY-MM-DD
+     * @return 
+     */
+    private boolean isDateRangeValid(String startDate, String endDate) {
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-DD");
+            sdf.setLenient(false); // Means strict on date formatting.
+            
+            Date dateStart = sdf.parse(startDate);
+            
+            Date dateEnd = sdf.parse(endDate);
+            
+            
+            // Don't check if time travelled in past.
+   
+            // after this, all is good.
+            return true;
+        } catch (ParseException ex) {
+            Logger.getLogger(ValidationServices.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+        
     }
 }

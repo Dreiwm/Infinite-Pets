@@ -21,7 +21,7 @@ public class EmpQualificationTypeDB {
      * Returns all of the EmpQualificationTypes from DB
      * @return list of EmpQualificationTypes
      */
-    public List<Empqualificationtype> getAllLocations() {
+    public List<Empqualificationtype> getAllEmployeeQualificationTypes() {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         
         try {
@@ -32,9 +32,9 @@ public class EmpQualificationTypeDB {
     }
     
     /**
-     * Returns the Empqualificationtype from DB. 
+     * Returns the EmpQualificationType from DB. 
      * @param id the id of location to retrieve from DB
-     * @return the Empqualificationtype.
+     * @return the EmpQualificationType.
      */
     public Empqualificationtype get(int id) {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
@@ -101,7 +101,7 @@ public class EmpQualificationTypeDB {
     }
     
      /**
-     * Deletes the Empqualificationtype from the database.
+     * Deletes the EmpQualificationType from the database.
      * @param empQType the object to be deleted from the database.
      * @return if successfully deleted from the database.
      * @throws Exception  if something went with accessing the database.
@@ -141,7 +141,7 @@ public class EmpQualificationTypeDB {
         
         // test get all
         System.out.println("Results after inserting...");
-        empQTDB.getAllLocations().forEach(empQType -> {
+        empQTDB.getAllEmployeeQualificationTypes().forEach(empQType -> {
             System.out.println(empQType.getQualificationName() + empQType.getQualificationDescription());
         });
         
@@ -158,7 +158,7 @@ public class EmpQualificationTypeDB {
         
         // test see all items, sb be only one item in db (if you run this app once).
         System.out.println("Results after inserting...");
-        empQTDB.getAllLocations().forEach(empQType -> {
+        empQTDB.getAllEmployeeQualificationTypes().forEach(empQType -> {
             System.out.println(empQType.getQualificationName() + empQType.getQualificationDescription());
         });
     }

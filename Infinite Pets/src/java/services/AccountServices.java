@@ -286,4 +286,15 @@ public class AccountServices {
         }
         return employees;
     }
+    
+    /**
+     * Updates an Employee account in the DB.
+     * @param e the Employee object to be updated.
+     * @return returns true if successfully updated.
+     * @throws Exception would be thrown if something went wrong.
+     */
+    public boolean updateEmployeeAccount(Employee e) throws Exception {
+        EmployeeDB eDB = new EmployeeDB();
+        return eDB.update(e);    
+    }
 }

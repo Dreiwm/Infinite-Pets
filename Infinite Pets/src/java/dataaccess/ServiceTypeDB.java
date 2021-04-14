@@ -46,8 +46,8 @@ public class ServiceTypeDB {
     }
     
     /**
-     * Updates the given Servicetype on the Servicetype table.
-     * @param serviceType the Servicetype to be updated.
+     * Updates the given ServiceType on the ServiceType table.
+     * @param serviceType the ServiceType to be updated.
      * @return returns true if successfully updated.
      * @throws Exception if something went wrong in process of updating object in the database.
      */
@@ -71,7 +71,7 @@ public class ServiceTypeDB {
     }
     
     /**
-     * Deletes the Servicetype from the database.
+     * Deletes the ServiceType from the database.
      * @param serviceType the object to be deleted from the database.
      * @return if successfully deleted from the database.
      * @throws Exception  if something went with accessing the database.
@@ -120,7 +120,7 @@ public class ServiceTypeDB {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         
         try {
-            return em.createNamedQuery("Servicetype.findAll", Servicetype.class).getResultList();
+            return em.createNamedQuery("ServiceType.findAll", Servicetype.class).getResultList();
         } finally {
             em.close();
         }
@@ -133,8 +133,8 @@ public class ServiceTypeDB {
         Servicetype catGrooming = new Servicetype(0, "Cat Grooming");
         Servicetype dogGrooming = new Servicetype(0, "Dog Grooming");
 //        
-//        sTDB.insert(catGrooming);
-//        sTDB.insert(dogGrooming);
+        sTDB.insert(catGrooming);
+        sTDB.insert(dogGrooming);
         
         // test get
         System.out.println(sTDB.get(1));
