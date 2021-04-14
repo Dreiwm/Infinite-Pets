@@ -10,6 +10,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import models.Appointment;
 import models.AppointmentService;
 
 /**
@@ -97,20 +98,25 @@ public class AppointmentServiceDB {
         
         return false;
     }
-    
-    
-        /*********************************
-     * Admin Use only
-     ********************************/
+
     
     /**
-     * Returns list all of the appointments (for all users)
-     * @return list of the appointments.
+     * Returns list all of the appointment services (for all users)
+     * @return list of the appointmentServices.
      */
-    public List<AppointmentService> getAllAppointments() {
+    public List<AppointmentService> getAllAppointmentServices() {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         try {
            return em.createNamedQuery("AppointmentService.findAll", AppointmentService.class).getResultList();
+        } finally {
+            em.close();
+        }
+    }
+    
+    public List<AppointmentService> getAllAppointmentServicesByAppointmentId(int apptId) {
+        EntityManager em = DBUtil.getEmFactory().createEntityManager();
+        try {
+           return em.createNamedQuery("AppointmentService.", AppointmentService.class).getResultList();
         } finally {
             em.close();
         }

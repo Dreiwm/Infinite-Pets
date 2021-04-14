@@ -8,6 +8,7 @@ package servlets.InfinitePetsServlets.employeeAppointments;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.ParseException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -15,6 +16,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import models.Account;
+import models.Appointment;
 import models.Employee;
 import services.AccountServices;
 import services.ScheduleServices;
@@ -25,9 +27,10 @@ import servlets.InfinitePetsServlets.promotions.PromotionsServlet;
  *
  * @author Riley
  */
-public class AvailableAppointmentsServleet extends HttpServlet {
+public class AvailableAppointmentsServlet extends HttpServlet {
+
     private final String path = "/WEB-INF/AvailableAppointments.jsp";
-    
+
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -39,7 +42,7 @@ public class AvailableAppointmentsServleet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-         // This page is only for staff. So, first we need to check if it is in session,
+        // This page is only for staff. So, first we need to check if it is in session,
         // if yes, check is this account is associated with employee obj?
         // If yes, serve the page. Otherwise, redirect to login page. 
         String email = (String) request.getSession().getAttribute("email");
@@ -69,15 +72,15 @@ public class AvailableAppointmentsServleet extends HttpServlet {
                     return; // to get out of here.
                 }
             } catch (Exception ex) {
-                Logger.getLogger(AvailableAppointmentsServleet.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(AvailableAppointmentsServlet.class.getName()).log(Level.SEVERE, null, ex);
                 response.sendRedirect(response.encodeURL("Login"));
                 return; // to get out of here.
                 // Don't care if there is an error in try block, kick out just in case.
             }
         }
-        
+
         setAttributes(request, response, emp);
-        
+
         // if tests were passed, this section will be read.
         getServletContext().getRequestDispatcher(path).forward(request, response);
     }
@@ -108,12 +111,9 @@ public class AvailableAppointmentsServleet extends HttpServlet {
     private void setAttributes(HttpServletRequest request, HttpServletResponse response, Employee emp) {
         // get all services
         ScheduleServices schs = new ScheduleServices();
+//        schs.getAllAvailableAppointmentsByPreferences(emp);
+            request.setAttribute("availableAppts", schs.getAllAvailableAppointmentsByPreferences(emp));
         
-        try {
-            request.setAttribute("availableAppts", schs.getAllAvailableAppointments());
-        } catch (ParseException ex) {
-            Logger.getLogger(AvailableAppointmentsServleet.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
 
 }
