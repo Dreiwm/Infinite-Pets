@@ -281,7 +281,6 @@ public class ScheduleServices {
      * @return returns list of available appointments.
      */
     public List<Appointment> getAllAvailableAppointments() throws ParseException {
-
         AppointmentDB apDB = new AppointmentDB();
         // get all appointments 
 
@@ -295,6 +294,22 @@ public class ScheduleServices {
                 if (!appt.getConfirmed()) {
                     unConfirmedAppts.add(appt);
                 }
+        AppointmentDB apptDB = new AppointmentDB();
+//        List<Appointment> allAppts = apptDB.getAllAppointments();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd-HH");
+        sdf.setLenient(false);
+        ArrayList<Appointment> allAppts = new ArrayList<>();
+        allAppts.add(new Appointment(1, sdf.parse("2021-04-11-09"), true, false, false));
+        allAppts.get(0).setServiceID(new Service(1, "test", new BigDecimal(12.0), true));
+        allAppts.add(new Appointment(2, sdf.parse("2021-04-11-06"), true, false, false));
+        allAppts.get(1).setServiceID(new Service(1, "test", new BigDecimal(12.0), true));
+        allAppts.add(new Appointment(3, sdf.parse("2021-04-11-12"), false, false, false));
+        allAppts.get(2).setServiceID(new Service(1, "test", new BigDecimal(12.0), true));
+        ArrayList<Appointment> unConfirmedAppts = new ArrayList<>();
+        // now filter out all confirmed appointments
+        allAppts.forEach(appt -> {
+            if (!appt.getConfirmed()) {
+                unConfirmedAppts.add(appt);
             }
             return (List) unConfirmedAppts;
         }

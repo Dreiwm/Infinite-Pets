@@ -12,10 +12,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import models.EmpQualificationType;
+import models.Empqualificationtype;
 import models.EmpServicePreference;
 import models.Employee;
-import models.ServiceType;
+import models.Servicetype;
 
 /**
  * All services for Services and ServiceTypes. Also includes the
@@ -41,7 +41,7 @@ public class ServiceServices {
      * @return returns list of ServiceTyoes. Returns null if either can't find
      * or an exception was thrown.
      */
-    public List<ServiceType> getAllServiceTypes() {
+    public List<Servicetype> getAllServiceTypes() {
         try {
             return sTDB.getAllServiceTypes();
         } catch (Exception ex) {
@@ -50,10 +50,10 @@ public class ServiceServices {
         }
     }
     
-    public List<ServiceType> getAllServiceTypesSpecificToEmployee(Employee e) {
-        List<EmpQualificationType> qList = eQTDB.getAllEmployeeQualificationTypes();
-        ArrayList<ServiceType> qualifiedServiceTypeList = new ArrayList<>();
-        
+    public List<Servicetype> getAllServiceTypesSpecificToEmployee(Employee e) {
+        List<Empqualificationtype> qList = eQTDB.getAllEmployeeQualificationTypes();
+        ArrayList<Servicetype> qualifiedServiceTypeList = new ArrayList<>();
+
         // Get all qualified that belongs to given e Employee.
         
         qList = e.getEmpQualificationTypeList(); // IDK if this will work or not.
@@ -70,11 +70,11 @@ public class ServiceServices {
     /**
      * Returns the ServiceType with given ID.
      *
-     * @param id id used to queery the DB.
+     * @param id id used to query the DB.
      * @return returns null if there was an exception or table is empty.
      * Otherwise returns list of ServiceTypes.
      */
-    public ServiceType getServiceType(int id) {
+    public Servicetype getServiceType(int id) {
         try {
             return sTDB.get(id);
         } catch (Exception ex) {
@@ -99,7 +99,8 @@ public class ServiceServices {
      * @param id the id of EmpServicePreference to be deleted.
      * @return true if successfully deleted.
      */
-    public boolean deleteEmpServicePreference(int id) {        try {
+    public boolean deleteEmpServicePreference(int id) {        
+        try {
             eSPDB.delete(eSPDB.get(id));
         } catch (Exception ex) {
             Logger.getLogger(ServiceServices.class.getName()).log(Level.SEVERE, null, ex);

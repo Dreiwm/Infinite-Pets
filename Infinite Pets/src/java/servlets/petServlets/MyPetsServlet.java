@@ -28,15 +28,17 @@ public class MyPetsServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
-        
-        //REMOVE ME LATER!!!!!!!!!!!!!!
-        session.setAttribute("user", "cprg352+anne@gmail.com");
-        //REMOVE THE ABOVE LINE LATER!!!!!!!!!!!!  
+        String email = (String) session.getAttribute("email");
+        if (email.equals("") || email == null){
+            session.invalidate();
+            response.sendRedirect("Login");
+        }
+       
 
         Account owner = new Account();
         AccountServices acs = new AccountServices();
         try {
-            owner = acs.getAccount((String)session.getAttribute("user"));
+            owner = acs.getAccount((String)session.getAttribute(email));
             
         } catch (Exception ex) {
             Logger.getLogger(MyPetsServlet.class.getName()).log(Level.WARNING, null, ex);

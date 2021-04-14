@@ -56,7 +56,7 @@
                 <tr><td>Password:</td><td><input type="password" name="password" placeholder="Password"></td></tr>
                 <tr><td>Confirm Password:</td><td><input type="password" name="firstName" placeholder="Confirm Password"></td></tr>
             </table> -->
-           <table> 
+        <form><table> 
                 <tr><td>First Name:</td><td><input type="text" name="firstName" class="inputFields" value=${firstName} readOnly></td></tr>
                 <tr><td>Last Name:</td><td><input type="text" name="lastName" class="inputFields" value=${lastName} readOnly></td></tr>
                 <tr><td>Street Address:</td><td><input type="text" name="address" class="inputFields" value=${address} readOnly></td></tr>

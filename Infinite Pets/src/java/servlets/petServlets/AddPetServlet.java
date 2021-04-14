@@ -44,9 +44,12 @@ public class AddPetServlet extends HttpServlet {
         HttpSession session = request.getSession();
         AddPetServices aps = new AddPetServices();
         ValidationServices vs = new ValidationServices();
-       
-        //REMOVE ME
-        session.setAttribute("owner", "anne");
+              
+        String email = (String) session.getAttribute("email");
+        if (email.equals("") || email == null){
+            session.invalidate();
+            response.sendRedirect("Login");
+        }
         
         request.setAttribute("animalList", vs.getAnimalType());
         request.setAttribute("breedList", vs.getBreedList());        

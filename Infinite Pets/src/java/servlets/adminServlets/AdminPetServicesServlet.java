@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import models.Service;
+import models.Servicetype;
 import services.AdminPetServices;
 import services.PetServicesServices;
 
@@ -38,6 +39,7 @@ public class AdminPetServicesServlet extends HttpServlet {
         HttpSession session = request.getSession();
         String email = (String) session.getAttribute("email");
         if (email.equals("") || email == null){
+            session.invalidate();
             response.sendRedirect("Login");
         }
         try {
@@ -53,6 +55,7 @@ public class AdminPetServicesServlet extends HttpServlet {
             
             PetServicesServices petSS = new PetServicesServices();
             List<Service> services = petSS.getAllServices();
+            List<Servicetype> serviceTypes = petSS.getAllServiceTypes();
             System.out.println("Setting services");
             request.setAttribute("services", services);
         } catch(Exception e) {

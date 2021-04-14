@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import models.Account;
 import models.EmpServicePreference;
 import models.Employee;
-import models.ServiceType;
+import models.Servicetype;
 import services.AccountServices;
 import services.ServiceServices;
 import servlets.InfinitePetsServlets.promotions.PromotionsServlet;
@@ -180,7 +180,7 @@ public class EmployeePreferencesServlet extends HttpServlet {
 
     private void setAttributes(HttpServletRequest request, HttpServletResponse response, Employee e) {
         ServiceServices sS = new ServiceServices();
-        List<ServiceType> sTList = sS.getAllServiceTypes();
+        List<Servicetype> sTList = sS.getAllServiceTypes();
         request.setAttribute("serviceTypes", sTList);
 
         request.setAttribute("empPreferenceList", sS.getAllEmpServicePreferencesBelongToEmp(e));

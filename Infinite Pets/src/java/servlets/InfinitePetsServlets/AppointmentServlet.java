@@ -85,11 +85,28 @@ public class AppointmentServlet extends HttpServlet {
             Appointment appt = null;
             int apptId;
             try {
+
                 apptId = Integer.parseInt(request.getParameter("apptId"));
                 appt = schs.getAppointmentById(apptId);
 
             } catch (NumberFormatException e1) {
                 apptId = Integer.parseInt((String) request.getAttribute("apptId"));
+              
+                appt = new Appointment(1, sdf.parse("2021-03-30 06:00"), true, true, true);
+            } catch (ParseException ex) {
+                Logger.getLogger(AppointmentServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            appt.setEndDate(new Date());
+            appt.setPetID(new Pet(1, 'M', "Dog", "lab", "Eileen", new Date()));
+            appt.setServiceID(new Service(1, "test", new BigDecimal(12.0), true));
+            Employee emp = new Employee(1, false, false, true);
+            PasswordServices pServ = new PasswordServices();
+            String passwordSalt = pServ.getRandomSalt();
+            try {
+                emp.setUserID(new Account(0, pServ.generatePasswordHash("password", passwordSalt), passwordSalt, "asdf@asdf.com", "asdf", "asdf", true, true));
+            } catch (NoSuchAlgorithmException ex) {
+                Logger.getLogger(AppointmentServlet.class.getName()).log(Level.SEVERE, null, ex);
+
             }
             
                
@@ -141,6 +158,7 @@ public class AppointmentServlet extends HttpServlet {
         /***************************
          * TEMP ONLY - REMOVE ME
          **************************/
+
 //        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 //            
 //
@@ -156,6 +174,23 @@ public class AppointmentServlet extends HttpServlet {
 //        Employee emp = new Employee(1, false, false, true);
 //        emp.setUserID(acc);
 //        appt.setEmployeeID(emp);
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+            
+
+        Appointment appt = null;
+        try {
+            appt = new Appointment(1, sdf.parse("2021-03-30 06:00"), true, true, true);
+        } catch (ParseException ex) {
+            Logger.getLogger(AppointmentServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        appt.setEndDate(new Date());
+        appt.setPetID(new Pet(1, 'M', "Dog", "lab", "Eileen", new Date()));
+        appt.setServiceID(new Service(1, "test", new BigDecimal(12.0), true));
+        Employee emp = new Employee(1, false, false, true);
+        emp.setUserID(acc);
+        appt.setEmployeeID(emp);
+
 
         int apptId = Integer.parseInt(request.getParameter("apptId"));
         Appointment appt = schs.getAppointmentById(apptId);
