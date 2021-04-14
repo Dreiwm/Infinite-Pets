@@ -217,8 +217,8 @@ public class ScheduleServices {
      */
     public static String getScheduleBlock(Appointment appt) {
         SimpleDateFormat sdf = new SimpleDateFormat("hh");
-        int hour = Integer.parseInt(sdf.format(appt.getAppointmentDate()));
-        System.out.println("hour: " + hour);
+        int hour = Integer.parseInt(sdf.format(appt.getAppointmentTime()));
+//        System.out.println("hour: " + hour);
 
         // case switch 
         switch (hour) {
@@ -382,7 +382,7 @@ public class ScheduleServices {
      * @return returns list of AppointmentServices with given appointment
      * object.
      */
-    private List<AppointmentService> getAllAppointmentServices(Appointment appt) {
+    public List<AppointmentService> getAllAppointmentServices(Appointment appt) {
         AppointmentServiceDB aptSDB = new AppointmentServiceDB();
 
         List<AppointmentService> allApptServices = aptSDB.getAllAppointmentServices();
@@ -398,5 +398,10 @@ public class ScheduleServices {
                 }
         }
         return (List) apptServices;
+    }
+
+    public boolean updateAppointment(Appointment appt) {
+        AppointmentDB apDB = new AppointmentDB();
+        return apDB.update(appt);
     }
 }
