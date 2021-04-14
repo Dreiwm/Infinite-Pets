@@ -56,8 +56,8 @@ public class ServiceServices {
 
         // Get all qualified that belongs to given e Employee.
         
-        qList = e.getEmpqualificationtypeList();
-        for (Empqualificationtype eQT : qList) {
+        qList = e.getEmpQualificationTypeList(); // IDK if this will work or not.
+        for (EmpQualificationType eQT : qList) {
             System.out.println(eQT.getQualificationName());
         }
         // Now we need to loop thr the eList, remove if can't be found in eList.
