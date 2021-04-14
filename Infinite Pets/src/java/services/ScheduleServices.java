@@ -293,29 +293,12 @@ public class ScheduleServices {
             for (Appointment appt : allAppts) {
                 if (!appt.getConfirmed()) {
                     unConfirmedAppts.add(appt);
-                }
-        AppointmentDB apptDB = new AppointmentDB();
-//        List<Appointment> allAppts = apptDB.getAllAppointments();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd-HH");
-        sdf.setLenient(false);
-        ArrayList<Appointment> allAppts = new ArrayList<>();
-        allAppts.add(new Appointment(1, sdf.parse("2021-04-11-09"), true, false, false));
-        allAppts.get(0).setServiceID(new Service(1, "test", new BigDecimal(12.0), true));
-        allAppts.add(new Appointment(2, sdf.parse("2021-04-11-06"), true, false, false));
-        allAppts.get(1).setServiceID(new Service(1, "test", new BigDecimal(12.0), true));
-        allAppts.add(new Appointment(3, sdf.parse("2021-04-11-12"), false, false, false));
-        allAppts.get(2).setServiceID(new Service(1, "test", new BigDecimal(12.0), true));
-        ArrayList<Appointment> unConfirmedAppts = new ArrayList<>();
-        // now filter out all confirmed appointments
-        allAppts.forEach(appt -> {
-            if (!appt.getConfirmed()) {
-                unConfirmedAppts.add(appt);
+                }          
             }
-            return (List) unConfirmedAppts;
+             return (List) unConfirmedAppts;
         }
         System.out.println("returning null");
         // and then filter
-
         return null;
     }
 
@@ -326,7 +309,7 @@ public class ScheduleServices {
      * @param e the Employee to used to filter.
      * @return the list of the available appointments selected by employee.
      */
-    public List<Appointment> getAllAvailableAppointmentsByPreferences(Employee e) {
+    public List<Appointment> getAllAvailableAppointmentsByPreferences(Employee e) throws ParseException {
 
         // Get EmpServicePreference list
         ServiceServices ss = new ServiceServices();
