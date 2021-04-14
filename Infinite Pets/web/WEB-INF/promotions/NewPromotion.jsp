@@ -33,19 +33,27 @@
                     <h2>Promotion</h2>
                     <!--Promotion Name-->
                     <label for="promoName">Promotion Name:</label>
-                    <input type="text" placeholder="Promotion name" name="serviceName" id="promoName">
+                    <input type="text" placeholder="Promotion name" name="promotionName" id="promoName">
                     <br/>
                     <!--Promotion Description-->
                     <label for="promoDescription">Promotion Description: </label>
                     <br/>
                     <textarea id="promoDescription" name="promotionDesc" rows="5" cols="30" placeholder="A short descriiption about this promotion."></textarea>
                    
+                    <h3>Promotion Date</h3>
+                    <input type="date" placeholder="YYYY-MM-DD" name="startDate">
+                    to 
+                    <input type="date" placeholder="YYYY-MM-DD" name="endDate">
                     <!--Service (I hope only promo per service...)-->
                     <h2>Select Service</h2>
                     <select name="selectService">
+                        <!--
                         <c:forEach items="${services}" var="service">
-                            <option value="${service}">${service}</option>
-                        </c:forEach>
+                            <option value="${service.getServiceID()}">${service}</option>
+                        </c:forEach> 
+                        -->
+                        <option value="1">Service 1</option>
+                        <option value="2">Service 2</option>
                     </select>
                     
                     <h2>Discount</h2>
@@ -57,8 +65,8 @@
                     
                     <label for="discType">Discount Type:</label>
                     <select name="discType">
-                        <option value="type1">Discount type 1</option>
-                        <option value="type2">Discount Type 2</option>
+                        <option value="s" selected="true">Single Use</option>
+                        <option value="i">Infinite Use</option>
                     </select>
                     
                     <br/><br/>

@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -74,8 +75,8 @@ public class Pet implements Serializable {
     private String medicalInfo;
     @Column(name = "ImagePath")
     private String imagePath;
-    @OneToMany(mappedBy = "petID", fetch = FetchType.EAGER)
-    private List<Appointment> appointmentList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "petID", fetch = FetchType.EAGER)
+    private List<AppointmentService> appointmentServiceList;
     @JoinColumn(name = "Owner", referencedColumnName = "UserId")
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Account owner;
@@ -169,12 +170,12 @@ public class Pet implements Serializable {
     }
 
     @XmlTransient
-    public List<Appointment> getAppointmentList() {
-        return appointmentList;
+    public List<AppointmentService> getAppointmentServiceList() {
+        return appointmentServiceList;
     }
 
-    public void setAppointmentList(List<Appointment> appointmentList) {
-        this.appointmentList = appointmentList;
+    public void setAppointmentServiceList(List<AppointmentService> appointmentServiceList) {
+        this.appointmentServiceList = appointmentServiceList;
     }
 
     public Account getOwner() {

@@ -69,9 +69,9 @@ public class Service implements Serializable {
     @Column(name = "DateRange")
     private boolean dateRange;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "serviceID", fetch = FetchType.EAGER)
-    private List<Discount> discountList;
+    private List<AppointmentService> appointmentServiceList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "serviceID", fetch = FetchType.EAGER)
-    private List<Appointment> appointmentList;
+    private List<Discount> discountList;
     @JoinColumn(name = "ServiceTypeID", referencedColumnName = "ServiceTypeID")
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private ServiceType serviceTypeID;
@@ -149,21 +149,21 @@ public class Service implements Serializable {
     }
 
     @XmlTransient
+    public List<AppointmentService> getAppointmentServiceList() {
+        return appointmentServiceList;
+    }
+
+    public void setAppointmentServiceList(List<AppointmentService> appointmentServiceList) {
+        this.appointmentServiceList = appointmentServiceList;
+    }
+
+    @XmlTransient
     public List<Discount> getDiscountList() {
         return discountList;
     }
 
     public void setDiscountList(List<Discount> discountList) {
         this.discountList = discountList;
-    }
-
-    @XmlTransient
-    public List<Appointment> getAppointmentList() {
-        return appointmentList;
-    }
-
-    public void setAppointmentList(List<Appointment> appointmentList) {
-        this.appointmentList = appointmentList;
     }
 
     public ServiceType getServiceTypeID() {

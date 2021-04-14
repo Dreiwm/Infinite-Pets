@@ -7,6 +7,7 @@ package servlets.InfinitePetsServlets.promotions;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.math.BigDecimal;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -14,8 +15,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import models.Account;
+import models.Discount;
 import models.Employee;
+import models.Promotion;
 import services.AccountServices;
+import services.ValidationServices;
 
 /**
  *
@@ -51,7 +55,7 @@ public class NewPromotionServlet extends HttpServlet {
         
         if (acc == null) {
             System.out.println("account null, going to login page...");
-            response.sendRedirect(response.encodeRedirectURL("/WEB-INF/Login.jsp"));  
+            response.sendRedirect(response.encodeRedirectURL("Login"));  
             return;
         } else {
             // check if admin
@@ -96,6 +100,49 @@ public class NewPromotionServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        Promotion pr = createPromotionFromParameters(request, response);
+    }
+    
+    /**
+     * Initializes the Promotion obj gleaned from parameters upon submission.
+     * @param request
+     * @param response
+     * @return Promotion object.
+     */
+    private Promotion createPromotionFromParameters(HttpServletRequest request, HttpServletResponse response) {
+        
+        Promotion pr = new Promotion();
+        
+        String prName = request.getParameter("promotionName");
+        String prDesc = request.getParameter("promotionDesc");
+        String discPercent = request.getParameter(("discountPercent"));
+        String discType = request.getParameter("discType");
+        
+        // Dates 
+        String startDate = request.getParameter("startDate");
+        String endDate = request.getParameter("endDate");
+        System.out.println("start date: " + startDate);
+        System.out.println("end date: " + endDate);
+        
+        // Service ID
+        String serviceId = request.getParameter("selectService");
+
+        
+        // if valid, thken create new Promotion
+        ValidationServices vs = new ValidationServices();
+        if (vs.isPromotionInputsValid(prName, prDesc, discPercent, serviceId,
+                                        startDate, endDate)) {
+            // create service object from DB based on ID from value in the selection -> option
+            System.out.println("Inputs is valid");
+            
+            pr.setPromotionName(prName);
+            pr.setPromoDescription(prDesc);
+            
+            Discount disc = new Discount(0, new BigDecimal(discPercent), discType.charAt(0));
+            
+        }
+        
+        return null;
     }
 
     /**

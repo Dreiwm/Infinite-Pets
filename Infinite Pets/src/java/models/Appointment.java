@@ -7,7 +7,9 @@ package models;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -18,10 +20,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -66,18 +70,14 @@ public class Appointment implements Serializable {
     @Basic(optional = false)
     @Column(name = "Active")
     private boolean active;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "appointmentID", fetch = FetchType.EAGER)
+    private List<AppointmentService> appointmentServiceList;
     @JoinColumn(name = "ClientID", referencedColumnName = "UserId")
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Account clientID;
     @JoinColumn(name = "EmployeeID", referencedColumnName = "EmployeeID")
     @ManyToOne(fetch = FetchType.EAGER)
     private Employee employeeID;
-    @JoinColumn(name = "PetID", referencedColumnName = "PetID")
-    @ManyToOne(fetch = FetchType.EAGER)
-    private Pet petID;
-    @JoinColumn(name = "ServiceID", referencedColumnName = "ServiceID")
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
-    private Service serviceID;
 
     public Appointment() {
     }
@@ -150,6 +150,15 @@ public class Appointment implements Serializable {
         this.active = active;
     }
 
+    @XmlTransient
+    public List<AppointmentService> getAppointmentServiceList() {
+        return appointmentServiceList;
+    }
+
+    public void setAppointmentServiceList(List<AppointmentService> appointmentServiceList) {
+        this.appointmentServiceList = appointmentServiceList;
+    }
+
     public Account getClientID() {
         return clientID;
     }
@@ -164,22 +173,6 @@ public class Appointment implements Serializable {
 
     public void setEmployeeID(Employee employeeID) {
         this.employeeID = employeeID;
-    }
-
-    public Pet getPetID() {
-        return petID;
-    }
-
-    public void setPetID(Pet petID) {
-        this.petID = petID;
-    }
-
-    public Service getServiceID() {
-        return serviceID;
-    }
-
-    public void setServiceID(Service serviceID) {
-        this.serviceID = serviceID;
     }
 
     @Override

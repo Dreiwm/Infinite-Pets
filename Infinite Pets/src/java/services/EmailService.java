@@ -28,6 +28,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import models.Account;
 import models.Appointment;
+import models.AppointmentService;
 
 /**
  *
@@ -158,15 +159,19 @@ public class EmailService {
 
     /**
      * Email the appointment cancellation notification to staff and owner
-     * @param appt the appointment that bad neen cancelled by client.
+     * @param appt the appointment service that bad been cancelled by client.
      * @param today the date when the client requested cancellation.
      * @param path the path
      */
-    public void sendCancellationNotification(Appointment appt, Date today, String path) throws Exception {
+    public void sendCancellationNotification(AppointmentService appts, Date today, String path) throws Exception {
         SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, yyyy");
         
+        // get Appointment obj
+        Appointment appt = appts.getAppointmentID();
+        
         // Staff account associated with appointment (if any)
-        Account acc = appt.getEmployeeID().getUserID();
+        Account acc = appt.getAppointmentID().getEmployeeID().getUserID();
+
         
         String subj = "Infinite Pets - Client Cancelled An Appointment";
         String template = path + "/emailTemplates/AppointmentCancellationNotificationTemplate.html";
@@ -183,7 +188,12 @@ public class EmailService {
         ****************/
         // loop over pets
         // for now just a pet 
+        
+        // Get list of pets using appointment id.
+        
+        
         tags.put("pets", appt.getPetID().getPetName());
+        
         
         // Cancellation date
         tags.put("cancellationDate", sdf.format(today));

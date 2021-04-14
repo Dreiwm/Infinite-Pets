@@ -13,7 +13,7 @@ import javax.persistence.EntityTransaction;
 import models.EmpQualificationType;
 
 /**
- * Responsible for interacting with EmpQualificationType table in the database.
+ * Responsible for interacting with Empqualificationtype table in the database.
  * @author Riley
  */
 public class EmpQualificationTypeDB {
@@ -21,7 +21,7 @@ public class EmpQualificationTypeDB {
      * Returns all of the EmpQualificationTypes from DB
      * @return list of EmpQualificationTypes
      */
-    public List<EmpQualificationType> getAllLocations() {
+    public List<EmpQualificationType> getAllEmployeeQualificationTypes() {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         
         try {
@@ -141,7 +141,7 @@ public class EmpQualificationTypeDB {
         
         // test get all
         System.out.println("Results after inserting...");
-        empQTDB.getAllLocations().forEach(empQType -> {
+        empQTDB.getAllEmployeeQualificationTypes().forEach(empQType -> {
             System.out.println(empQType.getQualificationName() + empQType.getQualificationDescription());
         });
         
@@ -158,7 +158,7 @@ public class EmpQualificationTypeDB {
         
         // test see all items, sb be only one item in db (if you run this app once).
         System.out.println("Results after inserting...");
-        empQTDB.getAllLocations().forEach(empQType -> {
+        empQTDB.getAllEmployeeQualificationTypes().forEach(empQType -> {
             System.out.println(empQType.getQualificationName() + empQType.getQualificationDescription());
         });
     }

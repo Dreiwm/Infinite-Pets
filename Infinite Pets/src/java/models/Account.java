@@ -96,7 +96,7 @@ public class Account implements Serializable {
         this.userId = userId;
     }
 
-    public Account(Integer userId, String username, String passwordHash, String passwordSalt, String email, String firstName, String lastName, boolean isEmployee, boolean isConfirmed) {
+    public Account(Integer userId, String passwordHash, String passwordSalt, String email, String firstName, String lastName, boolean isEmployee, boolean isConfirmed) {
         this.userId = userId;
         this.passwordHash = passwordHash;
         this.passwordSalt = passwordSalt;
@@ -113,8 +113,6 @@ public class Account implements Serializable {
 
     public void setUserId(Integer userId) {
         this.userId = userId;
-    }
-
     }
 
     public String getPasswordHash() {
