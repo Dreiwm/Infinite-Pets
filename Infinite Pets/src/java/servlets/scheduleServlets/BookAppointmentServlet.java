@@ -148,7 +148,7 @@ public class BookAppointmentServlet extends HttpServlet {
                     for(String service: request.getParameterValues("serviceName")){
                         System.out.println("Pet: " +pet.getPetName()+" service: "+service);
                         Service currService = pss.getServiceByName(service); 
-                        Appointmentservice apptServ = new Appointmentservice();
+                        Appointmentservice apptServ = new Appointmentservice(0);
                         apptServ.setPetID(pet);
                         apptServ.setServiceID(currService);
                         contents.add(apptServ);
@@ -160,7 +160,7 @@ public class BookAppointmentServlet extends HttpServlet {
                 }
                 else{
                     System.out.println("going to service");
-                    serv.createAppointment(appointmentDate, user.getUserId(), contents);
+                    serv.createAppointment(appointmentDate, appointmentTime, user, contents);
                     response.sendRedirect("MyAppointments.jsp");
                     return;
                     

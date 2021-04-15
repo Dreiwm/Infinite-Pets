@@ -110,22 +110,32 @@ public class ScheduleServices {
     }
 
     //passes information to get checked before creating an appointment and adding it to the database
-    public void createAppointment(Date appointmentDate, int userID, List<Appointmentservice> contents) {
+    public void createAppointment(Date appointmentDate, Time time, Account user, List<Appointmentservice> contents) {
         try {
             AppointmentDB apDB = new AppointmentDB();
+            AppointmentServiceDB aservDB = new AppointmentServiceDB();
             boolean check = false;
             
             for(Appointmentservice as: contents){
-                verifyInfo(as.getPetID().getPetID(),userID);
+                check = verifyInfo(as.getPetID().getPetID(),user.getUserId());
             }
             System.out.println("checking pets");
             if (check==true) {
                 //make an new appointment and then add the AppointmentService list to it
                 Appointment appointment = new Appointment(0, appointmentDate, false, false, false);
                // appointment.setAppointmentTime(appointmentTime);
-                appointment.setAppointmentserviceList(contents);
+                appointment.setClientID(user);
+                appointment.setAppointmentTime(time);
                 System.out.println("inserting appointemnt");
                 apDB.insert(appointment);
+                for(Appointmentservice ser: contents){
+                    ser.setAppointmentID(appointment);
+                    aservDB.insert(ser);
+                }
+                appointment.setAppointmentserviceList(contents);
+                
+                
+                
                 System.out.println("appointemtn inserted");
             }
         } catch (Exception e) {
