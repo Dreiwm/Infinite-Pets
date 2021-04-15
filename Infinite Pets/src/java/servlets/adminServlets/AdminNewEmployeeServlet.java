@@ -105,8 +105,6 @@ public class AdminNewEmployeeServlet extends HttpServlet {
             List<Service> allServices = pss.getAllServices();   
             List<Service> qList = null;            
             for (int i = 0; i < allServices.size(); i++){
-                System.out.println("Service Name: "+allServices.get(i).getServiceName());
-                System.out.println("Service available: "+request.getParameter(allServices.get(i).getServiceName()));
                 if (getBoolean(request.getParameter(pss.getAllServices().get(i).getServiceName()))){
                     System.out.println("Service Name: "+allServices.get(i).getServiceName());
                     System.out.println("Service available: "+request.getParameter(allServices.get(i).getServiceName()));
