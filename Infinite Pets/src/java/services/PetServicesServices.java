@@ -6,10 +6,12 @@
 package services;
 
 import dataaccess.ServiceDB;
+import dataaccess.ServiceTypeDB;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.List;
 import models.Service;
+import models.Servicetype;
 
 /**
  *
@@ -19,6 +21,7 @@ public class PetServicesServices {
     //Retrieves a list of all the services
     public List<Service> getAllServices() throws Exception {
         ServiceDB serviceDB = new ServiceDB();
+        System.out.println("Getting all services in database");
         return serviceDB.getAllServices();
     }
     
@@ -28,15 +31,15 @@ public class PetServicesServices {
         return serviceDB.getServiceById(serviceID);
     }
     
-       //Retrieves a specific Service requested
-    public Service getService(String serviceName) {
+    //Retrieves a specific Service requested
+    public Service getServiceByName(String serviceName) {
         ServiceDB serviceDB = new ServiceDB();
         return serviceDB.getServiceByName(serviceName);
     }
-    
-//    //Retrieves a list of different ServiceTypes
-//    public List<ServiceType> getAllServiceTypes() {
-//        ServiceDB serviceDB = new ServiceDB();
-//        return apDB.getAllServiceTypes();
-//    }
+
+    //Retrieves list of all service types
+    public List<Servicetype> getAllServiceTypes() throws Exception {
+        ServiceTypeDB serviceTypeDB = new ServiceTypeDB();
+        return serviceTypeDB.getAllServiceTypes();
+    }
 }

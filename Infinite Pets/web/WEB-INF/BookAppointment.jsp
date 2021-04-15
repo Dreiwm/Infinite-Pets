@@ -18,9 +18,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
     <title>Book Appointment</title>
     <%@include file="testFiles/header.jsp" %>
+    <script src="assets/js/addAppt.js"></script> 
 </head>
 <body>        
-        <div class="wrapper">
+              <div class="wrapper">
 
             <div class="path">
                 <div class="link">
@@ -46,7 +47,7 @@
                     </div>
     
                     <div class="dateInput">
-                        <input name="date" type="date">
+                        <input name="date" type="date" id="submitDate">
                     </div>
     
                     <div class="timeLable">
@@ -54,10 +55,10 @@
                     </div>
     
                     <div class="timeInput">
-                        <select name="time" id="time">
-                            <option value="morn">Morning</option>
-                            <option value="after">Afternoon</option>
-                            <option value="eve">Evening</option>
+                        <select name="time" id="submitTime">
+                            <c:forEach items="${timeList}" var="timeList">
+                                        <option value="${timeList}">${timeList}</option>
+                            </c:forEach>
                         </select>
                     </div>
     
@@ -66,10 +67,9 @@
                     </div>
                     <div class="petInput">
                         <select name="pet" id="pet">
-                            <option value="">Pet 1</option>
-                            <option value="">Pet 2</option>
-                            <option value="">Pet 3</option>
-                            <option value="">Pet 4</option>
+                            <c:forEach items="${petList}" var="lst">
+                                        <option value="${lst.petName}">${lst.petName}</option>
+                            </c:forEach>
                         </select>
                     </div>
     
@@ -79,60 +79,56 @@
                     
                     <div class="serviceInput">
                         <select name="service" id="service">
-                            <option value="">Service 1</option>
-                            <option value="">Service 2</option>
-                            <option value="">Service 3</option>
-                            <option value="">Service 4</option>
+                            <c:forEach items="${serviceList}" var="serLst">
+                                        <option value="${serLst.serviceName}">${serLst.serviceName}</option>
+                            </c:forEach>
                         </select>
                     </div>
     
                     <div class="addServiceBtn">
-                        <button>Add another service</button>
+                        <button onclick="setService()">Add another service</button>
                     </div>
-    
-                    
-    
-                    <div class="notesInput">
-                        <textarea name="notes" id="textArea" cols="30" rows="3">Additional Notes</textarea>
-                    </div>
-                    
+               
                     <div class="addPetToApptBtn">
-                        <button>Add pet to the appointment</button>
+                        <button onclick="setPet()"> Add pet to the appointment</button>
                     </div>
-    
                 </div>
     
                 <div class="appointmentSum">
                     <div class="sumTitle">
                         <h3>Appointment Summary:</h3>
                     </div>
-                        <div class="sumDate">
+                    
+                    <form id="bookForm" method="post">                        
+                        <div class="sumDate" id="sumDate">
                             <p>Date: </p>
                         </div>
-                        <div class="sumTime">
+                        <div class="sumTime" id="sumTime">
                             <p>Time: </p>
                         </div>
                         <div class="sumDetails">
                             <p>Details: </p>
                         </div>
     
-                        <div class="sumPetName">
-                            <input id="sumPetName" type="text">
+                        <div class="sumPetName" id="petName">
                         </div>
-                        
-                        <div class="sumService">
-                            <input id="sumService" type="text">
+                        <div class="sumService" id="petService">
                         </div>
-
-                        <div class="cancelBtn">
-                            <button>Cancel</button>
+                        <div class="notesInput">
+                            <textarea name="notes" id="textArea" cols="30" rows="3">Additional Notes</textarea>
                         </div>
+                   
                         <div class="bookBtn">
-                            <button>Book appointment</button>
+                            <button type="submit">Book appointment</button>
                         </div>
+                    </form>
+                        
+                    <div class="cancelBtn">
+                        <button>Cancel</button>
+                    </div>
                 </div>
+                <div>${message}</div>
             </div>
-        </div>
     <footer> <%@include file="testFiles/footer.jsp" %> </footer>
 </body>
 </html>

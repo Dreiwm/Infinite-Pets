@@ -29,20 +29,20 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Riley
+ * @author BTran
  */
 @Entity
 @Table(name = "appointment")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Appointment.findAll", query = "SELECT a FROM Appointment a"),
-    @NamedQuery(name = "Appointment.findByAppointmentID", query = "SELECT a FROM Appointment a WHERE a.appointmentID = :appointmentID"),
-    @NamedQuery(name = "Appointment.findByAppointmentDate", query = "SELECT a FROM Appointment a WHERE a.appointmentDate = :appointmentDate"),
-    @NamedQuery(name = "Appointment.findByEndDate", query = "SELECT a FROM Appointment a WHERE a.endDate = :endDate"),
-    @NamedQuery(name = "Appointment.findByAppointmentTime", query = "SELECT a FROM Appointment a WHERE a.appointmentTime = :appointmentTime"),
-    @NamedQuery(name = "Appointment.findByConfirmed", query = "SELECT a FROM Appointment a WHERE a.confirmed = :confirmed"),
-    @NamedQuery(name = "Appointment.findByPaid", query = "SELECT a FROM Appointment a WHERE a.paid = :paid"),
-    @NamedQuery(name = "Appointment.findByActive", query = "SELECT a FROM Appointment a WHERE a.active = :active")})
+    @NamedQuery(name = "Appointment.findAll", query = "SELECT a FROM Appointment a")
+    , @NamedQuery(name = "Appointment.findByAppointmentID", query = "SELECT a FROM Appointment a WHERE a.appointmentID = :appointmentID")
+    , @NamedQuery(name = "Appointment.findByAppointmentDate", query = "SELECT a FROM Appointment a WHERE a.appointmentDate = :appointmentDate")
+    , @NamedQuery(name = "Appointment.findByEndDate", query = "SELECT a FROM Appointment a WHERE a.endDate = :endDate")
+    , @NamedQuery(name = "Appointment.findByAppointmentTime", query = "SELECT a FROM Appointment a WHERE a.appointmentTime = :appointmentTime")
+    , @NamedQuery(name = "Appointment.findByConfirmed", query = "SELECT a FROM Appointment a WHERE a.confirmed = :confirmed")
+    , @NamedQuery(name = "Appointment.findByPaid", query = "SELECT a FROM Appointment a WHERE a.paid = :paid")
+    , @NamedQuery(name = "Appointment.findByActive", query = "SELECT a FROM Appointment a WHERE a.active = :active")})
 public class Appointment implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -70,14 +70,14 @@ public class Appointment implements Serializable {
     @Basic(optional = false)
     @Column(name = "Active")
     private boolean active;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "appointmentID", fetch = FetchType.EAGER)
-    private List<AppointmentService> appointmentServiceList;
     @JoinColumn(name = "ClientID", referencedColumnName = "UserId")
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Account clientID;
     @JoinColumn(name = "EmployeeID", referencedColumnName = "EmployeeID")
     @ManyToOne(fetch = FetchType.EAGER)
     private Employee employeeID;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "appointmentID", fetch = FetchType.EAGER)
+    private List<Appointmentservice> appointmentserviceList;
 
     public Appointment() {
     }
@@ -150,15 +150,6 @@ public class Appointment implements Serializable {
         this.active = active;
     }
 
-    @XmlTransient
-    public List<AppointmentService> getAppointmentServiceList() {
-        return appointmentServiceList;
-    }
-
-    public void setAppointmentServiceList(List<AppointmentService> appointmentServiceList) {
-        this.appointmentServiceList = appointmentServiceList;
-    }
-
     public Account getClientID() {
         return clientID;
     }
@@ -173,6 +164,15 @@ public class Appointment implements Serializable {
 
     public void setEmployeeID(Employee employeeID) {
         this.employeeID = employeeID;
+    }
+
+    @XmlTransient
+    public List<Appointmentservice> getAppointmentserviceList() {
+        return appointmentserviceList;
+    }
+
+    public void setAppointmentserviceList(List<Appointmentservice> appointmentserviceList) {
+        this.appointmentserviceList = appointmentserviceList;
     }
 
     @Override
