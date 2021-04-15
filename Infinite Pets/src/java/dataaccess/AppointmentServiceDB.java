@@ -107,7 +107,7 @@ public class AppointmentServiceDB {
     public List<Appointmentservice> getAllAppointmentServices() {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         try {
-           return em.createNamedQuery("AppointmentService.findAll", Appointmentservice.class).getResultList();
+           return em.createNamedQuery("Appointmentservice.findAll", Appointmentservice.class).getResultList();
         } finally {
             em.close();
         }
@@ -116,7 +116,7 @@ public class AppointmentServiceDB {
     public List<Appointmentservice> getAllAppointmentServicesByAppointmentId(int apptId) {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         try {
-           return em.createNamedQuery("AppointmentService.", Appointmentservice.class).getResultList();
+           return em.createNamedQuery("Appointmentservice.findByAppServID", Appointmentservice.class).getResultList();
         } finally {
             em.close();
         }

@@ -99,7 +99,7 @@
                                 <td>
                                     <!--Need to loop through services-->
                                     <table>
-                                    <c:forEach items="${appt.getAppointmentServiceList()}" var="apptService" varStatus="status">
+                                    <c:forEach items="${apptServices}" var="apptService" varStatus="status">
                                         <tr>
                                             <td>${apptService.getServiceID().getServiceName()} with with ${apptService.getPetID().getPetName()}</td>
                                             <!--Delete service-->
