@@ -59,8 +59,8 @@ public class AppointmentDB {
         EntityTransaction tr = em.getTransaction();
         
         try {
-            int userID = appointment.getClientID().getUserId();
-            Account acc = em.find(Account.class, userID);
+            
+            Account acc = em.find(Account.class, appointment.getClientID().getUserId());
             
 //            Account acc = accDB.getAccountByClientID(appointment.getClientID());
             acc.getAppointmentList().add(appointment);

@@ -10,7 +10,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
-import models.Empservicepreference;
+import models.EmpServicePreference;
 
 /**
  *
@@ -21,11 +21,11 @@ public class EmpServicePreferenceDB {
      * Returns all of the EmpServicePreference from DB
      * @return list of EmpServicePreference
      */
-    public List<Empservicepreference> getAllEmpServicePreferences() {
+    public List<EmpServicePreference> getAllEmpServicePreferences() {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         
         try {
-            return em.createNamedQuery("EmpServicePreference.findAll", Empservicepreference.class).getResultList();
+            return em.createNamedQuery("EmpServicePreference.findAll", EmpServicePreference.class).getResultList();
         } finally {
             em.close();
         }
@@ -36,12 +36,12 @@ public class EmpServicePreferenceDB {
      * @param id the id of EmpServicePreference to retrieve from DB
      * @return the EmpServicePreference.
      */
-    public Empservicepreference get(int id) {
+    public EmpServicePreference get(int id) {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         
         try {
             
-            return em.find(Empservicepreference.class, id);
+            return em.find(EmpServicePreference.class, id);
         } finally {
             em.close();
         }
@@ -54,7 +54,7 @@ public class EmpServicePreferenceDB {
     * @throws java.lang.Exception if something went wrong with transaction.
 
      */
-    public boolean insert(Empservicepreference empSP) throws Exception {
+    public boolean insert(EmpServicePreference empSP) throws Exception {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         EntityTransaction tr = em.getTransaction();
         
@@ -68,7 +68,7 @@ public class EmpServicePreferenceDB {
             if (tr.isActive()) {
                 tr.rollback();
             }
-            Logger.getLogger(Empservicepreference.class.getName()).log(Level.SEVERE, "Cannot insert " + empSP.toString(), e); 
+            Logger.getLogger(EmpServicePreference.class.getName()).log(Level.SEVERE, "Cannot insert " + empSP.toString(), e); 
             throw new Exception(e);
         }
         finally {
@@ -82,7 +82,7 @@ public class EmpServicePreferenceDB {
      * @return returns true if successfully updated.
      * @throws java.lang.Exception if something went wrong with transaction.
      */
-    public boolean update(Empservicepreference empSP) throws Exception {
+    public boolean update(EmpServicePreference empSP) throws Exception {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         EntityTransaction tr = em.getTransaction();
         
@@ -94,7 +94,7 @@ public class EmpServicePreferenceDB {
         } catch (Exception e) {
             if (tr.isActive())
                 tr.rollback();
-            Logger.getLogger(Empservicepreference.class.getName()).log(Level.SEVERE, "Cannot update " + empSP.toString(), e); 
+            Logger.getLogger(EmpServicePreference.class.getName()).log(Level.SEVERE, "Cannot update " + empSP.toString(), e); 
         } finally {
             em.close();
         }
@@ -107,7 +107,7 @@ public class EmpServicePreferenceDB {
      * @return if successfully deleted from the database.
      * @throws Exception  if something went with accessing the database.
      */
-    public boolean delete(Empservicepreference empSP) throws Exception {
+    public boolean delete(EmpServicePreference empSP) throws Exception {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         EntityTransaction tr = em.getTransaction();
         try{
@@ -118,7 +118,7 @@ public class EmpServicePreferenceDB {
        } catch (Exception e){
            if (tr.isActive())
                tr.rollback();
-            Logger.getLogger(Empservicepreference.class.getName()).log(Level.SEVERE, "Cannot delete " + empSP.toString(), e); 
+            Logger.getLogger(EmpServicePreference.class.getName()).log(Level.SEVERE, "Cannot delete " + empSP.toString(), e); 
            
        }
        finally {

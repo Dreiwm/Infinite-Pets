@@ -19,16 +19,16 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author BTran
+ * @author Riley
  */
 @Entity
 @Table(name = "breed")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Breed.findAll", query = "SELECT b FROM Breed b")
-    , @NamedQuery(name = "Breed.findByBreedId", query = "SELECT b FROM Breed b WHERE b.breedPK.breedId = :breedId")
-    , @NamedQuery(name = "Breed.findByAnimalTypeId", query = "SELECT b FROM Breed b WHERE b.breedPK.animalTypeId = :animalTypeId")
-    , @NamedQuery(name = "Breed.findByBreedName", query = "SELECT b FROM Breed b WHERE b.breedName = :breedName")})
+    @NamedQuery(name = "Breed.findAll", query = "SELECT b FROM Breed b"),
+    @NamedQuery(name = "Breed.findByBreedId", query = "SELECT b FROM Breed b WHERE b.breedPK.breedId = :breedId"),
+    @NamedQuery(name = "Breed.findByAnimalTypeId", query = "SELECT b FROM Breed b WHERE b.breedPK.animalTypeId = :animalTypeId"),
+    @NamedQuery(name = "Breed.findByBreedName", query = "SELECT b FROM Breed b WHERE b.breedName = :breedName")})
 public class Breed implements Serializable {
 
     private static final long serialVersionUID = 1L;

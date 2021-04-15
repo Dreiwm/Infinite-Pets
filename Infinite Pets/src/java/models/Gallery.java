@@ -19,18 +19,18 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author BTran
+ * @author Riley
  */
 @Entity
 @Table(name = "gallery")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Gallery.findAll", query = "SELECT g FROM Gallery g")
-    , @NamedQuery(name = "Gallery.findByImageID", query = "SELECT g FROM Gallery g WHERE g.imageID = :imageID")
-    , @NamedQuery(name = "Gallery.findByImageSubtitle", query = "SELECT g FROM Gallery g WHERE g.imageSubtitle = :imageSubtitle")
-    , @NamedQuery(name = "Gallery.findByImagePath", query = "SELECT g FROM Gallery g WHERE g.imagePath = :imagePath")
-    , @NamedQuery(name = "Gallery.findByShow", query = "SELECT g FROM Gallery g WHERE g.show = :show")
-    , @NamedQuery(name = "Gallery.findByFeatured", query = "SELECT g FROM Gallery g WHERE g.featured = :featured")})
+    @NamedQuery(name = "Gallery.findAll", query = "SELECT g FROM Gallery g"),
+    @NamedQuery(name = "Gallery.findByImageID", query = "SELECT g FROM Gallery g WHERE g.imageID = :imageID"),
+    @NamedQuery(name = "Gallery.findByImageSubtitle", query = "SELECT g FROM Gallery g WHERE g.imageSubtitle = :imageSubtitle"),
+    @NamedQuery(name = "Gallery.findByImagePath", query = "SELECT g FROM Gallery g WHERE g.imagePath = :imagePath"),
+    @NamedQuery(name = "Gallery.findByShow", query = "SELECT g FROM Gallery g WHERE g.show = :show"),
+    @NamedQuery(name = "Gallery.findByFeatured", query = "SELECT g FROM Gallery g WHERE g.featured = :featured")})
 public class Gallery implements Serializable {
 
     private static final long serialVersionUID = 1L;

@@ -18,7 +18,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -29,21 +28,20 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author BTran
+ * @author Riley
  */
 @Entity
 @Table(name = "service")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Service.findAll", query = "SELECT s FROM Service s")
-    , @NamedQuery(name = "Service.findByServiceID", query = "SELECT s FROM Service s WHERE s.serviceID = :serviceID")
-    , @NamedQuery(name = "Service.findByServiceName", query = "SELECT s FROM Service s WHERE s.serviceName = :serviceName")
-    , @NamedQuery(name = "Service.findByBasePrice", query = "SELECT s FROM Service s WHERE s.basePrice = :basePrice")
-    , @NamedQuery(name = "Service.findByActive", query = "SELECT s FROM Service s WHERE s.active = :active")})
+    @NamedQuery(name = "Service.findAll", query = "SELECT s FROM Service s"),
+    @NamedQuery(name = "Service.findByServiceID", query = "SELECT s FROM Service s WHERE s.serviceID = :serviceID"),
+    @NamedQuery(name = "Service.findByServiceName", query = "SELECT s FROM Service s WHERE s.serviceName = :serviceName"),
+    @NamedQuery(name = "Service.findByBasePrice", query = "SELECT s FROM Service s WHERE s.basePrice = :basePrice"),
+    @NamedQuery(name = "Service.findByActive", query = "SELECT s FROM Service s WHERE s.active = :active"),
+    @NamedQuery(name = "Service.findBySpecifyPet", query = "SELECT s FROM Service s WHERE s.specifyPet = :specifyPet"),
+    @NamedQuery(name = "Service.findByDateRange", query = "SELECT s FROM Service s WHERE s.dateRange = :dateRange")})
 public class Service implements Serializable {
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "serviceID", fetch = FetchType.EAGER)
-    private List<Empqualification> empqualificationList;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -64,15 +62,19 @@ public class Service implements Serializable {
     @Basic(optional = false)
     @Column(name = "Active")
     private boolean active;
-    @ManyToMany(mappedBy = "serviceList", fetch = FetchType.EAGER)
-    private List<Employee> employeeList;
+    @Basic(optional = false)
+    @Column(name = "SpecifyPet")
+    private boolean specifyPet;
+    @Basic(optional = false)
+    @Column(name = "DateRange")
+    private boolean dateRange;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "serviceID", fetch = FetchType.EAGER)
+    private List<AppointmentService> appointmentServiceList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "serviceID", fetch = FetchType.EAGER)
     private List<Discount> discountList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "serviceID", fetch = FetchType.EAGER)
-    private List<Appointmentservice> appointmentserviceList;
     @JoinColumn(name = "ServiceTypeID", referencedColumnName = "ServiceTypeID")
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
-    private Servicetype serviceTypeID;
+    private ServiceType serviceTypeID;
 
     public Service() {
     }
@@ -81,11 +83,13 @@ public class Service implements Serializable {
         this.serviceID = serviceID;
     }
 
-    public Service(Integer serviceID, String serviceName, BigDecimal basePrice, boolean active) {
+    public Service(Integer serviceID, String serviceName, BigDecimal basePrice, boolean active, boolean specifyPet, boolean dateRange) {
         this.serviceID = serviceID;
         this.serviceName = serviceName;
         this.basePrice = basePrice;
         this.active = active;
+        this.specifyPet = specifyPet;
+        this.dateRange = dateRange;
     }
 
     public Integer getServiceID() {
@@ -128,13 +132,29 @@ public class Service implements Serializable {
         this.active = active;
     }
 
-    @XmlTransient
-    public List<Employee> getEmployeeList() {
-        return employeeList;
+    public boolean getSpecifyPet() {
+        return specifyPet;
     }
 
-    public void setEmployeeList(List<Employee> employeeList) {
-        this.employeeList = employeeList;
+    public void setSpecifyPet(boolean specifyPet) {
+        this.specifyPet = specifyPet;
+    }
+
+    public boolean getDateRange() {
+        return dateRange;
+    }
+
+    public void setDateRange(boolean dateRange) {
+        this.dateRange = dateRange;
+    }
+
+    @XmlTransient
+    public List<AppointmentService> getAppointmentServiceList() {
+        return appointmentServiceList;
+    }
+
+    public void setAppointmentServiceList(List<AppointmentService> appointmentServiceList) {
+        this.appointmentServiceList = appointmentServiceList;
     }
 
     @XmlTransient
@@ -146,20 +166,11 @@ public class Service implements Serializable {
         this.discountList = discountList;
     }
 
-    @XmlTransient
-    public List<Appointmentservice> getAppointmentserviceList() {
-        return appointmentserviceList;
-    }
-
-    public void setAppointmentserviceList(List<Appointmentservice> appointmentserviceList) {
-        this.appointmentserviceList = appointmentserviceList;
-    }
-
-    public Servicetype getServiceTypeID() {
+    public ServiceType getServiceTypeID() {
         return serviceTypeID;
     }
 
-    public void setServiceTypeID(Servicetype serviceTypeID) {
+    public void setServiceTypeID(ServiceType serviceTypeID) {
         this.serviceTypeID = serviceTypeID;
     }
 
@@ -186,15 +197,6 @@ public class Service implements Serializable {
     @Override
     public String toString() {
         return "models.Service[ serviceID=" + serviceID + " ]";
-    }
-
-    @XmlTransient
-    public List<Empqualification> getEmpqualificationList() {
-        return empqualificationList;
-    }
-
-    public void setEmpqualificationList(List<Empqualification> empqualificationList) {
-        this.empqualificationList = empqualificationList;
     }
     
 }

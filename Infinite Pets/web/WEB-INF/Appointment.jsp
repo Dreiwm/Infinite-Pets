@@ -27,6 +27,13 @@
                 this.form.submit();
             }
         }
+//        function confirmDelete() {
+//            let answer = confirm(("Are you sure? This action cannot be undone.<br/> Note: You can only cancel an appointment 24 hours prior.");
+//
+//            if (answer === true) {
+//                this.form.submit();
+//            }
+//        }
     </script>
     <body>
         <div class="wrapper">
@@ -42,7 +49,7 @@
                 </div>
             </div>
             <div class="generalContainer">
-                <h1>Appointment</h1>
+                <h1>Appointment With ${appt.getPetID().getPetName()}</h1>
                 <div class="">
                     <c:if test="${errorMsg != null}">
                         <div id="errorBox">${errorMsg}</div>
@@ -96,45 +103,20 @@
                             <!--Service-->
                             <tr>
                                 <td>Service Name: </td>
-                                <td>
-                                    <!--Need to loop through services-->
-                                    <table>
-                                    <c:forEach items="${appt.getAppointmentServiceList()}" var="apptService" varStatus="status">
-                                        <tr>
-                                            <td>${apptService.getServiceID().getServiceName()} with with ${apptService.getPetID().getPetName()}</td>
-                                            <!--Delete service-->
-                                            <td>
-                                                <a href="<c:url value='Appointment'></c:url>?action=deleteService&apptServiceId=${apptService.getAppServID()}">X</a>
-                                            </td>
-                                        </tr>
-                                        <c:if test="${status.isLast()}">
-                                            <tr>
-                                                <td>
-                                                    <a href="<c:url value='AddServiceToAppointment'></c:url>?apptId=${appt.getAppointmentID()}">Add Service</a>
-                                                </td>
-                                            </tr>
-                                            </table>
-                                        </c:if>
-                                        <!--last item-->
-                                    </c:forEach>
-                                </td>
+                                <td>${appt.getServiceID().getServiceName()}</td>
                             </tr>
 
                             <!--Vet-->
                             <tr>
-                                <td>Employee:</td>
-                                <td>
-                                    <c:if test="${appt.getEmployeeID() != null}">
-                                        ${appt.getEmployeeID().getUserID().getFirstName()}
-                                    </c:if>
-                                </td>
+                                <td>Vet:</td>
+                                <td>${appt.getEmployeeID().getUserID().getFirstName()} ${appt.getEmployeeID().getUserID().getLastName()}</td>
                             </tr>
                         </table>
 
                         <table class="tableData">
                             <tr>
                                 <td>Price:</td>
-                                <!--<td>$<fmt:formatNumber maxFractionDigits="2" minFractionDigits="2" value=""/></td>-->
+                                <td>$<fmt:formatNumber maxFractionDigits="2" minFractionDigits="2" value="${appt.getServiceID().getBasePrice()}"/></td>
                             </tr>
                         </table>
                             
@@ -148,7 +130,7 @@
                         
                         <!--View Client Contract-->
                         <!--Will open a tab with plain html with print button and close button-->
-                        <!--<a href="<c:url value='/ClientContract'></c:url>" target="_blank">View Contract</a>-->          
+                        <a href="<c:url value='/ClientContract'></c:url>" target="_blank">View Contract</a>          
 
                     </form>
                     <br/>

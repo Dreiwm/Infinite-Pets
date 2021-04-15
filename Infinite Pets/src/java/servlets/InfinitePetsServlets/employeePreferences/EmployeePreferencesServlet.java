@@ -16,9 +16,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import models.Account;
-import models.Empservicepreference;
+import models.EmpServicePreference;
 import models.Employee;
-import models.Servicetype;
+import models.ServiceType;
 import services.AccountServices;
 import services.ServiceServices;
 import servlets.InfinitePetsServlets.promotions.PromotionsServlet;
@@ -82,8 +82,8 @@ public class EmployeePreferencesServlet extends HttpServlet {
         // if tests were passed, this section will be read.
         // Sets attribute for employee's service preference
         ServiceServices ss = new ServiceServices();
-        List<Empservicepreference> list = ss.getAllEmpServicePreferences();
-        for (Empservicepreference esp : list) {
+        List<EmpServicePreference> list = ss.getAllEmpServicePreferences();
+        for (EmpServicePreference esp : list) {
             if (esp.getEmployeeID().equals(emp)) {
                 System.out.println(esp.getServiceTypeID().getServiceType());
             }
@@ -143,7 +143,7 @@ public class EmployeePreferencesServlet extends HttpServlet {
                 }
                 ServiceServices ss = new ServiceServices();
 
-                Empservicepreference empSP = new Empservicepreference(0);
+                EmpServicePreference empSP = new EmpServicePreference(0);
                 empSP.setServiceTypeID(ss.getServiceType(serviceTypeId));
                 empSP.setEmployeeID(e);
                 boolean success = false;
@@ -180,7 +180,7 @@ public class EmployeePreferencesServlet extends HttpServlet {
 
     private void setAttributes(HttpServletRequest request, HttpServletResponse response, Employee e) {
         ServiceServices sS = new ServiceServices();
-        List<Servicetype> sTList = sS.getAllServiceTypes();
+        List<ServiceType> sTList = sS.getAllServiceTypes();
         request.setAttribute("serviceTypes", sTList);
 
         request.setAttribute("empPreferenceList", sS.getAllEmpServicePreferencesBelongToEmp(e));
