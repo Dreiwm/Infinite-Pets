@@ -53,6 +53,10 @@ public class Empqualification implements Serializable {
         this.empQualificationID = empQualificationID;
     }
 
+//    public Empqualification(int i, Integer employeeID, Integer serviceID) {
+//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+//    }
+
     public Integer getEmpQualificationID() {
         return empQualificationID;
     }
