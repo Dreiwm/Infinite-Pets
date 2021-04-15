@@ -77,7 +77,7 @@ public class StaffFilter implements Filter {
             account = as.getAccount(email);
             
             if(account.getIsEmployee()&& 
-                    (as.getEmployeeByUserId(account.getUserId())!=null))
+                    (as.getEmployeeByUserId(account)!=null))
                 return true;
             else
                 return false;

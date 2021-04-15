@@ -36,9 +36,9 @@
             <table>
                 <tr><th>Name</th><th>Qualified</th></tr>
                 <c:forEach var="service" items="${services}">
-                    <tr><td>${service.serviceName}</td><td>
-                            
-                            <select name="${service.serviceName}" id="${service.serviceName}"><option value="false" selected="true">No</option><option value=true>Yes</option></select></td></tr>
+                    <tr><td>${service.key}</td><td><select name="${service.key}" id="${service.key}"><option value="${!service.value}">${!service.value}</option><option value="${service.value}" ${service.value == true ? 'selected' : ''}>${service.value}</option></select></td></tr>
+
+                    
                 </c:forEach>
             </table>           
              <div id="saveBtn" value="btn">
