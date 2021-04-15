@@ -5,17 +5,18 @@
  */
 package services;
 
-import dataaccess.EmpQualificationTypeDB;
+import dataaccess.EmpQualificationDB;
 import dataaccess.EmpServicePreferenceDB;
 import dataaccess.ServiceTypeDB;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import models.EmpQualificationType;
-import models.EmpServicePreference;
+import models.Empqualification;
+import models.Empservicepreference;
 import models.Employee;
-import models.ServiceType;
+import models.Service;
+import models.Servicetype;
 
 /**
  * All services for Services and ServiceTypes. Also includes the
@@ -27,12 +28,12 @@ public class ServiceServices {
     
     private final ServiceTypeDB sTDB;
     private final EmpServicePreferenceDB eSPDB;
-    private final EmpQualificationTypeDB eQTDB;
+    private final EmpQualificationDB eQTDB;
     
     public ServiceServices() {
         sTDB = new ServiceTypeDB();
         eSPDB = new EmpServicePreferenceDB();
-        eQTDB = new EmpQualificationTypeDB();
+        eQTDB = new EmpQualificationDB();
     }
     
     /**
@@ -41,7 +42,7 @@ public class ServiceServices {
      * @return returns list of ServiceTyoes. Returns null if either can't find
      * or an exception was thrown.
      */
-    public List<ServiceType> getAllServiceTypes() {
+    public List<Servicetype> getAllServiceTypes() {
         try {
             return sTDB.getAllServiceTypes();
         } catch (Exception ex) {
@@ -50,31 +51,23 @@ public class ServiceServices {
         }
     }
     
-    public List<ServiceType> getAllServiceTypesSpecificToEmployee(Employee e) {
-        List<EmpQualificationType> qList = eQTDB.getAllEmployeeQualificationTypes();
-        ArrayList<ServiceType> qualifiedServiceTypeList = new ArrayList<>();
-        
-        // Get all qualified that belongs to given e Employee.
-        
-        qList = e.getEmpQualificationTypeList(); // IDK if this will work or not.
-        for (EmpQualificationType eQT : qList) {
-            System.out.println(eQT.getQualificationName());
-        }
-        // Now we need to loop thr the eList, remove if can't be found in eList.
-        // Nested loop.
-        
-        
-        return null;
+    /**
+     * 
+     * @param e
+     * @return 
+     */
+    public List<Service> getAllServiceTypesSpecificToEmployee(Employee e) {
+         return e.getServiceList();
     }
 
     /**
      * Returns the ServiceType with given ID.
      *
-     * @param id id used to queery the DB.
+     * @param id id used to query the DB.
      * @return returns null if there was an exception or table is empty.
      * Otherwise returns list of ServiceTypes.
      */
-    public ServiceType getServiceType(int id) {
+    public Servicetype getServiceType(int id) {
         try {
             return sTDB.get(id);
         } catch (Exception ex) {
@@ -89,7 +82,7 @@ public class ServiceServices {
      * @param empSP the EmpServicePreference to be inserted into.
      * @return returns true if successfully inserted into DB.
      */
-    public boolean insertEmpServicePreference(EmpServicePreference empSP) throws Exception {
+    public boolean insertEmpServicePreference(Empservicepreference empSP) throws Exception {
         EmpServicePreferenceDB empSPDB = new EmpServicePreferenceDB();
                     return empSPDB.insert(empSP);
     }
@@ -99,7 +92,8 @@ public class ServiceServices {
      * @param id the id of EmpServicePreference to be deleted.
      * @return true if successfully deleted.
      */
-    public boolean deleteEmpServicePreference(int id) {        try {
+    public boolean deleteEmpServicePreference(int id) {        
+        try {
             eSPDB.delete(eSPDB.get(id));
         } catch (Exception ex) {
             Logger.getLogger(ServiceServices.class.getName()).log(Level.SEVERE, null, ex);
@@ -112,7 +106,7 @@ public class ServiceServices {
      * Returns all of the EmpServicePreference objects from EmpServicePreference table.
      * @return list of all EmpServicePreference.
      */
-    public List<EmpServicePreference> getAllEmpServicePreferences() {
+    public List<Empservicepreference> getAllEmpServicePreferences() {
         return eSPDB.getAllEmpServicePreferences();
     }
     
@@ -121,10 +115,10 @@ public class ServiceServices {
      * @param e the Employee object which is used for matching.
      * @return the list that belongs to given Employee.
      */
-    public List<EmpServicePreference> getAllEmpServicePreferencesBelongToEmp(Employee e) {
-        List<EmpServicePreference> list = getAllEmpServicePreferences();
+    public List<Empservicepreference> getAllEmpServicePreferencesBelongToEmp(Employee e) {
+        List<Empservicepreference> list = getAllEmpServicePreferences();
 
-        for (EmpServicePreference esp : list) {
+        for (Empservicepreference esp : list) {
             if (!esp.getEmployeeID().equals(e)) {
                 list.remove(esp);
             }

@@ -10,6 +10,7 @@ import dataaccess.AppointmentDB;
 import dataaccess.AppointmentServiceDB;
 import dataaccess.PetDB;
 import java.math.BigDecimal;
+import java.sql.Time;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -23,10 +24,11 @@ import models.Pet;
 import java.util.List;
 import models.Account;
 import models.Appointment;
-import models.AppointmentService;
-import models.EmpServicePreference;
+import models.Appointmentservice;
+import models.Empservicepreference;
 import models.Employee;
 import models.Service;
+import models.Appointmentservice;
 import services.exceptions.AppointmentException;
 
 /**
@@ -80,7 +82,7 @@ public class ScheduleServices {
      * *****NOTE - might have to set an admin bypass for them to book an
      * appointment for the pet*********
      */
-    private boolean verifyInfo(int appointmentID, Date appointmentDate, boolean confirmed, boolean paid, boolean active, int petID, int userID) {
+    private boolean verifyInfo(int petID, int userID) {
         boolean checked = false;
         try {
             PetDB petDB = new PetDB();
@@ -108,16 +110,33 @@ public class ScheduleServices {
     }
 
     //passes information to get checked before creating an appointment and adding it to the database
-    public void createAppointment(int appointmentID, Date appointmentDate, boolean confirmed, boolean paid, boolean active, int petID, int userID) {
+    public void createAppointment(Date appointmentDate, Time time, Account user, List<Appointmentservice> contents) {
         try {
             AppointmentDB apDB = new AppointmentDB();
-            if (verifyInfo(appointmentID, appointmentDate, confirmed, paid, active, petID, userID)) {
-                Appointment appointment = new Appointment(appointmentID, appointmentDate, confirmed, paid, active);
+            AppointmentServiceDB aservDB = new AppointmentServiceDB();
+            boolean check = false;
+            
+            for(Appointmentservice as: contents){
+                check = verifyInfo(as.getPetID().getPetID(),user.getUserId());
+            }
+            System.out.println("checking pets");
+            if (check==true) {
+                //make an new appointment and then add the AppointmentService list to it
+                Appointment appointment = new Appointment(0, appointmentDate, false, false, false);
+               // appointment.setAppointmentTime(appointmentTime);
+                appointment.setClientID(user);
+                appointment.setAppointmentTime(time);
+                System.out.println("inserting appointemnt");
                 apDB.insert(appointment);
-                //persist to the Pets appointment List
-                PetDB petDB = new PetDB();
-//                Pet pet = petDB.getItemById(petID);
-//                pet.getAppointments.add(appointment);
+                for(Appointmentservice ser: contents){
+                    ser.setAppointmentID(appointment);
+                    aservDB.insert(ser);
+                }
+                appointment.setAppointmentserviceList(contents);
+                
+                
+                
+                System.out.println("appointemtn inserted");
             }
         } catch (Exception e) {
             Logger.getLogger(ScheduleServices.class.getName()).log(Level.SEVERE, null, e);
@@ -128,14 +147,18 @@ public class ScheduleServices {
     public void updateAppointment(int appointmentID, Date appointmentDate, boolean confirmed, boolean paid, boolean active, int petID, int userID) {
         try {
             AppointmentDB apDB = new AppointmentDB();
-            if (verifyInfo(appointmentID, appointmentDate, confirmed, paid, active, petID, userID) && verifyOwner(petID, userID)) {
+            if (verifyInfo(petID, userID) && verifyOwner(petID, userID)) {
                 Appointment appointment = apDB.getAppointmentById(appointmentID);
+               
                 appointment.setAppointmentDate(appointmentDate);
                 appointment.setConfirmed(confirmed);
                 appointment.setPaid(paid);
                 appointment.setActive(active);
                 Pet pet = new PetDB().getItemById(petID);
-                appointment.setPetID(pet); //this should be the pet id and not the who pet object i think...
+                Appointmentservice aps = new Appointmentservice(); //this should be the pet id and not the who pet object i think...
+/******************NEEDS MORE LOGIC FOR PROPERLY PERSISTING EACH PET ON THE APPOINTMENT************************************/
+                aps.setPetID(pet);
+                aps.setAppointmentID(appointment);
                 appointment.setClientID(pet.getOwner());
                 apDB.update(appointment);
                 //persist to the Pets appointment List
@@ -217,8 +240,8 @@ public class ScheduleServices {
      */
     public static String getScheduleBlock(Appointment appt) {
         SimpleDateFormat sdf = new SimpleDateFormat("hh");
-        int hour = Integer.parseInt(sdf.format(appt.getAppointmentDate()));
-        System.out.println("hour: " + hour);
+        int hour = Integer.parseInt(sdf.format(appt.getAppointmentTime()));
+//        System.out.println("hour: " + hour);
 
         // case switch 
         switch (hour) {
@@ -281,7 +304,6 @@ public class ScheduleServices {
      * @return returns list of available appointments.
      */
     public List<Appointment> getAllAvailableAppointments() throws ParseException {
-
         AppointmentDB apDB = new AppointmentDB();
         // get all appointments 
 
@@ -294,13 +316,12 @@ public class ScheduleServices {
             for (Appointment appt : allAppts) {
                 if (!appt.getConfirmed()) {
                     unConfirmedAppts.add(appt);
-                }
+                }          
             }
-            return (List) unConfirmedAppts;
+             return (List) unConfirmedAppts;
         }
         System.out.println("returning null");
         // and then filter
-
         return null;
     }
 
@@ -311,11 +332,11 @@ public class ScheduleServices {
      * @param e the Employee to used to filter.
      * @return the list of the available appointments selected by employee.
      */
-    public List<Appointment> getAllAvailableAppointmentsByPreferences(Employee e) {
+    public List<Appointment> getAllAvailableAppointmentsByPreferences(Employee e) throws ParseException {
 
         // Get EmpServicePreference list
         ServiceServices ss = new ServiceServices();
-        List<EmpServicePreference> empSPList = ss.getAllEmpServicePreferencesBelongToEmp(e);
+        List<Empservicepreference> empSPList = ss.getAllEmpServicePreferencesBelongToEmp(e);
         List<Appointment> allAppts = getAllAvailableAppointments();
         
         ArrayList<Appointment> filteredAppointments = new ArrayList<>();
@@ -324,13 +345,13 @@ public class ScheduleServices {
             // we need to loop through appointment, then loop through appointmentServices.
             // You msut be certain that all services is preferred, not one of them. 
             // Break out loop immeidately if found one of them not match.
-            List<AppointmentService> apptServices = null;
+            List<Appointmentservice> apptServices = null;
 
             for (Appointment appt : allAppts) {
                 System.out.println("appt id: " + appt.getAppointmentID());
                 boolean allQualified = true;
                 apptServices = getAllAppointmentServices(appt);
-                for (AppointmentService apptService : apptServices) {
+                for (Appointmentservice apptService : apptServices) {
                     System.out.println("AppointmentService id: " + apptService.getAppServID() + "with serviceTypeID: " + apptService.getServiceID().getServiceTypeID().getServiceType());
                     if (!isAppointmentServiceInWorkPrefence(apptService, empSPList)) {
                         allQualified = false;
@@ -363,10 +384,10 @@ public class ScheduleServices {
      * @param apptS AppointmentService used to match with EmpServicePreference
      * @return
      */
-    private boolean isAppointmentServiceInWorkPrefence(AppointmentService appS, List<EmpServicePreference> empSPList) {
+    private boolean isAppointmentServiceInWorkPrefence(Appointmentservice appS, List<Empservicepreference> empSPList) {
         // looping joys.
 
-        for (EmpServicePreference empSP : empSPList) {
+        for (Empservicepreference empSP : empSPList) {
             if (appS.getServiceID().getServiceTypeID().getServiceTypeID() == empSP.getServiceTypeID().getServiceTypeID()) {
                 return true;
             }
@@ -382,15 +403,15 @@ public class ScheduleServices {
      * @return returns list of AppointmentServices with given appointment
      * object.
      */
-    private List<AppointmentService> getAllAppointmentServices(Appointment appt) {
+    public List<Appointmentservice> getAllAppointmentServices(Appointment appt) {
         AppointmentServiceDB aptSDB = new AppointmentServiceDB();
 
-        List<AppointmentService> allApptServices = aptSDB.getAllAppointmentServices();
+        List<Appointmentservice> allApptServices = aptSDB.getAllAppointmentServices();
 
-        ArrayList<AppointmentService> apptServices = new ArrayList<>();
+        ArrayList<Appointmentservice> apptServices = new ArrayList<>();
 
         if (allApptServices != null) {
-                for (AppointmentService apptService : allApptServices) {
+                for (Appointmentservice apptService : allApptServices) {
                     if (appt.getAppointmentID() == apptService.getAppointmentID().getAppointmentID()) {
                         apptServices.add(apptService);
                         System.out.println("adding appt from  appt services with id: " + appt.getAppointmentID());
@@ -398,5 +419,10 @@ public class ScheduleServices {
                 }
         }
         return (List) apptServices;
+    }
+
+    public boolean updateAppointment(Appointment appt) {
+        AppointmentDB apDB = new AppointmentDB();
+        return apDB.update(appt);
     }
 }

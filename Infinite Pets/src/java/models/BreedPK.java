@@ -12,7 +12,7 @@ import javax.persistence.Embeddable;
 
 /**
  *
- * @author Riley
+ * @author BTran
  */
 @Embeddable
 public class BreedPK implements Serializable {

@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.math.BigDecimal;
 import java.security.NoSuchAlgorithmException;
+import java.sql.Time;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -81,41 +82,36 @@ public class AppointmentServlet extends HttpServlet {
             // get appointment info using apptID
             ScheduleServices schs = new ScheduleServices();
             // get ID for appt
-//            int apptId = Integer.parseInt(request.getParameter("apptID"));
-//            Appointment appt = schs.getAppointmentById(apptId);
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-            
-
             Appointment appt = null;
+            int apptId;
             try {
-                appt = new Appointment(1, sdf.parse("2021-03-30 06:00"), true, true, true);
-            } catch (ParseException ex) {
-                Logger.getLogger(AppointmentServlet.class.getName()).log(Level.SEVERE, null, ex);
+                apptId = Integer.parseInt(request.getParameter("apptId"));
+                appt = schs.getAppointmentById(apptId);
+            } catch (NumberFormatException e1) {
+                apptId = Integer.parseInt((String) request.getAttribute("apptId"));
+                appt = schs.getAppointmentById(apptId);
             }
-            appt.setEndDate(new Date());
-            appt.setPetID(new Pet(1, 'M', "Dog", "lab", "Eileen", new Date()));
-            appt.setServiceID(new Service(1, "test", new BigDecimal(12.0), true, true, true));
-            Employee emp = new Employee(1, false, false, true);
-            PasswordServices pServ = new PasswordServices();
-            String passwordSalt = pServ.getRandomSalt();
-            try {
-                emp.setUserID(new Account(0, pServ.generatePasswordHash("password", passwordSalt), passwordSalt, "asdf@asdf.com", "asdf", "asdf", true, true));
-            } catch (NoSuchAlgorithmException ex) {
-                Logger.getLogger(AppointmentServlet.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            appt.setEmployeeID(emp);
+            
+            // Check if this appt doesn't beong to owner
+                // if not, redirect to login page.
+                if (!appt.getClientID().equals(acc)) {
+                    System.out.println("This appointment don't belong to associated account!");
+                    ses.invalidate();
+                    response.sendRedirect("Login");
+                    return;
+                }
+            
+            System.out.println("appt date: " + appt.getAppointmentDate());
+            System.out.println("appt time: " + appt.getAppointmentTime());
+           
 
-/**
+        /**
         * **************************************
         * Start Date Setting Attributes for presenting
         **************************************
         */
             setDateAttributes(appt, request, response);
             setAppointmentAttribute(appt, request, response);
-
-            
-           
-           
 
             getServletContext().getRequestDispatcher("/WEB-INF/Appointment.jsp").forward(request, response);
         } else {
@@ -141,6 +137,8 @@ public class AppointmentServlet extends HttpServlet {
         String email = (String) ses.getAttribute("email");
         
         AccountServices acs = new AccountServices();
+        ScheduleServices schs = new ScheduleServices();
+        
         Account acc = null;
         try {
             acc = acs.getAccount(email);
@@ -151,26 +149,24 @@ public class AppointmentServlet extends HttpServlet {
         /***************************
          * TEMP ONLY - REMOVE ME
          **************************/
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-            
+//        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+//            
+//
+//        Appointment appt = null;
+//        try {
+//            appt = new Appointment(1, sdf.parse("2021-03-30 06:00"), true, true, true);
+//        } catch (ParseException ex) {
+//            Logger.getLogger(AppointmentServlet.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        appt.setEndDate(new Date());
+//        appt.setPetID(new Pet(1, 'M', "Dog", "lab", "Eileen", new Date()));
+//        appt.setServiceID(new Service(1, "test", new BigDecimal(12.0), true, true, true));
+//        Employee emp = new Employee(1, false, false, true);
+//        emp.setUserID(acc);
+//        appt.setEmployeeID(emp);
 
-        Appointment appt = null;
-        try {
-            appt = new Appointment(1, sdf.parse("2021-03-30 06:00"), true, true, true);
-        } catch (ParseException ex) {
-            Logger.getLogger(AppointmentServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        appt.setEndDate(new Date());
-        appt.setPetID(new Pet(1, 'M', "Dog", "lab", "Eileen", new Date()));
-        appt.setServiceID(new Service(1, "test", new BigDecimal(12.0), true, true, true));
-        Employee emp = new Employee(1, false, false, true);
-        emp.setUserID(acc);
-        appt.setEmployeeID(emp);
-
-        
-        setDateAttributes(appt, request, response);
-        setAppointmentAttribute(appt, request, response);
-        setDateAttributes(appt, request, response);
+        int apptId = Integer.parseInt(request.getParameter("apptId"));
+        Appointment appt = schs.getAppointmentById(apptId);
 
         String action = (String) request.getParameter("action");
         
@@ -178,23 +174,17 @@ public class AppointmentServlet extends HttpServlet {
         // execute if attribute of updateAppt is not null
 
         // Only exexcute if action is not null.
-        if (action != null) {
-            
-            ScheduleServices schs = new ScheduleServices();
-            
-            
+        if (action != null) { 
             // now check for update
             if (action.equals("updateAppt")) {
                 System.out.println("updating appointment...");
-                
-                
                 // Create appointment object and send email to staff (if not null)
-                int apptId = Integer.parseInt(request.getParameter("apptId"));
                 
                 // set new info to appointment from parameters
                 String month, day, year, schBlock;
                 int hour;
-                sdf.applyPattern("MMM-dd-yyyy hh");
+                SimpleDateFormat sdf = new SimpleDateFormat();
+                sdf.applyPattern("MMM-dd-yyyy");
                 sdf.setLenient(false); // so it'll throw error if date is wrong
                 
                 month = request.getParameter("selectMonth");
@@ -205,8 +195,15 @@ public class AppointmentServlet extends HttpServlet {
                 hour = ScheduleServices.getScheduleBlock(schBlock);
                 Date newDate = null;
                 try {
-                    newDate = sdf.parse(month + "-" + day + "-" + year + " " + hour);
+                    // For appointmentDate only
+                    newDate = sdf.parse(month + "-" + day + "-" + year); 
+                    
+                    sdf.applyPattern("hh");
+                    appt.setAppointmentTime(sdf.parse(Integer.toString(hour)));
                     appt.setAppointmentDate(newDate);
+                    
+                    schs.updateAppointment(appt);
+                    
                 } catch (ParseException ex) {
                     request.setAttribute("errorMsg", "Something is wrong with date, please try again.");
                     Logger.getLogger(AppointmentServlet.class.getName()).log(Level.SEVERE, null, ex);
@@ -215,10 +212,12 @@ public class AppointmentServlet extends HttpServlet {
 //                schs.updateAppointment(apptId, newDate, appt.getConfirmed(), appt.getPaid(), appt.getPaid(), appt.getPetID().getPetID(), acc.getUserId());
                     
 
-                // temp only
-                 setDateAttributes(appt, request, response);
+                
+                
+                appt = schs.getAppointmentById(apptId);
                 setAppointmentAttribute(appt, request, response);
                 setDateAttributes(appt, request, response);
+                
 
                 getServletContext().getRequestDispatcher("/WEB-INF/Appointment.jsp").forward(request, response);
             } else if (action.equals("reqCancelAppt")) {
@@ -226,12 +225,10 @@ public class AppointmentServlet extends HttpServlet {
                 String path = getServletContext().getRealPath("/assets");
                 
                 System.out.println("cancelling appointment...");
-                
-                int apptId = Integer.parseInt(request.getParameter("apptId"));
-                
+                               
                 try {
                     schs.cancelAppointment(apptId);
-                    ems.sendCancellationNotification(appt, new Date(), path);
+//                    ems.sendCancellationNotification(appt, new Date(), path);
                     getServletContext().getRequestDispatcher("/WEB-INF/Appointment.jsp").forward(request, response);
                 } catch (NullPointerException e1) {
                     request.setAttribute("errorMsg", "Uh oh! Something went wrong. Please try again.");
@@ -283,7 +280,9 @@ public class AppointmentServlet extends HttpServlet {
         // Start date
         Calendar calStart = Calendar.getInstance();
         calStart.setTime(appt.getAppointmentDate());
-
+        
+        // Time
+        
         
             request.setAttribute("startYear", calStart.get(Calendar.YEAR));
         
@@ -359,23 +358,26 @@ public class AppointmentServlet extends HttpServlet {
         
         // get Appt from DB
         ScheduleServices schs = new ScheduleServices();
-        Appointment appt = null;
-        
-        
-//        appt = schs.getAppointmentById(apptId);
-//        if (appt == null) {
-//            request.setAttribute("errorMsg", "Uh oh! Something went wrong with udpating your appointment.");
-//        }
-        
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MMM-dd-hh");
-        sdf.setLenient(false); // so that February 31 2021 will throw an error.
-        
-        try {
-            sdf.parse(year + "-" + month + "-" + dayOfMonth + "-" + hour);
-        } catch (ParseException e1) {
-            request.setAttribute("errorMsg", "An error in dates was found, please check again.");
+        Appointment appt = schs.getAppointmentById(apptId);
+        if (appt == null) {
+            request.setAttribute("errorMsg", "Uh oh! Something went wrong with udpating your appointment.");
         }
+        
         return null;
+        
+    }
+
+    /**
+     * Sets attributes related to AppointmentrServices with given Appointment object.
+     * WIll be using appt ID from said object to determine which servies and pets belong to which appointment.
+     * @param appt the Appointment object used to return appoinment services/perts belong to given appt.
+     * @param request
+     * @param response 
+     */
+    private void setAppointmentServiceAttributes(Appointment appt, HttpServletRequest request, HttpServletResponse response) {
+        ScheduleServices ss = new ScheduleServices();
+        
+        request.setAttribute("apptServices", ss.getAllAppointmentServices(appt));
     }
     
 
