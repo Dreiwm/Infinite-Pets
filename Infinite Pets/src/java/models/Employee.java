@@ -58,9 +58,9 @@ public class Employee implements Serializable {
     private boolean active;
     @JoinTable(name = "empqualification", joinColumns = {
         @JoinColumn(name = "EmployeeID", referencedColumnName = "EmployeeID")}, inverseJoinColumns = {
-        @JoinColumn(name = "QualificationID", referencedColumnName = "QualificationTypeID")})
+        @JoinColumn(name = "ServiceID", referencedColumnName = "ServiceID")})
     @ManyToMany(fetch = FetchType.EAGER)
-    private List<Empqualificationtype> empqualificationtypeList;
+    private List<Service> serviceList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "employeeID", fetch = FetchType.EAGER)
     private List<Empservicepreference> empservicepreferenceList;
     @OneToMany(mappedBy = "employeeID", fetch = FetchType.EAGER)
@@ -118,12 +118,12 @@ public class Employee implements Serializable {
     }
 
     @XmlTransient
-    public List<Empqualificationtype> getEmpqualificationtypeList() {
-        return empqualificationtypeList;
+    public List<Service> getServiceList() {
+        return serviceList;
     }
 
-    public void setEmpqualificationtypeList(List<Empqualificationtype> empqualificationtypeList) {
-        this.empqualificationtypeList = empqualificationtypeList;
+    public void setServiceList(List<Service> serviceList) {
+        this.serviceList = serviceList;
     }
 
     @XmlTransient

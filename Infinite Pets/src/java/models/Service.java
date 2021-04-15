@@ -18,6 +18,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -60,6 +61,8 @@ public class Service implements Serializable {
     @Basic(optional = false)
     @Column(name = "Active")
     private boolean active;
+    @ManyToMany(mappedBy = "serviceList", fetch = FetchType.EAGER)
+    private List<Employee> employeeList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "serviceID", fetch = FetchType.EAGER)
     private List<Discount> discountList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "serviceID", fetch = FetchType.EAGER)
@@ -120,6 +123,15 @@ public class Service implements Serializable {
 
     public void setActive(boolean active) {
         this.active = active;
+    }
+
+    @XmlTransient
+    public List<Employee> getEmployeeList() {
+        return employeeList;
+    }
+
+    public void setEmployeeList(List<Employee> employeeList) {
+        this.employeeList = employeeList;
     }
 
     @XmlTransient
