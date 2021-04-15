@@ -21,6 +21,7 @@ public class PetServicesServices {
     //Retrieves a list of all the services
     public List<Service> getAllServices() throws Exception {
         ServiceDB serviceDB = new ServiceDB();
+        System.out.println("Getting all services in database");
         return serviceDB.getAllServices();
     }
     

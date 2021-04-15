@@ -43,21 +43,22 @@ public class AdminPetServicesServlet extends HttpServlet {
             response.sendRedirect("Login");
         }
         try {
-            String action = request.getParameter("action");            
-            if (action.equals("edit")){
-                response.sendRedirect("Service");
-            }
-            else if(action.equals("delete")){
-                String serviceID = request.getParameter("serviceID");
-                AdminPetServices aps = new AdminPetServices();
-                aps.deleteService(serviceID);
-            }
-            
-            PetServicesServices petSS = new PetServicesServices();
-            List<Service> services = petSS.getAllServices();
-            List<Servicetype> serviceTypes = petSS.getAllServiceTypes();
-            System.out.println("Setting services");
-            request.setAttribute("services", services);
+//            String action = request.getParameter("action");            
+//            if (action.equals("edit") && action !=null){
+//                response.sendRedirect("Service");
+//            }
+//            else if(action.equals("delete") && action !=null){
+//                String serviceID = request.getParameter("serviceID");
+//                AdminPetServices aps = new AdminPetServices();
+//                aps.deleteService(serviceID);
+//            }
+                PetServicesServices petSS = new PetServicesServices();
+                List<Service> services = petSS.getAllServices();
+//                List<Servicetype> serviceTypes = petSS.getAllServiceTypes();
+                System.out.println("Setting services");
+                System.out.println(services);
+                request.setAttribute("services", services);
+
         } catch(Exception e) {
             Logger.getLogger(AdminPetServicesServlet.class.getName()).log(Level.WARNING, null, e);
         }
