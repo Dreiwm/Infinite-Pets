@@ -11,7 +11,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.List;
 import models.Service;
-import models.Servicetype;
+import models.ServiceType;
 
 /**
  *
@@ -37,7 +37,7 @@ public class PetServicesServices {
     }
 
     //Retrieves list of all service types
-    public List<Servicetype> getAllServiceTypes() throws Exception {
+    public List<ServiceType> getAllServiceTypes() throws Exception {
         ServiceTypeDB serviceTypeDB = new ServiceTypeDB();
         return serviceTypeDB.getAllServiceTypes();
     }

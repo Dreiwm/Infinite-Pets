@@ -1,4 +1,3 @@
-
 DROP SCHEMA IF EXISTS `infinitepetsdb` ;
 
 CREATE SCHEMA IF NOT EXISTS `infinitepetsdb` DEFAULT CHARACTER SET utf8 ;
@@ -7,7 +6,7 @@ USE `infinitepetsdb` ;
 -- ServiceType
 -- To be used in Service and employee tables.
 CREATE TABLE IF NOT EXISTS `infinitepetsdb`.serviceType (
-	`ServiceTypeID` INT NOT NULL auto_increment,
+    `ServiceTypeID` INT NOT NULL auto_increment,
     `ServiceType` VARCHAR(30) NOT NULL,
     PRIMARY KEY (`ServiceTypeID`)
 )
@@ -23,10 +22,10 @@ CREATE TABLE IF NOT EXISTS `infinitepetsdb`.`service` (
     `Active` BIT NOT NULL, -- currently available
     PRIMARY KEY (`ServiceID`),
     CONSTRAINT `fk_service_type`
-            FOREIGN KEY (ServiceTypeID)
-    REFERENCES infinitepetsdb.serviceType (ServiceTypeID)
-    ON DELETE CASCADE
-    ON UPDATE NO ACTION
+        FOREIGN KEY (ServiceTypeID)
+        REFERENCES infinitepetsdb.serviceType (ServiceTypeID)
+        ON DELETE CASCADE
+        ON UPDATE NO ACTION
 )
 ENGINE = InnoDB;
 
@@ -105,15 +104,6 @@ CREATE TABLE IF NOT EXISTS `infinitepetsdb`.`account` (
 )
 ENGINE = InnoDB;
 
--- QualificationType
-CREATE TABLE IF NOT EXISTS `infinitepetsdb`.`empQualificationType` (
-    `QualificationTypeID` INT NOT NULL AUTO_INCREMENT,
-    `QualificationName` VARCHAR(50) NOT NULL,
-    `QualificationDescription` VARCHAR(100) NOT NULL,
-    PRIMARY KEY (`QualificationTypeID`)
-)
-ENGINE = InnoDB;
-
 -- Employee
 -- this is just temporary, it's not complete.
 CREATE TABLE IF NOT EXISTS `infinitepetsdb`.`employee` (
@@ -159,22 +149,23 @@ ENGINE = InnoDB;
 -- Employee Qualifications
 -- This table will be referring (FK) to ServiceType and Employee
 CREATE TABLE IF NOT EXISTS `infinitepetsdb`.`empQualification` (
+    `EmpQualificationID` INT NOT NULL AUTO_INCREMENT,
     `EmployeeID` INT NOT NULL,
-    `QualificationID` INT NOT NULL,
-    PRIMARY KEY (EmployeeID, QualificationID),
-    INDEX `fk_employeeidx` (`EmployeeID` ASC),
+    `ServiceID` INT NOT NULL,
+    PRIMARY KEY (EmpQualificationID),
+    INDEX `fk_employee_qualification_idx` (`EmployeeID` ASC),
     CONSTRAINT `fk_employeeid`
         FOREIGN KEY (EmployeeID)
-    REFERENCES infinitepetsdb.employee (EmployeeID)
-    ON DELETE CASCADE
-    ON UPDATE NO ACTION,
-    INDEX `fk_qualificationidx` (`QualificationID` ASC),
-    CONSTRAINT `fk_qualificationid`
-        FOREIGN KEY (QualificationID)
-    REFERENCES infinitepetsdb.empQualificationType (QualificationTypeID)
-    ON DELETE CASCADE
-    ON UPDATE NO ACTION
-    )
+        REFERENCES infinitepetsdb.employee (EmployeeID)
+        ON DELETE CASCADE
+        ON UPDATE NO ACTION,
+    INDEX `fk_qualification_service_idx` (`ServiceID` ASC),
+    CONSTRAINT `fk_qualfication_service`
+        FOREIGN KEY (ServiceID)
+        REFERENCES infinitepetsdb.service (ServiceID)
+        ON DELETE CASCADE
+        ON UPDATE NO ACTION
+)
 ENGINE = InnoDB;
 
 -- Animal Type Table
@@ -260,7 +251,7 @@ CREATE TABLE IF NOT EXISTS `infinitepetsdb`.`appointment` (
             REFERENCES `infinitepetsdb`.`employee` (`EmployeeID`)
             ON DELETE NO ACTION
             ON UPDATE NO ACTION
-) 
+)
 ENGINE = InnoDB;
 
 -- AppointmentService
@@ -337,11 +328,10 @@ INSERT INTO `location` (`LocationType`, `PostalCode`, `Address`, `City`, `Countr
 -- Insert into accounts
 INSERT INTO `account` (`PasswordHash`,`PasswordSalt`, `Email`, `FirstName`, `LastName`, `Address`, `IsEmployee`,`IsConfirmed`) -- all passwords are password
     VALUES 
-        ('F9A24809961A6191D77C6835A7672B7657B405A9399D146D6C3F4AA10A5D0367','-dEt#9&DStu!n}&N)$Q1&wf2~fFGh?Qr','.test+admin@gmail.com','Admin','Admin', 1, 1, 1),
-        ('8A3D18812F48173DBB7EC4027C675D5A7FDA1545B64D1A4FE7969C5EF0DF486C','N2+DoX6vp$kPf/tQ1}_zh*;WE`;QID5x','.test+employee@gmail.com','employee','employee', 2, 1, 1),
-        ('8DCC49B77BA19EA674DD910F630B4D0A91EFB335789475160F38F1225981D210','[Y+S^?N2[?gf?.>u.[#;XIQEc^i]6F{^','.test+anne@gmail.com','Anne','Annerson', 3, 0, 1),
-        ('46F34FC6F09D6E9FC6E4036468D1DDE040CC3E702EE1FD7231002F31CC1237DA',')H+Sj2sb,J!4J$g@wY,>>.]VW.WjdNn?','.test@gmail.com', 'BCCRS', 'Test', 5, 0, 1);
-
+        ('F9A24809961A6191D77C6835A7672B7657B405A9399D146D6C3F4AA10A5D0367','-dEt#9&DStu!n}&N)$Q1&wf2~fFGh?Qr','test+admin@gmail.com','Admin','Admin', 1, 1, 1),
+        ('8A3D18812F48173DBB7EC4027C675D5A7FDA1545B64D1A4FE7969C5EF0DF486C','N2+DoX6vp$kPf/tQ1}_zh*;WE`;QID5x','test+employee@gmail.com','employee','employee', 2, 1, 1),
+        ('8DCC49B77BA19EA674DD910F630B4D0A91EFB335789475160F38F1225981D210','[Y+S^?N2[?gf?.>u.[#;XIQEc^i]6F{^','test+anne@gmail.com','Anne','Annerson', 3, 0, 1),
+        ('46F34FC6F09D6E9FC6E4036468D1DDE040CC3E702EE1FD7231002F31CC1237DA',')H+Sj2sb,J!4J$g@wY,>>.]VW.WjdNn?','test@gmail.com', 'BCCRS', 'Test', 5, 0, 1);
 
 -- Insert Service Types
 INSERT INTO `serviceType` (`ServiceType`) 
@@ -583,7 +573,7 @@ INSERT INTO breed (animal_type_id, breed_name)
         (@dog, 'Wire Fox Terrier'),
         (@dog, 'Wirehaired Pointing Griffon'),
         (@dog, 'Xoloitzcuintli'),
-        (@dog, 'Yorkshire Terrier');		
+        (@dog, 'Yorkshire Terrier');
 
 -- Insert "all" of the cat breeds
 SELECT `animal_Type_ID`
@@ -613,10 +603,10 @@ INSERT INTO pet(Sex, Species, Breed, PetName, Owner, Birthday)
         ('M', 'Dog', 'Golden Retriever', 'Buddy', 3, '2011-10-15');
 
 -- Insert ServiceType (jsut two)
-INSERT INTO ServiceType(ServiceType)
-    VALUES
-        ('Dog Grooming'),
-        ('Cat Grooming');
+-- INSERT INTO ServiceType(ServiceType)
+--     VALUES
+--         ('Dog Grooming'),
+--         ('Cat Grooming');
 
 -- -- insert into services
 --  `ServiceTypeID` INT NOT NULL,
@@ -626,12 +616,13 @@ INSERT INTO ServiceType(ServiceType)
 --     `Active` BIT NOT NULL, -- currently available
 --     `SpecifyPet` BIT NOT NULL, -- if the client needs to specify what pet will have the service, things like pet/house sitting, don't I'd imagine.
 --     `DateRange` BIT NOT NULL, -- if it's a long term thing, again, the sitting
-INSERT INTO service(ServiceTypeID, ServiceName, ServiceDescription, BasePrice, Active, SpecifyPet, DateRange)
-    VALUES
-        (1, 'Dog Nail Clipping', 'The dog''s nails will be clipped to an appropriate length', 20.00, 1, 0, 0),
-        (1, 'Dog Bath & Brushing', 'The dog would be bathed and then brushed afterwards', 22.00, 1, 0, 0),
-        (2, 'Cat Nail Clipping', 'The cat''s nails would be clipped to appropriate length', 25.00, 1, 1, 0),
-        (2, 'Cat Bath', 'The cat woild be bathed', 30.00, 1, 1, 0);
+
+-- INSERT INTO service(ServiceTypeID, ServiceName, ServiceDescription, BasePrice, Active)
+--     VALUES
+--         (1, 'Dog Nail Clipping', 'The dog''s nails will be clipped to an appropriate length', 20.00, 1),
+--         (1, 'Dog Bath & Brushing', 'The dog would be bathed and then brushed afterwards', 22.00, 1),
+--         (2, 'Cat Nail Clipping', 'The cat''s nails would be clipped to appropriate length', 25.00, 1),
+--         (2, 'Cat Bath', 'The cat woild be bathed', 30.00, 1);
 
 -- Insert Appointments
 -- -- Remember this is appointment holds only general info, not Pet or services.
@@ -642,6 +633,7 @@ INSERT INTO service(ServiceTypeID, ServiceName, ServiceDescription, BasePrice, A
 -- 	`EmployeeID` INT DEFAULT NULL,
 -- 	`Paid` BOOLEAN NOT NULL,
 -- 	`Active` BOOLEAN NOT NULL,
+
 INSERT INTO appointment(ClientID, AppointmentDate, Confirmed, AppointmentTime, EmployeeID, Paid, Active)
     VALUES
         (3, '2021-04-14', false, '09:00:00', 1, false, false),
@@ -666,3 +658,11 @@ INSERT INTO appointmentService(AppointmentID, ServiceID, PetID)
 -- Employee prefers to work with dog grooming.
 INSERT INTO EmpServicePreference(EmployeeID, ServiceTypeID)
     VALUES(1, 1);
+
+
+-- Employee prefers to work with dog grooming.
+INSERT INTO empQualification(EmployeeID, ServiceID)
+    VALUES
+        (2, 1),
+        (2, 2),
+        (2, 3);

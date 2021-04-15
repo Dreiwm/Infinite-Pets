@@ -7,21 +7,15 @@ package servlets.InfinitePetsServlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.math.BigDecimal;
-import java.security.NoSuchAlgorithmException;
-import java.sql.Time;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Enumeration;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
-import javax.servlet.http.Cookie;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -29,13 +23,9 @@ import javax.servlet.http.HttpSession;
 import models.Account;
 import models.Appointment;
 import models.Employee;
-import models.Pet;
-import models.Service;
 import services.AccountServices;
 import services.EmailService;
-import services.PasswordServices;
 import services.ScheduleServices;
-import services.ValidationServices;
 import services.exceptions.AppointmentException;
 import utilities.CalendarUtilities;
 
@@ -43,7 +33,9 @@ import utilities.CalendarUtilities;
  *
  * @author Riley
  */
+@WebServlet(name = "AppointmentServlet", urlPatterns = {"/Appointment"})
 public class AppointmentServlet extends HttpServlet {
+
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -174,16 +166,11 @@ public class AppointmentServlet extends HttpServlet {
         } catch (ParseException ex) {
             Logger.getLogger(AppointmentServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
-        appt.setEndDate(new Date());
-        appt.setPetID(new Pet(1, 'M', "Dog", "lab", "Eileen", new Date()));
-        appt.setServiceID(new Service(1, "test", new BigDecimal(12.0), true));
-        Employee emp = new Employee(1, false, false, true);
-        emp.setUserID(acc);
-        appt.setEmployeeID(emp);
-
-
+        
+        
         int apptId = Integer.parseInt(request.getParameter("apptId"));
-        Appointment appt = schs.getAppointmentById(apptId);
+//        Appointment appt;
+        appt = schs.getAppointmentById(apptId);
 
         String action = (String) request.getParameter("action");
         
@@ -200,7 +187,6 @@ public class AppointmentServlet extends HttpServlet {
                 // set new info to appointment from parameters
                 String month, day, year, schBlock;
                 int hour;
-                SimpleDateFormat sdf = new SimpleDateFormat();
                 sdf.applyPattern("MMM-dd-yyyy");
                 sdf.setLenient(false); // so it'll throw error if date is wrong
                 

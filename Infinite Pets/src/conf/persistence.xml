@@ -2,24 +2,34 @@
 <persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
   <persistence-unit name="InfinitePetsPU" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
-    <non-jta-data-source>java:/comp/env/jdbc/infinitepetsdb</non-jta-data-source>
-    <class>models.Account</class>
-    <class>models.AnimalType</class>
-    <class>models.Appointment</class>
-    <class>models.Breed</class>
-    <class>models.Discount</class>
-    <class>models.Employee</class>
-    <class>models.Location</class>
-    <class>models.Management</class>
     <class>models.Pet</class>
-    <class>models.Promotion</class>
-    <class>models.Service</class>
-    <class>models.Gallery</class>
+    <class>models.Appointment</class>
     <class>models.Schedule</class>
     <class>models.Empqualificationtype</class>
     <class>models.Servicetype</class>
-    <class>models.Empqualificationtype_1</class>
-    <class>models.Servicetype_1</class>
+    <class>models.Appointmentservice</class>
+    <class>models.Breed</class>
+    <class>models.Discount</class>
+    <class>models.Gallery</class>
+    <class>models.Location</class>
+    <class>models.EmpQualificationType</class>
+    <class>models.Management</class>
+    <class>models.Account</class>
+    <class>models.Promotion</class>
+    <class>models.Employee</class>
+    <class>models.Service</class>
+    <class>models.EmpServicePreference</class>
+    <class>models.AppointmentService</class>
+    <class>models.ServiceType</class>
+    <class>models.AnimalType</class>
+    <class>models.EmpQualification</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
+    <properties>
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/infinitepetsdb"/>
+      <property name="javax.persistence.jdbc.user" value="root"/>
+      <property name="javax.persistence.jdbc.driver" value="org.gjt.mm.mysql.Driver"/>
+      <property name="javax.persistence.jdbc.password" value="password"/>
+      <property name="javax.persistence.schema-generation.database.action" value="create"/>
+    </properties>
   </persistence-unit>
 </persistence>

@@ -49,7 +49,7 @@ public class ServiceServices {
      * @return returns list of ServiceTyoes. Returns null if either can't find
      * or an exception was thrown.
      */
-    public List<Servicetype> getAllServiceTypes() {
+    public List<ServiceType> getAllServiceTypes() {
         try {
             return sTDB.getAllServiceTypes();
         } catch (Exception ex) {
@@ -63,7 +63,7 @@ public class ServiceServices {
         ArrayList<ServiceType> qualifiedServiceTypeList = new ArrayList<>();
 
         // Get all qualified that belongs to given e Employee.
-        qList = e.getEmpQualificationTypeList(); // IDK if this will work or not.
+        qList = e.getEmpQualificationList(); // IDK if this will work or not.
         for (EmpQualificationType eQT : qList) {
             System.out.println(eQT.getQualificationName());
         }
@@ -80,7 +80,7 @@ public class ServiceServices {
      * @return returns null if there was an exception or table is empty.
      * Otherwise returns list of ServiceTypes.
      */
-    public Servicetype getServiceType(int id) {
+    public ServiceType getServiceType(int id) {
         try {
             return sTDB.get(id);
         } catch (Exception ex) {

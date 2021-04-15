@@ -25,39 +25,39 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Riley
  */
 @Entity
-@Table(name = "empServicePreference")
+@Table(name = "empQualification")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "EmpServicePreference.findAll", query = "SELECT e FROM EmpServicePreference e"),
-    @NamedQuery(name = "EmpServicePreference.findByEmpServicePreferenceID", query = "SELECT e FROM EmpServicePreference e WHERE e.empServicePreferenceID = :empServicePreferenceID")})
-public class EmpServicePreference implements Serializable {
+    @NamedQuery(name = "EmpQualification.findAll", query = "SELECT e FROM EmpQualification e"),
+    @NamedQuery(name = "EmpQualification.findByEmpQualificationID", query = "SELECT e FROM EmpQualification e WHERE e.empQualificationID = :empQualificationID")})
+public class EmpQualification implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "EmpServicePreferenceID")
-    private Integer empServicePreferenceID;
+    @Column(name = "EmpQualificationID")
+    private Integer empQualificationID;
     @JoinColumn(name = "EmployeeID", referencedColumnName = "EmployeeID")
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Employee employeeID;
-    @JoinColumn(name = "ServiceTypeID", referencedColumnName = "ServiceTypeID")
+    @JoinColumn(name = "ServiceID", referencedColumnName = "ServiceID")
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
-    private ServiceType serviceTypeID;
+    private Service serviceID;
 
-    public EmpServicePreference() {
+    public EmpQualification() {
     }
 
-    public EmpServicePreference(Integer empServicePreferenceID) {
-        this.empServicePreferenceID = empServicePreferenceID;
+    public EmpQualification(Integer empQualificationID) {
+        this.empQualificationID = empQualificationID;
     }
 
-    public Integer getEmpServicePreferenceID() {
-        return empServicePreferenceID;
+    public Integer getEmpQualificationID() {
+        return empQualificationID;
     }
 
-    public void setEmpServicePreferenceID(Integer empServicePreferenceID) {
-        this.empServicePreferenceID = empServicePreferenceID;
+    public void setEmpQualificationID(Integer empQualificationID) {
+        this.empQualificationID = empQualificationID;
     }
 
     public Employee getEmployeeID() {
@@ -68,29 +68,29 @@ public class EmpServicePreference implements Serializable {
         this.employeeID = employeeID;
     }
 
-    public ServiceType getServiceTypeID() {
-        return serviceTypeID;
+    public Service getServiceID() {
+        return serviceID;
     }
 
-    public void setServiceTypeID(ServiceType serviceTypeID) {
-        this.serviceTypeID = serviceTypeID;
+    public void setServiceID(Service serviceID) {
+        this.serviceID = serviceID;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (empServicePreferenceID != null ? empServicePreferenceID.hashCode() : 0);
+        hash += (empQualificationID != null ? empQualificationID.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof EmpServicePreference)) {
+        if (!(object instanceof EmpQualification)) {
             return false;
         }
-        EmpServicePreference other = (EmpServicePreference) object;
-        if ((this.empServicePreferenceID == null && other.empServicePreferenceID != null) || (this.empServicePreferenceID != null && !this.empServicePreferenceID.equals(other.empServicePreferenceID))) {
+        EmpQualification other = (EmpQualification) object;
+        if ((this.empQualificationID == null && other.empQualificationID != null) || (this.empQualificationID != null && !this.empQualificationID.equals(other.empQualificationID))) {
             return false;
         }
         return true;
@@ -98,7 +98,7 @@ public class EmpServicePreference implements Serializable {
 
     @Override
     public String toString() {
-        return "models.EmpServicePreference[ empServicePreferenceID=" + empServicePreferenceID + " ]";
+        return "models.EmpQualification[ empQualificationID=" + empQualificationID + " ]";
     }
     
 }
