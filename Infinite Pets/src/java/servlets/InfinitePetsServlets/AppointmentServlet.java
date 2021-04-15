@@ -52,14 +52,14 @@ public class AppointmentServlet extends HttpServlet {
             throws ServletException, IOException {
         HttpSession ses = request.getSession();
 
-        Enumeration<String> e = ses.getAttributeNames();
-        System.out.println("stuff in session");
-        while (e.hasMoreElements()) {
-            System.out.println(e.nextElement());
-        }
+//        Enumeration<String> e = ses.getAttributeNames();
+//        System.out.println("stuff in session");
+//        while (e.hasMoreElements()) {
+//            System.out.println(e.nextElement());
+//        }
 
         String email = (String) ses.getAttribute("email");
-        System.out.println(email);
+//        System.out.println(email);
         AccountServices acs = new AccountServices();
         Account acc = null;
         try {
@@ -109,16 +109,17 @@ public class AppointmentServlet extends HttpServlet {
 
                         // now delete service
                         ServiceServices ss = new ServiceServices();
-
-                        System.out.println("successfully deleted? " + ss.deleteAppointmentService(apptServiceId));
+                        if (!ss.deleteAppointmentService(apptServiceId)) {
+                            request.setAttribute("errorMsg", "Something went wrong while attempting to delete service from appointment. <br/> Please do not refresh the page.");
+                        }
 
                         setDateAttributes(appt, request, response);
                         setAppointmentAttribute(appt, request, response);
 
                         List<Appointmentservice> apptServices = schs.getAllAppointmentServices(appt);
-                        apptServices.forEach(apptService -> {
-                            System.out.println(apptService.getServiceID().getServiceName());
-                        });
+//                        apptServices.forEach(apptService -> {
+//                            System.out.println(apptService.getServiceID().getServiceName());
+//                        });
                         // don't trust using appt.getService etc. use this method isntead, idk why it isn't working 
                         request.setAttribute("apptServices", apptServices);
 
