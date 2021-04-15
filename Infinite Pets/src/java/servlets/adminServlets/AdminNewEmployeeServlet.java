@@ -51,6 +51,7 @@ public class AdminNewEmployeeServlet extends HttpServlet {
         try {
             PetServicesServices pss = new PetServicesServices();
             List<Service> services = pss.getAllServices();
+            request.setAttribute("services", services);
             if ((!action.equals("") || action != null) && action.equals("edit")){
             String empEmail = request.getParameter("empEmail");
             AccountServices as = new AccountServices();
@@ -61,8 +62,7 @@ public class AdminNewEmployeeServlet extends HttpServlet {
             request.setAttribute("action", "update");
             }
             else if ((!action.equals("") || action != null) && action.equals("create")){
-                request.setAttribute("action", "create");                
-                request.setAttribute("services", services);
+                request.setAttribute("action", "create");                                
             }
         } catch(Exception e) {
             Logger.getLogger(AddPetServlet.class.getName()).log(Level.SEVERE, null, e);
@@ -99,13 +99,26 @@ public class AdminNewEmployeeServlet extends HttpServlet {
             ValidationServices vs = new ValidationServices();
             System.out.println("Print Employee Info");
             System.out.printf("Email: %s, First: %s, Last: %s, Pass: %s, Address: %s, Area: %s, City: %s, Country: %s, Prov: %s, Postal: %s, IsEmployee: %s, IsConfirmed: %s, Action: %s%n", email, firstName, lastName, password, address, area, city, country, prov, postal, isEmployee, isConfirmed, action);
+            
+            //for loop to get the selected services available to the employee
+            PetServicesServices pss = new PetServicesServices();
+            List<Service> allServices = pss.getAllServices();   
+            List<Service> qList = null;            
+            for (int i = 0; i < allServices.size(); i++){
+                System.out.println("Service Name: "+allServices.get(i).getServiceName());
+                System.out.println("Service available: "+request.getParameter(allServices.get(i).getServiceName()));
+                if (getBoolean(request.getParameter(pss.getAllServices().get(i).getServiceName()))){
+                    System.out.println("Service Name: "+allServices.get(i).getServiceName());
+                    System.out.println("Service available: "+request.getParameter(allServices.get(i).getServiceName()));
+                    qList.add(allServices.get(i));                   
+                }
+            }
+            
             //check the action being performed
             if ((!action.equals("") || action != null) && vs.verifyInfo(firstName, lastName, address, city, prov, country, postal, area, email, prov)) {
-                if (action.equals("create")){          
-             
+                if (action.equals("create")){                       
                     Location location = as.createAddress(postal, address, city, country, prov, area);
-                    List<Service> qList = null;
-                    as.createStaffAccount(password, email, firstName, location, lastName, qList);                    
+                    as.createStaffAccount(password, email, firstName, location, lastName, qList);   //check this method                 
                 }
                 else if ((!action.equals("") || action != null) && action.equals("update")){
                     as.updateStaffAccount(password, email, firstName, lastName, address, city, prov, country, postal, area, isEmployee, isConfirmed);

@@ -36,7 +36,7 @@
             <table>
                 <tr><th>Name</th><th>Description</th><th>Qualified</th></tr>
                 <c:forEach var="service" items="${services}">
-                    <tr><td>${service.serviceName}</td><td>${service.serviceDescription}</td><td><select><option value="false">No</option><option value=${service.serviceName} selected="true">Yes</option></select></td></tr>
+                    <tr><td>"${service.serviceName}</td><td>${service.serviceDescription}</td><td><select name="${service.serviceName}"><option value="false" selected="true">No</option><option value=true>Yes</option></select></td></tr>
                 </c:forEach>
             </table>               
              <div id="saveBtn" value="btn">
@@ -49,4 +49,8 @@
         </form></div>
     </body>
     <footer> <%@include file="testFiles/footer.jsp" %> </footer>
+    
+    <script>
+        
+    </script>
 </html>
