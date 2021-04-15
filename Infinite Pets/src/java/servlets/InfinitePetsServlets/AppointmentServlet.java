@@ -44,8 +44,6 @@ import utilities.CalendarUtilities;
  * @author Riley
  */
 public class AppointmentServlet extends HttpServlet {
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -87,12 +85,20 @@ public class AppointmentServlet extends HttpServlet {
             try {
                 apptId = Integer.parseInt(request.getParameter("apptId"));
                 appt = schs.getAppointmentById(apptId);
-
             } catch (NumberFormatException e1) {
                 apptId = Integer.parseInt((String) request.getAttribute("apptId"));
+                appt = schs.getAppointmentById(apptId);
             }
             
-               
+            // Check if this appt doesn't beong to owner
+                // if not, redirect to login page.
+                if (!appt.getClientID().equals(acc)) {
+                    System.out.println("This appointment don't belong to associated account!");
+                    ses.invalidate();
+                    response.sendRedirect("Login");
+                    return;
+                }
+            
             System.out.println("appt date: " + appt.getAppointmentDate());
             System.out.println("appt time: " + appt.getAppointmentTime());
            

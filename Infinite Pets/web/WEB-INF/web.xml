@@ -68,10 +68,6 @@
         <servlet-class>servlets.InfinitePetsServlets.MyProfileServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>AppointmentServlet</servlet-name>
-        <servlet-class>servlets.InfinitePetsServlets.AppointmentServlet</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>ClientContractServlet</servlet-name>
         <servlet-class>servlets.InfinitePetsServlets.contracts.ClientContractServlet</servlet-class>
     </servlet>
@@ -115,6 +111,14 @@
         <servlet-name>AvailableAppointmentsServleet</servlet-name>
         <servlet-class>servlets.InfinitePetsServlets.employeeAppointments.AvailableAppointmentsServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AddAppointmentServiceServlet</servlet-name>
+        <servlet-class>servlets.InfinitePetsServlets.AddAppointmentServiceServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AppointmentServlet</servlet-name>
+        <servlet-class>servlets.InfinitePetsServlets.AppointmentServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ViewPetServlet</servlet-name>
         <url-pattern>/ViewPet</url-pattern>
@@ -156,10 +160,6 @@
         <url-pattern>/DeleteAccount</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>AppointmentServlet</servlet-name>
-        <url-pattern>/Appointment</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>ClientContractServlet</servlet-name>
         <url-pattern>/ClientContract</url-pattern>
     </servlet-mapping>
@@ -198,6 +198,14 @@
     <servlet-mapping>
         <servlet-name>AvailableAppointmentsServleet</servlet-name>
         <url-pattern>/AvailableAppointments</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddAppointmentServiceServlet</servlet-name>
+        <url-pattern>/AddServiceToAppointment</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AppointmentServlet</servlet-name>
+        <url-pattern>/Appointment</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -299,7 +299,7 @@ public class ScheduleServices {
             return (List) unConfirmedAppts;
         }
         System.out.println("returning null");
-        // and then filter
+        
 
         return null;
     }

@@ -15,7 +15,7 @@
         <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
         <%@include file="testFiles/header.jsp" %>
-        <title>MyAppointments</title>
+        <title>Available Appointments</title>
     </head>
     <body>
          <div class="wrapper">
