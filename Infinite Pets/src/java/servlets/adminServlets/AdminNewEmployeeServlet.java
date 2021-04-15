@@ -8,6 +8,7 @@ package servlets.adminServlets;
 import java.io.IOException;
 import java.io.PrintWriter;
 import static java.lang.Boolean.getBoolean;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -56,7 +57,7 @@ public class AdminNewEmployeeServlet extends HttpServlet {
             String empEmail = request.getParameter("empEmail");
             AccountServices as = new AccountServices();
             Account empAccount = as.getAccount(empEmail);
-            Location empAddress = empAccount.getAddress();
+            Location empAddress = empAccount.getAddress();            
             request.setAttribute("empAddress", empAddress);
             request.setAttribute("empAccount", empAccount);
             request.setAttribute("action", "update");
@@ -93,8 +94,8 @@ public class AdminNewEmployeeServlet extends HttpServlet {
             String postal = request.getParameter("postal");
             String email = request.getParameter("email");
             String password = request.getParameter("password");
-            boolean isEmployee = getBoolean(request.getParameter("isEmployee"));
-            boolean isConfirmed = getBoolean(request.getParameter("isConfirmed"));
+            boolean isEmployee = Boolean.parseBoolean(request.getParameter("isEmployee"));
+            boolean isConfirmed = Boolean.parseBoolean(request.getParameter("isConfirmed"));
             AccountServices as = new AccountServices();
             ValidationServices vs = new ValidationServices();
             System.out.println("Print Employee Info");
@@ -103,12 +104,14 @@ public class AdminNewEmployeeServlet extends HttpServlet {
             //for loop to get the selected services available to the employee
             PetServicesServices pss = new PetServicesServices();
             List<Service> allServices = pss.getAllServices();   
-            List<Service> qList = null;            
+            List<Service> qList = new ArrayList<>();    
+            
             for (int i = 0; i < allServices.size(); i++){
-                if (getBoolean(request.getParameter(pss.getAllServices().get(i).getServiceName()))){
+                if (Boolean.parseBoolean(request.getParameter(allServices.get(i).getServiceName()))){
                     System.out.println("Service Name: "+allServices.get(i).getServiceName());
-                    System.out.println("Service available: "+request.getParameter(allServices.get(i).getServiceName()));
-                    qList.add(allServices.get(i));                   
+                    System.out.println("Service available: "+Boolean.parseBoolean(request.getParameter(allServices.get(i).getServiceName())));
+                    qList.add(allServices.get(i));
+                    System.out.println(qList);
                 }
             }
             

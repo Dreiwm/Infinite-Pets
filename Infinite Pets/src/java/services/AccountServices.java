@@ -9,6 +9,7 @@ import dataaccess.AccountDB;
 import dataaccess.EmpQualificationDB;
 import dataaccess.EmployeeDB;
 import dataaccess.LocationDB;
+import dataaccess.ServiceDB;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -71,15 +72,20 @@ public class AccountServices {
         //Set employee with an acount
         Employee employee = new Employee(0, false, false, true);
         employee.setUserID(account);
-        //Set employee qualifications
-        employee.setServiceList(qList);
-//        EmpQualificationDB eqDB = new EmpQualificationDB();
-//        for (int i = 0; i < qList.size(); i++){
-//            Empqualification eq = new Empqualification(0, employee.getEmployeeID(), qList.get(i).getServiceID());
-//            eqDB.insert(eq);
-//        }
         EmployeeDB empDB = new EmployeeDB();
+        employee.setServiceList(qList);
         empDB.insert(employee);
+        
+        ServiceDB servDB = new ServiceDB();
+        List<Service> allServices = servDB.getAllServices();
+        for (int i = 0; i < qList.size(); i++){
+            for (int j = 0; j < allServices.size(); j++){
+                if (allServices.get(j).equals(qList.get(i))){
+                    allServices.get(j).getEmployeeList().add(employee);
+                }
+            }
+        }
+
     }   
      
     //Create an adress object for an account 

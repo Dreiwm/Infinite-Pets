@@ -59,14 +59,14 @@ public class ServiceServices {
     }
 
     public List<Servicetype> getAllServiceTypesSpecificToEmployee(Employee e) {
-        //List<Empqualification> qList = eQTDB.getAllEmployeeQualifications(e.getEmployeeID());
+//        List<Empqualification> qList = eQTDB.getAllEmployeeQualifications(e.getEmployeeID());
         //ArrayList<Servicetype> qualifiedServiceTypeList = new ArrayList<>();
 
         // Get all qualified that belongs to given e Employee.
-        List<Service> qList = e.getServiceList(); // IDK if this will work or not.
-        for (Service eQT : qList) {
-            System.out.println(eQT.getServiceName());
-        }
+       List<Service> qList = e.getServiceList(); // IDK if this will work or not.
+//        for (Service eQT : qList) {
+//            System.out.println(eQT.getServiceName());
+//        }
         // Now we need to loop thr the eList, remove if can't be found in eList.
         // Nested loop.
 
