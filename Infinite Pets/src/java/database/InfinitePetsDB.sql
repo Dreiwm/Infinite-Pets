@@ -23,10 +23,10 @@ CREATE TABLE IF NOT EXISTS `infinitepetsdb`.`service` (
     `Active` BIT NOT NULL, -- currently available
     PRIMARY KEY (`ServiceID`),
     CONSTRAINT `fk_service_type`
-            FOREIGN KEY (ServiceTypeID)
-    REFERENCES infinitepetsdb.serviceType (ServiceTypeID)
-    ON DELETE CASCADE
-    ON UPDATE NO ACTION
+        FOREIGN KEY (ServiceTypeID)
+        REFERENCES infinitepetsdb.serviceType (ServiceTypeID)
+        ON DELETE CASCADE
+        ON UPDATE NO ACTION
 )
 ENGINE = InnoDB;
 
@@ -105,15 +105,6 @@ CREATE TABLE IF NOT EXISTS `infinitepetsdb`.`account` (
 )
 ENGINE = InnoDB;
 
--- QualificationType
-CREATE TABLE IF NOT EXISTS `infinitepetsdb`.`empQualificationType` (
-    `QualificationTypeID` INT NOT NULL AUTO_INCREMENT,
-    `QualificationName` VARCHAR(50) NOT NULL,
-    `QualificationDescription` VARCHAR(100) NOT NULL,
-    PRIMARY KEY (`QualificationTypeID`)
-)
-ENGINE = InnoDB;
-
 -- Employee
 -- this is just temporary, it's not complete.
 CREATE TABLE IF NOT EXISTS `infinitepetsdb`.`employee` (
@@ -160,21 +151,21 @@ ENGINE = InnoDB;
 -- This table will be referring (FK) to ServiceType and Employee
 CREATE TABLE IF NOT EXISTS `infinitepetsdb`.`empQualification` (
     `EmployeeID` INT NOT NULL,
-    `QualificationID` INT NOT NULL,
-    PRIMARY KEY (EmployeeID, QualificationID),
-    INDEX `fk_employeeidx` (`EmployeeID` ASC),
+    `ServiceID` INT NOT NULL,
+    PRIMARY KEY (EmployeeID, ServiceID),
+    INDEX `fk_employee_qualification_idx` (`EmployeeID` ASC),
     CONSTRAINT `fk_employeeid`
         FOREIGN KEY (EmployeeID)
-    REFERENCES infinitepetsdb.employee (EmployeeID)
-    ON DELETE CASCADE
-    ON UPDATE NO ACTION,
-    INDEX `fk_qualificationidx` (`QualificationID` ASC),
-    CONSTRAINT `fk_qualificationid`
-        FOREIGN KEY (QualificationID)
-    REFERENCES infinitepetsdb.empQualificationType (QualificationTypeID)
-    ON DELETE CASCADE
-    ON UPDATE NO ACTION
-    )
+        REFERENCES infinitepetsdb.employee (EmployeeID)
+        ON DELETE CASCADE
+        ON UPDATE NO ACTION,
+    INDEX `fk_qualification_service_idx` (`ServiceID` ASC),
+    CONSTRAINT `fk_qualfication_service`
+        FOREIGN KEY (ServiceID)
+        REFERENCES infinitepetsdb.service (ServiceID)
+        ON DELETE CASCADE
+        ON UPDATE NO ACTION
+)
 ENGINE = InnoDB;
 
 -- Animal Type Table
@@ -260,7 +251,7 @@ CREATE TABLE IF NOT EXISTS `infinitepetsdb`.`appointment` (
             REFERENCES `infinitepetsdb`.`employee` (`EmployeeID`)
             ON DELETE NO ACTION
             ON UPDATE NO ACTION
-) 
+)
 ENGINE = InnoDB;
 
 -- AppointmentService
@@ -583,7 +574,7 @@ INSERT INTO breed (animal_type_id, breed_name)
         (@dog, 'Wire Fox Terrier'),
         (@dog, 'Wirehaired Pointing Griffon'),
         (@dog, 'Xoloitzcuintli'),
-        (@dog, 'Yorkshire Terrier');		
+        (@dog, 'Yorkshire Terrier');
 
 -- Insert "all" of the cat breeds
 SELECT `animal_Type_ID`
