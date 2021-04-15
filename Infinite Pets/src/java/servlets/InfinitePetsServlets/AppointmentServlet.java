@@ -121,8 +121,7 @@ public class AppointmentServlet extends HttpServlet {
                         });
                         // don't trust using appt.getService etc. use this method isntead, idk why it isn't working 
                         request.setAttribute("apptServices", apptServices);
-                        
-                        
+
                     }
                 }
             }
@@ -196,11 +195,6 @@ public class AppointmentServlet extends HttpServlet {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
         Appointment appt = null;
-        try {
-            appt = new Appointment(1, sdf.parse("2021-03-30 06:00"), true, true, true);
-        } catch (ParseException ex) {
-            Logger.getLogger(AppointmentServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
 
         int apptId = Integer.parseInt(request.getParameter("apptId"));
 //        Appointment appt;
@@ -214,7 +208,7 @@ public class AppointmentServlet extends HttpServlet {
         if (action != null) {
             // now check for update
             if (action.equals("updateAppt")) {
-                System.out.println("updating appointment...");
+                System.out.println("updating appointment... ...");
                 // Create appointment object and send email to staff (if not null)
 
                 // set new info to appointment from parameters
@@ -238,9 +232,14 @@ public class AppointmentServlet extends HttpServlet {
                     appt.setAppointmentTime(sdf.parse(Integer.toString(hour)));
                     appt.setAppointmentDate(newDate);
 
-                    schs.updateAppointment(appt);
+                    System.out.println("successfully updated? " + schs.updateAppointment(appt));
 
                 } catch (ParseException ex) {
+                    System.out.println("uh oh seomethign wengt wrong? " + ex.getMessage());
+                    request.setAttribute("errorMsg", "Something is wrong with date, please try again.");
+                    Logger.getLogger(AppointmentServlet.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (Exception ex) {
+                    System.out.println("uh oh seomethign wengt wrong? " + ex.getMessage());
                     request.setAttribute("errorMsg", "Something is wrong with date, please try again.");
                     Logger.getLogger(AppointmentServlet.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -250,6 +249,13 @@ public class AppointmentServlet extends HttpServlet {
                 setAppointmentAttribute(appt, request, response);
                 setDateAttributes(appt, request, response);
 
+                List<Appointmentservice> apptServices = schs.getAllAppointmentServices(appt);
+
+                // don't trust using appt.getService etc. use this method isntead, idk why it isn't working 
+                System.out.println("setting apptServices attributes..");
+                request.setAttribute("apptServices", apptServices);
+
+                
                 getServletContext().getRequestDispatcher("/WEB-INF/Appointment.jsp").forward(request, response);
             } else if (action.equals("reqCancelAppt")) {
                 EmailService ems = new EmailService();
@@ -359,42 +365,6 @@ public class AppointmentServlet extends HttpServlet {
 
     }
 
-    /**
-     * Initializes the appointment from the form submission.
-     *
-     * @param request
-     * @param response
-     * @return returns Appointment object, which would be used to update an
-     * appointment.
-     */
-    private Appointment getAppointmentDateFromParameters(HttpServletRequest request, HttpServletResponse response) {
-        /**
-         * ***********
-         * Date ***********
-         */
-        String year, month, dayOfMonth, scheduleBlock, hour;
-
-        year = request.getParameter("selectYear");
-        month = request.getParameter("selectMonth");
-        dayOfMonth = request.getParameter("selectDayOfMonth");
-
-        // hour/min
-        scheduleBlock = request.getParameter("selectScheduleBlock");
-        hour = Integer.toString(ScheduleServices.getScheduleBlock(scheduleBlock));
-
-        // get appt id
-        int apptId = Integer.parseInt(request.getParameter("apptId"));
-
-        // get Appt from DB
-        ScheduleServices schs = new ScheduleServices();
-        Appointment appt = schs.getAppointmentById(apptId);
-        if (appt == null) {
-            request.setAttribute("errorMsg", "Uh oh! Something went wrong with udpating your appointment.");
-        }
-
-        return null;
-
-    }
 
     /**
      * Sets attributes related to AppointmentrServices with given Appointment
