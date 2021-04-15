@@ -13,18 +13,18 @@
         <filter-class>filters.AdminFilter</filter-class>
     </filter>
     <filter-mapping>
-        <filter-name>AdminFilter</filter-name>
+        <filter-name>UserFilter</filter-name>
+        <url-pattern>/User/*</url-pattern>
+        <url-pattern>/Staff/*</url-pattern>
         <url-pattern>/Admin/*</url-pattern>
     </filter-mapping>
     <filter-mapping>
         <filter-name>StaffFilter</filter-name>
         <url-pattern>/Staff/*</url-pattern>
         <url-pattern>/Admin/*</url-pattern>
-    </filter-mapping>
+    </filter-mapping>    
     <filter-mapping>
-        <filter-name>UserFilter</filter-name>
-        <url-pattern>/User/*</url-pattern>
-        <url-pattern>/Staff/*</url-pattern>
+        <filter-name>AdminFilter</filter-name>
         <url-pattern>/Admin/*</url-pattern>
     </filter-mapping>
     <servlet>
