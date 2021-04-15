@@ -7,6 +7,8 @@ package servlets.petServlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -15,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import models.Account;
+import models.Pet;
 import services.AccountServices;
 import services.AddPetServices;
 
@@ -28,21 +31,23 @@ public class MyPetsServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
-        
-        //REMOVE ME LATER!!!!!!!!!!!!!!
-        session.setAttribute("user", "cprg352+anne@gmail.com");
-        //REMOVE THE ABOVE LINE LATER!!!!!!!!!!!!  
-
-        Account owner = new Account();
+        String email = (String) session.getAttribute("email");
+        if (email.equals("") || email == null){
+            session.invalidate();
+            response.sendRedirect("Login");
+        }
+       
+        List<Pet> petList = new ArrayList<Pet>();
         AccountServices acs = new AccountServices();
         try {
-            owner = acs.getAccount((String)session.getAttribute("user"));
+            Account user = acs.getAccount(email);
+            petList = user.getPetList();
             
         } catch (Exception ex) {
             Logger.getLogger(MyPetsServlet.class.getName()).log(Level.WARNING, null, ex);
         }
         
-        request.setAttribute("pets", owner.getPetList());
+        request.setAttribute("pets", petList);
         
         getServletContext().getRequestDispatcher("/WEB-INF/MyPets.jsp").forward(request,response);
     }

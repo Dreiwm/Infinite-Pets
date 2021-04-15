@@ -7,7 +7,9 @@ package models;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -18,10 +20,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -72,12 +76,8 @@ public class Appointment implements Serializable {
     @JoinColumn(name = "EmployeeID", referencedColumnName = "EmployeeID")
     @ManyToOne(fetch = FetchType.EAGER)
     private Employee employeeID;
-    @JoinColumn(name = "PetID", referencedColumnName = "PetID")
-    @ManyToOne(fetch = FetchType.EAGER)
-    private Pet petID;
-    @JoinColumn(name = "ServiceID", referencedColumnName = "ServiceID")
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
-    private Service serviceID;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "appointmentID", fetch = FetchType.EAGER)
+    private List<Appointmentservice> appointmentserviceList;
 
     public Appointment() {
     }
@@ -166,20 +166,13 @@ public class Appointment implements Serializable {
         this.employeeID = employeeID;
     }
 
-    public Pet getPetID() {
-        return petID;
+    @XmlTransient
+    public List<Appointmentservice> getAppointmentserviceList() {
+        return appointmentserviceList;
     }
 
-    public void setPetID(Pet petID) {
-        this.petID = petID;
-    }
-
-    public Service getServiceID() {
-        return serviceID;
-    }
-
-    public void setServiceID(Service serviceID) {
-        this.serviceID = serviceID;
+    public void setAppointmentserviceList(List<Appointmentservice> appointmentserviceList) {
+        this.appointmentserviceList = appointmentserviceList;
     }
 
     @Override

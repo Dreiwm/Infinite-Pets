@@ -41,6 +41,9 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Employee.findByActive", query = "SELECT e FROM Employee e WHERE e.active = :active")})
 public class Employee implements Serializable {
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employeeID", fetch = FetchType.EAGER)
+    private List<Empqualification> empqualificationList;
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -56,16 +59,13 @@ public class Employee implements Serializable {
     @Basic(optional = false)
     @Column(name = "Active")
     private boolean active;
-    @JoinTable(name = "empservicepreference", joinColumns = {
-        @JoinColumn(name = "EmployeeID", referencedColumnName = "EmployeeID")}, inverseJoinColumns = {
-        @JoinColumn(name = "ServiceTypeID", referencedColumnName = "ServiceTypeID")})
-    @ManyToMany(fetch = FetchType.EAGER)
-    private List<Servicetype> servicetypeList;
     @JoinTable(name = "empqualification", joinColumns = {
         @JoinColumn(name = "EmployeeID", referencedColumnName = "EmployeeID")}, inverseJoinColumns = {
-        @JoinColumn(name = "QualificationID", referencedColumnName = "QualificationTypeID")})
+        @JoinColumn(name = "ServiceID", referencedColumnName = "ServiceID")})
     @ManyToMany(fetch = FetchType.EAGER)
-    private List<Empqualificationtype> empqualificationtypeList;
+    private List<Service> serviceList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employeeID", fetch = FetchType.EAGER)
+    private List<Empservicepreference> empservicepreferenceList;
     @OneToMany(mappedBy = "employeeID", fetch = FetchType.EAGER)
     private List<Appointment> appointmentList;
     @JoinColumn(name = "UserID", referencedColumnName = "UserId")
@@ -121,21 +121,21 @@ public class Employee implements Serializable {
     }
 
     @XmlTransient
-    public List<Servicetype> getServicetypeList() {
-        return servicetypeList;
+    public List<Service> getServiceList() {
+        return serviceList;
     }
 
-    public void setServicetypeList(List<Servicetype> servicetypeList) {
-        this.servicetypeList = servicetypeList;
+    public void setServiceList(List<Service> serviceList) {
+        this.serviceList = serviceList;
     }
 
     @XmlTransient
-    public List<Empqualificationtype> getEmpqualificationtypeList() {
-        return empqualificationtypeList;
+    public List<Empservicepreference> getEmpservicepreferenceList() {
+        return empservicepreferenceList;
     }
 
-    public void setEmpqualificationtypeList(List<Empqualificationtype> empqualificationtypeList) {
-        this.empqualificationtypeList = empqualificationtypeList;
+    public void setEmpservicepreferenceList(List<Empservicepreference> empservicepreferenceList) {
+        this.empservicepreferenceList = empservicepreferenceList;
     }
 
     @XmlTransient
@@ -187,6 +187,15 @@ public class Employee implements Serializable {
     @Override
     public String toString() {
         return "models.Employee[ employeeID=" + employeeID + " ]";
+    }
+
+    @XmlTransient
+    public List<Empqualification> getEmpqualificationList() {
+        return empqualificationList;
+    }
+
+    public void setEmpqualificationList(List<Empqualification> empqualificationList) {
+        this.empqualificationList = empqualificationList;
     }
     
 }

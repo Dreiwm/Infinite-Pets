@@ -13,18 +13,18 @@
         <filter-class>filters.AdminFilter</filter-class>
     </filter>
     <filter-mapping>
-        <filter-name>AdminFilter</filter-name>
+        <filter-name>UserFilter</filter-name>
+        <url-pattern>/User/*</url-pattern>
+        <url-pattern>/Staff/*</url-pattern>
         <url-pattern>/Admin/*</url-pattern>
     </filter-mapping>
     <filter-mapping>
         <filter-name>StaffFilter</filter-name>
         <url-pattern>/Staff/*</url-pattern>
         <url-pattern>/Admin/*</url-pattern>
-    </filter-mapping>
+    </filter-mapping>    
     <filter-mapping>
-        <filter-name>UserFilter</filter-name>
-        <url-pattern>/User/*</url-pattern>
-        <url-pattern>/Staff/*</url-pattern>
+        <filter-name>AdminFilter</filter-name>
         <url-pattern>/Admin/*</url-pattern>
     </filter-mapping>
     <servlet>
@@ -107,6 +107,14 @@
         <servlet-name>AdminNewEmployeeServlet</servlet-name>
         <servlet-class>servlets.adminServlets.AdminNewEmployeeServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>EmployeeServicePreferenceServlet</servlet-name>
+        <servlet-class>servlets.InfinitePetsServlets.employeePreferences.EmployeePreferencesServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AvailableAppointmentsServleet</servlet-name>
+        <servlet-class>servlets.InfinitePetsServlets.employeeAppointments.AvailableAppointmentsServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ViewPetServlet</servlet-name>
         <url-pattern>/ViewPet</url-pattern>
@@ -166,8 +174,8 @@
     <servlet-mapping>
         <servlet-name>NewPromotionServlet</servlet-name>
         <url-pattern>/NewPromotion</url-pattern>
-    </servlet-mapping> 
-    <servlet-mapping>   
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>AdminPetServices</servlet-name>
         <url-pattern>/PetServices</url-pattern>
     </servlet-mapping>
@@ -181,7 +189,15 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AdminNewEmployeeServlet</servlet-name>
-        <url-pattern>/NewEmployee</url-pattern>
+        <url-pattern>/Employee</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EmployeeServicePreferenceServlet</servlet-name>
+        <url-pattern>/WorkPreferences</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AvailableAppointmentsServleet</servlet-name>
+        <url-pattern>/AvailableAppointments</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
