@@ -9,7 +9,6 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -29,22 +28,22 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Riley
+ * @author BTran
  */
 @Entity
 @Table(name = "pet")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Pet.findAll", query = "SELECT p FROM Pet p"),
-    @NamedQuery(name = "Pet.findByPetID", query = "SELECT p FROM Pet p WHERE p.petID = :petID"),
-    @NamedQuery(name = "Pet.findBySex", query = "SELECT p FROM Pet p WHERE p.sex = :sex"),
-    @NamedQuery(name = "Pet.findBySpecies", query = "SELECT p FROM Pet p WHERE p.species = :species"),
-    @NamedQuery(name = "Pet.findByBreed", query = "SELECT p FROM Pet p WHERE p.breed = :breed"),
-    @NamedQuery(name = "Pet.findByPetName", query = "SELECT p FROM Pet p WHERE p.petName = :petName"),
-    @NamedQuery(name = "Pet.findByBirthday", query = "SELECT p FROM Pet p WHERE p.birthday = :birthday"),
-    @NamedQuery(name = "Pet.findByPreferredVet", query = "SELECT p FROM Pet p WHERE p.preferredVet = :preferredVet"),
-    @NamedQuery(name = "Pet.findByMedicalInfo", query = "SELECT p FROM Pet p WHERE p.medicalInfo = :medicalInfo"),
-    @NamedQuery(name = "Pet.findByImagePath", query = "SELECT p FROM Pet p WHERE p.imagePath = :imagePath")})
+    @NamedQuery(name = "Pet.findAll", query = "SELECT p FROM Pet p")
+    , @NamedQuery(name = "Pet.findByPetID", query = "SELECT p FROM Pet p WHERE p.petID = :petID")
+    , @NamedQuery(name = "Pet.findBySex", query = "SELECT p FROM Pet p WHERE p.sex = :sex")
+    , @NamedQuery(name = "Pet.findBySpecies", query = "SELECT p FROM Pet p WHERE p.species = :species")
+    , @NamedQuery(name = "Pet.findByBreed", query = "SELECT p FROM Pet p WHERE p.breed = :breed")
+    , @NamedQuery(name = "Pet.findByPetName", query = "SELECT p FROM Pet p WHERE p.petName = :petName")
+    , @NamedQuery(name = "Pet.findByBirthday", query = "SELECT p FROM Pet p WHERE p.birthday = :birthday")
+    , @NamedQuery(name = "Pet.findByPreferredVet", query = "SELECT p FROM Pet p WHERE p.preferredVet = :preferredVet")
+    , @NamedQuery(name = "Pet.findByMedicalInfo", query = "SELECT p FROM Pet p WHERE p.medicalInfo = :medicalInfo")
+    , @NamedQuery(name = "Pet.findByImagePath", query = "SELECT p FROM Pet p WHERE p.imagePath = :imagePath")})
 public class Pet implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -75,8 +74,8 @@ public class Pet implements Serializable {
     private String medicalInfo;
     @Column(name = "ImagePath")
     private String imagePath;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "petID", fetch = FetchType.EAGER)
-    private List<AppointmentService> appointmentServiceList;
+    @OneToMany(mappedBy = "petID", fetch = FetchType.EAGER)
+    private List<Appointment> appointmentList;
     @JoinColumn(name = "Owner", referencedColumnName = "UserId")
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Account owner;
@@ -170,12 +169,12 @@ public class Pet implements Serializable {
     }
 
     @XmlTransient
-    public List<AppointmentService> getAppointmentServiceList() {
-        return appointmentServiceList;
+    public List<Appointment> getAppointmentList() {
+        return appointmentList;
     }
 
-    public void setAppointmentServiceList(List<AppointmentService> appointmentServiceList) {
-        this.appointmentServiceList = appointmentServiceList;
+    public void setAppointmentList(List<Appointment> appointmentList) {
+        this.appointmentList = appointmentList;
     }
 
     public Account getOwner() {

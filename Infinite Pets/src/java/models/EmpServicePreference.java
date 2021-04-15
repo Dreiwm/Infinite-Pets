@@ -43,7 +43,7 @@ public class EmpServicePreference implements Serializable {
     private Employee employeeID;
     @JoinColumn(name = "ServiceTypeID", referencedColumnName = "ServiceTypeID")
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
-    private ServiceType serviceTypeID;
+    private Servicetype serviceTypeID;
 
     public EmpServicePreference() {
     }
@@ -68,11 +68,11 @@ public class EmpServicePreference implements Serializable {
         this.employeeID = employeeID;
     }
 
-    public ServiceType getServiceTypeID() {
+    public Servicetype getServiceTypeID() {
         return serviceTypeID;
     }
 
-    public void setServiceTypeID(ServiceType serviceTypeID) {
+    public void setServiceTypeID(Servicetype serviceTypeID) {
         this.serviceTypeID = serviceTypeID;
     }
 

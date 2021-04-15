@@ -49,7 +49,7 @@ public class ServiceServices {
      * @return returns list of ServiceTyoes. Returns null if either can't find
      * or an exception was thrown.
      */
-    public List<ServiceType> getAllServiceTypes() {
+    public List<Servicetype> getAllServiceTypes() {
         try {
             return sTDB.getAllServiceTypes();
         } catch (Exception ex) {
@@ -76,11 +76,11 @@ public class ServiceServices {
     /**
      * Returns the ServiceType with given ID.
      *
-     * @param id id used to queery the DB.
+     * @param id id used to query the DB.
      * @return returns null if there was an exception or table is empty.
      * Otherwise returns list of ServiceTypes.
      */
-    public ServiceType getServiceType(int id) {
+    public Servicetype getServiceType(int id) {
         try {
             return sTDB.get(id);
         } catch (Exception ex) {

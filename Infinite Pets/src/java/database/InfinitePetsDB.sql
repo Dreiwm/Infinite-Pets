@@ -21,8 +21,6 @@ CREATE TABLE IF NOT EXISTS `infinitepetsdb`.`service` (
     `ServiceDescription` TEXT CHARACTER SET utf16 COLLATE utf16_bin, -- 64 KB blob of text storage. will hold something like 2000 words,
     `BasePrice` DECIMAL(6,2) NOT NULL, -- can hold up to 9999.99, not that I expect anything to be more than 300, but youknow.
     `Active` BIT NOT NULL, -- currently available
-    `SpecifyPet` BIT NOT NULL, -- if the client needs to specify what pet will have the service, things like pet/house sitting, don't I'd imagine.
-    `DateRange` BIT NOT NULL, -- if it's a long term thing, again, the sitting
     PRIMARY KEY (`ServiceID`),
     CONSTRAINT `fk_service_type`
             FOREIGN KEY (ServiceTypeID)
@@ -339,12 +337,36 @@ INSERT INTO `location` (`LocationType`, `PostalCode`, `Address`, `City`, `Countr
 -- Insert into accounts
 INSERT INTO `account` (`PasswordHash`,`PasswordSalt`, `Email`, `FirstName`, `LastName`, `Address`, `IsEmployee`,`IsConfirmed`) -- all passwords are password
     VALUES 
+        ('F9A24809961A6191D77C6835A7672B7657B405A9399D146D6C3F4AA10A5D0367','-dEt#9&DStu!n}&N)$Q1&wf2~fFGh?Qr','.test+admin@gmail.com','Admin','Admin', 1, 1, 1),
+        ('8A3D18812F48173DBB7EC4027C675D5A7FDA1545B64D1A4FE7969C5EF0DF486C','N2+DoX6vp$kPf/tQ1}_zh*;WE`;QID5x','.test+employee@gmail.com','employee','employee', 2, 1, 1),
+        ('8DCC49B77BA19EA674DD910F630B4D0A91EFB335789475160F38F1225981D210','[Y+S^?N2[?gf?.>u.[#;XIQEc^i]6F{^','.test+anne@gmail.com','Anne','Annerson', 3, 0, 1),
+        ('46F34FC6F09D6E9FC6E4036468D1DDE040CC3E702EE1FD7231002F31CC1237DA',')H+Sj2sb,J!4J$g@wY,>>.]VW.WjdNn?','.test@gmail.com', 'BCCRS', 'Test', 5, 0, 1);
 
-        ('F9A24809961A6191D77C6835A7672B7657B405A9399D146D6C3F4AA10A5D0367','-dEt#9&DStu!n}&N)$Q1&wf2~fFGh?Qr','+admin@gmail.com','Admin','Admin', 1, 1, 1),
-        ('8A3D18812F48173DBB7EC4027C675D5A7FDA1545B64D1A4FE7969C5EF0DF486C','N2+DoX6vp$kPf/tQ1}_zh*;WE`;QID5x','test+employee@gmail.com','employee','employee', 2, 1, 1),
-        ('8DCC49B77BA19EA674DD910F630B4D0A91EFB335789475160F38F1225981D210','[Y+S^?N2[?gf?.>u.[#;XIQEc^i]6F{^','test+anne@gmail.com','Anne','Annerson', 3, 0, 1),
-        ('46F34FC6F09D6E9FC6E4036468D1DDE040CC3E702EE1FD7231002F31CC1237DA',')H+Sj2sb,J!4J$g@wY,>>.]VW.WjdNn?','test@gmail.com', 'BCCRS', 'Test', 5, 0, 1),
-        ('854DA3FB2A11166FB908499032F9CD50B932109BA67E0C26F2E08918BA91388F',']&J5jjL&=BxU<UEqn%Z`|O#XH9DxncN4','cprg352+barb@gmail.com','Barb','Barber', 4, 0, 1);
+
+-- Insert Service Types
+INSERT INTO `serviceType` (`ServiceType`) 
+    VALUES
+        ('Overnight'),
+        ('Dog Walk'),
+        ('Grooming'),
+        ('Medical');
+
+--Insert Services
+INSERT INTO `service` (`ServiceTypeID`, `ServiceName`, `ServiceDescription`, `BasePrice` , `Active`)
+    VALUES
+        (1, 'Dog Overnight Stay', 'One overnight stay for a dog', 75.00, 1),
+        (1, 'Cat Overnight Stay', 'One overnight stay for a Cat', 60.00, 1),
+        (2, 'One Hour for One Dog', 'One hour private dog walk for one dog (On Leash)', 35.00, 1),
+        (2, 'One Hour for Two Dogs', 'One hour private dog walk for two dogs (On Leash)', 45.00, 1),
+        (2, 'Half Hour for One Dog', 'Half hour private dog walk for one dog (On Leash)', 25.00, 1),
+        (2, 'Half Hour for two Dogs', 'Half hour private dog walk for two dogs (On Leash)', 30.00, 1),
+        (2, 'Group Walk', 'One hour dog walk for one dog (Off Leash)', 35.00, 1),
+        (3, 'Nail Trim', 'Cat nail trim', 20.00, 1),
+        (3, 'Nail Trim', 'Dog nail trim', 30.00, 1),
+        (3, 'Transport and Bath', 'Includes transport to off-site bathing facility, shampoo, blow dry and brush out', 35.00, 1),
+        (4, 'Insulin Injection', 'Personal insulin injection for their pet $10 per day', 10.00, 1),
+        (4, 'Medication Administration', 'Personal medical administration needed for their pet', 7.00, 1),
+        (4, 'Sub Que Fluid Administration', 'Personal sub que injection for needed pet', 15.00, 1);
 
 
 --         ('password','asdf+admin@gmail.com','Admin','Admin', 1, 1, 1),
