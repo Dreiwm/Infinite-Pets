@@ -36,8 +36,11 @@ public class ViewPetServlet extends HttpServlet {
         AddPetServices petServ = new AddPetServices();
         Pet targetPet = new Pet();
        
-        //REMOVE ME ONLY FOR TESTING
-        session.setAttribute("viewPetId", 1);
+        String email = (String) session.getAttribute("email");
+        if (email.equals("") || email == null){
+            session.invalidate();
+            response.sendRedirect("Login");
+        }
         
         try {
             //get the pet by the ID stored in the session.

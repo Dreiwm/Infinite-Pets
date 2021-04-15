@@ -28,18 +28,21 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Riley
+ * @author BTran
  */
 @Entity
 @Table(name = "employee")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Employee.findAll", query = "SELECT e FROM Employee e"),
-    @NamedQuery(name = "Employee.findByEmployeeID", query = "SELECT e FROM Employee e WHERE e.employeeID = :employeeID"),
-    @NamedQuery(name = "Employee.findByIsAdmin", query = "SELECT e FROM Employee e WHERE e.isAdmin = :isAdmin"),
-    @NamedQuery(name = "Employee.findByOnVacation", query = "SELECT e FROM Employee e WHERE e.onVacation = :onVacation"),
-    @NamedQuery(name = "Employee.findByActive", query = "SELECT e FROM Employee e WHERE e.active = :active")})
+    @NamedQuery(name = "Employee.findAll", query = "SELECT e FROM Employee e")
+    , @NamedQuery(name = "Employee.findByEmployeeID", query = "SELECT e FROM Employee e WHERE e.employeeID = :employeeID")
+    , @NamedQuery(name = "Employee.findByIsAdmin", query = "SELECT e FROM Employee e WHERE e.isAdmin = :isAdmin")
+    , @NamedQuery(name = "Employee.findByOnVacation", query = "SELECT e FROM Employee e WHERE e.onVacation = :onVacation")
+    , @NamedQuery(name = "Employee.findByActive", query = "SELECT e FROM Employee e WHERE e.active = :active")})
 public class Employee implements Serializable {
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employeeID", fetch = FetchType.EAGER)
+    private List<Empqualification> empqualificationList;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -56,13 +59,13 @@ public class Employee implements Serializable {
     @Basic(optional = false)
     @Column(name = "Active")
     private boolean active;
-    @JoinTable(name = "empQualification", joinColumns = {
+    @JoinTable(name = "empqualification", joinColumns = {
         @JoinColumn(name = "EmployeeID", referencedColumnName = "EmployeeID")}, inverseJoinColumns = {
-        @JoinColumn(name = "QualificationID", referencedColumnName = "QualificationTypeID")})
+        @JoinColumn(name = "ServiceID", referencedColumnName = "ServiceID")})
     @ManyToMany(fetch = FetchType.EAGER)
-    private List<EmpQualificationType> empQualificationTypeList;
+    private List<Service> serviceList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "employeeID", fetch = FetchType.EAGER)
-    private List<EmpServicePreference> empServicePreferenceList;
+    private List<Empservicepreference> empservicepreferenceList;
     @OneToMany(mappedBy = "employeeID", fetch = FetchType.EAGER)
     private List<Appointment> appointmentList;
     @JoinColumn(name = "UserID", referencedColumnName = "UserId")
@@ -118,21 +121,21 @@ public class Employee implements Serializable {
     }
 
     @XmlTransient
-    public List<EmpQualificationType> getEmpQualificationTypeList() {
-        return empQualificationTypeList;
+    public List<Service> getServiceList() {
+        return serviceList;
     }
 
-    public void setEmpQualificationTypeList(List<EmpQualificationType> empQualificationTypeList) {
-        this.empQualificationTypeList = empQualificationTypeList;
+    public void setServiceList(List<Service> serviceList) {
+        this.serviceList = serviceList;
     }
 
     @XmlTransient
-    public List<EmpServicePreference> getEmpServicePreferenceList() {
-        return empServicePreferenceList;
+    public List<Empservicepreference> getEmpservicepreferenceList() {
+        return empservicepreferenceList;
     }
 
-    public void setEmpServicePreferenceList(List<EmpServicePreference> empServicePreferenceList) {
-        this.empServicePreferenceList = empServicePreferenceList;
+    public void setEmpservicepreferenceList(List<Empservicepreference> empservicepreferenceList) {
+        this.empservicepreferenceList = empservicepreferenceList;
     }
 
     @XmlTransient
@@ -184,6 +187,15 @@ public class Employee implements Serializable {
     @Override
     public String toString() {
         return "models.Employee[ employeeID=" + employeeID + " ]";
+    }
+
+    @XmlTransient
+    public List<Empqualification> getEmpqualificationList() {
+        return empqualificationList;
+    }
+
+    public void setEmpqualificationList(List<Empqualification> empqualificationList) {
+        this.empqualificationList = empqualificationList;
     }
     
 }
