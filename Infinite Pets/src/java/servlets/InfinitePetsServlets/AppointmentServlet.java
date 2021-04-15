@@ -78,7 +78,7 @@ public class AppointmentServlet extends HttpServlet {
             int apptId;
 
             String reqParamForId = request.getParameter("apptId");
-
+            System.out.println(reqParamForId);
             if (reqParamForId != null) {
                 apptId = Integer.parseInt(request.getParameter("apptId"));
                 appt = schs.getAppointmentById(apptId);
@@ -100,6 +100,7 @@ public class AppointmentServlet extends HttpServlet {
 
             // check if action is deleteService
             String action = request.getParameter("action");
+            System.out.println("action = " + action);
             if (action != null) {
                 if (action.equals("deleteService")) {
                     String apptServiceIdStr = request.getParameter("apptServiceId");
@@ -140,7 +141,6 @@ public class AppointmentServlet extends HttpServlet {
             });
             // don't trust using appt.getService etc. use this method isntead, idk why it isn't working 
             request.setAttribute("apptServices", apptServices);
-
             getServletContext().getRequestDispatcher("/WEB-INF/Appointment.jsp").forward(request, response);
         } else {
             // send user to login page

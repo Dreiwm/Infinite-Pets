@@ -104,7 +104,7 @@
                                             <td>${apptService.getServiceID().getServiceName()} with with ${apptService.getPetID().getPetName()}</td>
                                             <!--Delete service-->
                                             <td>
-                                                <a href="<c:url value='Appointment'></c:url>?action=deleteService&apptServiceId=${apptService.getAppServID()}">X</a>
+                                                <a href="<c:url value='Appointment'></c:url>?action=deleteService&apptServiceId=${apptService.getAppServID()}&apptId=${appt.getAppointmentID()}">X</a>
                                             </td>
                                         </tr>
                                         <c:if test="${status.isLast()}">
