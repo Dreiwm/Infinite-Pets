@@ -56,7 +56,8 @@ public class ServiceDB {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         
         try {
-            return em.find(Service.class, serviceName);
+            Service serv = em.createNamedQuery("Service.findByServiceName",Service.class).setParameter("serviceName", serviceName).getSingleResult();          
+            return serv;
         } finally {
             em.close();
         }
