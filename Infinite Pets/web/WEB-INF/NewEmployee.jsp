@@ -31,14 +31,26 @@
                 <tr><td>Password:</td><td><input type="password" name="password" class="inputFields" value="${empAccount.passwordHash}"></td></tr>
                 <tr><td>Employee:</td><td><select name="isEmployee"><option value="false">No</option><option value="true" selected="true">Yes</option></select></td></tr>   
                 <tr><td>Confirm</td><td><select name="isConfirmed"><option value="false">No</option><option value="true" selected="true">Yes</option></select></td></tr>
+                <input type="hidden" name="oldEmail" value="${oldEmail}">
             </table>
             <h1>Employee Qualifications</h1>
             <table>
                 <tr><th>Name</th><th>Qualified</th></tr>
                 <c:forEach var="service" items="${services}">
-                    <tr><td>${service.key}</td><td><select name="${service.key}" id="${service.key}"><option value="${!service.value}">${!service.value}</option><option value="${service.value}" ${service.value == true ? 'selected' : ''}>${service.value}</option></select></td></tr>
-
-                    
+                    <tr><td>${service.key}</td><td>                <c:choose>       
+                    <c:when test = "${service.value == true}">
+			<select name="${service.key}" id="${service.key}">
+				<option value="true" selected>Yes</option>
+				<option value="false" >No</option>
+			</select>
+                    </c:when>
+                    <c:otherwise>
+                        <select name="${service.key}" id="${service.key}">
+				<option value="true" >Yes</option>
+				<option value="false" selected>No</option>
+			</select>
+                    </c:otherwise>
+                </c:choose> </td></tr>                  
                 </c:forEach>
             </table>           
              <div id="saveBtn" value="btn">

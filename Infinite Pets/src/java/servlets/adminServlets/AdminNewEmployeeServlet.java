@@ -76,7 +76,7 @@ public class AdminNewEmployeeServlet extends HttpServlet {
                     map.put(services.get(i).getServiceName(), check);
                 }
             }
-            
+            request.setAttribute("oldEmail", empAccount.getEmail());
             request.setAttribute("services", map);
             request.setAttribute("empAddress", empAddress);
             request.setAttribute("empAccount", empAccount);
@@ -84,14 +84,14 @@ public class AdminNewEmployeeServlet extends HttpServlet {
             }
             else if ((!action.equals("") || action != null) && action.equals("create")){
                 request.setAttribute("action", "create");  
-                
-                Map<String,Boolean> map = new HashMap<String,Boolean>();
+//                
+                Map<String,Boolean> newMap = new HashMap<String,Boolean>();
                 for (int i = 0; i < services.size(); i++){                
-                    map.put(services.get(i).getServiceName(), false);
+                    newMap.put(services.get(i).getServiceName(), false);
 
                 }
             
-                request.setAttribute("services", map);
+                request.setAttribute("services", newMap);
             }
         } catch(Exception e) {
             Logger.getLogger(AddPetServlet.class.getName()).log(Level.SEVERE, null, e);
@@ -112,8 +112,8 @@ public class AdminNewEmployeeServlet extends HttpServlet {
             throws ServletException, IOException {
         String action = request.getParameter("action");
         try {
-            HttpSession session = request.getSession();
-            String sessEmail = (String) session.getAttribute("email");
+            String oldEmail = request.getParameter("oldEmail");
+            
             String firstName = request.getParameter("firstName");
             String lastName = request.getParameter("lastName");
             String address = request.getParameter("address");
@@ -152,7 +152,7 @@ public class AdminNewEmployeeServlet extends HttpServlet {
                     as.createStaffAccount(password, email, firstName, location, lastName, qList);   //check this method                 
                 }
                 else if ((!action.equals("") || action != null) && action.equals("update")){
-                    as.updateStaffAccount(sessEmail ,password, email, firstName, lastName, address, city, prov, country, postal, area, isEmployee, isConfirmed, qList);
+                    as.updateStaffAccount(oldEmail ,password, email, firstName, lastName, address, city, prov, country, postal, area, isEmployee, isConfirmed, qList);
                 }
                 else {
                     getServletContext().getRequestDispatcher("/WEB-INF/Employee.jsp").forward(request,response);
