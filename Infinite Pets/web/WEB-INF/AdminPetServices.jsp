@@ -23,7 +23,7 @@
                 <input type="Submit" value="Add New Service">
             </form></div>
             <div><table>
-                    <tr><th>Name</th><th>Price</th><th>Description</th><th>Active</th><th>Service Type</th><th>Edit</th><th>Delete</th></tr>
+                <tr><th>Name</th><th>Price</th><th>Description</th><th>Active</th><th>Service Type</th><th>Edit</th><th>Delete</th></tr>
                 <c:forEach var="service" items="${services}">
                     <tr><td>${service.serviceName}</td><td>${service.basePrice}</td><td>${service.serviceDescription}</td><td>service.active</td><td>11</td>
                     <c:url value="Service" var="editurl">

@@ -14,8 +14,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import models.Account;
 import models.Employee;
-import models.Empqualificationtype;
+import models.Empqualification;
 import models.Location;
+import models.Service;
 
 /**
  *
@@ -57,7 +58,7 @@ public class AccountServices {
     
     //Create a staff Account and add it to the Database
      public void createStaffAccount(String password, String email, String firstName, Location address,
-            String lastName, List<Empqualificationtype> empqualificationtypeList)throws Exception{
+            String lastName, List<Service> qList)throws Exception{
         //Create an account
         AccountDB accountDB = new AccountDB();
         PasswordServices pServ = new PasswordServices();
@@ -70,7 +71,7 @@ public class AccountServices {
         Employee employee = new Employee(0, false, false, true);
         employee.setUserID(account);
         //Set employee qualifications
-        employee.setEmpqualificationtypeList(empqualificationtypeList);
+        employee.setServiceList(qList);
         EmployeeDB empDB = new EmployeeDB();
         empDB.insert(employee);
     }   

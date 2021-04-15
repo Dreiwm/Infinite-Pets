@@ -150,9 +150,10 @@ ENGINE = InnoDB;
 -- Employee Qualifications
 -- This table will be referring (FK) to ServiceType and Employee
 CREATE TABLE IF NOT EXISTS `infinitepetsdb`.`empQualification` (
+    `EmpQualificationID` INT NOT NULL AUTO_INCREMENT,
     `EmployeeID` INT NOT NULL,
     `ServiceID` INT NOT NULL,
-    PRIMARY KEY (EmployeeID, ServiceID),
+    PRIMARY KEY (EmpQualificationID),
     INDEX `fk_employee_qualification_idx` (`EmployeeID` ASC),
     CONSTRAINT `fk_employeeid`
         FOREIGN KEY (EmployeeID)
@@ -319,7 +320,7 @@ ENGINE = InnoDB;
 INSERT INTO `location` (`LocationType`, `PostalCode`, `Address`, `City`, `Country`, `Province`, `Area`)
     VALUES
         ('E','A1A 1A1', '1 Center Street', 'Calgary', 'Canada', 'Alberta', 'N'),
-        ('E','A2A2A2', '2CenterStreet', 'Calgary', 'Canada', 'Alberta', 'E'),
+        ('E','A2A 2A2', '2 Center Street', 'Calgary', 'Canada', 'Alberta', 'E'),
         ('R','A3A 3A3', '3 Center Street', 'Calgary', 'Canada', 'Alberta', 's'),
         ('R','A4A 4A4', '4 Center Street', 'Calgary', 'Canada', 'Alberta', 'W'),
         ('R','A5A 454', '5 Center Street', 'Calgary', 'Canada', 'Alberta', 'NW');
@@ -616,6 +617,7 @@ INSERT INTO pet(Sex, Species, Breed, PetName, Owner, Birthday)
 --     `Active` BIT NOT NULL, -- currently available
 --     `SpecifyPet` BIT NOT NULL, -- if the client needs to specify what pet will have the service, things like pet/house sitting, don't I'd imagine.
 --     `DateRange` BIT NOT NULL, -- if it's a long term thing, again, the sitting
+
 -- INSERT INTO service(ServiceTypeID, ServiceName, ServiceDescription, BasePrice, Active)
 --     VALUES
 --         (1, 'Dog Nail Clipping', 'The dog''s nails will be clipped to an appropriate length', 20.00, 1),
@@ -632,6 +634,7 @@ INSERT INTO pet(Sex, Species, Breed, PetName, Owner, Birthday)
 -- 	`EmployeeID` INT DEFAULT NULL,
 -- 	`Paid` BOOLEAN NOT NULL,
 -- 	`Active` BOOLEAN NOT NULL,
+
 INSERT INTO appointment(ClientID, AppointmentDate, Confirmed, AppointmentTime, EmployeeID, Paid, Active)
     VALUES
         (3, '2021-04-14', false, '09:00:00', 1, false, false),

@@ -42,6 +42,9 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Service.findByActive", query = "SELECT s FROM Service s WHERE s.active = :active")})
 public class Service implements Serializable {
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "serviceID", fetch = FetchType.EAGER)
+    private List<Empqualification> empqualificationList;
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -183,6 +186,15 @@ public class Service implements Serializable {
     @Override
     public String toString() {
         return "models.Service[ serviceID=" + serviceID + " ]";
+    }
+
+    @XmlTransient
+    public List<Empqualification> getEmpqualificationList() {
+        return empqualificationList;
+    }
+
+    public void setEmpqualificationList(List<Empqualification> empqualificationList) {
+        this.empqualificationList = empqualificationList;
     }
     
 }

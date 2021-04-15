@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import models.Account;
-import models.EmpServicePreference;
+import models.Empservicepreference;
 import models.Employee;
 import models.Servicetype;
 import services.AccountServices;
@@ -82,8 +82,8 @@ public class EmployeePreferencesServlet extends HttpServlet {
         // if tests were passed, this section will be read.
         // Sets attribute for employee's service preference
         ServiceServices ss = new ServiceServices();
-        List<EmpServicePreference> list = ss.getAllEmpServicePreferences();
-        for (EmpServicePreference esp : list) {
+        List<Empservicepreference> list = ss.getAllEmpServicePreferences();
+        for (Empservicepreference esp : list) {
             if (esp.getEmployeeID().equals(emp)) {
                 System.out.println(esp.getServiceTypeID().getServiceType());
             }
@@ -143,7 +143,7 @@ public class EmployeePreferencesServlet extends HttpServlet {
                 }
                 ServiceServices ss = new ServiceServices();
 
-                EmpServicePreference empSP = new EmpServicePreference(0);
+                Empservicepreference empSP = new Empservicepreference(0);
                 empSP.setServiceTypeID(ss.getServiceType(serviceTypeId));
                 empSP.setEmployeeID(e);
                 boolean success = false;

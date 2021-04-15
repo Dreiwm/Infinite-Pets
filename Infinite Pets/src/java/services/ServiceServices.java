@@ -5,16 +5,17 @@
  */
 package services;
 
-import dataaccess.EmpQualificationTypeDB;
+import dataaccess.EmpQualificationDB;
 import dataaccess.EmpServicePreferenceDB;
 import dataaccess.ServiceTypeDB;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import models.Empqualificationtype;
+import models.Empqualification;
 import models.Empservicepreference;
 import models.Employee;
+import models.Service;
 import models.Servicetype;
 
 /**
@@ -27,12 +28,12 @@ public class ServiceServices {
     
     private final ServiceTypeDB sTDB;
     private final EmpServicePreferenceDB eSPDB;
-    private final EmpQualificationTypeDB eQTDB;
+    private final EmpQualificationDB eQTDB;
     
     public ServiceServices() {
         sTDB = new ServiceTypeDB();
         eSPDB = new EmpServicePreferenceDB();
-        eQTDB = new EmpQualificationTypeDB();
+        eQTDB = new EmpQualificationDB();
     }
     
     /**
@@ -50,21 +51,13 @@ public class ServiceServices {
         }
     }
     
-    public List<Servicetype> getAllServiceTypesSpecificToEmployee(Employee e) {
-        List<Empqualificationtype> qList = eQTDB.getAllEmployeeQualificationTypes();
-        ArrayList<Servicetype> qualifiedServiceTypeList = new ArrayList<>();
-
-        // Get all qualified that belongs to given e Employee.
-        
-        qList = e.getEmpqualificationtypeList(); // IDK if this will work or not.
-        for (Empqualificationtype eQT : qList) {
-            System.out.println(eQT.getQualificationName());
-        }
-        // Now we need to loop thr the eList, remove if can't be found in eList.
-        // Nested loop.
-        
-        
-        return null;
+    /**
+     * 
+     * @param e
+     * @return 
+     */
+    public List<Service> getAllServiceTypesSpecificToEmployee(Employee e) {
+         return e.getServiceList();
     }
 
     /**

@@ -22,6 +22,7 @@
     <class>models.Servicetype_1</class>
     <class>models.Empservicepreference</class>
     <class>models.Appointmentservice</class>
+    <class>models.Empqualification</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
   </persistence-unit>
 </persistence>

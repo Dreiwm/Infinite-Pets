@@ -108,6 +108,11 @@
                                             </td>
                                         </tr>
                                         <c:if test="${status.isLast()}">
+                                            <tr>
+                                                <td>
+                                                    <a href="<c:url value='AddServiceToAppointment'></c:url>?apptId=${appt.getAppointmentID()}">Add Service</a>
+                                                </td>
+                                            </tr>
                                             </table>
                                         </c:if>
                                         <!--last item-->

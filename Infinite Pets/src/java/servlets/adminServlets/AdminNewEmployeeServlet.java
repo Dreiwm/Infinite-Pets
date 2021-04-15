@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import models.Account;
-import models.Empqualificationtype;
+import models.Empqualification;
 import models.Location;
 import models.Service;
 import services.AccountServices;
@@ -61,7 +61,8 @@ public class AdminNewEmployeeServlet extends HttpServlet {
             request.setAttribute("action", "update");
             }
             else if ((!action.equals("") || action != null) && action.equals("create")){
-                request.setAttribute("action", "create");
+                request.setAttribute("action", "create");                
+                request.setAttribute("services", services);
             }
         } catch(Exception e) {
             Logger.getLogger(AddPetServlet.class.getName()).log(Level.SEVERE, null, e);
@@ -103,8 +104,8 @@ public class AdminNewEmployeeServlet extends HttpServlet {
                 if (action.equals("create")){          
              
                     Location location = as.createAddress(postal, address, city, country, prov, area);
-                    List<Empqualificationtype> empqualificationtypeList = null;
-                    as.createStaffAccount(password, email, firstName, location, lastName, empqualificationtypeList);                    
+                    List<Service> qList = null;
+                    as.createStaffAccount(password, email, firstName, location, lastName, qList);                    
                 }
                 else if ((!action.equals("") || action != null) && action.equals("update")){
                     as.updateStaffAccount(password, email, firstName, lastName, address, city, prov, country, postal, area, isEmployee, isConfirmed);
