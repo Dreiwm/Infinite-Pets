@@ -6,6 +6,7 @@
 package services;
 
 import dataaccess.AccountDB;
+import dataaccess.EmpQualificationDB;
 import dataaccess.EmployeeDB;
 import dataaccess.LocationDB;
 import java.util.ArrayList;
@@ -72,6 +73,11 @@ public class AccountServices {
         employee.setUserID(account);
         //Set employee qualifications
         employee.setServiceList(qList);
+//        EmpQualificationDB eqDB = new EmpQualificationDB();
+//        for (int i = 0; i < qList.size(); i++){
+//            Empqualification eq = new Empqualification(0, employee.getEmployeeID(), qList.get(i).getServiceID());
+//            eqDB.insert(eq);
+//        }
         EmployeeDB empDB = new EmployeeDB();
         empDB.insert(employee);
     }   
