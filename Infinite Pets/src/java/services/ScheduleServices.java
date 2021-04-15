@@ -10,6 +10,7 @@ import dataaccess.AppointmentDB;
 import dataaccess.AppointmentServiceDB;
 import dataaccess.PetDB;
 import java.math.BigDecimal;
+import java.sql.Time;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -81,7 +82,7 @@ public class ScheduleServices {
      * *****NOTE - might have to set an admin bypass for them to book an
      * appointment for the pet*********
      */
-    private boolean verifyInfo(int appointmentID, Date appointmentDate, boolean confirmed, boolean paid, boolean active, int petID, int userID) {
+    private boolean verifyInfo(int petID, int userID) {
         boolean checked = false;
         try {
             PetDB petDB = new PetDB();
@@ -109,16 +110,23 @@ public class ScheduleServices {
     }
 
     //passes information to get checked before creating an appointment and adding it to the database
-    public void createAppointment(int appointmentID, Date appointmentDate, boolean confirmed, boolean paid, boolean active, int petID, int userID) {
+    public void createAppointment(Date appointmentDate, int userID, List<Appointmentservice> contents) {
         try {
             AppointmentDB apDB = new AppointmentDB();
-            if (verifyInfo(appointmentID, appointmentDate, confirmed, paid, active, petID, userID)) {
-                Appointment appointment = new Appointment(appointmentID, appointmentDate, confirmed, paid, active);
+            boolean check = false;
+            
+            for(Appointmentservice as: contents){
+                verifyInfo(as.getPetID().getPetID(),userID);
+            }
+            System.out.println("checking pets");
+            if (check==true) {
+                //make an new appointment and then add the AppointmentService list to it
+                Appointment appointment = new Appointment(0, appointmentDate, false, false, false);
+               // appointment.setAppointmentTime(appointmentTime);
+                appointment.setAppointmentserviceList(contents);
+                System.out.println("inserting appointemnt");
                 apDB.insert(appointment);
-                //persist to the Pets appointment List
-                PetDB petDB = new PetDB();
-//                Pet pet = petDB.getItemById(petID);
-//                pet.getAppointments.add(appointment);
+                System.out.println("appointemtn inserted");
             }
         } catch (Exception e) {
             Logger.getLogger(ScheduleServices.class.getName()).log(Level.SEVERE, null, e);
@@ -129,7 +137,7 @@ public class ScheduleServices {
     public void updateAppointment(int appointmentID, Date appointmentDate, boolean confirmed, boolean paid, boolean active, int petID, int userID) {
         try {
             AppointmentDB apDB = new AppointmentDB();
-            if (verifyInfo(appointmentID, appointmentDate, confirmed, paid, active, petID, userID) && verifyOwner(petID, userID)) {
+            if (verifyInfo(petID, userID) && verifyOwner(petID, userID)) {
                 Appointment appointment = apDB.getAppointmentById(appointmentID);
                
                 appointment.setAppointmentDate(appointmentDate);

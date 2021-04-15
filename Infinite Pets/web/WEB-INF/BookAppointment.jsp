@@ -56,9 +56,9 @@
     
                     <div class="timeInput">
                         <select name="time" id="submitTime">
-                            <option value="morn">Morning</option>
-                            <option value="after">Afternoon</option>
-                            <option value="eve">Evening</option>
+                            <c:forEach items="${timeList}" var="timeList">
+                                        <option value="${timeList}">${timeList}</option>
+                            </c:forEach>
                         </select>
                     </div>
     
@@ -67,10 +67,9 @@
                     </div>
                     <div class="petInput">
                         <select name="pet" id="pet">
-                            <option value="Pet 1">Pet 1</option>
-                            <option value="Pet 2">Pet 2</option>
-                            <option value="Pet 3">Pet 3</option>
-                            <option value="Pet 4">Pet 4</option>
+                            <c:forEach items="${petList}" var="lst">
+                                        <option value="${lst.petName}">${lst.petName}</option>
+                            </c:forEach>
                         </select>
                     </div>
     
@@ -80,10 +79,9 @@
                     
                     <div class="serviceInput">
                         <select name="service" id="service">
-                            <option value="Service1">Service 1</option>
-                            <option value="Service2">Service 2</option>
-                            <option value="Service3">Service 3</option>
-                            <option value="Service4">Service 4</option>
+                            <c:forEach items="${serviceList}" var="serLst">
+                                        <option value="${serLst.serviceName}">${serLst.serviceName}</option>
+                            </c:forEach>
                         </select>
                     </div>
     
@@ -128,6 +126,9 @@
                     <div class="cancelBtn">
                         <button>Cancel</button>
                     </div>
+                </div>
+                <div>${message}</div>
+            </div>
     <footer> <%@include file="testFiles/footer.jsp" %> </footer>
 </body>
 </html>

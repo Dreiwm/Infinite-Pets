@@ -32,7 +32,7 @@ public class PetServicesServices {
     }
     
     //Retrieves a specific Service requested
-    public Service getService(String serviceName) {
+    public Service getServiceByName(String serviceName) {
         ServiceDB serviceDB = new ServiceDB();
         return serviceDB.getServiceByName(serviceName);
     }
