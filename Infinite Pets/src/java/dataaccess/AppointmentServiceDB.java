@@ -93,7 +93,6 @@ public class AppointmentServiceDB {
             trans.commit();
             return true;
         } catch (Exception e) {
-            System.out.println(e.getMessage());
             Logger.getLogger(Appointmentservice.class.getName()).log(Level.SEVERE, "Cannot delete " + apptService.toString(), e);
             trans.rollback();
         } finally {

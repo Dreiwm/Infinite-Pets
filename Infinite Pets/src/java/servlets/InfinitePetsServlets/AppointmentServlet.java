@@ -214,7 +214,7 @@ public class AppointmentServlet extends HttpServlet {
 
                 // set new info to appointment from parameters
                 String month, day, year, schBlock;
-                int hour;
+                String hour;
                 sdf.applyPattern("MMM-dd-yyyy");
                 sdf.setLenient(false); // so it'll throw error if date is wrong
 
@@ -223,14 +223,15 @@ public class AppointmentServlet extends HttpServlet {
                 year = request.getParameter("selectYear");
                 schBlock = request.getParameter("selectScheduleBlock");
 
-                hour = ScheduleServices.getScheduleBlock(schBlock);
+                hour = ScheduleServices.getScheduleBlockInString(schBlock);
                 Date newDate = null;
                 try {
                     // For appointmentDate only
                     newDate = sdf.parse(month + "-" + day + "-" + year);
 
-                    sdf.applyPattern("hh");
-                    appt.setAppointmentTime(sdf.parse(Integer.toString(hour)));
+                    sdf.applyPattern("kk");
+                    System.out.println("hour from param" + hour);
+                    appt.setAppointmentTime(sdf.parse(hour));
                     appt.setAppointmentDate(newDate);
 
                     System.out.println("successfully updated? " + schs.updateAppointment(appt));

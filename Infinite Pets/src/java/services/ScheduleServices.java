@@ -281,6 +281,30 @@ public class ScheduleServices {
                 return -1;
         }
     }
+    
+     /**
+      * Returns an integer representing hour that corrsepends to a given schedule
+     * block.
+     *
+     * @param scheduleBlock a string representing a fully named schedule block
+     * (ie. Afternoon (12pm to 4pm).
+     * @return a String representing a hour that corrspends to a given
+     * schedule block. Returns null if no match is found.
+     **/
+    public static String getScheduleBlockInString(String scheduleBlock) {
+        switch (scheduleBlock) {
+            case EARLY_MORNING:
+                return "06";
+            case MORNING:
+                return "09";
+            case AFTERNOON:
+                return "12";
+            case EVENING:
+                return "16";
+            default:
+                return null;
+        }
+    }
 
     /**
      * Returns an integer representing start time of given Appointment object.
