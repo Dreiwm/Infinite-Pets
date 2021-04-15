@@ -199,4 +199,11 @@ public class ServiceServices {
     public boolean insertAppointmentService(AppointmentService apptService) {
         return asDB.insert(apptService);
     }
+
+    public boolean deleteAppointmentService(int apptServiceId) {
+        // et appointment service
+        AppointmentService apptService = asDB.getAppointmentById(apptServiceId);
+        return asDB.delete(apptService);
+    }
+    
 }

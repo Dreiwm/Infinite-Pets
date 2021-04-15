@@ -163,34 +163,33 @@ public class AddAppointmentServiceServlet extends HttpServlet {
 
                     // get service id
                     int serviceId = Integer.parseInt(request.getParameter("selectedServiceId"));
-                    
+
                     apptService.setAppointmentID(appt);
-                    
+
                     // get service
                     Service service = ss.getServiceById(serviceId);
-                    
+
                     // get pet
                     AddPetServices apDB = new AddPetServices();
                     Pet pet = apDB.getPetById(petId);
-                    
+
                     // add service to apptService
                     apptService.setServiceID(service);
-                    
+
                     // add pet to apptService
                     apptService.setPetID(pet);
-                    
+
                     System.out.println("add appointmentService...");
                     if (ss.insertAppointmentService(apptService)) {
                         System.out.println("inserted into.");
                     } else {
                         System.out.println("failed to be inserted into");
                     }
-                    
+
                     request.setAttribute("apptId", apptId);
-                    getServletContext().getRequestDispatcher("/WEB-INF/Appointment.jsp").forward(request, response);
-                    
+                    response.sendRedirect(response.encodeRedirectURL("Appointment?apptId=" + apptId));
                     return;
-                    
+
                 } catch (NumberFormatException e) {
                     request.setAttribute("errorMsg", "Sorry, there was an error. Please try again.");
                     System.out.println("Error with parsing int" + e.getMessage());
@@ -201,6 +200,13 @@ public class AddAppointmentServiceServlet extends HttpServlet {
                     Logger.getLogger(AddAppointmentServiceServlet.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 getServletContext().getRequestDispatcher(path).forward(request, response);
+            } else if (action.equals("Cancel")) {
+                System.out.println("going back..");
+                System.out.println("apptId: " + apptId);
+                request.setAttribute("apptId", apptId);
+//                getServletContext().getRequestDispatcher("/WEB-INF/Appointment.jsp").forward(request, response);
+                response.sendRedirect(response.encodeRedirectURL("Appointment?apptId=" + apptId));
+
             }
         }
 

@@ -78,8 +78,8 @@
                     
                     <br/><br/>
                     <!--Cancel-->
-                    <a href="<c:url value='/Appointment'></c:url>?apptId=${appt.getAppointmentID()}">Cancel</a>
-                   
+                    <!--<a href="<c:url value='/Appointment'></c:url>?apptId=${appt.getAppointmentID()}">Cancel</a>-->
+                    <input type="submit" name="action" value="Cancel">
                     <!--OK-->
                     <input type="submit" name="action" value="Ok">
                     <input type="hidden" name="apptId" value="${appt.getAppointmentID()}">

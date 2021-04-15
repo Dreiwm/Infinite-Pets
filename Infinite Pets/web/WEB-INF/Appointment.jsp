@@ -99,12 +99,12 @@
                                 <td>
                                     <!--Need to loop through services-->
                                     <table>
-                                    <c:forEach items="${appt.getAppointmentServiceList()}" var="apptService" varStatus="status">
+                                    <c:forEach items="${apptServices}" var="apptService" varStatus="status">
                                         <tr>
-                                            <td>${apptService.getServiceID().getServiceName()} with with ${apptService.getPetID().getPetName()}</td>
+                                            <td>${apptService.getServiceID().getServiceName()} with with ${apptService.getPetID().getPetName()} - $${apptService.getServiceID().getBasePrice()}</td>
                                             <!--Delete service-->
                                             <td>
-                                                <a href="<c:url value='Appointment'></c:url>?action=deleteService&apptServiceId=${apptService.getAppServID()}">X</a>
+                                                <a href="<c:url value='Appointment'></c:url>?apptId=${appt.getAppointmentID()}&action=deleteService&apptServiceId=${apptService.getAppServID()}">X</a>
                                             </td>
                                         </tr>
                                         <c:if test="${status.isLast()}">
@@ -131,12 +131,12 @@
                             </tr>
                         </table>
 
-                        <table class="tableData">
+<!--                        <table class="tableData">
                             <tr>
                                 <td>Price:</td>
-                                <!--<td>$<fmt:formatNumber maxFractionDigits="2" minFractionDigits="2" value=""/></td>-->
+                                <td>$<fmt:formatNumber maxFractionDigits="2" minFractionDigits="2" value=""/></td>
                             </tr>
-                        </table>
+                        </table>-->
                             
                         
 
