@@ -11,6 +11,7 @@ import java.sql.Time;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -118,8 +119,18 @@ public class BookAppointmentServlet extends HttpServlet {
                
                 SimpleDateFormat formater = new SimpleDateFormat("dd-MM-yyyy");
                 Date appointmentDate = formater.parse(date);
-                //time = String.valueOf(ScheduleServices.getScheduleBlock(time));
-                //Time appointmentTime = Time.valueOf(time);
+
+                //Get time integer from the ScheduleServices 
+                int timeInt = 0;
+                timeInt = ScheduleServices.getScheduleBlock(time);
+                //Convert the time int into a string and format into a localtime string 
+                if(timeInt<10)
+                    time = "0"+String.valueOf(timeInt)+":00";
+                else
+                    time = String.valueOf(timeInt)+":00";
+                //create the localTime object and then convert it to a sql time object
+                LocalTime localTime = LocalTime.parse(time);
+                Time appointmentTime = Time.valueOf(localTime);
                 //get the full list of pets from the user
                 Account user = as.getAccount(email);
                 List<Pet> pets = user.getPetList();
