@@ -79,11 +79,7 @@ public class AvailableAppointmentsServlet extends HttpServlet {
             }
         }
 
-        try {
-            setAttributes(request, response, emp);
-        } catch (ParseException ex) {
-            Logger.getLogger(AvailableAppointmentsServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        setAttributes(request, response, emp);
 
         // if tests were passed, this section will be read.
         getServletContext().getRequestDispatcher(path).forward(request, response);
@@ -112,11 +108,11 @@ public class AvailableAppointmentsServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private void setAttributes(HttpServletRequest request, HttpServletResponse response, Employee emp) throws ParseException {
+    private void setAttributes(HttpServletRequest request, HttpServletResponse response, Employee emp) {
         // get all services
         ScheduleServices schs = new ScheduleServices();
 //        schs.getAllAvailableAppointmentsByPreferences(emp);
-            request.setAttribute("availableAppts", schs.getAllAvailableAppointmentsByPreferences(emp));  //what is this suppose to grab emp.empPreferences?????
+            request.setAttribute("availableAppts", schs.getAllAvailableAppointmentsByPreferences(emp));
         
     }
 

@@ -11,7 +11,7 @@ import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import models.Appointment;
-import models.Appointmentservice;
+import models.AppointmentService;
 
 /**
  *
@@ -24,10 +24,10 @@ public class AppointmentServiceDB {
      * @param id to be found on DB
      * @return returns AppointmentService. Null if cannot be found.
      */
-    public Appointmentservice getAppointmentById(int id) {
+    public AppointmentService getAppointmentById(int id) {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         try {
-            return em.find(Appointmentservice.class, id);
+            return em.find(AppointmentService.class, id);
         } finally {
             em.close();
         }
@@ -39,7 +39,7 @@ public class AppointmentServiceDB {
      * @param apptService AppointmentService to be inserted into.
      * @return true if successfully inserted.
      */
-    public boolean insert(Appointmentservice apptService) {
+    public boolean insert(AppointmentService apptService) {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         EntityTransaction tr = em.getTransaction();
         
@@ -52,14 +52,14 @@ public class AppointmentServiceDB {
             if (tr.isActive())
                 tr.rollback();
             
-            Logger.getLogger(Appointmentservice.class.getName()).log(Level.SEVERE, "Cannot insert " + apptService.toString(), e); 
+            Logger.getLogger(AppointmentService.class.getName()).log(Level.SEVERE, "Cannot insert " + apptService.toString(), e); 
         } finally {
             em.close();
         }
         return false; 
     }
     
-    public boolean update(Appointmentservice apptService) {
+    public boolean update(AppointmentService apptService) {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         EntityTransaction tr = em.getTransaction();
         
@@ -73,14 +73,14 @@ public class AppointmentServiceDB {
             if (tr.isActive())
                 tr.rollback();
             
-            Logger.getLogger(Appointmentservice.class.getName()).log(Level.SEVERE, "Cannot update " + apptService.toString(), e); 
+            Logger.getLogger(AppointmentService.class.getName()).log(Level.SEVERE, "Cannot update " + apptService.toString(), e); 
         } finally {
             em.close();
         }
         return false;
     }
     
-    public boolean delete(Appointmentservice apptService) {
+    public boolean delete(AppointmentService apptService) {
         
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
        EntityTransaction trans = em.getTransaction();
@@ -104,19 +104,19 @@ public class AppointmentServiceDB {
      * Returns list all of the appointment services (for all users)
      * @return list of the appointmentServices.
      */
-    public List<Appointmentservice> getAllAppointmentServices() {
+    public List<AppointmentService> getAllAppointmentServices() {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         try {
-           return em.createNamedQuery("AppointmentService.findAll", Appointmentservice.class).getResultList();
+           return em.createNamedQuery("AppointmentService.findAll", AppointmentService.class).getResultList();
         } finally {
             em.close();
         }
     }
     
-    public List<Appointmentservice> getAllAppointmentServicesByAppointmentId(int apptId) {
+    public List<AppointmentService> getAllAppointmentServicesByAppointmentId(int apptId) {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         try {
-           return em.createNamedQuery("AppointmentService.", Appointmentservice.class).getResultList();
+           return em.createNamedQuery("AppointmentService.", AppointmentService.class).getResultList();
         } finally {
             em.close();
         }

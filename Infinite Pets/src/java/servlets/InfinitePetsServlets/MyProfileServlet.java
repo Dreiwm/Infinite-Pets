@@ -43,7 +43,6 @@ public class MyProfileServlet extends HttpServlet {
             HttpSession session = request.getSession();
             String email = (String) session.getAttribute("email");
             if (email.equals("") || email == null){
-                session.invalidate();
                 response.sendRedirect("Login");
             }
 //            String email = "cprg352+anne@gmail.com"; //REMOVE THIS PART AND UNCOMMENT ABOVE

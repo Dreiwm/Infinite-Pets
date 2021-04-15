@@ -24,7 +24,8 @@ public class ServiceDB {
      * @return list of services
      */
     public List<Service> getAllServices() {
-        EntityManager em = DBUtil.getEmFactory().createEntityManager();        
+        EntityManager em = DBUtil.getEmFactory().createEntityManager();
+        
         try {
             return em.createNamedQuery("Service.findAll", Service.class).getResultList();
         } finally {
@@ -56,8 +57,7 @@ public class ServiceDB {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         
         try {
-            Service serv = em.createNamedQuery("Service.findByServiceName",Service.class).setParameter("serviceName", serviceName).getSingleResult();          
-            return serv;
+            return em.find(Service.class, serviceName);
         } finally {
             em.close();
         }

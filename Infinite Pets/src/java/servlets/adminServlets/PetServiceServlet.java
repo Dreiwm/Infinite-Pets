@@ -38,7 +38,6 @@ public class PetServiceServlet extends HttpServlet {
         HttpSession session = request.getSession();
         String email = (String) session.getAttribute("email");
         if (email.equals("") || email == null){
-            session.invalidate();
             response.sendRedirect("Login");
         }
         try {

@@ -10,22 +10,22 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
-import models.Empqualification;
+import models.EmpQualificationType;
 
 /**
- * Responsible for interacting with Empqualification table in the database.
+ * Responsible for interacting with Empqualificationtype table in the database.
  * @author Riley
  */
-public class EmpQualificationDB {
+public class EmpQualificationTypeDB {
     /**
      * Returns all of the EmpQualificationTypes from DB
      * @return list of EmpQualificationTypes
      */
-    public List<Empqualification> getAllEmployeeQualifications(int employeeID) {
+    public List<EmpQualificationType> getAllEmployeeQualificationTypes() {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         
         try {
-            return em.createNamedQuery("Empqualification.findByEmployeeID", Empqualification.class).setParameter("EmployeeID", employeeID).getResultList();
+            return em.createNamedQuery("EmpQualificationType.findAll", EmpQualificationType.class).getResultList();
         } finally {
             em.close();
         }
@@ -36,11 +36,11 @@ public class EmpQualificationDB {
      * @param id the id of location to retrieve from DB
      * @return the EmpQualificationType.
      */
-    public Empqualification get(int id) {
+    public EmpQualificationType get(int id) {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         
         try {
-            return em.find(Empqualification.class, id);
+            return em.find(EmpQualificationType.class, id);
         } finally {
             em.close();
         }
@@ -53,7 +53,7 @@ public class EmpQualificationDB {
     * @throws java.lang.Exception if something went wrong with transaction.
 
      */
-    public boolean insert(Empqualification empQType) throws Exception {
+    public boolean insert(EmpQualificationType empQType) throws Exception {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         EntityTransaction tr = em.getTransaction();
         
@@ -67,7 +67,7 @@ public class EmpQualificationDB {
             if (tr.isActive()) {
                 tr.rollback();
             }
-            Logger.getLogger(Empqualification.class.getName()).log(Level.SEVERE, "Cannot insert " + empQType.toString(), e); 
+            Logger.getLogger(EmpQualificationType.class.getName()).log(Level.SEVERE, "Cannot insert " + empQType.toString(), e); 
 
         } finally {
             em.close();
@@ -81,7 +81,7 @@ public class EmpQualificationDB {
      * @return returns true if successfully updated.
      * @throws java.lang.Exception if something went wrong with transaction.
      */
-    public boolean update(Empqualification empQType) throws Exception {
+    public boolean update(EmpQualificationType empQType) throws Exception {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         EntityTransaction tr = em.getTransaction();
         
@@ -93,7 +93,7 @@ public class EmpQualificationDB {
         } catch (Exception e) {
             if (tr.isActive())
                 tr.rollback();
-            Logger.getLogger(Empqualification.class.getName()).log(Level.SEVERE, "Cannot update " + empQType.toString(), e); 
+            Logger.getLogger(EmpQualificationType.class.getName()).log(Level.SEVERE, "Cannot update " + empQType.toString(), e); 
         } finally {
             em.close();
         }
@@ -106,7 +106,7 @@ public class EmpQualificationDB {
      * @return if successfully deleted from the database.
      * @throws Exception  if something went with accessing the database.
      */
-    public boolean delete(Empqualification empQType) throws Exception {
+    public boolean delete(EmpQualificationType empQType) throws Exception {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         EntityTransaction tr = em.getTransaction();
         try{
@@ -117,7 +117,7 @@ public class EmpQualificationDB {
        } catch (Exception e){
            if (tr.isActive())
                tr.rollback();
-            Logger.getLogger(Empqualification.class.getName()).log(Level.SEVERE, "Cannot delete " + empQType.toString(), e); 
+            Logger.getLogger(EmpQualificationType.class.getName()).log(Level.SEVERE, "Cannot delete " + empQType.toString(), e); 
            
        }
        finally {
@@ -127,39 +127,39 @@ public class EmpQualificationDB {
     }
     
     // test
-//    public static void main(String[] args) throws Exception {
-//        EmpQualificationDB empQTDB = new EmpQualificationDB();
-//        
-//        Empqualification empQType0 = new Empqualification(0, "Dog Nail Clipping", "Skilled in nail clipping on the dogs");
-//        Empqualification empQType1 = new Empqualification(0, "Puppy Trainer", "Skilled in training the puppies.");
-//        
-//        
-//        // test insert two items
-//        System.out.println("Inserted in first item: " + empQTDB.insert(empQType0));
-//        System.out.println("Inserted in second item: " + empQTDB.insert(empQType1));
-//        
-//        
-//        // test get all
-//        System.out.println("Results after inserting...");
-//        empQTDB.getAllEmployeeQualificationTypes().forEach(empQType -> {
-//            System.out.println(empQType.Empqualification() + empQType.getQualificationDescription());
-//        });
-//        
-//        // test update
-//        empQType0 = empQTDB.get(1);
-//        empQType0.setQualificationDescription("Skilled in nail clipping on the dogs - varying sizes small to large.");
-//        System.out.println("Updated first item: " + empQTDB.update(empQType0));
-//        
-//        // test see result after updating
-//        System.out.println(empQTDB.get(1).getQualificationDescription());
-//        
-//        // remove first item
-//        System.out.println("Removed first item: " + empQTDB.delete(empQType0));
-//        
-//        // test see all items, sb be only one item in db (if you run this app once).
-//        System.out.println("Results after inserting...");
-//        empQTDB.getAllEmployeeQualificationTypes().forEach(empQType -> {
-//            System.out.println(empQType.getQualificationName() + empQType.getQualificationDescription());
-//        });
-//    }
+    public static void main(String[] args) throws Exception {
+        EmpQualificationTypeDB empQTDB = new EmpQualificationTypeDB();
+        
+        EmpQualificationType empQType0 = new EmpQualificationType(0, "Dog Nail Clipping", "Skilled in nail clipping on the dogs");
+        EmpQualificationType empQType1 = new EmpQualificationType(0, "Puppy Trainer", "Skilled in training the puppies.");
+        
+        
+        // test insert two items
+        System.out.println("Inserted in first item: " + empQTDB.insert(empQType0));
+        System.out.println("Inserted in second item: " + empQTDB.insert(empQType1));
+        
+        
+        // test get all
+        System.out.println("Results after inserting...");
+        empQTDB.getAllEmployeeQualificationTypes().forEach(empQType -> {
+            System.out.println(empQType.getQualificationName() + empQType.getQualificationDescription());
+        });
+        
+        // test update
+        empQType0 = empQTDB.get(1);
+        empQType0.setQualificationDescription("Skilled in nail clipping on the dogs - varying sizes small to large.");
+        System.out.println("Updated first item: " + empQTDB.update(empQType0));
+        
+        // test see result after updating
+        System.out.println(empQTDB.get(1).getQualificationDescription());
+        
+        // remove first item
+        System.out.println("Removed first item: " + empQTDB.delete(empQType0));
+        
+        // test see all items, sb be only one item in db (if you run this app once).
+        System.out.println("Results after inserting...");
+        empQTDB.getAllEmployeeQualificationTypes().forEach(empQType -> {
+            System.out.println(empQType.getQualificationName() + empQType.getQualificationDescription());
+        });
+    }
 }
