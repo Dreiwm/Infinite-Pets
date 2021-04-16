@@ -17,11 +17,12 @@ import models.Promotion;
  */
 public class PromotionServices {
     
-    /**
-     *
-     * @param id the id of promotion.
-     * @return returns promo from DB, null if cannot find.
-     */
+   /**
+    * 
+    * @param id the id of promotion.
+    * @return returns promo from DB, null if cannot find.
+    * @throws Exception general catch for any errors when getting promotions from the database
+    */
     public Promotion getPromotion(int id) throws Exception {
         PromotionDB pDB = new PromotionDB();
         
@@ -84,9 +85,11 @@ public class PromotionServices {
     }
     
     /**
+     *
      * Creates new promotion and insert into the DB.
      * @param p the promotion to be created.
      * @return true if successfully inserted. Otherwise false.
+     * @throws Exception general catch for any errors when getting promotions from the database
      */
     public boolean createPromotion(Promotion p) throws Exception {
         PromotionDB pDB = new PromotionDB();

@@ -97,11 +97,24 @@ public class AccountServices {
         return location;
      }
     
+
     /**
      * Updates an User Level Account and Address with provided info.
      * To insure security a new Account object is created using inputed info and
      * lists are added after
      * NOTE: NEED TO CHECK IF NEW EMAIL == CURRENT OR SHOULD REPLACE WHICH MEANS YOU CAN SEARCH BY EMAIL BUT BY ID
+     * @param password the new password
+     * @param email the new email
+     * @param firstName the updated first name
+     * @param lastName the updated last name
+     * @param isConfermed boolean if the account is conferred or not
+     * @param address updated address
+     * @param city updated city
+     * @param prov updated prov
+     * @param country updated country
+     * @param postal updated postal code
+     * @param area updated area
+     * @throws Exception general catch for any errors that may happen when updating account
      */
     public void updateUserAccount(String password, String email, String firstName, 
             String lastName, Boolean isConfermed, String address, String city, String prov, String country, String postal, String area)throws Exception{
@@ -160,7 +173,22 @@ public class AccountServices {
     /**
      * Updates an Staff Level Account with provided info.
      * To insure security a new Account object is created using inputed info and
-     * lists are added after
+     * lists are added after 
+     * @param currentID the current ID of the staff 
+     * @param password the updated password
+     * @param email the updated email
+     * @param firstName the updated first name
+     * @param lastName the updated last name
+     * @param address the updated address
+     * @param city the updated city
+     * @param prov the updated prov
+     * @param country the updated country
+     * @param postal the updated postal code
+     * @param area the updated area
+     * @param isEmployee update if the user is still an employee
+     * @param isConfirmed update if the account has been confermed
+     * @param qList A list of services 
+     * @throws Exception general catch for any errors when updating account to database
      */
     public void updateStaffAccount(String currentID,String password, String email, String firstName, 
             String lastName, String address, String city, String prov, String country, String postal, String area, boolean isEmployee, boolean isConfirmed, List<Service> qList)throws Exception{
@@ -256,9 +284,9 @@ public class AccountServices {
     
     /**
      * Returns the Employee model that is attached to the userID
-     * @param userId
-     * @return
-     * @throws Exception 
+     * @param userId the userID to use in getting an Employee from the DB
+     * @return Employee found by the given Id
+     * @throws Exception General catch that will any errors finding an employee
      */
     public Employee getEmployeeByUserId(Account userId)throws Exception{
         EmployeeDB empdb = new EmployeeDB();
@@ -291,6 +319,7 @@ public class AccountServices {
      * Returns the employee account based on Account object.
      * @param email the email to get an Employee object.
      * @return the Employee object. Null if not found.
+     * @throws Exception general catch to catch any errors when accessing the Database
      */
     public Employee getEmployeeAccount(String email) throws Exception {
         try {

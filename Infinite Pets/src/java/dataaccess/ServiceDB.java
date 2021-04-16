@@ -117,7 +117,8 @@ public class ServiceDB {
     /**
      * Updates the service.For Admin use.
      * @param service the service to be updated.
-     * @throws java.lang.Exception if somethign went wrong with transaction.
+     * @return boolean if the update was sucessfull
+     * @throws Exception java.lang.Exception if something went wrong with transaction.
      */
     public boolean update(Service service) throws Exception {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
@@ -140,7 +141,8 @@ public class ServiceDB {
     
     /**
      * For testing purposes only
-     * @param args 
+     * @param args the arguments of the test function
+     * @throws Exception insert exception caught generally
      */
     public static void main(String[] args) throws Exception {
         ServiceDB sb = new ServiceDB();
