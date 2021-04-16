@@ -31,7 +31,7 @@
                             <div class="petType">
                                 <label for="animal"> Select animal type</label>
                                 <select name="animal" id="animal">
-                                    <option value="">
+                                    <option value="" selected>
                                         Animal type
                                     </option>
                                     
@@ -40,8 +40,7 @@
                                     </c:forEach>
                                 </select>
                             </div>
-                            
-                            
+
                             <div class="petBreed">
                                 <label for="breed"> Select animal breed</label>
                                 <select name="breed" id="breed">
@@ -49,6 +48,7 @@
                                         Animal breed
                                     </option>
                                     <c:choose>
+
                                         <c:when test="${anlst.animalType == 'Dog'}">
                                             <c:forEach items="${dogBreeds}" var="breed">
                                                 <option value="${dogBreed.breedName}">${dogBreed.breedName}</option>
