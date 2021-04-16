@@ -86,7 +86,7 @@ CREATE TABLE IF NOT EXISTS `infinitepetsdb`.`account` (
     `UserId` INT NOT NULL AUTO_INCREMENT,
 	`PasswordHash` VARCHAR(64) NOT NULL,
 	`PasswordSalt` VARCHAR(32) NOT NULL,
-    `Email` VARCHAR(100) UNIQUE NOT NULL,
+    `Email` VARCHAR(100) NOT NULL,
     `FirstName` VARCHAR(50) NOT NULL,
     `LastName` VARCHAR(50) NOT NULL,
     `Address` INT NOT NULL,
@@ -650,7 +650,6 @@ INSERT INTO appointmentService(AppointmentID, ServiceID, PetID)
         (1, 2, 2),
         (2, 3, 2), 
         (2, 4, 2);
-
 
 -- insert EmpQUalification
 --     `EmployeeID` INT NOT NULL,

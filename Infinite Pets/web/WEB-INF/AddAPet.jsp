@@ -36,25 +36,30 @@
                                     </option>
                                     
                                     <c:forEach items="${animalList}" var="anlst">
-                                        <option value="${anlst.animalType}">${anlst.animalType}</option>
+                                        <option value="${anlst.animalType}" selected>${anlst.animalType}</option>
+                                    </c:forEach>
                                 </select>
                             </div>
+
                             <div class="petBreed">
                                 <label for="breed"> Select animal breed</label>
                                 <select name="breed" id="breed">
-                                    <option value="">
+                                    <option value="" id='default'>
                                         Animal breed
                                     </option>
                                     <c:choose>
-                                        <c:when test="${anlst.animalType} == 'dog'">
-                                            <c:forEach items="${dogBreeds}" var="dogBreed">
+
+                                        <c:when test="${anlst.animalType == 'Dog'}">
+                                            <c:forEach items="${dogBreeds}" var="breed">
                                                 <option value="${dogBreed.breedName}">${dogBreed.breedName}</option>
-                                            </c:forEach>                                          
+                                            </c:forEach>
+                                            
                                         </c:when>
-                                        <c:when test="${anlst.animalType} == 'cat'">
+                                        <c:when test="${anlst.animalType == 'Cat'}">
                                             <c:forEach items="${catBreeds}" var="catBreed">
                                                 <option value="${catBreed.breedName}">${catBreed.breedName}</option>
-                                            </c:forEach> 
+                                            </c:forEach>
+                                            
                                         </c:when>
                                         <c:otherwise>    
                                         <c:forEach items="${exoticBreeds}" var="exoticBreed">
@@ -62,10 +67,11 @@
                                         </c:forEach>
                                         </c:otherwise>
                                     </c:choose>
-                                    </c:forEach>
+                                    <%--</c:forEach>--%>                                  
                                 </select>
                             </div>
 
+                            
                             <div class="petNotes">
                                 <label for="medical">Additional Info:</label>                    
                                 <textarea name="medical" id="medical" placeholder="Any additional information we should know..."></textarea>
@@ -124,5 +130,24 @@
         </div>
         
         <footer> <%@include file="testFiles/footer.jsp" %> </footer>
+<!--        <script>
+    function setBreed(var breed) {
+        console.log(breed);
+    if (breed === "Dog"){
+        document.getElementByClassName("dog").style.display = "block";
+        document.getElementByClassName("cat").style.display = "none";
+        document.getElementByClassName("exotic").style.display = "none";
+    }
+    else if (breed === "Cat"){
+        document.getElementByClassName("dog").style.display = "none";
+        document.getElementByClassName("cat").style.display = "block";
+        document.getElementByClassName("exotic").style.display = "none";
+    }
+    else if (breed === "Bird"){
+        document.getElementByClassName("dog").style.display = "none";
+        document.getElementByClassName("cat").style.display = "none";
+        document.getElementByClassName("exotic").style.display = "block";
+    }}
+</script>-->
     </body>
 </html>

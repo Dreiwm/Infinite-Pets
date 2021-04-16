@@ -59,9 +59,15 @@ public class AddPetServlet extends HttpServlet {
             response.sendRedirect("Login");
         }
         
-        request.setAttribute("animalList", vs.getAnimalType());
-        request.setAttribute("breedList", vs.getBreedList());        
-       
+        try {
+            request.setAttribute("animalList", vs.getAnimalType());
+            //request.setAttribute("breedList", vs.getBreedList());
+            request.setAttribute("dogBreeds", aps.getDogBreeds());
+            request.setAttribute("catBreeds", aps.getCatBreeds());
+            request.setAttribute("exoticBreeds", aps.getExoticBreeds());
+        } catch (Exception ex) {
+            Logger.getLogger(AddPetServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
         getServletContext().getRequestDispatcher("/WEB-INF/AddAPet.jsp").forward(request,response);
     }
 
@@ -134,5 +140,50 @@ public class AddPetServlet extends HttpServlet {
         }    
     }
     
-    
 }
+
+
+//        HttpSession session = request.getSession();
+//        ValidationServices vs = new ValidationServices();
+//        
+//        request.setAttribute("animalList", vs.getAnimalType());
+//        request.setAttribute("breedList", vs.getBreedList());
+//       
+//        if(request.getParameter("action").toString().equals("cancel")){
+//            response.sendRedirect("MyPets");
+//        }
+//        else if(request.getParameter("action").toString().equals("save")){
+//            AddPetServices aps = new AddPetServices();
+//            
+//            System.out.println("making pet");
+//            String owner = (String)session.getAttribute("email");
+//            String petName = request.getParameter("petName");
+//            String sex = request.getParameter("sex");
+//            String type = request.getParameter("animal");
+//            String breed = request.getParameter("breed");
+//            String birthday = request.getParameter("birthday");
+//            String info = request.getParameter("medical");
+//            String vet = request.getParameter("vet");
+//            
+//            System.out.println("INPUT: "+petName+" "+type+" "+breed+" "+birthday+" "+vet+" "+info+" "+sex+" "+owner);
+//
+//            try{
+//                String msg = vs.checkInput(petName, type, breed, birthday, vet, info, sex, owner);
+//                if (msg.equals("Checked")){
+//                    System.out.println("going to aps");
+//                    aps.createPet(petName, type, breed, birthday, vet, info, sex, owner);
+//                    response.sendRedirect("MyPets");
+//                }
+//                else {
+//                    session.setAttribute("errorMsg", msg);
+//                    System.out.println(msg);
+//                    getServletContext().getRequestDispatcher("/WEB-INF/AddAPet.jsp").forward(request,response);
+////                    response.sendRedirect("AddPet");
+//                }
+//            }
+//            catch(Exception e){
+//                Logger.getLogger(AddPetServlet.class.getName()).log(Level.SEVERE, null, e);
+//            }
+//        }    
+//    }
+//    

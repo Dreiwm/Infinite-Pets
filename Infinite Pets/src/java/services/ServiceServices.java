@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import models.Appointment;
 import models.Appointmentservice;
 import models.Empqualification;
 import models.Empservicepreference;
@@ -135,14 +136,12 @@ public class ServiceServices {
      */
     public List<Empservicepreference> getAllEmpServicePreferencesBelongToEmp(Employee e) {
         List<Empservicepreference> list = getAllEmpServicePreferences();
-
         for (Empservicepreference esp : list) {
             if (!esp.getEmployeeID().equals(e)) {
                 list.remove(esp);
             }
         }
         return list;
-
     }
 
     /**
@@ -203,7 +202,9 @@ public class ServiceServices {
     public boolean deleteAppointmentService(int apptServiceId) {
         // et appointment service
         Appointmentservice apptService = asDB.getAppointmentById(apptServiceId);
+//        System.out.println("apptService null?" + apptService == null);
+        if (apptService == null) return false;
         return asDB.delete(apptService);
-    }
+    } 
     
 }

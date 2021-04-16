@@ -171,6 +171,9 @@ public class AccountServices {
             EmployeeDB empDB = new EmployeeDB();
             Employee employee = empDB.getByUserId(tempAccount);
             Employee tempEmp = employee;
+            Location location = account.getAddress();
+            Location tempLocation = location;
+            location = new Location(tempLocation.getLocationID(), tempLocation.getLocationType(), postal, address, city, country, prov, area);
             //check if old password and new passwords are the same if so use old password and salt else creat new hash and salt
             PasswordServices pServ = new PasswordServices();
             String passwordHash = null;
@@ -188,12 +191,34 @@ public class AccountServices {
             account = new Account(tempAccount.getUserId(), passwordHash, passwordSalt, email, firstName, lastName, isEmployee, isConfirmed);
             account.setAppointmentList(tempAccount.getAppointmentList());
             account.setEmployeeList(tempAccount.getEmployeeList());
+            account.setAddress(location);
             account.setPetList(tempAccount.getPetList());
             accountDB.updateAccount(account);
             
+//            tempAccount.setPasswordHash(passwordHash);
+//            tempAccount.setEmail(email);
+//            tempAccount.setPasswordSalt(passwordSalt);
+//            accountDB.updateAccount(tempAccount);
+           
             employee = new Employee(tempEmp.getEmployeeID(), false, false, isEmployee);
+            employee.setUserID(account);
+            employee.setServiceList(qList);
+            empDB.update(employee);
             
-            
+            ServiceDB servDB = new ServiceDB();
+            List<Service> allServices = servDB.getAllServices();
+            for (int i = 0; i < qList.size(); i++){
+                for (int j = 0; j < allServices.size(); j++){
+                    if (allServices.get(j).equals(qList.get(i)) && !allServices.get(j).getEmployeeList().contains(employee)){
+                        allServices.get(j).getEmployeeList().add(employee);
+                    }
+                    else if(allServices.get(j).getEmployeeList().contains(employee)){
+                        int index = allServices.get(j).getEmployeeList().indexOf(employee);
+                        allServices.get(j).getEmployeeList().remove(index);
+                    }
+                    servDB.update(allServices.get(j));
+                }                
+            }
             
             
         }
