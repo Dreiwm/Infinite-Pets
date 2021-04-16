@@ -119,6 +119,10 @@
         <servlet-name>AddServiceToAppointmentServlet</servlet-name>
         <servlet-class>servlets.InfinitePetsServlets.AddAppointmentServiceServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>MyAppointmentServlet</servlet-name>
+        <servlet-class>servlets.scheduleServlets.MyAppointmentServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ViewPetServlet</servlet-name>
         <url-pattern>/ViewPet</url-pattern>
@@ -206,6 +210,10 @@
     <servlet-mapping>
         <servlet-name>AddServiceToAppointmentServlet</servlet-name>
         <url-pattern>/AddServiceToAppointment</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MyAppointmentServlet</servlet-name>
+        <url-pattern>/MyAppointment</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

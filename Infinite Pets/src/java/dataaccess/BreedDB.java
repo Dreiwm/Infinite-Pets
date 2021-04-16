@@ -16,10 +16,10 @@ import models.Breed;
  */
 public class BreedDB {
     
-    public List<Breed> getBreedByAnimalId(String animal) throws Exception{
+    public List<Breed> getBreedByAnimalId(int animalType) throws Exception{
        EntityManager em = DBUtil.getEmFactory().createEntityManager();
        try{
-           List<Breed> allBreeds = em.createNamedQuery("Breed.findByAnimalTypeId", Breed.class).setParameter("animalTypeId", animal).getResultList();
+           List<Breed> allBreeds = em.createNamedQuery("Breed.findByAnimalTypeId", Breed.class).setParameter("animalTypeId", animalType).getResultList();
            return allBreeds;
        }
        finally{
