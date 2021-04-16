@@ -6,6 +6,8 @@
 package services;
 
 import dataaccess.ServiceDB;
+import java.math.BigDecimal;
+import java.math.MathContext;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import models.Service;
@@ -16,30 +18,64 @@ import models.Service;
  */
 public class AdminPetServices {
     
-    public void createService(){
+    public void createService(String name, double price, String des, boolean active){
         try {
             ServiceDB serviceDB = new ServiceDB();
-            if (checkServiceInfo()){
-                Service service = new Service();
+            if (checkServiceInfo(name, price, des)){
+                Service service = new Service(0);
+                service.setServiceName(name);
+                service.setBasePrice(new BigDecimal(price, MathContext.DECIMAL64));
+                service.setServiceDescription(des);
+                service.setActive(active);
+                ServiceDB sDB = new ServiceDB();
+                sDB.insert(service);
             }
         } catch (Exception e) {
             Logger.getLogger(PetServicesServices.class.getName()).log(Level.SEVERE, null, e);
         }
     }
 
-    public boolean deleteService(String serviceID) {
+    public boolean deleteService(Service service) {
         boolean removed = false;
         try {
-            
+            ServiceDB sDB = new ServiceDB();
+            sDB.delete(service);
+            removed = true;
         }catch(Exception e){
             
         }
         return removed;
     }
     
+    public boolean updateService(Service oldService, String name, double price, String des, boolean active){
+        boolean updated = false;
+        try{
+            ServiceDB sDB = new ServiceDB();
+            Service newService = new Service(oldService.getServiceID());
+            Service service = new Service(0);
+            service.setServiceName(name);
+            service.setBasePrice(new BigDecimal(price, MathContext.DECIMAL64));
+            service.setServiceDescription(des);
+            service.setActive(active);
+            sDB.update(service);
+        }catch(Exception e){
+            
+        }
+        return updated;
+    }
+    
     //validates input before creating service
-    private boolean checkServiceInfo(){
-        boolean checked = false;
+    public boolean checkServiceInfo(String name, double price, String des){
+        boolean checked = true;
+        
+        //Check the input for ilegal values
+        if(name == null || name == "")
+            checked = false;
+        if(price == 0.0 || price < 0.01 )
+            checked = false;
+        if(des == null || des =="")
+            checked = false;
+        
         return checked;
     }
     

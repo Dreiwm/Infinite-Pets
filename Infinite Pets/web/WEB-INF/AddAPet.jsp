@@ -31,23 +31,37 @@
                             <div class="petType">
                                 <label for="animal"> Select animal type</label>
                                 <select name="animal" id="animal">
-                                    <option value="">
+                                    <option value="" selected>
                                         Animal type
                                     </option>
+                                    
                                     <c:forEach items="${animalList}" var="anlst">
                                         <option value="${anlst.animalType}">${anlst.animalType}</option>
-                                    </c:forEach>
                                 </select>
                             </div>
-
                             <div class="petBreed">
                                 <label for="breed"> Select animal breed</label>
                                 <select name="breed" id="breed">
                                     <option value="">
                                         Animal breed
                                     </option>
-                                    <c:forEach items="${breedList}" var="lst">
-                                        <option value="${lst.breedName}">${lst.breedName}</option>
+                                    <c:choose>
+                                        <c:when test="${anlst.animalType} == 'dog'">
+                                            <c:forEach items="${dogBreeds}" var="dogBreed">
+                                                <option value="${dogBreed.breedName}">${dogBreed.breedName}</option>
+                                            </c:forEach>                                          
+                                        </c:when>
+                                        <c:when test="${anlst.animalType} == 'cat'">
+                                            <c:forEach items="${catBreeds}" var="catBreed">
+                                                <option value="${catBreed.breedName}">${catBreed.breedName}</option>
+                                            </c:forEach> 
+                                        </c:when>
+                                        <c:otherwise>    
+                                        <c:forEach items="${exoticBreeds}" var="exoticBreed">
+                                                <option value="${exoticBreed.breedName}">${exoticBreed.breedName}</option>
+                                        </c:forEach>
+                                        </c:otherwise>
+                                    </c:choose>
                                     </c:forEach>
                                 </select>
                             </div>

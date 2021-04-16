@@ -95,6 +95,25 @@ public class ServiceDB {
         return false;
     }
     
+    public boolean delete(Service service) throws Exception{
+          EntityManager em = DBUtil.getEmFactory().createEntityManager();
+        EntityTransaction tr = em.getTransaction();
+        try {
+           tr.begin();
+           em.remove(em.merge(service));
+           tr.commit();
+           return true;
+       } catch (Exception e){
+           if (tr.isActive())
+               tr.rollback();
+            Logger.getLogger(Service.class.getName()).log(Level.SEVERE, "Cannot delete " + service.toString(), e); 
+       }
+       finally {
+           em.close();
+       }
+        return false;
+    }
+    
     /**
      * Updates the service.For Admin use.
      * @param service the service to be updated.
