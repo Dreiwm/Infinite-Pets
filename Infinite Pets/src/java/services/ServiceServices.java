@@ -36,6 +36,7 @@ public class ServiceServices {
     private final ServiceDB sDB;
     private final AppointmentServiceDB asDB;
 
+    
     public ServiceServices() {
         sTDB = new ServiceTypeDB();
         eSPDB = new EmpServicePreferenceDB();
@@ -59,6 +60,11 @@ public class ServiceServices {
         }
     }
 
+    /**
+     * 
+     * @param e is the employee getting the services types
+     * @return a list of service types
+     */
     public List<Servicetype> getAllServiceTypesSpecificToEmployee(Employee e) {
 //        List<Empqualification> qList = eQTDB.getAllEmployeeQualifications(e.getEmployeeID());
         //ArrayList<Servicetype> qualifiedServiceTypeList = new ArrayList<>();
@@ -91,10 +97,10 @@ public class ServiceServices {
     }
 
     /**
-     * Inserts empServicePrefrence from DB.
-     *
+     * 
      * @param empSP the EmpServicePreference to be inserted into.
      * @return returns true if successfully inserted into DB.
+     * @throws Exception for null pointers
      */
     public boolean insertEmpServicePreference(Empservicepreference empSP) throws Exception {
         EmpServicePreferenceDB empSPDB = new EmpServicePreferenceDB();
@@ -183,8 +189,12 @@ public class ServiceServices {
     }
 
     /**
-     * Returns service using given service id.
+     
+     */
+    /**
+     * 
      * @param serviceId the service id sued to query on the database.
+     * @return a service using given service id
      */
     public Service getServiceById(int serviceId) {
         return sDB.getServiceById(serviceId);
@@ -198,7 +208,12 @@ public class ServiceServices {
     public boolean insertAppointmentService(Appointmentservice apptService) {
         return asDB.insert(apptService);
     }
-
+    
+    /**
+     * 
+     * @param apptServiceId is the current selected service to delete
+     * @return a boolean if the service was deleted
+     */
     public boolean deleteAppointmentService(int apptServiceId) {
         // et appointment service
         Appointmentservice apptService = asDB.getAppointmentById(apptServiceId);

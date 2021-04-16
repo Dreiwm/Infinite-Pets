@@ -61,12 +61,23 @@ public class ScheduleServices {
 //        return apDB.getScheduleBlocks();
 //    }
     //Retrieves a list of appointments the logged in user has
+    /**
+     * 
+     * @param userID to get all the appointments for
+     * @return a list of appointments for that user
+     * @throws Exception null pointer for the userID
+     */
     public List<Appointment> getAllAppointments(int userID) throws Exception {
         AppointmentDB apDB = new AppointmentDB();
         return apDB.getAllAppointments();
     }
 
     //Retrieves a list of apppointments a specific pet has
+    /**
+     * 
+     * @param userID is the current user ID to get appointments
+     * @return a list of appointments
+     */
     public List<Appointment> getAllAppointmentsByUserId(int userID) {
         AppointmentDB apDB = new AppointmentDB();
         return apDB.getAllAppointmentsByUserId(userID);
@@ -75,8 +86,8 @@ public class ScheduleServices {
     //Retrieves a list of apppointments a specific pet has
     /**
      * 
-     * @param appointmentID
-     * @return 
+     * @param appointmentID is the current appointment selected
+     * @return an appointment matching the id
      */
     public Appointment getAppointmentById(int appointmentID) {
         AppointmentDB apDB = new AppointmentDB();
@@ -87,6 +98,12 @@ public class ScheduleServices {
     /**
      * *****NOTE - might have to set an admin bypass for them to book an
      * appointment for the pet*********
+     */
+    /**
+     * 
+     * @param petID is the current petID
+     * @param userID is the current userID
+     * @return 
      */
     private boolean verifyInfo(int petID, int userID) {
         boolean checked = false;
@@ -102,6 +119,12 @@ public class ScheduleServices {
         return checked;
     }
 
+    /**
+     * 
+     * @param petID is the current petID
+     * @param userID is the current userID
+     * @return 
+     */
     private boolean verifyOwner(int petID, int userID) {
         boolean checked = false;
         PetDB petdb = new PetDB();
@@ -116,6 +139,13 @@ public class ScheduleServices {
     }
 
     //passes information to get checked before creating an appointment and adding it to the database
+    /**
+     * 
+     * @param appointmentDate is the selected date
+     * @param time is the selected time
+     * @param user is the owner making the booking
+     * @param contents list of appointment services being booked
+     */
     public void createAppointment(Date appointmentDate, Time time, Account user, List<Appointmentservice> contents) {
         try {
             AppointmentDB apDB = new AppointmentDB();
@@ -147,6 +177,16 @@ public class ScheduleServices {
     }
 
     //passes information to get checked before updating an appointment and adding it to the database
+    /**
+     * 
+     * @param appointmentID is the appointment id
+     * @param appointmentDate is the current appointment date
+     * @param confirmed is it confirmed
+     * @param paid is paid boolean
+     * @param active is active boolean
+     * @param petID a pet id
+     * @param userID the owners id
+     */
     public void updateAppointment(int appointmentID, Date appointmentDate, boolean confirmed, boolean paid, boolean active, int petID, int userID) {
         try {
             AppointmentDB apDB = new AppointmentDB();
@@ -222,6 +262,10 @@ public class ScheduleServices {
         return null;
     }
 
+    /**
+     * 
+     * @return a list of time blocks
+     */
     public static List<String> getScheduleBlockList() {
         ArrayList<String> list = new ArrayList<>();
 
@@ -328,9 +372,9 @@ public class ScheduleServices {
     }
 
     /**
-     * Returns all available appointments - unconfirmed appointments.
-     *
-     * @return returns list of available appointments.
+     * 
+     * @return a list of appointments
+     * @throws ParseException for parsing an appointment ID
      */
     public List<Appointment> getAllAvailableAppointments() throws ParseException {
         AppointmentDB apDB = new AppointmentDB();
@@ -355,11 +399,10 @@ public class ScheduleServices {
     }
 
     /**
-     * Returns all available appointments (unconfirmed) filtered by
-     * EmpServicePreference.
-     *
+     * 
      * @param e the Employee to used to filter.
      * @return the list of the available appointments selected by employee.
+     * @throws ParseException for parsing the appointmentID
      */
     public List<Appointment> getAllAvailableAppointmentsByPreferences(Employee e) throws ParseException {
 
@@ -404,13 +447,16 @@ public class ScheduleServices {
 
     }
     
+    /**
+     * 
+     * @param e is an employee object
+     * @return a list of appointments
+     */
     public List<Appointment> getAllAppointments(Employee e){
         List<Service> qList = e.getServiceList();
         AppointmentDB apptDB = new AppointmentDB();
         List<Appointment> allAppts = apptDB.getAllAppointments();
-        List<Appointment> availAppts = new ArrayList();
-        
-        
+        List<Appointment> availAppts = new ArrayList();               
         for (int i = 0; i < allAppts.size(); i++){
             if (allAppts.get(i).getEmployeeID() == null){
                 System.out.println("TEST NULL");
@@ -431,13 +477,10 @@ public class ScheduleServices {
     }
 
     /**
-     * Returns true if serviceType found in AppointmentService matches. If
-     * cannot be found (ie. no match), return false. Else return true.
-     *
-     * @param empSPList the EmpServicePreference list as a reference for
-     * matching.
-     * @param apptS AppointmentService used to match with EmpServicePreference
-     * @return
+     * 
+     * @param appS
+     * @param empSPList
+     * @return 
      */
     private boolean isAppointmentServiceInWorkPrefence(Appointmentservice appS, List<Empservicepreference> empSPList) {
         // looping joys.
@@ -452,11 +495,9 @@ public class ScheduleServices {
     }
 
     /**
-     * Returns all AppointmentService objects with given Appointment object.
-     *
-     * @param apptId to use with.
-     * @return returns list of AppointmentServices with given appointment
-     * object.
+     * 
+     * @param appt is the appointment
+     * @return  list of appointment services
      */
     public List<Appointmentservice> getAllAppointmentServices(Appointment appt) {
         AppointmentServiceDB aptSDB = new AppointmentServiceDB();
@@ -481,6 +522,12 @@ public class ScheduleServices {
         return apDB.update(appt);
     }
 
+    /**
+     * 
+     * @param apptID is the appointment id
+     * @param email is the employee email
+     * @throws Exception for null pointer
+     */
     public void setAppointmentEmpID(int apptID, String email) throws Exception {
         AppointmentDB appDB = new AppointmentDB();
         Appointment appt = appDB.getAppointmentById(apptID);
