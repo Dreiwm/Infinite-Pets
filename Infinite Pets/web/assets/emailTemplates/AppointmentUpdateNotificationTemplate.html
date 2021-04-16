@@ -1,16 +1,22 @@
 <html>
     <head>
-        <title>Infinite Pets - Client Cancelled An Appointment</title>
+        <title>Infinite Pets - Client Updated An Appointment</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
         <h1>Infinite Pets</h1>
-        <h2>Appointment Cancelled by {{clientFirstName}}</h2>
-       
+        <h2>Appointment Updated by {{clientFirstName}}</h2>
+
         <p>
             Hi, <br/>
-            {{clientFirstName}} have cancelled appointment on {{cancellationDate}}.
+            {{clientFirstName}} have updated appointment information on {{updateDate}}.
+            <br/>
+        Appointment Date: {{apptDate}}<br/>
+        <ul>
+            {{services}}
+        </ul>
+
         </p>
         <p>
             This is an automated message. Please do not reply.

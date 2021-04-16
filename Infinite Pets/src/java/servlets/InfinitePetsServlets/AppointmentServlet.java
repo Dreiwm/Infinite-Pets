@@ -88,6 +88,14 @@ public class AppointmentServlet extends HttpServlet {
                 apptId = Integer.parseInt((String) request.getAttribute("apptId"));
                 appt = schs.getAppointmentById(apptId);
             }
+
+            // final check, if appt is null, kick to appointments list
+            if (appt == null) {
+                request.setAttribute("errorMsg", "Sorry about that. We can't find requested appointment.");
+                getServletContext().getRequestDispatcher("/WEB-INF/MyAppointments.jsp").forward(request, response);
+                return;
+            }
+
             // Check if this appt doesn't beong to owner
             // if not, redirect to login page.
             if (!appt.getClientID().equals(acc)) {
@@ -118,6 +126,16 @@ public class AppointmentServlet extends HttpServlet {
                         ServiceServices ss = new ServiceServices();
                         if (!ss.deleteAppointmentService(apptServiceId)) {
                             request.setAttribute("errorMsg", "Something went wrong while attempting to delete service from appointment. <br/> Please do not refresh the page.");
+                        }
+
+// Send email to client and staff
+                        EmailService ems = new EmailService();
+                        String path = getServletContext().getRealPath("/assets");
+                        try {
+                            //
+                            ems.sendAppointmentUpdateNotification(appt, new Date(), path);
+                        } catch (Exception ex) {
+                            Logger.getLogger(AppointmentServlet.class.getName()).log(Level.SEVERE, null, ex);
                         }
 
                         setDateAttributes(appt, request, response);
@@ -235,19 +253,22 @@ public class AppointmentServlet extends HttpServlet {
                 try {
                     // For appointmentDate only
                     newDate = sdf.parse(month + "-" + day + "-" + year);
-                    
+
                     sdf.applyLocalizedPattern("kk");
 
-                    
-//                    LocalTime localTime = LocalTime.parse(sdf.format(sdf.parse(hour)) + ":00:00");
-//                    Time apptTime = Time.valueOf(localTime);
-                    System.out.println(sdf.parse("date: " + hour));
-                    appt.setAppointmentTime(sdf.parse(hour));
+                    LocalTime localTime = LocalTime.parse(sdf.format(sdf.parse(hour)) + ":00:00");
+                    Time apptTime = Time.valueOf(localTime);
+                    appt.setAppointmentTime(apptTime);
 
-                    // Make local time 
                     appt.setAppointmentDate(newDate);
 
                     System.out.println("successfully updated? " + schs.updateAppointment(appt));
+
+                    // Send email to client and staff
+                    EmailService ems = new EmailService();
+                    String path = getServletContext().getRealPath("/assets");
+//                    
+                    ems.sendAppointmentUpdateNotification(appt, new Date(), path);
 
                 } catch (ParseException ex) {
                     System.out.println("uh oh seomethign wengt wrong? " + ex.getMessage());
@@ -280,9 +301,9 @@ public class AppointmentServlet extends HttpServlet {
                 try {
                     System.out.println("Cancelling appointment..");
                     schs.cancelAppointment(apptId);
-//                    ems.sendCancellationNotification(appt, new Date(), path);
-                    request.setAttribute("errorMsg", "We have sent you a confirmation email.");
-                    getServletContext().getRequestDispatcher("/WEB-INF/Appointment.jsp").forward(request, response);
+                    ems.sendCancellationNotification(appt, new Date(), path);
+                    request.setAttribute("sysMsg", "Cancelled appointment. ");
+                    getServletContext().getRequestDispatcher("/WEB-INF/MyAppointments.jsp").forward(request, response);
                 } catch (NullPointerException e1) {
                     request.setAttribute("errorMsg", "Uh oh! Something went wrong. Please try again.");
                     Logger.getLogger(AppointmentServlet.class.getName()).log(Level.SEVERE, null, e1);

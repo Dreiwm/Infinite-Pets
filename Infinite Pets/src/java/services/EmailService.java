@@ -12,6 +12,7 @@ import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -167,8 +168,8 @@ public class EmailService {
         SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, yyyy");
                 
         // Staff account associated with appointment (if any)
-        Account acc = appt.getEmployeeID().getUserID();
-
+        Account acc = appt.getClientID();
+        Account empAcc = appt.getEmployeeID().getUserID();
         
         String subj = "Infinite Pets - Client Cancelled An Appointment";
         String template = path + "/emailTemplates/AppointmentCancellationNotificationTemplate.html";
@@ -179,25 +180,70 @@ public class EmailService {
         HashMap<String, String> tags = new HashMap<>();
         tags.put("clientFirstName", acc.getFirstName());
         tags.put("clientLastName", acc.getLastName());
-
-        /****************
-        *
-        ****************/
-        // loop over pets
-        // for now just a pet 
-        
-        // Get list of pets using appointment id.
-        
-        
-//        tags.put("pets", appt.getPetID().getPetName());
         
         
         // Cancellation date
         tags.put("cancellationDate", sdf.format(today));
         
         // finally, send email
-        sendMail(acc.getEmail(), subj, template, tags);
+        sendMail(empAcc.getEmail(), subj, template, tags);
         // to owner
         sendMail(ownerEmail, subj, template, tags);
+    }
+    
+    /**
+     * Email the appointment update notification to staff and client.
+     * @param appt the appointment service that bad been updated by client.
+     * @param today the date when the client updated the appointment.
+     * @param path the path
+     */
+    public void sendAppointmentUpdateNotification(Appointment appt, Date today, String path) throws Exception {
+        SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, yyyy");
+                
+        // Staff account associated with appointment (if any)
+        Account empAcc = appt.getEmployeeID().getUserID();
+        
+        // client account associated with appointment
+        Account acc = appt.getClientID();
+        
+        String subj = "Infinite Pets - Client Cancelled An Appointment";
+        String template = path + "/emailTemplates/AppointmentUpdateNotificationTemplate.html";
+
+        
+        
+        // Tags to be used in the sendEmail method
+        HashMap<String, String> tags = new HashMap<>();
+        tags.put("clientFirstName", acc.getFirstName());
+        
+        
+        // Update date
+        tags.put("updateDate", sdf.format(today));
+        
+        // appointment date 
+//        sdf.applyPattern("hh:mm:a");
+        String apptDateStr = sdf.format(appt.getAppointmentDate());
+        sdf.applyPattern("hh:mm:a");
+
+        apptDateStr += " at " + sdf.format(appt.getAppointmentTime());
+        
+        tags.put("apptDate", apptDateStr);
+        
+        // services
+        String services = "";
+        List<Appointmentservice> servicesList = appt.getAppointmentserviceList();
+        
+        for (Appointmentservice apptS : servicesList) {
+            services += "<li>";
+            services += apptS.getServiceID().getServiceName() + " - $" + apptS.getServiceID().getBasePrice();
+            services += " with " + apptS.getPetID().getPetName();
+            services += "</li>";
+        }
+        tags.put("services", services);
+        
+        
+        // finally, send email
+        sendMail(empAcc.getEmail(), subj, template, tags);
+        // to client
+        sendMail(acc.getEmail(), subj, template, tags);
     }
 }

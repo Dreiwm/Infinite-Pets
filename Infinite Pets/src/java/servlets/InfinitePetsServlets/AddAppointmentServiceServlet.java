@@ -7,6 +7,7 @@ package servlets.InfinitePetsServlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Date;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.logging.Level;
@@ -23,6 +24,7 @@ import models.Pet;
 import models.Service;
 import services.AccountServices;
 import services.AddPetServices;
+import services.EmailService;
 import services.ScheduleServices;
 import services.ServiceServices;
 
@@ -182,6 +184,11 @@ public class AddAppointmentServiceServlet extends HttpServlet {
                     System.out.println("add appointmentService...");
                     if (ss.insertAppointmentService(apptService)) {
                         System.out.println("inserted into.");
+                        // Send email to client and staff
+                        EmailService ems = new EmailService();
+                        String path = getServletContext().getRealPath("/assets");
+//                    
+                        ems.sendAppointmentUpdateNotification(appt, new Date(), path);
                     } else {
                         System.out.println("failed to be inserted into");
                     }
