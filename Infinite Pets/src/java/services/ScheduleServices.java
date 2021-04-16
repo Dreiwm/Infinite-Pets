@@ -200,7 +200,8 @@ public class ScheduleServices {
         // add appt one day and then compare, if appt is still before today, then
         // it is 24 hours before.
         calApptDate.add(Calendar.DAY_OF_MONTH, 1);
-
+        
+        System.out.println("today: " + calToday.toString() + "Appointment date: " + calApptDate.toString());
         // throw exception if it is after today date -- after adding one day.
         if (calApptDate.compareTo(calToday) > 0) {
             throw new AppointmentException("Appointment can not be cancelled within 24 hours of appointment date.");

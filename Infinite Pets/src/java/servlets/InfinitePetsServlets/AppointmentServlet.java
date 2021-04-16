@@ -7,8 +7,10 @@ package servlets.InfinitePetsServlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalTime;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Enumeration;
@@ -31,6 +33,7 @@ import services.ScheduleServices;
 import services.ServiceServices;
 import services.exceptions.AppointmentException;
 import utilities.CalendarUtilities;
+import services.exceptions.AppointmentException;
 
 /**
  *
@@ -95,8 +98,13 @@ public class AppointmentServlet extends HttpServlet {
                 return;
             }
 
+//            LocalTime localTime = LocalTime.parse(time);
+
+//                Time appointmentTime = Time.valueOf(localTime);
             System.out.println("appt date: " + appt.getAppointmentDate());
-            System.out.println("appt time: " + appt.getAppointmentTime());
+            SimpleDateFormat sdf0 = new SimpleDateFormat("hh:mm:ss");
+            System.out.println("appt time: " + sdf0.format(appt.getAppointmentTime()));
+            System.out.println("local time: " + LocalTime.parse(sdf0.format(appt.getAppointmentTime())));
 
             // check if action is deleteService
             String action = request.getParameter("action");
@@ -231,7 +239,11 @@ public class AppointmentServlet extends HttpServlet {
 
                     sdf.applyPattern("kk");
                     System.out.println("hour from param" + hour);
-                    appt.setAppointmentTime(sdf.parse(hour));
+                    System.out.println("LocalTime will be parsing this: " + sdf.format(sdf.parse(hour)) + ":00:00");
+                    LocalTime localTime = LocalTime.parse(sdf.format(sdf.parse(hour)) + ":00:00");
+                    Time apptTime = Time.valueOf(localTime);
+                    System.out.println(apptTime);
+                    appt.setAppointmentTime(apptTime);
                     appt.setAppointmentDate(newDate);
 
                     System.out.println("successfully updated? " + schs.updateAppointment(appt));
@@ -266,8 +278,10 @@ public class AppointmentServlet extends HttpServlet {
                 System.out.println("cancelling appointment...");
 
                 try {
+                    System.out.println("Cancelling appointment..");
                     schs.cancelAppointment(apptId);
 //                    ems.sendCancellationNotification(appt, new Date(), path);
+                    request.setAttribute("errorMsg", "We have sent you a confirmation email.");
                     getServletContext().getRequestDispatcher("/WEB-INF/Appointment.jsp").forward(request, response);
                 } catch (NullPointerException e1) {
                     request.setAttribute("errorMsg", "Uh oh! Something went wrong. Please try again.");
@@ -384,4 +398,4 @@ public class AppointmentServlet extends HttpServlet {
         request.setAttribute("apptServices", ss.getAllAppointmentServices(appt));
     }
 
-}
+} 
