@@ -124,7 +124,9 @@
                     </form>
                         
                     <div class="cancelBtn">
-                        <button>Cancel</button>
+                    <form method="get" action="MyAppointment">
+                        <button type="submit" id="cancel">Cancel</button>
+                    </form>
                     </div>
                 </div>
                 <div>${message}</div>

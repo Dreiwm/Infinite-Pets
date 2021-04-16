@@ -8,6 +8,7 @@ package services;
 import dataaccess.AccountDB;
 import dataaccess.AppointmentDB;
 import dataaccess.AppointmentServiceDB;
+import dataaccess.EmployeeDB;
 import dataaccess.PetDB;
 import java.math.BigDecimal;
 import java.sql.Time;
@@ -397,6 +398,32 @@ public class ScheduleServices {
         return null;
 
     }
+    
+    public List<Appointment> getAllAppointments(Employee e){
+        List<Service> qList = e.getServiceList();
+        AppointmentDB apptDB = new AppointmentDB();
+        List<Appointment> allAppts = apptDB.getAllAppointments();
+        List<Appointment> availAppts = new ArrayList();
+        
+        
+        for (int i = 0; i < allAppts.size(); i++){
+            if (allAppts.get(i).getEmployeeID() == null){
+                System.out.println("TEST NULL");
+                for (int j= 0; j < qList.size(); j++){                    
+                    List<Appointmentservice> servList = allAppts.get(i).getAppointmentserviceList();
+                    for (int x = 0; x < servList.size(); x++){
+                        if (servList.get(x).getServiceID().getServiceID() == qList.get(j).getServiceID()){
+                        System.out.println("TEST 2");
+                        availAppts.add(allAppts.get(i));
+                        System.out.println(availAppts);
+                    }
+                    }
+                }
+            }
+        }
+        
+        return availAppts;
+    }
 
     /**
      * Returns true if serviceType found in AppointmentService matches. If
@@ -448,4 +475,15 @@ public class ScheduleServices {
         AppointmentDB apDB = new AppointmentDB();
         return apDB.update(appt);
     }
+
+    public void setAppointmentEmpID(int apptID, String email) throws Exception {
+        AppointmentDB appDB = new AppointmentDB();
+        Appointment appt = appDB.getAppointmentById(apptID);
+        AccountDB acctDB = new AccountDB();
+        Account acct = acctDB.getAccountByEmail(email);
+        EmployeeDB empDB = new EmployeeDB();
+        appt.setEmployeeID(empDB.getByUserId(acct));
+        System.out.println("Set employee");
+        appDB.update(appt);
+    }   
 }

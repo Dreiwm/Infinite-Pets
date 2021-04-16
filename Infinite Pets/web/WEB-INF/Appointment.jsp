@@ -33,7 +33,7 @@
         <div class="wrapper">
              <div class="path">
                 <div class="link">
-                    <a href="<c:url value='/MyAppointments'></c:url>">My appointments</a>
+                    <a href="<c:url value='/MyAppointment'></c:url>">My appointments</a>
                 </div>
                 <div class="link">
                     <img id="chevronRight" src="assets/img/chevronRight.svg" alt="">

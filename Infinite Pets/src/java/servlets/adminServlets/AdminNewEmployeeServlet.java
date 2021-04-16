@@ -155,7 +155,7 @@ public class AdminNewEmployeeServlet extends HttpServlet {
                     as.updateStaffAccount(oldEmail ,password, email, firstName, lastName, address, city, prov, country, postal, area, isEmployee, isConfirmed, qList);
                 }
                 else {
-                    getServletContext().getRequestDispatcher("/WEB-INF/Employee.jsp").forward(request,response);
+                    getServletContext().getRequestDispatcher("/WEB-INF/NewEmployee.jsp").forward(request,response);
                 }
             }
              

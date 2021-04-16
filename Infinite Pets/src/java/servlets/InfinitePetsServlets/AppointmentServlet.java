@@ -241,7 +241,7 @@ public class AppointmentServlet extends HttpServlet {
                     
 //                    LocalTime localTime = LocalTime.parse(sdf.format(sdf.parse(hour)) + ":00:00");
 //                    Time apptTime = Time.valueOf(localTime);
-                    System.out.println(sdf.parse("date: " + hour));
+                   // System.out.println(sdf.parse("date: " + hour));
                     appt.setAppointmentTime(sdf.parse(hour));
 
                     // Make local time 
