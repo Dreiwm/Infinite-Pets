@@ -51,9 +51,15 @@ public class AddPetServlet extends HttpServlet {
             response.sendRedirect("Login");
         }
         
-        request.setAttribute("animalList", vs.getAnimalType());
-        request.setAttribute("breedList", vs.getBreedList());        
-       
+        try {
+            request.setAttribute("animalList", vs.getAnimalType());
+            //request.setAttribute("breedList", vs.getBreedList());
+            request.setAttribute("dogBreeds", aps.getDogBreeds());
+            request.setAttribute("catBreeds", aps.getCatBreeds());
+            request.setAttribute("exoticBreeds", aps.getExoticBreeds());
+        } catch (Exception ex) {
+            Logger.getLogger(AddPetServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
         getServletContext().getRequestDispatcher("/WEB-INF/AddAPet.jsp").forward(request,response);
     }
 

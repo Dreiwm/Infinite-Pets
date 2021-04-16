@@ -163,7 +163,6 @@ public class BookAppointmentServlet extends HttpServlet {
                     serv.createAppointment(appointmentDate, appointmentTime, user, contents);
                     response.sendRedirect("MyAppointments.jsp");
                     return;
-                    
                 }
             } catch (Exception ex) {
                 Logger.getLogger(BookAppointmentServlet.class.getName()).log(Level.SEVERE, null, ex);

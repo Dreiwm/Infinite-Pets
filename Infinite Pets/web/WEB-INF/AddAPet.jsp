@@ -35,20 +35,25 @@
                                         Animal type
                                     </option>
                                     <c:forEach items="${animalList}" var="anlst">
-                                        <option value="${anlst.animalType}">${anlst.animalType}</option>
+                                        <option value="${anlst.animalType}" onselect="setBreed('${anlst.animalType}')">${anlst.animalType}</option>
                                     </c:forEach>
                                 </select>
                             </div>
-
                             <div class="petBreed">
                                 <label for="breed"> Select animal breed</label>
                                 <select name="breed" id="breed">
-                                    <option value="">
+                                    <option value="" id='default'>
                                         Animal breed
                                     </option>
-                                    <c:forEach items="${breedList}" var="lst">
-                                        <option value="${lst.breedName}">${lst.breedName}</option>
+                                    <c:forEach items="${dogBreeds}" var="dogBreed">
+                                        <option value="${dogBreed.breedName}" class='dog' style='display: none'>${dogBreed.breedName}</option>
                                     </c:forEach>
+                                    <c:forEach items="${catBreeds}" var="catBreed">
+                                        <option value="${catBreed.breedName}" class='cat' style='display: none'>${catBreed.breedName}</option>
+                                    </c:forEach>
+                                    <c:forEach items="${exoticBreeds}" var="exoticBreed">
+                                        <option value="${exoticBreed.breedName}" class='exotic' style='display: none'>${exoticBreed.breedName}</option>
+                                    </c:forEach>                                   
                                 </select>
                             </div>
 
@@ -113,5 +118,24 @@
         </div>
         
         <footer> <%@include file="testFiles/footer.jsp" %> </footer>
+        <script>
+    function setBreed(var breed) {
+        console.log(breed);
+    if (breed === "Dog"){
+        document.getElementByClassName("dog").style.display = "block";
+        document.getElementByClassName("cat").style.display = "none";
+        document.getElementByClassName("exotic").style.display = "none";
+    }
+    else if (breed === "Cat"){
+        document.getElementByClassName("dog").style.display = "none";
+        document.getElementByClassName("cat").style.display = "block";
+        document.getElementByClassName("exotic").style.display = "none";
+    }
+    else if (breed === "Bird"){
+        document.getElementByClassName("dog").style.display = "none";
+        document.getElementByClassName("cat").style.display = "none";
+        document.getElementByClassName("exotic").style.display = "block";
+    }}
+</script>
     </body>
 </html>
