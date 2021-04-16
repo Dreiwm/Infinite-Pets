@@ -67,6 +67,7 @@
                 </form>
             </div>
         </div>
+        <footer><%@include file="testFiles/footer.jsp" %></footer>
     </body>
-    <footer><%@include file="testFiles/footer.jsp" %>  </footer>
+    
 </html>
