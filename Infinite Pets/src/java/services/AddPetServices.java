@@ -51,7 +51,7 @@ public class AddPetServices {
         return pet;
     }
     
-    public void createPet(String name, String animal, String breed, String birthday, String vet, String medical, String sex, String owner)throws Exception{
+    public void createPet(String name, String animal, String breed, String birthday, String vet, String medical, String sex, String owner, String url)throws Exception{
         AccountDB accountDB = new AccountDB();
         PetDB petDB = new PetDB();
         char sx = sex.charAt(0);
@@ -60,7 +60,7 @@ public class AddPetServices {
         Pet newPet = new Pet(0, sx, animal, breed, name, bday);
         newPet.setPreferredVet(vet);
         newPet.setMedicalInfo(medical);
-
+        newPet.setImagePath(url);
         newPet.setOwner(accountDB.getAccountByEmail(owner));
                 
         System.out.println(newPet.getBreed()+"\n"+newPet.getPetName());

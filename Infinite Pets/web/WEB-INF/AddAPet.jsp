@@ -15,7 +15,7 @@
     <body>
         <div class="wrapper">
             
-            <form method="post">
+            <form method="post" enctype="multipart/form-data">
                 <div class="addPetContainer">
                     <div class="title">
                         <h1>Add a Pet</h1>
@@ -81,13 +81,10 @@
                             <div class="petPicture">
                                 <label for="picture">Add a picture</label>
                                 <!--<input name="picture" id="picture" type="image" alt="image" accept="image/*">-->
-                                 <input name="picture" id="picture" type="image" > 
+                                 <input name="picture" id="picture" type="file" > 
                                 <!-- <input type="submit" value="Choose photo..."> -->
                             </div>
-                            <div class="choosePicture">
-                                <button type="submit" name="action" value="btnChoose">Choose Photo...</button>
-                                <!-- <input name="choosePhoto" type="submit" value="Choose photo..."> -->
-                            </div>
+                         
 
                             <div class="saveBtn">
                                 <button type="submit" name="action" value="save">Save</button>

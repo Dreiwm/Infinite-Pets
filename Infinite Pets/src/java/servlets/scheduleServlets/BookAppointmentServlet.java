@@ -161,7 +161,7 @@ public class BookAppointmentServlet extends HttpServlet {
                 else{
                     System.out.println("going to service");
                     serv.createAppointment(appointmentDate, appointmentTime, user, contents);
-                    response.sendRedirect("MyAppointments.jsp");
+                    response.sendRedirect("MyAppointment");
                     return;
                     
                 }

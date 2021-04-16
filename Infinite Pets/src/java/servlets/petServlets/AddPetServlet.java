@@ -12,7 +12,10 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -30,12 +33,17 @@ import models.Breed;
 import services.AddPetServices;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
+import java.util.UUID;
+import javax.servlet.ServletContext;
+import javax.servlet.annotation.MultipartConfig;
+import javax.servlet.http.Part;
 import services.ValidationServices;
 
 /**
  *
  * @author Chris
  */
+@MultipartConfig
 public class AddPetServlet extends HttpServlet {
 
     @Override
@@ -74,6 +82,19 @@ public class AddPetServlet extends HttpServlet {
         request.setAttribute("animalList", vs.getAnimalType());
         request.setAttribute("breedList", vs.getBreedList());
        
+        
+           //get photo
+            Part filePart = request.getPart("picture");
+            InputStream fileInputStream = filePart.getInputStream();
+            String url =UUID.randomUUID().toString();
+            
+            //File fileToSave = new File(getServletContext().getInitParameter("upload.location"+"/"+filePart.getSubmittedFileName()));
+            File folder = (File) getServletContext().getAttribute(ServletContext.TEMPDIR);
+            File result = new File(folder, filePart.getSubmittedFileName());
+  //          File fileToSave = new File(getServletContext().getResourceAsStream("/upload-files/"+filePart.getSubmittedFileName()));
+            Files.copy(fileInputStream, result.toPath(), StandardCopyOption.REPLACE_EXISTING);
+        
+        
         if(request.getParameter("action").toString().equals("cancel")){
             response.sendRedirect("MyPets");
         }
@@ -89,6 +110,7 @@ public class AddPetServlet extends HttpServlet {
             String birthday = request.getParameter("birthday");
             String info = request.getParameter("medical");
             String vet = request.getParameter("vet");
+         
             
             System.out.println("INPUT: "+petName+" "+type+" "+breed+" "+birthday+" "+vet+" "+info+" "+sex+" "+owner);
 
@@ -96,7 +118,7 @@ public class AddPetServlet extends HttpServlet {
                 String msg = vs.checkInput(petName, type, breed, birthday, vet, info, sex, owner);
                 if (msg.equals("Checked")){
                     System.out.println("going to aps");
-                    aps.createPet(petName, type, breed, birthday, vet, info, sex, owner);
+                    aps.createPet(petName, type, breed, birthday, vet, info, sex, owner, url);
                     response.sendRedirect("MyPets");
                 }
                 else {
