@@ -22,7 +22,7 @@
         <filter-name>StaffFilter</filter-name>
         <url-pattern>/Staff/*</url-pattern>
         <url-pattern>/Admin/*</url-pattern>
-    </filter-mapping>    
+    </filter-mapping>
     <filter-mapping>
         <filter-name>AdminFilter</filter-name>
         <url-pattern>/Admin/*</url-pattern>
@@ -115,6 +115,10 @@
         <servlet-name>AvailableAppointmentsServleet</servlet-name>
         <servlet-class>servlets.InfinitePetsServlets.employeeAppointments.AvailableAppointmentsServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>MyAppointmentServlet</servlet-name>
+        <servlet-class>servlets.scheduleServlets.MyAppointmentServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ViewPetServlet</servlet-name>
         <url-pattern>/ViewPet</url-pattern>
@@ -198,6 +202,10 @@
     <servlet-mapping>
         <servlet-name>AvailableAppointmentsServleet</servlet-name>
         <url-pattern>/AvailableAppointments</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MyAppointmentServlet</servlet-name>
+        <url-pattern>/MyAppointment</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

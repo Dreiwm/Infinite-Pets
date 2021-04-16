@@ -1,3 +1,4 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -63,8 +64,7 @@ public class AppointmentDB {
             Account acc = em.find(Account.class, userID);
             
 //            Account acc = accDB.getAccountByClientID(appointment.getClientID());
-            acc.getAppointmentList().add(appointment);
-            
+            acc.getAppointmentList().add(appointment);  
             tr.begin();
             em.persist(appointment); // persist appt
             em.merge(acc); // merge account with newly added appointment
@@ -190,4 +190,3 @@ public class AppointmentDB {
 //    }
     
 }
-

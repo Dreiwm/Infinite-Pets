@@ -93,7 +93,7 @@ public class ViewPetServlet extends HttpServlet {
                 String msg = vs.checkInput(petName, type, breed, birthday, vet, info, sex, owner);
                 if (msg.equals("Checked")){
               
-                    petServ.createPet(petName, type, breed, birthday, vet, info, sex, owner);
+                    petServ.createPet(petName, type, breed, birthday, vet, info, sex, owner,targetPet.getImagePath());
                     response.sendRedirect("MyPets");
                 }
                 else {

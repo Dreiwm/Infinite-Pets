@@ -6,6 +6,7 @@
 
 <!-- <%@page contentType="text/html" pageEncoding="UTF-8"%> -->
 <!-- <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> -->
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -26,6 +27,7 @@
                     <h1>My Appointments</h1>
                 </div>
                 <div class="tableWrapper">
+                    <div>${msg}</div>
                     <table class="apptTable" border="1" >
                         <thead>
                             <tr>
@@ -39,12 +41,17 @@
                         <tbody>
                              <c:forEach items="${appts}" var="appt"> 
                                 <tr>
-                                    <td>${appt.date}</td>
-                                    <td>${appt.time}</td>
-                                    <td>${appt.animal}</td>
-                                    <td>${appt.service}</td>
+                                    <td><fmt:formatDate type="date" value="${appt.appointmentDate}" /></td>
+                                    <td><fmt:formatDate type="time" value="${appt.appointmentTime}" /></td>
+                                    <td><c:forEach items="${appt.appointmentserviceList}" var="pet">${pet.petID.petName}<br></c:forEach></td>
+                                    <td><c:forEach items="${appt.appointmentserviceList}" var="service">${service.serviceID.serviceName}<br></c:forEach></td>
                                     <td>
-                                        <button>Cancel</button>
+                                        <c:url value="Appointment" var="editurl">
+                                            <c:param name="method" value="GET"/>
+                                            <c:param name="action" value="edit"/>
+                                            <c:param name="apptId" value="${appt.appointmentID}"/>
+                                        </c:url>
+                                    <td><a href="${editurl}" ><button>Edit</button></a></td>
                                     </td>
                                 </tr>
                              </c:forEach> 
@@ -52,7 +59,7 @@
                     </table>
                 </div>
                 <div class="addPetLink">
-                    <a href="/InfinitePets/BookAppointment">Book an appointment</a>
+                    <a href="/InfinitePets/BookAppointment"><button>Book an appointment</button></a>
                 </div>
             </div>
         </div>
