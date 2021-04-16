@@ -17,46 +17,62 @@
         <link rel="stylesheet" href="assets/css/DeleteAccount.css">
         <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
         <title>Delete Account</title>
-        <%@include file="testFiles/header.jsp" %>
+         <%@include file="testFiles/header.jsp" %> 
     </head>
     <body>
-
         <div class="wrapper">
             <div class="path">
-                <div class="link">
+                <div class="link1">
                     <a href="<c:url value='/MyProfile'></c:url>">My Profile</a>
                 </div>
-                <div class="link">
+                <div class="chevron">
                     <img id="chevronRight" src="assets/img/chevronRight.svg" alt="">
                 </div>
-                <div class="link">
+                <div class="link2">
                     <a>Delete Account</a>
                 </div>
             </div>
-            <div class="generalContainer">
+
+        
+            <div class="deleteAccountContainer">                
+            
+                
+                <c:if test="${deleteAccountVerified == false}">
+                        <div class="confirmDelete">
+                        <div class="confirmTitle">
+                            <h1>Delete Account</h1>
+                        </div>
+                        <div class="confirmMessage">
+                            <p>We will send an email to you to confirm your account deletion.</p>
+                        </div>
+                        <!-- <form name="deleteAccountForm" method="POST"> -->
+                            <div class="deleteBtn">
+                                <button type="submit" name="action" value="deleteAccount">Delete Account</button>
+                            </div>
+                            <div class="cancelBtn">
+                                <button type="submit" name="action" value="cancel">Cancel</button>
+                            </div>
+                        <!-- </form> -->
+                    </div>
+                </c:if>
+                
+
                 <!-- If deleteAccount parameter is not null, then present 
                 the successful account deletion. Otherwise, present button to send an email-->
                 <c:if test="${deleteAccountVerified == true}">
-                    <h1>
-                        Your account had been deleted.
-                    </h1>
-                    <p>
-                        <a href="/Login">Return to Login page</a>
-                    </p>
+                    <div class="deleted">
+                        <div class="deletedTitle">
+                            <h1>Your account has been deleted.</h1>
+                        </div>
+                        <div class="deletedMessage">
+                            <a href="/Login">Return to Login page</a>
+                        </div>
+                    </div>
                 </c:if>
-                
-                <c:if test="${deleteAccountVerified == false}">
-                    <h1>Delete Account</h1>
-                    <span>We will send an email to you to confirm your account deletion.</span>
-                    <br/>
-                    <form name="deleteAccountForm" method="POST">
-                            <button type="submit" name="action" value="deleteAccount" class="dangerButton">Delete Account</button>
-                            <button type="submit" name="action" value="cancel">Cancel</button>
-                    </form>
-                </c:if>
+
             </div>
         </div>
-        <footer> <%@include file="testFiles/footer.jsp" %> </footer>
+        <footer> <%@include file="testFiles/footer.jsp" %> </footer> 
     </body>
     
 </html>

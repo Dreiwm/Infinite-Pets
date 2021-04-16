@@ -1,14 +1,68 @@
-/*
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
-*/
-/* 
-    Created on : 24-Mar-2021, 5:32:33 PM
-    Author     : Riley
-*/
-
-h1 {
-    margin-bottom: 1em;
+.path{
+    display: grid;
+    grid-template-areas: 
+        "link1 chevron link2";
+    align-items: center;
+    margin-top: 20px;
+    width: 250px;
 }
 
+.path img{
+    height: 15px;
+    width: 15px;
+}
+
+.wrapper{
+    display: grid;
+    justify-content: center;
+    align-items: center;
+}
+
+.deleteAccountContainer{
+    display: grid;
+    grid-template-areas: 
+        "confirmDelete"
+        "deleted";
+    row-gap: 10px;
+    column-gap: 20px;
+    padding: 25px;
+    margin-top: 25px;
+    margin-bottom: 25px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    border-style: solid;
+    background-color: #F3F1EC;
+
+}
+
+.confirmDelete{
+    grid-area: confirmDelete;
+    display: grid;
+    grid-template-areas: 
+        "confirmTitle confirmTitle"
+        "confirmMessage confirmMessage"
+        "deleteBtn cancelBtn";
+    row-gap: 10px;
+    column-gap: 20px;
+    align-items: center;
+    justify-content: center;
+}
+
+.confirmTitle{grid-area: confirmTitle;}
+.confirmMessage{grid-area: confirmMessage;}
+.deleteBtn{grid-area: deleteBtn;}
+.cancelBtn{grid-area: cancelBtn;}
+
+.deleted{
+    grid-area: deleted;
+    display: grid;
+    grid-template-areas: 
+        "deletedTitle"
+        "deletedMessage";
+    row-gap: 10px;
+    column-gap: 20px;
+}
+
+.deletedTitle{grid-area: deletedTitle;}
+.deletedMessage{grid-area: deletedMessage;}
