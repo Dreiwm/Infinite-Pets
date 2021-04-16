@@ -35,6 +35,11 @@ public class AddPetServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
                 HttpSession session = request.getSession();
+            String email = (String) session.getAttribute("email");
+            if (email.equals("") || email == null){
+                session.invalidate();
+                response.sendRedirect("Login");
+            }
                AddPetServices aps = new AddPetServices();
         try {
             List animalList = aps.getAnimals();  

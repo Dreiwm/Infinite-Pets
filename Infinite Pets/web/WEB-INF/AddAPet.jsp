@@ -110,7 +110,9 @@
                                 <button type="submit" name="action" value="save">Save</button>
                             </div>
                             <div class="cancelBtn">
-                                <button type="submit" name="action" value="cancel">Cancel</button>
+                                <div id="cancelBtn"><form method="get" action="MyPets">
+                                    <button type="submit" id="cancel">Cancel</button>
+                                </form></div>
                             </div>
                         </div>
                     

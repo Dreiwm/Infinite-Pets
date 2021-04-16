@@ -40,6 +40,12 @@ public class AccountServices {
     }
     
     //Retreave account by reset token
+    /**
+     * 
+     * @param resetToken
+     * @return
+     * @throws Exception 
+     */
     public Account getAccountResetToken(String resetToken) throws Exception{
         AccountDB accountDB = new AccountDB();
         Account account = new Account();
@@ -48,6 +54,15 @@ public class AccountServices {
     }
     
     //Creates a Customer account and sends it to the database to be added
+    /**
+     * 
+     * @param firstName
+     * @param lastName
+     * @param email
+     * @param pass
+     * @param address
+     * @throws Exception 
+     */
     public void createUserAccount(String firstName, String lastName, String email, String pass, Location address)throws Exception{
         AccountDB accountDB = new AccountDB();
         PasswordServices pServ = new PasswordServices();
@@ -59,6 +74,16 @@ public class AccountServices {
     }
     
     //Create a staff Account and add it to the Database
+    /**
+     * 
+     * @param password
+     * @param email
+     * @param firstName
+     * @param address
+     * @param lastName
+     * @param qList
+     * @throws Exception 
+     */
      public void createStaffAccount(String password, String email, String firstName, Location address,
             String lastName, List<Service> qList)throws Exception{
         //Create an account
@@ -90,6 +115,17 @@ public class AccountServices {
      
     //Create an adress object for an account 
     //Note: locationType is (R)esident and will need to be set to (E)mployee
+     /**
+      * 
+      * @param postalCode
+      * @param address
+      * @param city
+      * @param country
+      * @param province
+      * @param area
+      * @return
+      * @throws Exception 
+      */
      public Location createAddress(String postalCode, String address, String city, String country, String province, String area) throws Exception{
         LocationDB locDB = new LocationDB();
         Location location = new Location (0, 'R', postalCode, address, city, country, province, area);
@@ -103,6 +139,21 @@ public class AccountServices {
      * lists are added after
      * NOTE: NEED TO CHECK IF NEW EMAIL == CURRENT OR SHOULD REPLACE WHICH MEANS YOU CAN SEARCH BY EMAIL BUT BY ID
      */
+     /**
+      * 
+      * @param password
+      * @param email
+      * @param firstName
+      * @param lastName
+      * @param isConfermed
+      * @param address
+      * @param city
+      * @param prov
+      * @param country
+      * @param postal
+      * @param area
+      * @throws Exception 
+      */
     public void updateUserAccount(String password, String email, String firstName, 
             String lastName, Boolean isConfermed, String address, String city, String prov, String country, String postal, String area)throws Exception{
         AccountDB accountDB = new AccountDB();
@@ -161,6 +212,24 @@ public class AccountServices {
      * Updates an Staff Level Account with provided info.
      * To insure security a new Account object is created using inputed info and
      * lists are added after
+     */
+    /**
+     * 
+     * @param currentID
+     * @param password
+     * @param email
+     * @param firstName
+     * @param lastName
+     * @param address
+     * @param city
+     * @param prov
+     * @param country
+     * @param postal
+     * @param area
+     * @param isEmployee
+     * @param isConfirmed
+     * @param qList
+     * @throws Exception 
      */
     public void updateStaffAccount(String currentID,String password, String email, String firstName, 
             String lastName, String address, String city, String prov, String country, String postal, String area, boolean isEmployee, boolean isConfirmed, List<Service> qList)throws Exception{
@@ -228,6 +297,11 @@ public class AccountServices {
     }
     
     //Removes an existing account
+    /**
+     * 
+     * @param email
+     * @throws Exception 
+     */
     public void deleteAccount(String email)throws Exception{
         AccountDB accountDB = new AccountDB();
         Account toDelete = accountDB.getAccountByEmail(email);
@@ -237,6 +311,12 @@ public class AccountServices {
     
     
     //Checks login information to check if the password and email match the account/user logging in
+    /**
+     * 
+     * @param email
+     * @param password
+     * @return 
+     */
     public Account checkCreds(String email, String password){
         Account account = null;
         try {
@@ -269,6 +349,12 @@ public class AccountServices {
      * @param email the email to be used to query the DB.
      * @return true the email associated is an admin. Otherwise, false.
      * @throws Exception if somethign went wrong with querying the DB.
+     */
+    /**
+     * 
+     * @param email
+     * @return
+     * @throws Exception 
      */
     public boolean isEmployee(String email) throws Exception {
         AccountDB acDB = new AccountDB();
@@ -317,6 +403,12 @@ public class AccountServices {
     }
     
     //Retreive account by email
+    /**
+     * 
+     * @param email
+     * @return
+     * @throws Exception 
+     */
     public Account getAccountEmail(String email)throws Exception{
         AccountDB accountDB = new AccountDB();
         Account account = new Account();
@@ -324,6 +416,10 @@ public class AccountServices {
         return account;
     } 
 
+    /**
+     * 
+     * @return 
+     */
     public List<Account> getEmployees() {
         List<Account> employees = null;
         try {

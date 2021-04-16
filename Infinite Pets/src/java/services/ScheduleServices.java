@@ -73,6 +73,11 @@ public class ScheduleServices {
     }
 
     //Retrieves a list of apppointments a specific pet has
+    /**
+     * 
+     * @param appointmentID
+     * @return 
+     */
     public Appointment getAppointmentById(int appointmentID) {
         AppointmentDB apDB = new AppointmentDB();
         return apDB.getAppointmentById(appointmentID);
