@@ -162,6 +162,7 @@ public class EmailService {
      * @param appt the appointment service that bad been cancelled by client.
      * @param today the date when the client requested cancellation.
      * @param path the path
+     * @throws Exception  general catch for any errors when sending an email
      */
     public void sendCancellationNotification(Appointment appt, Date today, String path) throws Exception {
         SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, yyyy");

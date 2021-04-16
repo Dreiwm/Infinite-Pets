@@ -17,9 +17,11 @@ import models.Empqualification;
  * @author Riley
  */
 public class EmpQualificationDB {
+   
     /**
      * Returns all of the EmpQualificationTypes from DB
-     * @return list of EmpQualificationTypes
+     * @param employeeID target employee id
+     *  @return list of EmpQualificationTypes
      */
     public List<Empqualification> getAllEmployeeQualifications(int employeeID) {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
