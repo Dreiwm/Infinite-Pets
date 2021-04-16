@@ -9,6 +9,7 @@ import dataaccess.AccountDB;
 import dataaccess.EmpQualificationDB;
 import dataaccess.EmployeeDB;
 import dataaccess.LocationDB;
+import dataaccess.ServiceDB;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -71,15 +72,20 @@ public class AccountServices {
         //Set employee with an acount
         Employee employee = new Employee(0, false, false, true);
         employee.setUserID(account);
-        //Set employee qualifications
-        employee.setServiceList(qList);
-//        EmpQualificationDB eqDB = new EmpQualificationDB();
-//        for (int i = 0; i < qList.size(); i++){
-//            Empqualification eq = new Empqualification(0, employee.getEmployeeID(), qList.get(i).getServiceID());
-//            eqDB.insert(eq);
-//        }
         EmployeeDB empDB = new EmployeeDB();
+        employee.setServiceList(qList);
         empDB.insert(employee);
+        
+        ServiceDB servDB = new ServiceDB();
+        List<Service> allServices = servDB.getAllServices();
+        for (int i = 0; i < qList.size(); i++){
+            for (int j = 0; j < allServices.size(); j++){
+                if (allServices.get(j).equals(qList.get(i))){
+                    allServices.get(j).getEmployeeList().add(employee);
+                }
+            }
+        }
+
     }   
      
     //Create an adress object for an account 
@@ -117,7 +123,7 @@ public class AccountServices {
                 passwordSalt = pServ.getRandomSalt();
                 passwordHash = pServ.generatePasswordHash(password, passwordSalt);
             }
-            account = new Account(0, passwordHash, passwordSalt, email, firstName, lastName, false, false);
+            account = new Account(tempAccount.getUserId(), passwordHash, passwordSalt, email, firstName, lastName, false, false);
             account.setAppointmentList(tempAccount.getAppointmentList());
             account.setEmployeeList(tempAccount.getEmployeeList());
             account.setPetList(tempAccount.getPetList());
@@ -156,12 +162,18 @@ public class AccountServices {
      * To insure security a new Account object is created using inputed info and
      * lists are added after
      */
-    public void updateStaffAccount(String password, String email, String firstName, 
-            String lastName, String address, String city, String prov, String country, String postal, String area, boolean isEmployee, boolean isConfirmed)throws Exception{
+    public void updateStaffAccount(String currentID,String password, String email, String firstName, 
+            String lastName, String address, String city, String prov, String country, String postal, String area, boolean isEmployee, boolean isConfirmed, List<Service> qList)throws Exception{
                 AccountDB accountDB = new AccountDB();
         try{
-            Account account = accountDB.getAccountByEmail(email);
+            Account account = accountDB.getAccountByEmail(currentID);
             Account tempAccount = account;
+            EmployeeDB empDB = new EmployeeDB();
+            Employee employee = empDB.getByUserId(tempAccount);
+            Employee tempEmp = employee;
+            Location location = account.getAddress();
+            Location tempLocation = location;
+            location = new Location(tempLocation.getLocationID(), tempLocation.getLocationType(), postal, address, city, country, prov, area);
             //check if old password and new passwords are the same if so use old password and salt else creat new hash and salt
             PasswordServices pServ = new PasswordServices();
             String passwordHash = null;
@@ -174,11 +186,41 @@ public class AccountServices {
                 passwordSalt = pServ.getRandomSalt();
                 passwordHash = pServ.generatePasswordHash(password, passwordSalt);
             }
-            account = new Account(0, passwordHash, passwordSalt, email, firstName, lastName, isEmployee, isConfirmed);
+            
+            //set new acount info
+            account = new Account(tempAccount.getUserId(), passwordHash, passwordSalt, email, firstName, lastName, isEmployee, isConfirmed);
             account.setAppointmentList(tempAccount.getAppointmentList());
             account.setEmployeeList(tempAccount.getEmployeeList());
+            account.setAddress(location);
             account.setPetList(tempAccount.getPetList());
             accountDB.updateAccount(account);
+            
+//            tempAccount.setPasswordHash(passwordHash);
+//            tempAccount.setEmail(email);
+//            tempAccount.setPasswordSalt(passwordSalt);
+//            accountDB.updateAccount(tempAccount);
+           
+            employee = new Employee(tempEmp.getEmployeeID(), false, false, isEmployee);
+            employee.setUserID(account);
+            employee.setServiceList(qList);
+            empDB.update(employee);
+            
+            ServiceDB servDB = new ServiceDB();
+            List<Service> allServices = servDB.getAllServices();
+            for (int i = 0; i < qList.size(); i++){
+                for (int j = 0; j < allServices.size(); j++){
+                    if (allServices.get(j).equals(qList.get(i)) && !allServices.get(j).getEmployeeList().contains(employee)){
+                        allServices.get(j).getEmployeeList().add(employee);
+                    }
+                    else if(allServices.get(j).getEmployeeList().contains(employee)){
+                        int index = allServices.get(j).getEmployeeList().indexOf(employee);
+                        allServices.get(j).getEmployeeList().remove(index);
+                    }
+                    servDB.update(allServices.get(j));
+                }                
+            }
+            
+            
         }
         catch(Exception e){
             Logger.getLogger(AccountServices.class.getName()).log(Level.WARNING, null, e);
@@ -218,7 +260,7 @@ public class AccountServices {
      * @return
      * @throws Exception 
      */
-    public Employee getEmployeeByUserId(int userId)throws Exception{
+    public Employee getEmployeeByUserId(Account userId)throws Exception{
         EmployeeDB empdb = new EmployeeDB();
         return empdb.getByUserId(userId);
     }

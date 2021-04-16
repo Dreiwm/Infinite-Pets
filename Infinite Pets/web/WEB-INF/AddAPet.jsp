@@ -15,7 +15,7 @@
     <body>
         <div class="wrapper">
             
-            <form method="post">
+            <form method="post" enctype="multipart/form-data">
                 <div class="addPetContainer">
                     <div class="title">
                         <h1>Add a Pet</h1>
@@ -39,11 +39,10 @@
                                         <option value="${anlst.animalType}">${anlst.animalType}</option>
                                 </select>
                             </div>
-
                             <div class="petBreed">
                                 <label for="breed"> Select animal breed</label>
                                 <select name="breed" id="breed">
-                                    <option value="">
+                                    <option value="" id='default'>
                                         Animal breed
                                     </option>
                                     <c:choose>
@@ -66,6 +65,12 @@
                                         </c:otherwise>
                                     </c:choose>
                                     </c:forEach>
+                                    <c:forEach items="${catBreeds}" var="catBreed">
+                                        <option value="${catBreed.breedName}" class='cat' style='display: none'>${catBreed.breedName}</option>
+                                    </c:forEach>
+                                    <c:forEach items="${exoticBreeds}" var="exoticBreed">
+                                        <option value="${exoticBreed.breedName}" class='exotic' style='display: none'>${exoticBreed.breedName}</option>
+                                    </c:forEach>                                   
                                 </select>
                             </div>
 
@@ -99,13 +104,10 @@
                             <div class="petPicture">
                                 <label for="picture">Add a picture</label>
                                 <!--<input name="picture" id="picture" type="image" alt="image" accept="image/*">-->
-                                 <input name="picture" id="picture" type="image" > 
+                                 <input name="picture" id="picture" type="file" > 
                                 <!-- <input type="submit" value="Choose photo..."> -->
                             </div>
-                            <div class="choosePicture">
-                                <button type="submit" name="action" value="btnChoose">Choose Photo...</button>
-                                <!-- <input name="choosePhoto" type="submit" value="Choose photo..."> -->
-                            </div>
+                         
 
                             <div class="saveBtn">
                                 <button type="submit" name="action" value="save">Save</button>
@@ -131,5 +133,24 @@
         </div>
         
         <footer> <%@include file="testFiles/footer.jsp" %> </footer>
+<!--        <script>
+    function setBreed(var breed) {
+        console.log(breed);
+    if (breed === "Dog"){
+        document.getElementByClassName("dog").style.display = "block";
+        document.getElementByClassName("cat").style.display = "none";
+        document.getElementByClassName("exotic").style.display = "none";
+    }
+    else if (breed === "Cat"){
+        document.getElementByClassName("dog").style.display = "none";
+        document.getElementByClassName("cat").style.display = "block";
+        document.getElementByClassName("exotic").style.display = "none";
+    }
+    else if (breed === "Bird"){
+        document.getElementByClassName("dog").style.display = "none";
+        document.getElementByClassName("cat").style.display = "none";
+        document.getElementByClassName("exotic").style.display = "block";
+    }}
+</script>-->
     </body>
 </html>

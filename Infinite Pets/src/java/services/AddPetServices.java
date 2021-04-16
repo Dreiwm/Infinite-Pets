@@ -28,11 +28,23 @@ public class AddPetServices {
         AnimalDB animalsdb = new AnimalDB();
         return animalsdb.getAllAnimals();
     }
-   
+      
     //Retrieves a list of breeds for an animal type
-    public List getBreeds(String animal)throws Exception{
-        BreedDB breedDB = new BreedDB();
-        return breedDB.getBreedByAnimalId(animal);
+    public List<Breed> getDogBreeds() throws Exception{
+        BreedDB breedDB = new BreedDB();       
+        return breedDB.getBreedByAnimalId(1);
+    }
+    
+    //Retrieves a list of breeds for an animal type
+    public List<Breed> getCatBreeds() throws Exception{
+        BreedDB breedDB = new BreedDB();       
+        return breedDB.getBreedByAnimalId(2);
+    }
+    
+        //Retrieves a list of breeds for an animal type
+    public List<Breed> getExoticBreeds() throws Exception{
+        BreedDB breedDB = new BreedDB();       
+        return breedDB.getBreedByAnimalId(3);
     }
     
     //DO WE NEED THIS????
@@ -51,7 +63,7 @@ public class AddPetServices {
         return pet;
     }
     
-    public void createPet(String name, String animal, String breed, String birthday, String vet, String medical, String sex, String owner)throws Exception{
+    public void createPet(String name, String animal, String breed, String birthday, String vet, String medical, String sex, String owner, String url)throws Exception{
         AccountDB accountDB = new AccountDB();
         PetDB petDB = new PetDB();
         char sx = sex.charAt(0);
@@ -60,7 +72,7 @@ public class AddPetServices {
         Pet newPet = new Pet(0, sx, animal, breed, name, bday);
         newPet.setPreferredVet(vet);
         newPet.setMedicalInfo(medical);
-
+        newPet.setImagePath(url);
         newPet.setOwner(accountDB.getAccountByEmail(owner));
                 
         System.out.println(newPet.getBreed()+"\n"+newPet.getPetName());

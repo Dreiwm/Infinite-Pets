@@ -119,24 +119,21 @@ public class ScheduleServices {
             for(Appointmentservice as: contents){
                 check = verifyInfo(as.getPetID().getPetID(),user.getUserId());
             }
-            System.out.println("checking pets");
+          
             if (check==true) {
                 //make an new appointment and then add the AppointmentService list to it
                 Appointment appointment = new Appointment(0, appointmentDate, false, false, false);
                // appointment.setAppointmentTime(appointmentTime);
                 appointment.setClientID(user);
                 appointment.setAppointmentTime(time);
-                System.out.println("inserting appointemnt");
+                
                 apDB.insert(appointment);
                 for(Appointmentservice ser: contents){
                     ser.setAppointmentID(appointment);
                     aservDB.insert(ser);
                 }
                 appointment.setAppointmentserviceList(contents);
-                
-                
-                
-                System.out.println("appointemtn inserted");
+                apDB.update(appointment);
             }
         } catch (Exception e) {
             Logger.getLogger(ScheduleServices.class.getName()).log(Level.SEVERE, null, e);
@@ -148,6 +145,7 @@ public class ScheduleServices {
         try {
             AppointmentDB apDB = new AppointmentDB();
             if (verifyInfo(petID, userID) && verifyOwner(petID, userID)) {
+
                 Appointment appointment = apDB.getAppointmentById(appointmentID);
                
                 appointment.setAppointmentDate(appointmentDate);

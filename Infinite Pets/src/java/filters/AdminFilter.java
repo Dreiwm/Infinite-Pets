@@ -79,7 +79,7 @@ public class AdminFilter implements Filter {
             Employee emp = new Employee();
             
             account = as.getAccount(email);
-            emp = (Employee) as.getEmployeeByUserId(account.getUserId());
+            emp = (Employee) as.getEmployeeByUserId(account);
          
             if(account.getIsEmployee()&& emp !=null && emp.getIsAdmin())
                 return true;
