@@ -28,6 +28,7 @@
             }
         }
     </script>
+    
     <body>
         <div class="wrapper">
              <div class="path">
@@ -73,7 +74,7 @@
 
                                     <input type="number" step="1" max="31" min="1" name="selectDayOfMonth" value="${startDayOfMonth}">
 
-                                    <input type="number" min="${minYearFromAppt}" step="1" name="selectYear" value="${startYear}">
+                                    <input type="number" step="1" name="selectYear" value="${startYear}">
                                     at <select name="selectScheduleBlock">
                                         <c:forEach items="${schBlocks}" var="schb">
                                             <c:if test="${schBlock == schb}">
@@ -99,12 +100,12 @@
                                 <td>
                                     <!--Need to loop through services-->
                                     <table>
-                                    <c:forEach items="${appt.getAppointmentServiceList()}" var="apptService" varStatus="status">
+                                    <c:forEach items="${apptServices}" var="apptService" varStatus="status">
                                         <tr>
-                                            <td>${apptService.getServiceID().getServiceName()} with with ${apptService.getPetID().getPetName()}</td>
+                                            <td>${apptService.getServiceID().getServiceName()} with with ${apptService.getPetID().getPetName()} - $${apptService.getServiceID().getBasePrice()}</td>
                                             <!--Delete service-->
                                             <td>
-                                                <a href="<c:url value='Appointment'></c:url>?action=deleteService&apptServiceId=${apptService.getAppServID()}">X</a>
+                                                <a href="<c:url value='Appointment'></c:url>?action=deleteService&apptServiceId=${apptService.getAppServID()}&apptId=${appt.getAppointmentID()}">X</a>
                                             </td>
                                         </tr>
                                         <c:if test="${status.isLast()}">
@@ -130,16 +131,7 @@
                                 </td>
                             </tr>
                         </table>
-
-                        <table class="tableData">
-                            <tr>
-                                <td>Price:</td>
-                                <!--<td>$<fmt:formatNumber maxFractionDigits="2" minFractionDigits="2" value=""/></td>-->
-                            </tr>
-                        </table>
-                            
-                        
-
+                                                    
                         <!--Update-->
 
                         <input type="submit" value="Update">

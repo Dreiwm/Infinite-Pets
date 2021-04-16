@@ -7,8 +7,10 @@ package servlets.InfinitePetsServlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalTime;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Enumeration;
@@ -31,6 +33,7 @@ import services.ScheduleServices;
 import services.ServiceServices;
 import services.exceptions.AppointmentException;
 import utilities.CalendarUtilities;
+import services.exceptions.AppointmentException;
 
 /**
  *
@@ -52,14 +55,13 @@ public class AppointmentServlet extends HttpServlet {
             throws ServletException, IOException {
         HttpSession ses = request.getSession();
 
-        Enumeration<String> e = ses.getAttributeNames();
-        System.out.println("stuff in session");
-        while (e.hasMoreElements()) {
-            System.out.println(e.nextElement());
-        }
-
+//        Enumeration<String> e = ses.getAttributeNames();
+//        System.out.println("stuff in session");
+//        while (e.hasMoreElements()) {
+//            System.out.println(e.nextElement());
+//        }
         String email = (String) ses.getAttribute("email");
-        System.out.println(email);
+//        System.out.println(email);
         AccountServices acs = new AccountServices();
         Account acc = null;
         try {
@@ -78,7 +80,7 @@ public class AppointmentServlet extends HttpServlet {
             int apptId;
 
             String reqParamForId = request.getParameter("apptId");
-
+            System.out.println(reqParamForId);
             if (reqParamForId != null) {
                 apptId = Integer.parseInt(request.getParameter("apptId"));
                 appt = schs.getAppointmentById(apptId);
@@ -86,6 +88,14 @@ public class AppointmentServlet extends HttpServlet {
                 apptId = Integer.parseInt((String) request.getAttribute("apptId"));
                 appt = schs.getAppointmentById(apptId);
             }
+
+            // final check, if appt is null, kick to appointments list
+            if (appt == null) {
+                request.setAttribute("errorMsg", "Sorry about that. We can't find requested appointment.");
+                getServletContext().getRequestDispatcher("/WEB-INF/MyAppointments.jsp").forward(request, response);
+                return;
+            }
+
             // Check if this appt doesn't beong to owner
             // if not, redirect to login page.
             if (!appt.getClientID().equals(acc)) {
@@ -95,11 +105,17 @@ public class AppointmentServlet extends HttpServlet {
                 return;
             }
 
+//            LocalTime localTime = LocalTime.parse(time);
+//                Time appointmentTime = Time.valueOf(localTime);
             System.out.println("appt date: " + appt.getAppointmentDate());
-            System.out.println("appt time: " + appt.getAppointmentTime());
+            System.out.println("appt time:" + appt.getAppointmentTime());
+//            SimpleDateFormat sdf0 = new SimpleDateFormat("hh:mm:ss");
+//            System.out.println("appt time: " + sdf0.format(appt.getAppointmentTime()));
+//            System.out.println("local time: " + LocalTime.parse(sdf0.format(appt.getAppointmentTime())));
 
             // check if action is deleteService
             String action = request.getParameter("action");
+            System.out.println("action = " + action);
             if (action != null) {
                 if (action.equals("deleteService")) {
                     String apptServiceIdStr = request.getParameter("apptServiceId");
@@ -108,20 +124,30 @@ public class AppointmentServlet extends HttpServlet {
 
                         // now delete service
                         ServiceServices ss = new ServiceServices();
+                        if (!ss.deleteAppointmentService(apptServiceId)) {
+                            request.setAttribute("errorMsg", "Something went wrong while attempting to delete service from appointment. <br/> Please do not refresh the page.");
+                        }
 
-                        System.out.println("successfully deleted? " + ss.deleteAppointmentService(apptServiceId));
+// Send email to client and staff
+                        EmailService ems = new EmailService();
+                        String path = getServletContext().getRealPath("/assets");
+                        try {
+                            //
+                            ems.sendAppointmentUpdateNotification(appt, new Date(), path);
+                        } catch (Exception ex) {
+                            Logger.getLogger(AppointmentServlet.class.getName()).log(Level.SEVERE, null, ex);
+                        }
 
                         setDateAttributes(appt, request, response);
                         setAppointmentAttribute(appt, request, response);
 
                         List<Appointmentservice> apptServices = schs.getAllAppointmentServices(appt);
-                        apptServices.forEach(apptService -> {
-                            System.out.println(apptService.getServiceID().getServiceName());
-                        });
+//                        apptServices.forEach(apptService -> {
+//                            System.out.println(apptService.getServiceID().getServiceName());
+//                        });
                         // don't trust using appt.getService etc. use this method isntead, idk why it isn't working 
                         request.setAttribute("apptServices", apptServices);
-                        
-                        
+
                     }
                 }
             }
@@ -140,7 +166,6 @@ public class AppointmentServlet extends HttpServlet {
             });
             // don't trust using appt.getService etc. use this method isntead, idk why it isn't working 
             request.setAttribute("apptServices", apptServices);
-
             getServletContext().getRequestDispatcher("/WEB-INF/Appointment.jsp").forward(request, response);
         } else {
             // send user to login page
@@ -196,11 +221,6 @@ public class AppointmentServlet extends HttpServlet {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
         Appointment appt = null;
-        try {
-            appt = new Appointment(1, sdf.parse("2021-03-30 06:00"), true, true, true);
-        } catch (ParseException ex) {
-            Logger.getLogger(AppointmentServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
 
         int apptId = Integer.parseInt(request.getParameter("apptId"));
 //        Appointment appt;
@@ -214,13 +234,13 @@ public class AppointmentServlet extends HttpServlet {
         if (action != null) {
             // now check for update
             if (action.equals("updateAppt")) {
-                System.out.println("updating appointment...");
+                System.out.println("updating appointment... ...");
                 // Create appointment object and send email to staff (if not null)
 
                 // set new info to appointment from parameters
                 String month, day, year, schBlock;
-                int hour;
-                sdf.applyPattern("MMM-dd-yyyy");
+                String hour;
+                sdf.applyLocalizedPattern("MMM-dd-yyyy");
                 sdf.setLenient(false); // so it'll throw error if date is wrong
 
                 month = request.getParameter("selectMonth");
@@ -228,19 +248,34 @@ public class AppointmentServlet extends HttpServlet {
                 year = request.getParameter("selectYear");
                 schBlock = request.getParameter("selectScheduleBlock");
 
-                hour = ScheduleServices.getScheduleBlock(schBlock);
+                hour = ScheduleServices.getScheduleBlockInString(schBlock);
                 Date newDate = null;
                 try {
                     // For appointmentDate only
                     newDate = sdf.parse(month + "-" + day + "-" + year);
 
-                    sdf.applyPattern("hh");
-                    appt.setAppointmentTime(sdf.parse(Integer.toString(hour)));
+                    sdf.applyLocalizedPattern("kk");
+
+                    LocalTime localTime = LocalTime.parse(sdf.format(sdf.parse(hour)) + ":00:00");
+                    Time apptTime = Time.valueOf(localTime);
+                    appt.setAppointmentTime(apptTime);
+
                     appt.setAppointmentDate(newDate);
 
-                    schs.updateAppointment(appt);
+                    System.out.println("successfully updated? " + schs.updateAppointment(appt));
+
+                    // Send email to client and staff
+                    EmailService ems = new EmailService();
+                    String path = getServletContext().getRealPath("/assets");
+//                    
+                    ems.sendAppointmentUpdateNotification(appt, new Date(), path);
 
                 } catch (ParseException ex) {
+                    System.out.println("uh oh seomethign wengt wrong? " + ex.getMessage());
+                    request.setAttribute("errorMsg", "Something is wrong with date, please try again.");
+                    Logger.getLogger(AppointmentServlet.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (Exception ex) {
+                    System.out.println("uh oh seomethign wengt wrong? " + ex.getMessage());
                     request.setAttribute("errorMsg", "Something is wrong with date, please try again.");
                     Logger.getLogger(AppointmentServlet.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -250,6 +285,12 @@ public class AppointmentServlet extends HttpServlet {
                 setAppointmentAttribute(appt, request, response);
                 setDateAttributes(appt, request, response);
 
+                List<Appointmentservice> apptServices = schs.getAllAppointmentServices(appt);
+
+                // don't trust using appt.getService etc. use this method isntead, idk why it isn't working 
+                System.out.println("setting apptServices attributes..");
+                request.setAttribute("apptServices", apptServices);
+
                 getServletContext().getRequestDispatcher("/WEB-INF/Appointment.jsp").forward(request, response);
             } else if (action.equals("reqCancelAppt")) {
                 EmailService ems = new EmailService();
@@ -258,9 +299,11 @@ public class AppointmentServlet extends HttpServlet {
                 System.out.println("cancelling appointment...");
 
                 try {
+                    System.out.println("Cancelling appointment..");
                     schs.cancelAppointment(apptId);
-//                    ems.sendCancellationNotification(appt, new Date(), path);
-                    getServletContext().getRequestDispatcher("/WEB-INF/Appointment.jsp").forward(request, response);
+                    ems.sendCancellationNotification(appt, new Date(), path);
+                    request.setAttribute("sysMsg", "Cancelled appointment. ");
+                    getServletContext().getRequestDispatcher("/WEB-INF/MyAppointments.jsp").forward(request, response);
                 } catch (NullPointerException e1) {
                     request.setAttribute("errorMsg", "Uh oh! Something went wrong. Please try again.");
                     Logger.getLogger(AppointmentServlet.class.getName()).log(Level.SEVERE, null, e1);
@@ -356,43 +399,6 @@ public class AppointmentServlet extends HttpServlet {
 
 //        System.out.println(sdf.parse(year + "-" + month));
         return cal.getActualMaximum(Calendar.DAY_OF_MONTH);
-
-    }
-
-    /**
-     * Initializes the appointment from the form submission.
-     *
-     * @param request
-     * @param response
-     * @return returns Appointment object, which would be used to update an
-     * appointment.
-     */
-    private Appointment getAppointmentDateFromParameters(HttpServletRequest request, HttpServletResponse response) {
-        /**
-         * ***********
-         * Date ***********
-         */
-        String year, month, dayOfMonth, scheduleBlock, hour;
-
-        year = request.getParameter("selectYear");
-        month = request.getParameter("selectMonth");
-        dayOfMonth = request.getParameter("selectDayOfMonth");
-
-        // hour/min
-        scheduleBlock = request.getParameter("selectScheduleBlock");
-        hour = Integer.toString(ScheduleServices.getScheduleBlock(scheduleBlock));
-
-        // get appt id
-        int apptId = Integer.parseInt(request.getParameter("apptId"));
-
-        // get Appt from DB
-        ScheduleServices schs = new ScheduleServices();
-        Appointment appt = schs.getAppointmentById(apptId);
-        if (appt == null) {
-            request.setAttribute("errorMsg", "Uh oh! Something went wrong with udpating your appointment.");
-        }
-
-        return null;
 
     }
 

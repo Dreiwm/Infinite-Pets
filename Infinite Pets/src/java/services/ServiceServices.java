@@ -203,6 +203,8 @@ public class ServiceServices {
     public boolean deleteAppointmentService(int apptServiceId) {
         // et appointment service
         Appointmentservice apptService = asDB.getAppointmentById(apptServiceId);
+//        System.out.println("apptService null?" + apptService == null);
+        if (apptService == null) return false;
         return asDB.delete(apptService);
     }
     

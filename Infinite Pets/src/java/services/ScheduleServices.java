@@ -198,7 +198,8 @@ public class ScheduleServices {
         // add appt one day and then compare, if appt is still before today, then
         // it is 24 hours before.
         calApptDate.add(Calendar.DAY_OF_MONTH, 1);
-
+        
+        System.out.println("calApptDate > calToday?" + calApptDate.compareTo(calToday));
         // throw exception if it is after today date -- after adding one day.
         if (calApptDate.compareTo(calToday) > 0) {
             throw new AppointmentException("Appointment can not be cancelled within 24 hours of appointment date.");
@@ -277,6 +278,30 @@ public class ScheduleServices {
                 return EVENING_TIME_START;
             default:
                 return -1;
+        }
+    }
+    
+     /**
+      * Returns an integer representing hour that corrsepends to a given schedule
+     * block.
+     *
+     * @param scheduleBlock a string representing a fully named schedule block
+     * (ie. Afternoon (12pm to 4pm).
+     * @return a String representing a hour that corrspends to a given
+     * schedule block. Returns null if no match is found.
+     **/
+    public static String getScheduleBlockInString(String scheduleBlock) {
+        switch (scheduleBlock) {
+            case EARLY_MORNING:
+                return "6";
+            case MORNING:
+                return "9";
+            case AFTERNOON:
+                return "12";
+            case EVENING:
+                return "16";
+            default:
+                return null;
         }
     }
 

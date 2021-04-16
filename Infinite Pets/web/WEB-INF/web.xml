@@ -116,6 +116,10 @@
         <servlet-class>servlets.InfinitePetsServlets.employeeAppointments.AvailableAppointmentsServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>AddServiceToAppointmentServlet</servlet-name>
+        <servlet-class>servlets.InfinitePetsServlets.AddAppointmentServiceServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>MyAppointmentServlet</servlet-name>
         <servlet-class>servlets.scheduleServlets.MyAppointmentServlet</servlet-class>
     </servlet>
@@ -204,6 +208,10 @@
         <url-pattern>/AvailableAppointments</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>AddServiceToAppointmentServlet</servlet-name>
+        <url-pattern>/AddServiceToAppointment</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>MyAppointmentServlet</servlet-name>
         <url-pattern>/MyAppointment</url-pattern>
     </servlet-mapping>
@@ -218,11 +226,11 @@
     <env-entry>
         <env-entry-name>webmail-username</env-entry-name>
         <env-entry-type>java.lang.String</env-entry-type>
-        <env-entry-value/>
+        <env-entry-value></env-entry-value>
     </env-entry>
     <env-entry>
         <env-entry-name>webmail-password</env-entry-name>
         <env-entry-type>java.lang.String</env-entry-type>
-        <env-entry-value/>
+        <env-entry-value></env-entry-value>
     </env-entry>
 </web-app>

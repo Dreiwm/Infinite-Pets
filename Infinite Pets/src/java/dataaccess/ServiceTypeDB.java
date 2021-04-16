@@ -120,7 +120,7 @@ public class ServiceTypeDB {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         
         try {
-            return em.createNamedQuery("ServiceType.findAll", Servicetype.class).getResultList();
+            return em.createNamedQuery("Servicetype.findAll", Servicetype.class).getResultList();
         } finally {
             em.close();
         }
