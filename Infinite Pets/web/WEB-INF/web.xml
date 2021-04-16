@@ -88,10 +88,6 @@
         <servlet-class>servlets.InfinitePetsServlets.promotions.NewPromotionServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ViewPetServlet</servlet-name>
-        <servlet-class>servlets.petServlets.ViewPetServlet</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>AdminPetServices</servlet-name>
         <servlet-class>servlets.adminServlets.AdminPetServicesServlet</servlet-class>
     </servlet>
@@ -118,6 +114,14 @@
     <servlet>
         <servlet-name>MyAppointmentServlet</servlet-name>
         <servlet-class>servlets.scheduleServlets.MyAppointmentServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddServiceToAppointmentServlet</servlet-name>
+        <servlet-class>servlets.InfinitePetsServlets.AddAppointmentServiceServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ViewAppointment</servlet-name>
+        <servlet-class>servlets.scheduleServlets.ViewAppointment</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ViewPetServlet</servlet-name>
@@ -206,6 +210,14 @@
     <servlet-mapping>
         <servlet-name>MyAppointmentServlet</servlet-name>
         <url-pattern>/MyAppointment</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddServiceToAppointmentServlet</servlet-name>
+        <url-pattern>/AddServiceToAppointment</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewAppointment</servlet-name>
+        <url-pattern>/ViewAvailableAppointment</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
