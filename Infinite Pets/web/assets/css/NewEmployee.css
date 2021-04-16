@@ -4,18 +4,18 @@
     align-items: center;
 }
 
-.profile{
+.employeeContainer{
     display: grid;
     grid-template-areas: 
-        "title title"
-        "acctTable acctTable"
-        "editBtn saveBtn"
-        "deleteBtn deleteBtn";
-    row-gap: 10px;
+        "employee qualifications"
+        "empTable qualTable"
+        "cancelBtn saveBtn";
+    row-gap: 5px;
     column-gap: 20px;
     padding: 25px;
     margin-top: 25px;
     margin-bottom: 25px;
+    padding-bottom: 40px;
     justify-content: center;
     align-items: center;
     border-radius: 10px;
@@ -23,8 +23,11 @@
     background-color: #F3F1EC;
 }
 
-.title{grid-area: title;}
-.acctTable{grid-area: acctTable;}
-.editBtn{grid-area: editBtn;}
-.deleteBtn{grid-area: deleteBtn;}
+.employee{grid-area: employee;}
+.empTable{grid-area: empTable;}
+
+.qualifications{grid-area: qualifications;}
+.qualTable{grid-area: qualTable;}
+
 .saveBtn{grid-area: saveBtn;}
+.cancelBtn{grid-area: cancelBtn;}

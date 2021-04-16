@@ -34,29 +34,44 @@
                                     <option value="">
                                         Animal type
                                     </option>
+                                    
                                     <c:forEach items="${animalList}" var="anlst">
-                                        <option value="${anlst.animalType}" onselect="setBreed('${anlst.animalType}')">${anlst.animalType}</option>
+                                        <option value="${anlst.animalType}" selected>${anlst.animalType}</option>
                                     </c:forEach>
                                 </select>
                             </div>
+                            
+                            
                             <div class="petBreed">
                                 <label for="breed"> Select animal breed</label>
                                 <select name="breed" id="breed">
                                     <option value="" id='default'>
                                         Animal breed
                                     </option>
-                                    <c:forEach items="${dogBreeds}" var="dogBreed">
-                                        <option value="${dogBreed.breedName}" class='dog' style='display: none'>${dogBreed.breedName}</option>
-                                    </c:forEach>
-                                    <c:forEach items="${catBreeds}" var="catBreed">
-                                        <option value="${catBreed.breedName}" class='cat' style='display: none'>${catBreed.breedName}</option>
-                                    </c:forEach>
-                                    <c:forEach items="${exoticBreeds}" var="exoticBreed">
-                                        <option value="${exoticBreed.breedName}" class='exotic' style='display: none'>${exoticBreed.breedName}</option>
-                                    </c:forEach>                                   
+                                    <c:choose>
+                                        <c:when test="${anlst.animalType == 'Dog'}">
+                                            <c:forEach items="${dogBreeds}" var="breed">
+                                                <option value="${dogBreed.breedName}">${dogBreed.breedName}</option>
+                                            </c:forEach>
+                                            
+                                        </c:when>
+                                        <c:when test="${anlst.animalType == 'Cat'}">
+                                            <c:forEach items="${catBreeds}" var="catBreed">
+                                                <option value="${catBreed.breedName}">${catBreed.breedName}</option>
+                                            </c:forEach>
+                                            
+                                        </c:when>
+                                        <c:otherwise>    
+                                        <c:forEach items="${exoticBreeds}" var="exoticBreed">
+                                                <option value="${exoticBreed.breedName}">${exoticBreed.breedName}</option>
+                                        </c:forEach>
+                                        </c:otherwise>
+                                    </c:choose>
+                                    <%--</c:forEach>--%>                                  
                                 </select>
                             </div>
 
+                            
                             <div class="petNotes">
                                 <label for="medical">Additional Info:</label>                    
                                 <textarea name="medical" id="medical" placeholder="Any additional information we should know..."></textarea>
@@ -115,7 +130,7 @@
         </div>
         
         <footer> <%@include file="testFiles/footer.jsp" %> </footer>
-        <script>
+<!--        <script>
     function setBreed(var breed) {
         console.log(breed);
     if (breed === "Dog"){
@@ -133,6 +148,6 @@
         document.getElementByClassName("cat").style.display = "none";
         document.getElementByClassName("exotic").style.display = "block";
     }}
-</script>
+</script>-->
     </body>
 </html>
