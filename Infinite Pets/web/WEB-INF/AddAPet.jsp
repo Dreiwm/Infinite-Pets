@@ -31,14 +31,17 @@
                             <div class="petType">
                                 <label for="animal"> Select animal type</label>
                                 <select name="animal" id="animal">
-                                    <option value="" selected>
+                                    <option value="">
                                         Animal type
                                     </option>
                                     
                                     <c:forEach items="${animalList}" var="anlst">
-                                        <option value="${anlst.animalType}">${anlst.animalType}</option>
+                                        <option value="${anlst.animalType}" selected>${anlst.animalType}</option>
+                                    </c:forEach>
                                 </select>
                             </div>
+                            
+                            
                             <div class="petBreed">
                                 <label for="breed"> Select animal breed</label>
                                 <select name="breed" id="breed">
@@ -46,15 +49,15 @@
                                         Animal breed
                                     </option>
                                     <c:choose>
-                                        <c:when test="${anlst.animalType} == 'dog'">
-                                            <c:forEach items="${dogBreeds}" var="dogBreed">
+                                        <c:when test="${anlst.animalType == 'Dog'}">
+                                            <c:forEach items="${dogBreeds}" var="breed">
                                                 <option value="${dogBreed.breedName}">${dogBreed.breedName}</option>
                                             </c:forEach>
                                             
                                         </c:when>
-                                        <c:when test="${anlst.animalType} == 'dog'">
-                                            <c:forEach items="${dogBreeds}" var="dogBreed">
-                                                <option value="${dogBreed.breedName}">${dogBreed.breedName}</option>
+                                        <c:when test="${anlst.animalType == 'Cat'}">
+                                            <c:forEach items="${catBreeds}" var="catBreed">
+                                                <option value="${catBreed.breedName}">${catBreed.breedName}</option>
                                             </c:forEach>
                                             
                                         </c:when>
@@ -64,13 +67,7 @@
                                         </c:forEach>
                                         </c:otherwise>
                                     </c:choose>
-                                    </c:forEach>
-                                    <c:forEach items="${catBreeds}" var="catBreed">
-                                        <option value="${catBreed.breedName}" class='cat' style='display: none'>${catBreed.breedName}</option>
-                                    </c:forEach>
-                                    <c:forEach items="${exoticBreeds}" var="exoticBreed">
-                                        <option value="${exoticBreed.breedName}" class='exotic' style='display: none'>${exoticBreed.breedName}</option>
-                                    </c:forEach>                                   
+                                    <%--</c:forEach>--%>                                  
                                 </select>
                             </div>
 

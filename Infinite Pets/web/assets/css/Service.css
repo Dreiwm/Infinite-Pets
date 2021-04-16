@@ -1,0 +1,48 @@
+.wrapper{
+    display: grid;
+    justify-content: center;
+    align-items: center;
+}
+
+.serviceContainer {
+    display: grid;
+    grid-template-areas: 
+        "title title"
+        "serviceNameLbl serviceName"
+        "priceLbl price"
+        "isActiveLbl isActive"
+        "petLbl pet"
+        "dateRangeLbl dateRange"
+        "cancelBtn submitBtn";
+    row-gap: 0px;
+    column-gap: 20px;
+    padding: 25px;
+    margin-top: 25px;
+    margin-bottom: 25px;
+    padding-bottom: 40px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    border-style: solid;
+    background-color: #F3F1EC;
+}
+
+.title{grid-area: title;}
+
+.serviceNameLbl{grid-area: serviceNameLbl;}
+.serviceName{grid-area: serviceName;}
+
+.priceLbl{grid-area: priceLbl;}
+.price{grid-area: price;}
+
+.petLbl{grid-area: petLbl;}
+.pet{grid-area: pet;}
+
+.isActiveLbl{grid-area: isActiveLbl;}
+.isActive{grid-area: isActive;}
+
+.dateRangeLbl{grid-area: dateRangeLbl;}
+.dateRange{grid-area: dateRange;}
+
+.cancelBtn{grid-area: cancelBtn;}
+.submitBtn{grid-area: submitBtn;}

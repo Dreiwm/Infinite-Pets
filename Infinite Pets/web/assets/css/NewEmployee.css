@@ -1,0 +1,33 @@
+.wrapper{
+    display: grid;
+    justify-content: center;
+    align-items: center;
+}
+
+.employeeContainer{
+    display: grid;
+    grid-template-areas: 
+        "employee qualifications"
+        "empTable qualTable"
+        "cancelBtn saveBtn";
+    row-gap: 5px;
+    column-gap: 20px;
+    padding: 25px;
+    margin-top: 25px;
+    margin-bottom: 25px;
+    padding-bottom: 40px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    border-style: solid;
+    background-color: #F3F1EC;
+}
+
+.employee{grid-area: employee;}
+.empTable{grid-area: empTable;}
+
+.qualifications{grid-area: qualifications;}
+.qualTable{grid-area: qualTable;}
+
+.saveBtn{grid-area: saveBtn;}
+.cancelBtn{grid-area: cancelBtn;}
