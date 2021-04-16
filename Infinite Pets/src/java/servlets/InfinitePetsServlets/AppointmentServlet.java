@@ -60,7 +60,6 @@ public class AppointmentServlet extends HttpServlet {
 //        while (e.hasMoreElements()) {
 //            System.out.println(e.nextElement());
 //        }
-
         String email = (String) ses.getAttribute("email");
 //        System.out.println(email);
         AccountServices acs = new AccountServices();
@@ -99,12 +98,12 @@ public class AppointmentServlet extends HttpServlet {
             }
 
 //            LocalTime localTime = LocalTime.parse(time);
-
 //                Time appointmentTime = Time.valueOf(localTime);
             System.out.println("appt date: " + appt.getAppointmentDate());
-            SimpleDateFormat sdf0 = new SimpleDateFormat("hh:mm:ss");
-            System.out.println("appt time: " + sdf0.format(appt.getAppointmentTime()));
-            System.out.println("local time: " + LocalTime.parse(sdf0.format(appt.getAppointmentTime())));
+            System.out.println("appt time:" + appt.getAppointmentTime());
+//            SimpleDateFormat sdf0 = new SimpleDateFormat("hh:mm:ss");
+//            System.out.println("appt time: " + sdf0.format(appt.getAppointmentTime()));
+//            System.out.println("local time: " + LocalTime.parse(sdf0.format(appt.getAppointmentTime())));
 
             // check if action is deleteService
             String action = request.getParameter("action");
@@ -223,7 +222,7 @@ public class AppointmentServlet extends HttpServlet {
                 // set new info to appointment from parameters
                 String month, day, year, schBlock;
                 String hour;
-                sdf.applyPattern("MMM-dd-yyyy");
+                sdf.applyLocalizedPattern("MMM-dd-yyyy");
                 sdf.setLenient(false); // so it'll throw error if date is wrong
 
                 month = request.getParameter("selectMonth");
@@ -236,14 +235,16 @@ public class AppointmentServlet extends HttpServlet {
                 try {
                     // For appointmentDate only
                     newDate = sdf.parse(month + "-" + day + "-" + year);
+                    
+                    sdf.applyLocalizedPattern("kk");
 
-                    sdf.applyPattern("kk");
-                    System.out.println("hour from param" + hour);
-                    System.out.println("LocalTime will be parsing this: " + sdf.format(sdf.parse(hour)) + ":00:00");
-                    LocalTime localTime = LocalTime.parse(sdf.format(sdf.parse(hour)) + ":00:00");
-                    Time apptTime = Time.valueOf(localTime);
-                    System.out.println(apptTime);
-                    appt.setAppointmentTime(apptTime);
+                    
+//                    LocalTime localTime = LocalTime.parse(sdf.format(sdf.parse(hour)) + ":00:00");
+//                    Time apptTime = Time.valueOf(localTime);
+                    System.out.println(sdf.parse("date: " + hour));
+                    appt.setAppointmentTime(sdf.parse(hour));
+
+                    // Make local time 
                     appt.setAppointmentDate(newDate);
 
                     System.out.println("successfully updated? " + schs.updateAppointment(appt));
@@ -269,7 +270,6 @@ public class AppointmentServlet extends HttpServlet {
                 System.out.println("setting apptServices attributes..");
                 request.setAttribute("apptServices", apptServices);
 
-                
                 getServletContext().getRequestDispatcher("/WEB-INF/Appointment.jsp").forward(request, response);
             } else if (action.equals("reqCancelAppt")) {
                 EmailService ems = new EmailService();
@@ -381,7 +381,6 @@ public class AppointmentServlet extends HttpServlet {
 
     }
 
-
     /**
      * Sets attributes related to AppointmentrServices with given Appointment
      * object. WIll be using appt ID from said object to determine which servies
@@ -398,4 +397,4 @@ public class AppointmentServlet extends HttpServlet {
         request.setAttribute("apptServices", ss.getAllAppointmentServices(appt));
     }
 
-} 
+}
