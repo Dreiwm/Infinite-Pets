@@ -116,10 +116,6 @@
         <servlet-class>servlets.scheduleServlets.MyAppointmentServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>AdminNewServiceServlet</servlet-name>
-        <servlet-class>servlets.adminServlets.AdminNewServiceServlet</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>AddServiceToAppointmentServlet</servlet-name>
         <servlet-class>servlets.InfinitePetsServlets.AddAppointmentServiceServlet</servlet-class>
     </servlet>
@@ -214,10 +210,6 @@
     <servlet-mapping>
         <servlet-name>MyAppointmentServlet</servlet-name>
         <url-pattern>/MyAppointment</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>AdminNewServiceServlet</servlet-name>
-        <url-pattern>/AdminNewService</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AddServiceToAppointmentServlet</servlet-name>

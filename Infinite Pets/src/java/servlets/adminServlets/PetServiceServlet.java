@@ -42,11 +42,17 @@ public class PetServiceServlet extends HttpServlet {
             response.sendRedirect("Login");
         }
         try {
-            //get serviceID then populate fields for editing
-            int serviceID = Integer.parseInt(request.getParameter("serviceID"));
-            PetServicesServices pss = new PetServicesServices();
-            Service service = pss.getService(serviceID);
-            request.setAttribute("service", service);
+            String action = request.getParameter("action");
+            if (action.equals("edit")){
+                //get serviceID then populate fields for editing
+                int serviceID = Integer.parseInt(request.getParameter("serviceID"));
+                PetServicesServices pss = new PetServicesServices();
+                Service service = pss.getService(serviceID);
+                request.setAttribute("service", service);
+                request.setAttribute("serviceID", serviceID);
+                request.setAttribute("action", "update");
+            }
+            request.setAttribute("action", "add");
         } catch(Exception e){
             Logger.getLogger(PetServiceServlet.class.getName()).log(Level.WARNING, null, e);
         }
@@ -71,9 +77,20 @@ public class PetServiceServlet extends HttpServlet {
             String bPrice = request.getParameter("basePrice");
             BigDecimal basePrice = new BigDecimal(bPrice);
             String active = request.getParameter("active");
-            String dateRange = request.getParameter("dateRange");
+            String action = request.getParameter("action");
+            System.out.printf("ServiceID: %d, Name: %s, Price: %s, Active: %s%n", serviceID, serviceName, bPrice, active);
             
-            System.out.printf("ServiceID: %d, Name: %s, Price: %d, Active: %s, Date: %s%n", serviceID, serviceName, basePrice, active, dateRange);
+            PetServicesServices pss = new PetServicesServices();
+            if (action.equals("update")){
+                pss.update(serviceID, serviceName, basePrice, active);
+                response.sendRedirect("PetServices");
+                return;
+            }
+            else if (action.equals("add")){
+                pss.addService(serviceName, basePrice, active);
+                response.sendRedirect("PetServices");
+                return;
+            }
             
         }catch(Exception e){
             Logger.getLogger(PetServiceServlet.class.getName()).log(Level.WARNING, null, e);

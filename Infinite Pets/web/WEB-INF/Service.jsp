@@ -20,8 +20,8 @@
     <body>
         <div class="wrapper">
             
-            <form method="POST" action="Service">
             <div class="serviceContainer">
+                <form method="POST" action="Service">
                     <div class="title">
                         <h1>Pet Service</h1>
                     </div>
@@ -29,38 +29,30 @@
                         <p>Service Name</p>
                     </div>
                     <div class="serviceName">
-                        <input name="serviceName" id="serviceName" value="${serviceName}">
+                        <input name="serviceName" id="serviceName" value="${service.serviceName}">
                     </div>
                     <div class="priceLbl">
                         <p>Base Price:</p>
                     </div>
                     <div class="price">
-                        <input name="basePrice" id="basePrice" value="${basePrice}">
+                        <input name="basePrice" id="basePrice" value="${service.basePrice}">
                     </div>
                     <div class="isActiveLbl">
                         <p>Active:</p>
                     </div>
                     <div class="isActive">
-                        <input name="active" id="active" value="${active}">
-                    </div>
-                    <div class="petLbl">
-                        <p>Specify Pet:</p>
-                    </div>
-                    <div class="pet">
-                        <input name="specifyPet" id="specifyPet" value="${specifyPet}">
-                    </div>
-                    <div class="dateRangeLbl">
-                        <p>Date Range:</p>
-                    </div>
-                    <div class="dateRange">
-                        <input name="dateRange" id="dateRange" value="${dateRange}">
+                        <select name="active" id="active">
+                            <option value="true" selected>Yes</option>
+                            <option value="false" >No</option>
+			</select>       
                     </div>
                     <div class="submitBtn">
-                        <input type="hidden" name="action" value="save">
+                        <input type="hidden" name="action" value="${action}">
+                        <input type="hidden" name="serviceID" value="${serviceID}">
                         <button type="submit">Submit</button>
                     </div>
                 </form>
-                <form method="get" action="PetServices"></form>
+                <form method="get" action="PetServices">
                     <div class="cancelBtn" id="cancelBtn">
                         <button type="submit" id="cancel">Cancel</button>
                     </div>

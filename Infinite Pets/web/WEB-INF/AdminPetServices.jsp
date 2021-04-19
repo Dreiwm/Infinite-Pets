@@ -25,6 +25,7 @@
                     <h1>Services List</h1>
                 </div>
                 <form method="GET" action="Service">
+                    <input type="hidden" name="action" value="add">
                     <div class="newService">
                         <button type="submit">Add New Service</button>
                     </div>
@@ -36,10 +37,8 @@
                                 <th>Name</th>
                                 <th>Price</th>
                                 <th>Description</th>
-                                <th>Active</th>
-                                <th>Service Type</th>
-                                <th></th>
-                                <th></th>
+                                <th>Edit</th>
+                                <th>Delete</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -48,8 +47,6 @@
                                     <td>${service.serviceName}</td>
                                     <td>${service.basePrice}</td>
                                     <td>${service.serviceDescription}</td>
-                                    <td>service.active</td>
-                                    <td style="text-align: center;">11</td>
                                     <c:url value="Service" var="editurl">
                                         <c:param name="method" value="GET"/>
                                         <c:param name="action" value="edit"/>

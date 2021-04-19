@@ -93,14 +93,14 @@
                 <c:choose>       
                     <c:when test = "${service.value == true}">
 			<select name="${service.key}" id="${service.key}">
-				<option value="true" selected>Yes</option>
-				<option value="false" >No</option>
+                            <option value="true" selected>Yes</option>
+                            <option value="false" >No</option>
 			</select>
                     </c:when>
                     <c:otherwise>
                         <select name="${service.key}" id="${service.key}">
-				<option value="true" >Yes</option>
-				<option value="false" selected>No</option>
+                            <option value="true" >Yes</option>
+                            <option value="false" selected>No</option>
 			</select>
                     </c:otherwise>
                 </c:choose> </td></tr>                  
