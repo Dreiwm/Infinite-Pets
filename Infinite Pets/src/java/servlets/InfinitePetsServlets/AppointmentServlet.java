@@ -54,11 +54,11 @@ public class AppointmentServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession ses = request.getSession();
-            String email = (String) ses.getAttribute("email");
-            if (email.equals("") || email == null){
-                ses.invalidate();
-                response.sendRedirect("Login");
-            }
+        String email = (String) ses.getAttribute("email");
+        if (email.equals("") || email == null){
+            ses.invalidate();
+            response.sendRedirect("Login");
+        }
 //        System.out.println(email);
         AccountServices acs = new AccountServices();
         Account acc = null;

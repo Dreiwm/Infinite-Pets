@@ -72,7 +72,7 @@ public class AddPetServices {
         Pet newPet = new Pet(0, sx, animal, breed, name, bday);
         newPet.setPreferredVet(vet);
         newPet.setMedicalInfo(medical);
-        newPet.setImagePath(url);
+        //newPet.setImagePath(url);
         newPet.setOwner(accountDB.getAccountByEmail(owner));
                 
         System.out.println(newPet.getBreed()+"\n"+newPet.getPetName());
@@ -81,8 +81,21 @@ public class AddPetServices {
     }
     
 
-    public void updatePet(Pet pet, String birthday, String vet, String medical, String sex){
+    public void updatePet(int petID, String name, String vet, String medical, String sex) throws Exception{
+        AccountDB accountDB = new AccountDB();
+        PetDB petDB = new PetDB();
+        char sx = sex.charAt(0);
+        Pet tempPet = petDB.getItemById(petID);
         
+        Pet newPet = new Pet(tempPet.getPetID(), sx, tempPet.getSpecies(), tempPet.getBreed(), name, tempPet.getBirthday());
+        newPet.setPreferredVet(vet);
+        newPet.setMedicalInfo(medical);
+        //newPet.setImagePath(url);
+        newPet.setOwner(tempPet.getOwner());        
+        
+        System.out.println(newPet.getBreed()+"\n"+newPet.getPetName());
+        petDB.updatePet(newPet);
+        System.out.println("pet updated");
     }
     
     

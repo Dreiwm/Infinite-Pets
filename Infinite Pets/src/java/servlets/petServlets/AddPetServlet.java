@@ -90,16 +90,16 @@ public class AddPetServlet extends HttpServlet {
        
         
            //get photo
-            Part filePart = request.getPart("picture");
-            InputStream fileInputStream = filePart.getInputStream();
-            String url =UUID.randomUUID().toString();
-            
-            //File fileToSave = new File(getServletContext().getInitParameter("upload.location"+"/"+filePart.getSubmittedFileName()));
-            File folder = (File) getServletContext().getAttribute(ServletContext.TEMPDIR);
-            File result = new File(folder, filePart.getSubmittedFileName());
-  //          File fileToSave = new File(getServletContext().getResourceAsStream("/upload-files/"+filePart.getSubmittedFileName()));
-            Files.copy(fileInputStream, result.toPath(), StandardCopyOption.REPLACE_EXISTING);
-        
+//            Part filePart = request.getPart("picture");
+//            InputStream fileInputStream = filePart.getInputStream();
+//            String url =UUID.randomUUID().toString();
+//            
+//            //File fileToSave = new File(getServletContext().getInitParameter("upload.location"+"/"+filePart.getSubmittedFileName()));
+//            File folder = (File) getServletContext().getAttribute(ServletContext.TEMPDIR);
+//            File result = new File(folder, filePart.getSubmittedFileName());
+//  //          File fileToSave = new File(getServletContext().getResourceAsStream("/upload-files/"+filePart.getSubmittedFileName()));
+//            Files.copy(fileInputStream, result.toPath(), StandardCopyOption.REPLACE_EXISTING);
+//        
         
         if(request.getParameter("action").toString().equals("cancel")){
             response.sendRedirect("MyPets");
@@ -124,7 +124,7 @@ public class AddPetServlet extends HttpServlet {
                 String msg = vs.checkInput(petName, type, breed, birthday, vet, info, sex, owner);
                 if (msg.equals("Checked")){
                     System.out.println("going to aps");
-                    aps.createPet(petName, type, breed, birthday, vet, info, sex, owner, url);
+                    aps.createPet(petName, type, breed, birthday, vet, info, sex, owner, null);
                     response.sendRedirect("MyPets");
                 }
                 else {

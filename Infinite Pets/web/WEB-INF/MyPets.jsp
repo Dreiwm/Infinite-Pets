@@ -43,8 +43,12 @@
                                     <td>${pet.species}</td>
                                     <td>${pet.breed}</td>
                                     <td>${pet.sex}</td>
-                                    <td>
-                                        <button>Edit</button>
+                                    <c:url value="ViewPet" var="editurl">
+                                        <c:param name="method" value="GET"/>
+                                        <c:param name="PetID" value="${pet.petID}"/>
+                                    </c:url>
+                                    <td>                                    
+                                        <a href="${editurl}">Edit</a>
                                     </td>
                                 </tr>
                              </c:forEach> 

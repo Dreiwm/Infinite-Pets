@@ -43,10 +43,10 @@ public class AddPetServlet extends HttpServlet {
                AddPetServices aps = new AddPetServices();
         try {
             List animalList = aps.getAnimals();  
-            List breedList = aps.getAllAnimalBreeds();
+            List dogBreeds = aps.getDogBreeds();
                 
             request.setAttribute("animalList", animalList);
-            request.setAttribute("breedList", breedList);
+            request.setAttribute("dogBreeds", dogBreeds);
                 
         } catch (Exception ex) {
             Logger.getLogger(AddPetServlet.class.getName()).log(Level.SEVERE, null, ex);

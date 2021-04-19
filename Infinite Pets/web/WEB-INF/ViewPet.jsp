@@ -15,95 +15,85 @@
     </head>
     <body>
         <div class="wrapper">
+            <div class="btnEdit">
+                <button onclick="editPet()">Edit</button>
+            </div>
             <form method="post">
+
                 <div class="viewPetContainer">
                     <div class="title">
-                        <h1>${pet.name}</h1>
+                        <h1>${petName}</h1>
                     </div>
-
-                    <div class="btnEdit">
-                        <button onclick="editPet()">Edit</button>
-                    </div>
-                        
+                    
+                    
                         <div class="viewPetLeft">
                             <div class="petName">
                                 <label for="petName">Name</label>
-                                <input type="text" name="petName" id="petName" readonly>
+                                <input type="text" name="petName" id="petName" value="${petName}" readonly>
                             </div>
 
                             <div class="petType">
                                 <label for="animal">Animal type</label>
-                                <select name="animal" id="animal" disabled>
-                                    <option value="">
-                                        Animal type
-                                    </option>
-                                    <c:forEach items="${animalList}" var="anlst">
-                                        <option value="${anlst.animalType}">${anlst.animalType}</option>
-                                    </c:forEach>
+                                <select name="animal" id="animal" readonly>
+                                    <option value="${animal}">${animal}</option>
                                 </select>
                             </div>
-
+                                
                             <div class="petBreed">
                                 <label for="breed">Animal breed</label>
-                                <select name="breed" id="breed" disabled>
-                                    <option value="">
-                                        Breed
-                                    </option>
-                                    <c:forEach items="${breedList}" var="lst">
-                                        <option value="${lst.breedName}">${lst.breedName}</option>
-                                    </c:forEach>
+                                <select name="breed" id="breed" readonly>
+                                    <option value="${breed}">${breed}</option>
                                 </select>
                             </div>
 
                             <div class="petNotes">
                                 <label for="medical">Additional Info:</label>                    
-                                <textarea name="medical" id="medical" placeholder="Any additional information we should know..." readonly></textarea>
+                                <textarea name="medical" id="medical" readonly>${medical}</textarea>
                             </div>
                         </div>
-
-                        
-
-                        
+                            
+                            
                         <div class="viewPetRight">
                             <div class="petSex">
                                 <label for="sex">Sex</label>
-                                <select name="sex" id="sex" disabled>
-                                    <option value="Male">Male</option>
-                                    <option value="Female">Female</option>
+                                <select name="sex" id="sex" readonly disabled>
+                                    <c:forEach items="${sex}" var="aSex">
+                                        <option value="${aSex}" style="display: block">${aSex}</option>
+                                    </c:forEach>
                                 </select>
                             </div>
-
                             <div class="petBirthday">
                                 <label for="birthday">Birthday</label>                    
-                                <input type="date" name="birthday" id="birthday" readonly>
+                                <input type="date" name="birthday" id="birthday" readonly value="${birthday}">
                             </div>
 
                             <div class="petVet">
                                 <label for="vet">Vet</label>
-                                <input type="text" name="vet" id="vet" readonly>
+                                <input type="text" name="vet" id="vet" readonly value="${vet}">
                             </div>
 
-                            <div class="petPicture">
+<!--                            <div class="petPicture">
                                 <label for="picture">Picture</label>
-                                <!--<input name="picture" id="picture" type="image" accept="image/*" readonly>-->
-                            </div>
+                                <input name="picture" id="picture" type="image" accept="image/*" readonly>
+                            </div>-->
                             
-                            <div class="choosePicture">
+<!--                            <div class="choosePicture">
                                 <button type="submit" name="action" value="btnChoose" style="display: none;" disabled>Choose Photo...</button>
-                                <!-- <input name="choosePhoto" type="submit" value="Choose photo..."> -->
-                            </div>
+                                 <input name="choosePhoto" type="submit" value="Choose photo..."> 
+                            </div>-->
 
                             <div class="saveBtn">
-                                <button type="submit" name="action" value="btnSave" style="display: none;" disabled>Save</button>
+                                <input type="hidden" name="action" value="${action}">
+                                <button type="submit" name="btnSave" value="save" id="btnSave" style="display: none;" disabled>Save</button>
                             </div>
                             <div class="cancelBtn">
-                                <button type="submit" name="action" value="btnCancel">Cancel</button>
+                                <button type="submit">Cancel</button>
                             </div>
                         </div>
                     
                 </div>
 
-            </form>
+          </form>  
 
             <div class="errMsg">
                 <!--<p name="errorMsg"></p>-->
@@ -121,19 +111,12 @@
     
        <script>
             function editPet() {
-                document.getElementById("petName").readonly = false;
-                document.getElementById("petType").readonly = false;
-                document.getElementById("petBreed").readonly = false;
+                document.getElementById("petName").readOnly = false;
 
-
-
-                document.getElementById("petBirthday").readOnly = false;
-                document.getElementById("petVet").readOnly = false;
-                document.getElementById("petNotes").readOnly = false;
-              
-                document.getElementById("petSex").disabled = false;
-
-                document.getElementById("btnChoose").style.display='block';
+                document.getElementById("birthday").readOnly = false;
+                document.getElementById("vet").readOnly = false;
+                document.getElementById("medical").readOnly = false;
+                document.getElementById("sex").disabled = false;
                
                 document.getElementById("btnSave").style.display='block';
                 document.getElementById("btnSave").disabled= false;
@@ -141,3 +124,4 @@
         </script>
         </body>
 </html>
+ 

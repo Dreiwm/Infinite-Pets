@@ -12,6 +12,7 @@
     <title>Add a Pet</title>
     <%@include file="testFiles/header.jsp" %>
 </head>
+
     <body>
         <div class="wrapper">
             
@@ -33,10 +34,9 @@
                                 <select name="animal" id="animal">
                                     <option value="" selected>
                                         Animal type
-                                    </option>
-                                    
+                                    </option>                                    
                                     <c:forEach items="${animalList}" var="anlst">
-                                        <option value="${anlst.animalType}" selected>${anlst.animalType}</option>
+                                        <option value="${anlst.animalType}">${anlst.animalType}</option>
                                     </c:forEach>
                                 </select>
                             </div>
@@ -47,7 +47,10 @@
                                     <option value="" id='default'>
                                         Animal breed
                                     </option>
-                                    <c:choose>
+                                    <c:forEach items="${dogBreeds}" var="breed">
+                                        <option value="${breed.breedName}" style="display: block">${breed.breedName}</option>
+                                    </c:forEach>
+                                   <%-- <c:choose>
 
                                         <c:when test="${anlst.animalType == 'Dog'}">
                                             <c:forEach items="${dogBreeds}" var="breed">
@@ -66,7 +69,7 @@
                                                 <option value="${exoticBreed.breedName}">${exoticBreed.breedName}</option>
                                         </c:forEach>
                                         </c:otherwise>
-                                    </c:choose>
+                                    </c:choose>--%>
                                     <%--</c:forEach>--%>                                  
                                 </select>
                             </div>
@@ -98,12 +101,12 @@
                                 <input type="text" name="vet" id="vet">
                             </div>
 
-                            <div class="petPicture">
+<!--                            <div class="petPicture">
                                 <label for="picture">Add a picture</label>
-                                <!--<input name="picture" id="picture" type="image" alt="image" accept="image/*">-->
+                                <input name="picture" id="picture" type="image" alt="image" accept="image/*">
                                  <input name="picture" id="picture" type="file" > 
-                                <!-- <input type="submit" value="Choose photo..."> -->
-                            </div>
+                                 <input type="submit" value="Choose photo..."> 
+                            </div>-->
                          
 
                             <div class="saveBtn">
@@ -132,24 +135,6 @@
         </div>
         
         <footer> <%@include file="testFiles/footer.jsp" %> </footer>
-<!--        <script>
-    function setBreed(var breed) {
-        console.log(breed);
-    if (breed === "Dog"){
-        document.getElementByClassName("dog").style.display = "block";
-        document.getElementByClassName("cat").style.display = "none";
-        document.getElementByClassName("exotic").style.display = "none";
-    }
-    else if (breed === "Cat"){
-        document.getElementByClassName("dog").style.display = "none";
-        document.getElementByClassName("cat").style.display = "block";
-        document.getElementByClassName("exotic").style.display = "none";
-    }
-    else if (breed === "Bird"){
-        document.getElementByClassName("dog").style.display = "none";
-        document.getElementByClassName("cat").style.display = "none";
-        document.getElementByClassName("exotic").style.display = "block";
-    }}
-</script>-->
+
     </body>
 </html>

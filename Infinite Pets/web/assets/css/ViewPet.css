@@ -42,7 +42,11 @@
     grid-template-areas: 
         "petName petName"
         "petType petBreed"
-        "petNotes petNotes";
+        "petNotes petNotes"
+        "petSex petPicture"
+        "petBirthday petPicture"
+        "petVet choosePicture"
+        "cancelBtn saveBtn";
     column-gap: 10px;
     row-gap: 1px;
     
@@ -64,7 +68,7 @@
     height: 100%;
 }
 
-.viewPetRight{
+/*.viewPetRight{
     grid-area: viewPetRight;
     display: grid;
     height: 100%;
@@ -75,7 +79,7 @@
         "cancelBtn saveBtn";
     row-gap: 10px;
     column-gap: 10px;
-}
+}*/
 
 
 .petSex{grid-area: petSex;}
