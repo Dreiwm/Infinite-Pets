@@ -87,6 +87,9 @@ public class AppointmentDB {
         
         
         try {
+            int userID = appointment.getClientID().getUserId();
+            Account acc = em.find(Account.class, userID);
+            
             tr.begin();
             em.merge(appointment);
             tr.commit();
@@ -105,20 +108,24 @@ public class AppointmentDB {
     public boolean delete(Appointment appt) {
         
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
-       EntityTransaction trans = em.getTransaction();
-       try{
-           trans.begin();
-           em.remove(em.merge(appt));
-           trans.commit();
-           return true;
-       } catch (Exception e){
-           trans.rollback();
-       }
-       finally{
-           em.close();
-       }
-        
-        return false;
+        EntityTransaction trans = em.getTransaction();
+        try{
+            int userID = appt.getClientID().getUserId();
+            Account acc = em.find(Account.class, userID);
+            
+            trans.begin();
+            em.remove(em.merge(appt));
+//            em.merge(acc);
+            trans.commit();
+            return true;
+        } catch (Exception e){
+            trans.rollback();
+        }
+        finally{
+            em.close();
+        }
+
+         return false;
     }
     
     

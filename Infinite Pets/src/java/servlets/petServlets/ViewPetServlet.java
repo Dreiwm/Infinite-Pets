@@ -55,6 +55,7 @@ public class ViewPetServlet extends HttpServlet {
         
         //This sets all the text and combo boxes in the jsp
             request.setAttribute("action", "save");
+            request.setAttribute("petID", targetPet.getPetID());
             request.setAttribute("owner", email);
             request.setAttribute("petName", targetPet.getPetName());
             request.setAttribute("currentSex", targetPet.getSex());
@@ -90,7 +91,7 @@ public class ViewPetServlet extends HttpServlet {
             } catch (Exception ex) {
                 //Logger.getLogger(ViewPetServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
-
+                int petID = Integer.parseInt(request.getParameter("petID"));
                 String owner = (String)session.getAttribute("email");
                 String petName = request.getParameter("petName");
                 String sex = request.getParameter("sex");
@@ -103,7 +104,7 @@ public class ViewPetServlet extends HttpServlet {
             try{
                 String msg = vs.checkInput(petName, type, breed, birthday, vet, info, sex, owner);
                 if (msg.equals("Checked")){
-                    petServ.updatePet(int petID, petName,  vet, medical, sex);
+                    petServ.updatePet(petID, petName,  vet, info, sex);
                     response.sendRedirect("MyPets");
                     return;
                 }

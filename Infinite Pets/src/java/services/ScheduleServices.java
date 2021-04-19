@@ -225,7 +225,7 @@ public class ScheduleServices {
      * the appointment is within 24 hours.
      * @throws NullPointerException if appt is null.
      */
-    public Appointment cancelAppointment(int apptId) throws AppointmentException, NullPointerException {
+    public void cancelAppointment(int apptId) throws AppointmentException, NullPointerException, Exception {
         AppointmentDB apDB = new AppointmentDB();
 
         // get appointment from db
@@ -247,19 +247,25 @@ public class ScheduleServices {
         
         System.out.println("today: " + calToday.toString() + "Appointment date: " + calApptDate.toString());
         // throw exception if it is after today date -- after adding one day.
-        if (calApptDate.compareTo(calToday) > 0) {
-            throw new AppointmentException("Appointment can not be cancelled within 24 hours of appointment date.");
-        }
+//        if (calApptDate.compareTo(calToday) > 0) {
+//            throw new AppointmentException("Appointment can not be cancelled within 24 hours of appointment date.");
+//        }
 
         if (appt != null) {
-            if (apDB.delete(appt)) // return appt if actually removed.
-            {
-                return appt;
+            String email = appt.getClientID().getEmail();
+            AccountDB acctDB = new AccountDB();
+            Account user = acctDB.getAccountByEmail(email);
+            List<Appointment> appList = user.getAppointmentList();
+
+            if (appList.contains(appt)){
+                appList.remove(appList.indexOf(appt));
+                acctDB.updateAccount(user);
+                apDB.delete(appt);
             }
 
         }
+        System.out.println("cancelling appointment...");
 
-        return null;
     }
 
     /**

@@ -84,6 +84,7 @@
 
                             <div class="saveBtn">
                                 <input type="hidden" name="action" value="${action}">
+                                <input type="hidden" name="petID" value="${petID}">
                                 <button type="submit" name="btnSave" value="save" id="btnSave" style="display: none;" disabled>Save</button>
                             </div>
                             <div class="cancelBtn">

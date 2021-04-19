@@ -268,19 +268,21 @@ public class AppointmentServlet extends HttpServlet {
                 System.out.println("setting apptServices attributes..");
                 request.setAttribute("apptServices", apptServices);
 
-                getServletContext().getRequestDispatcher("/WEB-INF/Appointment.jsp").forward(request, response);
+                response.sendRedirect("MyAppointment");
             } else if (action.equals("reqCancelAppt")) {
                 EmailService ems = new EmailService();
                 String path = getServletContext().getRealPath("/assets");
 
-                System.out.println("cancelling appointment...");
+                
 
                 try {
                     System.out.println("Cancelling appointment..");
                     schs.cancelAppointment(apptId);
 //                    ems.sendCancellationNotification(appt, new Date(), path);
-                    request.setAttribute("errorMsg", "We have sent you a confirmation email.");
-                    getServletContext().getRequestDispatcher("/WEB-INF/Appointment.jsp").forward(request, response);
+//                    request.setAttribute("errorMsg", "We have sent you a confirmation email.");
+//                    getServletContext().getRequestDispatcher("/WEB-INF/Appointment.jsp").forward(request, response);
+                    response.sendRedirect("MyAppointment");
+                    return;
                 } catch (NullPointerException e1) {
                     request.setAttribute("errorMsg", "Uh oh! Something went wrong. Please try again.");
                     Logger.getLogger(AppointmentServlet.class.getName()).log(Level.SEVERE, null, e1);
