@@ -52,7 +52,10 @@ public class PetServiceServlet extends HttpServlet {
                 request.setAttribute("serviceID", serviceID);
                 request.setAttribute("action", "update");
             }
-            request.setAttribute("action", "add");
+            else if (action.equals("add")){
+                request.setAttribute("action", "add");
+            }
+            
         } catch(Exception e){
             Logger.getLogger(PetServiceServlet.class.getName()).log(Level.WARNING, null, e);
         }
@@ -72,22 +75,26 @@ public class PetServiceServlet extends HttpServlet {
             throws ServletException, IOException {
         //retrieve entered info upon save button, update service object then redirect back to AdminPetServices.jsp
         try {
-            int serviceID = Integer.parseInt(request.getParameter("serviceID"));
+            
             String serviceName = request.getParameter("serviceName");
             String bPrice = request.getParameter("basePrice");
             BigDecimal basePrice = new BigDecimal(bPrice);
             String active = request.getParameter("active");
             String action = request.getParameter("action");
-            System.out.printf("ServiceID: %d, Name: %s, Price: %s, Active: %s%n", serviceID, serviceName, bPrice, active);
+            String desc = request.getParameter("description");
+            System.out.println("Action = "+action);
+            
             
             PetServicesServices pss = new PetServicesServices();
             if (action.equals("update")){
-                pss.update(serviceID, serviceName, basePrice, active);
+                int serviceID = Integer.parseInt(request.getParameter("serviceID"));
+                System.out.printf("ServiceID: %d, Name: %s, Price: %s, Active: %s%n", serviceID, serviceName, bPrice, active);
+                pss.update(serviceID, serviceName, basePrice, desc);
                 response.sendRedirect("PetServices");
                 return;
             }
             else if (action.equals("add")){
-                pss.addService(serviceName, basePrice, active);
+                pss.addService(serviceName, basePrice, desc);
                 response.sendRedirect("PetServices");
                 return;
             }

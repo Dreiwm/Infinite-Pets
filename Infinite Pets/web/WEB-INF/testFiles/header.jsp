@@ -31,6 +31,9 @@
                 <a href="./AddPet">Add a Pet</a>
                 <a href="./MyAppointment">My Appointments</a>
                 <a href="./BookAppointment">Book Appointment</a>
+                <a href="./Employment">Employment</a>
+                <a href="./PetServices">Pet Services List</a>
+                <a href="./AvailableAppointments">Available Appointment</a>
                 <a href="./Login">Logout</a>
             </div>
         </div>

@@ -27,6 +27,26 @@
         <filter-name>AdminFilter</filter-name>
         <url-pattern>/Admin/*</url-pattern>
     </filter-mapping>
+    <filter-mapping>
+        <filter-name>StaffFilter</filter-name>
+        <servlet-name>AvailableAppointmentsServleet</servlet-name>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>StaffFilter</filter-name>
+        <servlet-name>PetServiceServlet</servlet-name>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>StaffFilter</filter-name>
+        <servlet-name>AdminPetServices</servlet-name>
+        <servlet-name>PetServiceServlet</servlet-name>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>AdminFilter</filter-name>
+        <servlet-name>AdminPetServices</servlet-name>
+        <servlet-name>PetServiceServlet</servlet-name>
+        <servlet-name>AdminAccntServlet</servlet-name>
+        <servlet-name>AdminNewEmployeeServlet</servlet-name>
+    </filter-mapping>
     <servlet>
         <servlet-name>AddPetServlet</servlet-name>
         <servlet-class>servlets.petServlets.AddPetServlet</servlet-class>

@@ -8,7 +8,7 @@
     display: grid;
     grid-template-areas: 
         "title btnEdit"
-        "viewPetLeft viewPetRight";
+        "viewPet viewPet";
     
     row-gap: 5px;
     column-gap: 20px;
@@ -23,6 +23,14 @@
     background-color: #F3F1EC;
 }
 
+.viewPet{
+    grid-area: viewPet;
+    display: grid;
+    grid-template-areas: 
+    "viewPetLeft viewPetRight";
+    column-gap: 10px;
+    row-gap: 1px;
+}
 .title{
     grid-area: title;
     padding: 0px;
@@ -68,18 +76,18 @@
     height: 100%;
 }
 
-/*.viewPetRight{
+.viewPetRight{
     grid-area: viewPetRight;
     display: grid;
     height: 100%;
     grid-template-areas: 
-        "petSex petPicture"
-        "petBirthday petPicture"
-        "petVet choosePicture"
+        "petSex petSex"
+        "petBirthday petBirthday"
+        "petVet petVet"
         "cancelBtn saveBtn";
     row-gap: 10px;
     column-gap: 10px;
-}*/
+}
 
 
 .petSex{grid-area: petSex;}

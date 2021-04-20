@@ -37,6 +37,12 @@
                     <div class="price">
                         <input name="basePrice" id="basePrice" value="${service.basePrice}">
                     </div>
+                    
+                    <div class="description">
+                        <label for="description">Additional Info:</label>  <br>                  
+                        <textarea name="description" id="description">${service.serviceDescription}</textarea>
+                    </div>
+                    
                     <div class="isActiveLbl">
                         <p>Active:</p>
                     </div>

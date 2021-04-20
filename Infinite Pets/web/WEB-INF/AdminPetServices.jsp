@@ -38,7 +38,7 @@
                                 <th>Price</th>
                                 <th>Description</th>
                                 <th>Edit</th>
-                                <th>Delete</th>
+                                <!--<th>Delete</th>-->
                             </tr>
                         </thead>
                         <tbody>
@@ -58,8 +58,8 @@
                                         <c:param name="method" value="GET"/>
                                         <c:param name="action" value="delete"/>
                                         <c:param name="serviceID" value="${service.serviceID}"/>
-                                    </c:url>                     
-                                    <td><a href="${deleteurl}">Delete</a></td></tr>
+                                    </c:url >                    
+                                    <!--<td><a href="${deleteurl}">Delete</a></td></tr>-->
                             </c:forEach>
                         </tbody>
                     </table>

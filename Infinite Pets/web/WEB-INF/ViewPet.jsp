@@ -15,17 +15,19 @@
     </head>
     <body>
         <div class="wrapper">
-            <div class="btnEdit">
-                <button onclick="editPet()">Edit</button>
-            </div>
-            <form method="post">
+            
+            
 
                 <div class="viewPetContainer">
                     <div class="title">
                         <h1>${petName}</h1>
                     </div>
+                    <div class="btnEdit">
+                        <button onclick="editPet()">Edit</button>
+                    </div>
                     
-                    
+                    <form method="post">
+                        <div class="viewPet">
                         <div class="viewPetLeft">
                             <div class="petName">
                                 <label for="petName">Name</label>
@@ -87,14 +89,16 @@
                                 <input type="hidden" name="petID" value="${petID}">
                                 <button type="submit" name="btnSave" value="save" id="btnSave" style="display: none;" disabled>Save</button>
                             </div>
+                                
                             <div class="cancelBtn">
                                 <button type="submit">Cancel</button>
                             </div>
                         </div>
-                    
+                        </div>
+                    </form> 
                 </div>
 
-          </form>  
+           
 
             <div class="errMsg">
                 <!--<p name="errorMsg"></p>-->

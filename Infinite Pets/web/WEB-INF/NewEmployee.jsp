@@ -19,6 +19,7 @@
     <body>
         <div class="wrapper">
             <form action="Employee" method="POST">
+            <input type="hidden" name="oldEmail" value="${oldEmail}" id="oldEmail">
             <div class="employeeContainer">
                 <div class="employee">
                     <h1>Employee</h1>
