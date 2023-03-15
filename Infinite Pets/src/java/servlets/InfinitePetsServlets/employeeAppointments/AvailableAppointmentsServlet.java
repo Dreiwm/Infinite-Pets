@@ -61,7 +61,8 @@ public class AvailableAppointmentsServlet extends HttpServlet {
             System.out.println("account null, going to login page...");
             response.sendRedirect(response.encodeRedirectURL("Login"));
             return;
-        } else {
+        } 
+        else {
             try {
                 // Ok so account is not null, is this account associated with EMployee
                 // object? If so, allow access. Otherwise, kick.
@@ -71,6 +72,7 @@ public class AvailableAppointmentsServlet extends HttpServlet {
                     response.sendRedirect(response.encodeURL("Login"));
                     return; // to get out of here.
                 }
+                
             } catch (Exception ex) {
                 Logger.getLogger(AvailableAppointmentsServlet.class.getName()).log(Level.SEVERE, null, ex);
                 response.sendRedirect(response.encodeURL("Login"));
@@ -80,8 +82,9 @@ public class AvailableAppointmentsServlet extends HttpServlet {
         }
 
         try {
+            System.out.println(emp.getUserID().getFirstName());
             setAttributes(request, response, emp);
-        } catch (ParseException ex) {
+        } catch (Exception ex) {
             Logger.getLogger(AvailableAppointmentsServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
 
@@ -116,7 +119,7 @@ public class AvailableAppointmentsServlet extends HttpServlet {
         // get all services
         ScheduleServices schs = new ScheduleServices();
 //        schs.getAllAvailableAppointmentsByPreferences(emp);
-            request.setAttribute("availableAppts", schs.getAllAvailableAppointmentsByPreferences(emp));  //what is this suppose to grab emp.empPreferences?????
+            request.setAttribute("appts", schs.getAllAppointments(emp));
         
     }
 

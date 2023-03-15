@@ -76,7 +76,7 @@ public class AdminNewEmployeeServlet extends HttpServlet {
                     map.put(services.get(i).getServiceName(), check);
                 }
             }
-            request.setAttribute("oldEmail", empAccount.getEmail());
+            request.setAttribute("oldEmail", empEmail);
             request.setAttribute("services", map);
             request.setAttribute("empAddress", empAddress);
             request.setAttribute("empAccount", empAccount);
@@ -152,10 +152,10 @@ public class AdminNewEmployeeServlet extends HttpServlet {
                     as.createStaffAccount(password, email, firstName, location, lastName, qList);   //check this method                 
                 }
                 else if ((!action.equals("") || action != null) && action.equals("update")){
-                    as.updateStaffAccount(oldEmail ,password, email, firstName, lastName, address, city, prov, country, postal, area, isEmployee, isConfirmed, qList);
+                    as.updateStaffAccount(oldEmail ,password, email, firstName, lastName, address, city, prov, country, postal, area, !isEmployee, !isConfirmed, qList);
                 }
                 else {
-                    getServletContext().getRequestDispatcher("/WEB-INF/Employee.jsp").forward(request,response);
+                    getServletContext().getRequestDispatcher("/WEB-INF/NewEmployee.jsp").forward(request,response);
                 }
             }
              
@@ -166,3 +166,4 @@ public class AdminNewEmployeeServlet extends HttpServlet {
         response.sendRedirect("Employment");
     }
 }
+

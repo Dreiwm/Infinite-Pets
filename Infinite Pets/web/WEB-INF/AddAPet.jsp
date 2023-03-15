@@ -12,10 +12,11 @@
     <title>Add a Pet</title>
     <%@include file="testFiles/header.jsp" %>
 </head>
+
     <body>
         <div class="wrapper">
             
-            <form method="post">
+            <form method="post" enctype="multipart/form-data">
                 <div class="addPetContainer">
                     <div class="title">
                         <h1>Add a Pet</h1>
@@ -31,9 +32,9 @@
                             <div class="petType">
                                 <label for="animal"> Select animal type</label>
                                 <select name="animal" id="animal">
-                                    <option value="">
+                                    <option value="" selected>
                                         Animal type
-                                    </option>
+                                    </option>                                    
                                     <c:forEach items="${animalList}" var="anlst">
                                         <option value="${anlst.animalType}">${anlst.animalType}</option>
                                     </c:forEach>
@@ -43,15 +44,37 @@
                             <div class="petBreed">
                                 <label for="breed"> Select animal breed</label>
                                 <select name="breed" id="breed">
-                                    <option value="">
+                                    <option value="" id='default'>
                                         Animal breed
                                     </option>
-                                    <c:forEach items="${breedList}" var="lst">
-                                        <option value="${lst.breedName}">${lst.breedName}</option>
+                                    <c:forEach items="${dogBreeds}" var="breed">
+                                        <option value="${breed.breedName}" style="display: block">${breed.breedName}</option>
                                     </c:forEach>
+                                   <%-- <c:choose>
+
+                                        <c:when test="${anlst.animalType == 'Dog'}">
+                                            <c:forEach items="${dogBreeds}" var="breed">
+                                                <option value="${dogBreed.breedName}">${dogBreed.breedName}</option>
+                                            </c:forEach>
+                                            
+                                        </c:when>
+                                        <c:when test="${anlst.animalType == 'Cat'}">
+                                            <c:forEach items="${catBreeds}" var="catBreed">
+                                                <option value="${catBreed.breedName}">${catBreed.breedName}</option>
+                                            </c:forEach>
+                                            
+                                        </c:when>
+                                        <c:otherwise>    
+                                        <c:forEach items="${exoticBreeds}" var="exoticBreed">
+                                                <option value="${exoticBreed.breedName}">${exoticBreed.breedName}</option>
+                                        </c:forEach>
+                                        </c:otherwise>
+                                    </c:choose>--%>
+                                    <%--</c:forEach>--%>                                  
                                 </select>
                             </div>
 
+                            
                             <div class="petNotes">
                                 <label for="medical">Additional Info:</label>                    
                                 <textarea name="medical" id="medical" placeholder="Any additional information we should know..."></textarea>
@@ -78,22 +101,21 @@
                                 <input type="text" name="vet" id="vet">
                             </div>
 
-                            <div class="petPicture">
+<!--                            <div class="petPicture">
                                 <label for="picture">Add a picture</label>
-                                <!--<input name="picture" id="picture" type="image" alt="image" accept="image/*">-->
-                                 <input name="picture" id="picture" type="image" > 
-                                <!-- <input type="submit" value="Choose photo..."> -->
-                            </div>
-                            <div class="choosePicture">
-                                <button type="submit" name="action" value="btnChoose">Choose Photo...</button>
-                                <!-- <input name="choosePhoto" type="submit" value="Choose photo..."> -->
-                            </div>
+                                <input name="picture" id="picture" type="image" alt="image" accept="image/*">
+                                 <input name="picture" id="picture" type="file" > 
+                                 <input type="submit" value="Choose photo..."> 
+                            </div>-->
+                         
 
                             <div class="saveBtn">
                                 <button type="submit" name="action" value="save">Save</button>
                             </div>
                             <div class="cancelBtn">
-                                <button type="submit" name="action" value="cancel">Cancel</button>
+                                <div id="cancelBtn"><form method="get" action="MyPets">
+                                    <button type="submit" id="cancel">Cancel</button>
+                                </form></div>
                             </div>
                         </div>
                     
@@ -113,5 +135,6 @@
         </div>
         
         <footer> <%@include file="testFiles/footer.jsp" %> </footer>
+
     </body>
 </html>

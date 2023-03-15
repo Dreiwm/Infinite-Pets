@@ -21,7 +21,7 @@ import servlets.petServlets.AddPetServlet;
  * @author Chris
  */
 public class ValidationServices {
- 
+    
     public String checkInput(String petName, String type, String breed, String birthday, String vet, String info, String sex, String owner){
         String msg = "";
         boolean found = false;
@@ -220,5 +220,9 @@ public class ValidationServices {
             return false;
         }
         
+    }
+    
+    public boolean checkService(){
+        return false;
     }
 }

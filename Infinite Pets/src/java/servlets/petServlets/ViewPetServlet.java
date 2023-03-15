@@ -7,7 +7,9 @@ package servlets.petServlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -44,22 +46,30 @@ public class ViewPetServlet extends HttpServlet {
         
         try {
             //get the pet by the ID stored in the session.
-            targetPet = petServ.getPetById((Integer)session.getAttribute("viewPetId"));
+//            System.out.println((request.getParameter("PetID")));
+            targetPet = petServ.getPetById(Integer.parseInt(request.getParameter("PetID")));
+//            System.out.println(targetPet.getPetName());
         } catch (Exception ex) {
-            //Logger.getLogger(ViewPetServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ViewPetServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         //This sets all the text and combo boxes in the jsp
-            request.setAttribute("owner", (String)session.getAttribute("owner"));
+            request.setAttribute("action", "save");
+            request.setAttribute("petID", targetPet.getPetID());
+            request.setAttribute("owner", email);
             request.setAttribute("petName", targetPet.getPetName());
-            request.setAttribute("sex", this.determineSex(targetPet.getBreed()));
+            request.setAttribute("currentSex", targetPet.getSex());
+            request.setAttribute("sex", this.determineSex(targetPet.getSex().toString()));
             request.setAttribute("animal", targetPet.getSpecies());
             request.setAttribute("breed", targetPet.getBreed());
-            request.setAttribute("birthday",targetPet.getBirthday());
+            
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+            Date date = targetPet.getBirthday();
+            
+            request.setAttribute("birthday",format.format(date));
             request.setAttribute("medical", targetPet.getMedicalInfo());
             request.setAttribute("vet", targetPet.getPreferredVet());
-
-        
+       
         getServletContext().getRequestDispatcher("/WEB-INF/ViewPet.jsp").forward(request,response);
     }
 
@@ -70,17 +80,19 @@ public class ViewPetServlet extends HttpServlet {
         HttpSession session = request.getSession();
         AddPetServices petServ = new AddPetServices();
         ValidationServices vs = new ValidationServices();
+        System.out.println("HELLO! = "+request.getParameter("action"));
         if(request.getParameter("action").toString().equals("save"))
         {
             Pet targetPet = new Pet();
             try {
                 //get the pet by the ID stored in the session.
-                targetPet = petServ.getPetById((Integer)session.getAttribute("viewPetId"));
+                System.out.println((Integer.parseInt(request.getParameter("PetID"))));
+                targetPet = petServ.getPetById((Integer.parseInt(request.getParameter("PetID"))));
             } catch (Exception ex) {
                 //Logger.getLogger(ViewPetServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
-
-                String owner = (String)session.getAttribute("owner");
+                int petID = Integer.parseInt(request.getParameter("petID"));
+                String owner = (String)session.getAttribute("email");
                 String petName = request.getParameter("petName");
                 String sex = request.getParameter("sex");
                 String type = request.getParameter("animal");
@@ -92,9 +104,9 @@ public class ViewPetServlet extends HttpServlet {
             try{
                 String msg = vs.checkInput(petName, type, breed, birthday, vet, info, sex, owner);
                 if (msg.equals("Checked")){
-              
-                    petServ.createPet(petName, type, breed, birthday, vet, info, sex, owner);
+                    petServ.updatePet(petID, petName,  vet, info, sex);
                     response.sendRedirect("MyPets");
+                    return;
                 }
                 else {
                     session.setAttribute("errorMsg", msg);
@@ -108,8 +120,8 @@ public class ViewPetServlet extends HttpServlet {
             }
                 
         } 
-     
         response.sendRedirect("MyPets");
+        return;
     }
 
     /**

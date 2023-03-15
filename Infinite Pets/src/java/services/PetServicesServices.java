@@ -7,6 +7,7 @@ package services;
 
 import dataaccess.ServiceDB;
 import dataaccess.ServiceTypeDB;
+import java.math.BigDecimal;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.List;
@@ -41,5 +42,24 @@ public class PetServicesServices {
     public List<Servicetype> getAllServiceTypes() throws Exception {
         ServiceTypeDB serviceTypeDB = new ServiceTypeDB();
         return serviceTypeDB.getAllServiceTypes();
+    }
+
+    public void update(int serviceID, String serviceName, BigDecimal basePrice, String description) throws Exception {
+        ServiceDB servDB = new ServiceDB();
+        Service tempServ = servDB.getServiceById(serviceID);
+        Service newService = new Service(tempServ.getServiceID(), serviceName, basePrice, true);
+        newService.setServiceDescription(description);
+        newService.setServiceTypeID(tempServ.getServiceTypeID());
+        servDB.update(newService);
+    }
+
+    public void addService(String serviceName, BigDecimal basePrice, String description) throws Exception {
+        Service newService = new Service(0, serviceName, basePrice, true);
+        ServiceDB servDB = new ServiceDB();
+        ServiceTypeDB servTDB = new ServiceTypeDB();
+        Servicetype st = servTDB.get(3);
+        newService.setServiceTypeID(st);
+        newService.setServiceDescription(description);
+        servDB.insert(newService);
     }
 }

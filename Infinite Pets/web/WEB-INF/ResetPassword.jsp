@@ -15,31 +15,37 @@
         <link rel="stylesheet" href="assets/css/ResetPassword.css">
         <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
         <title>Reset Password</title>
-        <%@include file="testFiles/header.jsp" %>
+        <%@include file="testFiles/header.jsp" %> 
     </head>
     <body>
-        <div>
-            <h2>Reset Your Password</h2>
-            <p>
-            Please enter your login email:
-            </p>
-
+        <div class="wrapper">
             <form id="resetForm" method="post">
-                <table class="center">
-                    <tr>
-                        <td>Email:</td>
-                        <td><input type="text" name="email" id="email" size="20"></td>
-                    </tr>
-                    <tr>
-                        <td colspan="2" align="center">
-                            <button type="submit">Send me new password</button>
-                        </td>
-                    </tr>    
-                </table>
+                <div class="resetPasswordContainer">
+                    <div class="resetTitle">
+                        <h1>Reset Your Password</h1>
+                    </div>
+                    <div class="instruction">
+                        <h3>Please enter your login email:</h3>
+                    </div>
+
+
+                    
+                        <div class="resetEmail">
+                            <label for="email">Email:</label>
+                            <input type="text" name="email" id="email">
+                        </div>
+                        <div class="send">
+                            <button type="submit">Send new password</button>
+                        </div>
+                    
+
+                    <div class="message">
+                        <label>${message}</label>
+                    </div>
+                </div>
             </form>
-            <label>${message}</label>
         </div>
-        <footer> <%@include file="testFiles/footer.jsp" %></footer>
+        <footer> <%@include file="testFiles/footer.jsp" %></footer> 
     </body>
      
 </html>

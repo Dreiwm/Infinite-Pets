@@ -37,8 +37,7 @@ public class EmpServicePreferenceDB {
      * @return the EmpServicePreference.
      */
     public Empservicepreference get(int id) {
-        EntityManager em = DBUtil.getEmFactory().createEntityManager();
-        
+        EntityManager em = DBUtil.getEmFactory().createEntityManager();        
         try {
             
             return em.find(Empservicepreference.class, id);
