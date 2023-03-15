@@ -51,13 +51,13 @@ public class StaffFilter implements Filter {
             try{
                 if(!staffCheck(email, password))
                 {
-                    httpResponse.sendRedirect("login");
+                    httpResponse.sendRedirect("Login");
                     return;
                 } 
                 chain.doFilter(request, response);
             }
             catch(Exception e){
-                httpResponse.sendRedirect("login");
+                httpResponse.sendRedirect("Login");
                 Logger.getLogger(UserFilter.class.getName()).log(Level.SEVERE, null, e);   
             }
         }
@@ -77,7 +77,7 @@ public class StaffFilter implements Filter {
             account = as.getAccount(email);
             
             if(account.getIsEmployee()&& 
-                    (as.getEmployeeByUserId(account.getUserId())!=null))
+                    (as.getEmployeeByUserId(account)!=null))
                 return true;
             else
                 return false;

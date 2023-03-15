@@ -10,6 +10,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import models.Account;
 import models.Employee;
 
 /**
@@ -111,11 +112,11 @@ public class EmployeeDB {
         }
     }
     
-    public Employee getByUserId(int userId)throws Exception{
+    public Employee getByUserId(Account user)throws Exception{
           EntityManager em = DBUtil.getEmFactory().createEntityManager();
         
         try {
-            return em.createNamedQuery("Employee.findByUserID", Employee.class).setParameter("userID", userId).getSingleResult();
+            return em.createNamedQuery("Employee.findByUserID", Employee.class).setParameter("userID", user).getSingleResult();
         } finally {
             em.close();
         }

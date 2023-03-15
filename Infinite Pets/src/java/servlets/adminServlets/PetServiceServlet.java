@@ -42,11 +42,20 @@ public class PetServiceServlet extends HttpServlet {
             response.sendRedirect("Login");
         }
         try {
-            //get serviceID then populate fields for editing
-            int serviceID = Integer.parseInt(request.getParameter("serviceID"));
-            PetServicesServices pss = new PetServicesServices();
-            Service service = pss.getService(serviceID);
-            request.setAttribute("service", service);
+            String action = request.getParameter("action");
+            if (action.equals("edit")){
+                //get serviceID then populate fields for editing
+                int serviceID = Integer.parseInt(request.getParameter("serviceID"));
+                PetServicesServices pss = new PetServicesServices();
+                Service service = pss.getService(serviceID);
+                request.setAttribute("service", service);
+                request.setAttribute("serviceID", serviceID);
+                request.setAttribute("action", "update");
+            }
+            else if (action.equals("add")){
+                request.setAttribute("action", "add");
+            }
+            
         } catch(Exception e){
             Logger.getLogger(PetServiceServlet.class.getName()).log(Level.WARNING, null, e);
         }
@@ -66,14 +75,29 @@ public class PetServiceServlet extends HttpServlet {
             throws ServletException, IOException {
         //retrieve entered info upon save button, update service object then redirect back to AdminPetServices.jsp
         try {
-            int serviceID = Integer.parseInt(request.getParameter("serviceID"));
+            
             String serviceName = request.getParameter("serviceName");
             String bPrice = request.getParameter("basePrice");
             BigDecimal basePrice = new BigDecimal(bPrice);
             String active = request.getParameter("active");
-            String dateRange = request.getParameter("dateRange");
+            String action = request.getParameter("action");
+            String desc = request.getParameter("description");
+            System.out.println("Action = "+action);
             
-            System.out.printf("ServiceID: %d, Name: %s, Price: %d, Active: %s, Date: %s%n", serviceID, serviceName, basePrice, active, dateRange);
+            
+            PetServicesServices pss = new PetServicesServices();
+            if (action.equals("update")){
+                int serviceID = Integer.parseInt(request.getParameter("serviceID"));
+                System.out.printf("ServiceID: %d, Name: %s, Price: %s, Active: %s%n", serviceID, serviceName, bPrice, active);
+                pss.update(serviceID, serviceName, basePrice, desc);
+                response.sendRedirect("PetServices");
+                return;
+            }
+            else if (action.equals("add")){
+                pss.addService(serviceName, basePrice, desc);
+                response.sendRedirect("PetServices");
+                return;
+            }
             
         }catch(Exception e){
             Logger.getLogger(PetServiceServlet.class.getName()).log(Level.WARNING, null, e);

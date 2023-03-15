@@ -1,0 +1,55 @@
+.wrapper{
+    display: grid;
+    justify-content: center;
+    align-items: center;
+}
+
+.serviceContainer{
+    display: grid;
+    grid-template-areas: 
+        "title"
+        "newService"
+        "serviceTableContainer"
+        "serviceTable";
+    row-gap: 5px;
+    column-gap: 20px;
+    padding: 25px;
+    margin-top: 25px;
+    margin-bottom: 25px;
+    padding-bottom: 40px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    border-style: solid;
+    background-color: #F3F1EC;
+}
+
+.title{
+    grid-area: title;
+    padding: 0px;
+    margin-bottom: 20px;
+    border-bottom: solid #696863;
+}
+
+.newService{grid-area: newService;}
+.serviceTableContainer{grid-area: serviceTableContainer;}
+
+.serviceTable{
+    grid-area: serviceTable;
+    border: none;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.serviceTable th, td{
+    padding: 10px;
+    text-align: left;
+    border-collapse: collapse;
+    border: none;
+    border-bottom: 2px solid #69686350;
+}
+
+.serviceTable tbody tr:hover {
+    color: #F3F1EC;
+    background-color: #808080af;
+}

@@ -53,12 +53,12 @@ public class UserFilter implements Filter {
                        
         try {     
             if(!loginCheck(email, password)){       
-                httpResponse.sendRedirect("login");
+                httpResponse.sendRedirect("Login");
                 return;
             }          
             chain.doFilter(request, response);          
         } catch (Exception ex) {
-            httpResponse.sendRedirect("login");
+            httpResponse.sendRedirect("Login");
             Logger.getLogger(UserFilter.class.getName()).log(Level.SEVERE, null, ex);
         }
             

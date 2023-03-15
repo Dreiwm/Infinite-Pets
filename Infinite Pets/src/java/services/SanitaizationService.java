@@ -12,7 +12,7 @@ package services;
 public class SanitaizationService {
     /**
      * This function replaces all characters that are not alphanumeric with '%'
-     * @param str
+     * @param str any other input being sanitized
      * @return the sanitized string
      */
     public String sanitizeInput(String str){
@@ -22,7 +22,7 @@ public class SanitaizationService {
     /**
      * This function replaces all characters that are not alphanumeric or @,-,_
      * with '%'
-     * @param str
+     * @param str email getting sanitized
      * @return the sanitized string
      */
     public String sanitizeEmail(String str){
@@ -31,7 +31,7 @@ public class SanitaizationService {
     
     /**
      * This function replaces all spaces in the given string with '%'
-     * @param str
+     * @param str password being sanitized
      * @return the sanitized string
      */
     public String sanitizePassword(String str){
@@ -40,8 +40,8 @@ public class SanitaizationService {
     
     /**
      * This function replaces all instances of '%' with a space
-     * @param str
-     * @return 
+     * @param str the string being passed for sanitation
+     * @return returned the sanitized string
      */
     public String desanitize(String str){
         return str.replace('%', ' ');

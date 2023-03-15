@@ -27,16 +27,25 @@
         <div class="dropdown">
             <img id="menu" class="dropbtn" src="assets/img/menu.svg">
             <div class="dropdown-content">
-                <a href="https://www.google.com">Google</a>
-                <a href="https://www.facebook.com">Facebook</a>
-                <a href="https://www.youtube.com">YouTube</a>
+                <a href="./MyPets">My Pets</a>
+                <a href="./AddPet">Add a Pet</a>
+                <a href="./MyAppointment">My Appointments</a>
+                <a href="./BookAppointment">Book Appointment</a>
+                <a href="./Employment">Employment</a>
+                <a href="./PetServices">Pet Services List</a>
+                <a href="./AvailableAppointments">Available Appointment</a>
+                <a href="./Login">Logout</a>
             </div>
         </div>
         <div id="navItem" class="navItem">
-            <img id="logo" src="assets/img/infinitePetsLogo-White(4).png">
+            <a href="./MyPets">
+                <img id="logo" src="assets/img/infinitePetsLogo-White(4).png">
+            </a>
         </div>
         <div id="navItem" class="navItem">
-            <img id="account" src="assets/img/account.svg">
+            <a href="./MyProfile">
+                <img id="account" src="assets/img/account.svg">
+            </a>
         </div>
     </div>
 </nav>

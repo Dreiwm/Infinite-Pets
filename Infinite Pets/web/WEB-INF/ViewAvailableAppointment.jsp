@@ -22,7 +22,6 @@
         function testing(){
             console.log("TEST FUNCTION");
             let answer = confirm("Are you sure? This action cannot be undone.<br/> Note: You can only cancel an appointment 24 hours prior.");
-
             if (answer === true) {
                 this.form.submit();
             }
@@ -33,7 +32,7 @@
         <div class="wrapper">
              <div class="path">
                 <div class="link">
-                    <a href="<c:url value='/MyAppointment'></c:url>">My appointments</a>
+                    <a href="<c:url value='/MyAppointments'></c:url>">My appointments</a>
                 </div>
                 <div class="link">
                     <img id="chevronRight" src="assets/img/chevronRight.svg" alt="">
@@ -49,7 +48,7 @@
                         <div id="errorBox">${errorMsg}</div>
                     </c:if>
                    
-                    <form action="Appointment" method="POST">
+                    <form action="ViewAvailableAppointment" method="POST">
                         <table class="tableData">
 
                             <tr>
@@ -102,16 +101,12 @@
                                     <table>
                                     <c:forEach items="${apptServices}" var="apptService" varStatus="status">
                                         <tr>
-                                            <td>${apptService.getServiceID().getServiceName()} with with ${apptService.getPetID().getPetName()} - $${apptService.getServiceID().getBasePrice()}</td>
-                                            <!--Delete service-->
-                                            <td>
-                                                <a href="<c:url value='Appointment'></c:url>?action=deleteService&apptServiceId=${apptService.getAppServID()}&apptId=${appt.getAppointmentID()}">X</a>
-                                            </td>
+                                            <td>${apptService.getServiceID().getServiceName()} with with ${apptService.getPetID().getPetName()} - $${apptService.getServiceID().getBasePrice()}</td>                                            
                                         </tr>
                                         <c:if test="${status.isLast()}">
                                             <tr>
                                                 <td>
-                                                    <a href="<c:url value='AddServiceToAppointment'></c:url>?apptId=${appt.getAppointmentID()}">Add Service</a>
+                                                    
                                                 </td>
                                             </tr>
                                             </table>
@@ -120,8 +115,6 @@
                                     </c:forEach>
                                 </td>
                             </tr>
-
-                            <!--Vet-->
                             <tr>
                                 <td>Employee:</td>
                                 <td>
@@ -142,30 +135,17 @@
                         <!--Will open a tab with plain html with print button and close button-->
                         <!--<a href="<c:url value='/ClientContract'></c:url>" target="_blank">View Contract</a>-->          
 
-                    </form>
+                    </form>    
                     <br/>
-                    <form action="Appointment" method="POST" id="cancelForm">
-                        <!--Cancel-->
-                        
-                        <script type="text/javascript">
-                            function confirmDelete() {
-                                let answer = confirm("Are you sure? This action cannot be undone.<br/> Note: You can only cancel an appointment 24 hours prior.");
-                                console.log(answer);
-                                if (answer === true) {
-                                    document.getElementById("cancelForm").submit();
-                                }
-                            }
-                        </script>
-                        
-                        <!--<input type="submit" value="Cancel Appointment" class="dangerButton">-->
-                        <button type="button" onclick="confirmDelete()">Cancel Appointment</button>
-
-                        <!--<input type="submit" value="Cancel Appointment" class="dangerButton">-->
-<!--                         <button onclick="testing()">Cancel Appointment</button> -->
-
-                        <input type="hidden" name="action" value="reqCancelAppt">
+                    <div id="cancelBtn"><form method="get" action="AvailableAppointments">
+                        <button type="submit" id="cancel">Cancel</button>
+                    </form></div>
+                    <br>
+                    <div id="acceptBtn"><form method="get" action="ViewAvailableAppointment">
                         <input type="hidden" name="apptId" value="${appt.getAppointmentID()}">
-                    </form>
+                        <input type="hidden" name="action" value="acceptAppointment">
+                        <button type="submit" id="accept">ACCEPT</button>
+                    </form></div>
                 </div>
             </div>
         </div>

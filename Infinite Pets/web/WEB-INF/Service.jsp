@@ -9,8 +9,8 @@
 <html>
     <head>
         <link rel="stylesheet" href="assets/css/main.css">
+        <link rel="stylesheet" href="assets/css/Service.css">
         <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
-        <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Pet Service</title>
@@ -18,33 +18,54 @@
     </head>
  
     <body>
-        <h1>Pet Service</h1>
-        <form method="POST" action="Service"><div>
-            <label for="serviceName">Service Name:</label>
-            <input name="serviceName" id="serviceName" value="${serviceName}">
+        <div class="wrapper">
+            
+            <div class="serviceContainer">
+                <form method="POST" action="Service">
+                    <div class="title">
+                        <h1>Pet Service</h1>
+                    </div>
+                    <div class="serviceNameLbl">
+                        <p>Service Name</p>
+                    </div>
+                    <div class="serviceName">
+                        <input name="serviceName" id="serviceName" value="${service.serviceName}">
+                    </div>
+                    <div class="priceLbl">
+                        <p>Base Price:</p>
+                    </div>
+                    <div class="price">
+                        <input name="basePrice" id="basePrice" value="${service.basePrice}">
+                    </div>
+                    
+                    <div class="description">
+                        <label for="description">Additional Info:</label>  <br>                  
+                        <textarea name="description" id="description">${service.serviceDescription}</textarea>
+                    </div>
+                    
+                    <div class="isActiveLbl">
+                        <p>Active:</p>
+                    </div>
+                    <div class="isActive">
+                        <select name="active" id="active">
+                            <option value="true" selected>Yes</option>
+                            <option value="false" >No</option>
+			</select>       
+                    </div>
+                    <div class="submitBtn">
+                        <input type="hidden" name="action" value="${action}">
+                        <input type="hidden" name="serviceID" value="${serviceID}">
+                        <button type="submit">Submit</button>
+                    </div>
+                </form>
+                <form method="get" action="PetServices">
+                    <div class="cancelBtn" id="cancelBtn">
+                        <button type="submit" id="cancel">Cancel</button>
+                    </div>
+                </form>
+            </div>
         </div>
-        <div>
-            <label for="basePrice">Base Price:</label>
-            <input name="basePrice" id="basePrice" value="${basePrice}">
-        </div>
-        <div>
-            <label for="active">Active:</label>
-            <input name="active" id="active" value="${active}">
-        </div>
-        <div>
-            <label for="specifyPet">Specify Pet:</label>
-            <input name="specifyPet" id="specifyPet" value="${specifyPet}">
-        </div>
-        <div>
-            <label for="dateRange">Date Range:</label>
-            <input name="dateRange" id="dateRange" value="${dateRange}">
-        </div>
-            <input type="hidden" name="action" value="save">
-            <input type="Submit" value="Submit">
-        </form> <br>
-        <div id="cancelBtn"><form method="get" action="PetServices">
-            <button type="submit" id="cancel">Cancel</button>
-        </form></div>
+        <footer><%@include file="testFiles/footer.jsp" %></footer>
     </body>
-    <footer><%@include file="testFiles/footer.jsp" %>  </footer>
+    
 </html>

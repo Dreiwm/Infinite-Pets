@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import models.Appointment;
 import models.Appointmentservice;
 import models.Empqualification;
 import models.Empservicepreference;
@@ -35,6 +36,7 @@ public class ServiceServices {
     private final ServiceDB sDB;
     private final AppointmentServiceDB asDB;
 
+    
     public ServiceServices() {
         sTDB = new ServiceTypeDB();
         eSPDB = new EmpServicePreferenceDB();
@@ -58,15 +60,20 @@ public class ServiceServices {
         }
     }
 
+    /**
+     * 
+     * @param e is the employee getting the services types
+     * @return a list of service types
+     */
     public List<Servicetype> getAllServiceTypesSpecificToEmployee(Employee e) {
-        //List<Empqualification> qList = eQTDB.getAllEmployeeQualifications(e.getEmployeeID());
+//        List<Empqualification> qList = eQTDB.getAllEmployeeQualifications(e.getEmployeeID());
         //ArrayList<Servicetype> qualifiedServiceTypeList = new ArrayList<>();
 
         // Get all qualified that belongs to given e Employee.
-        List<Service> qList = e.getServiceList(); // IDK if this will work or not.
-        for (Service eQT : qList) {
-            System.out.println(eQT.getServiceName());
-        }
+       List<Service> qList = e.getServiceList(); // IDK if this will work or not.
+//        for (Service eQT : qList) {
+//            System.out.println(eQT.getServiceName());
+//        }
         // Now we need to loop thr the eList, remove if can't be found in eList.
         // Nested loop.
 
@@ -90,10 +97,10 @@ public class ServiceServices {
     }
 
     /**
-     * Inserts empServicePrefrence from DB.
-     *
+     * 
      * @param empSP the EmpServicePreference to be inserted into.
      * @return returns true if successfully inserted into DB.
+     * @throws Exception for null pointers
      */
     public boolean insertEmpServicePreference(Empservicepreference empSP) throws Exception {
         EmpServicePreferenceDB empSPDB = new EmpServicePreferenceDB();
@@ -135,14 +142,12 @@ public class ServiceServices {
      */
     public List<Empservicepreference> getAllEmpServicePreferencesBelongToEmp(Employee e) {
         List<Empservicepreference> list = getAllEmpServicePreferences();
-
         for (Empservicepreference esp : list) {
             if (!esp.getEmployeeID().equals(e)) {
                 list.remove(esp);
             }
         }
         return list;
-
     }
 
     /**
@@ -184,8 +189,12 @@ public class ServiceServices {
     }
 
     /**
-     * Returns service using given service id.
+     
+     */
+    /**
+     * 
      * @param serviceId the service id sued to query on the database.
+     * @return a service using given service id
      */
     public Service getServiceById(int serviceId) {
         return sDB.getServiceById(serviceId);
@@ -199,11 +208,18 @@ public class ServiceServices {
     public boolean insertAppointmentService(Appointmentservice apptService) {
         return asDB.insert(apptService);
     }
-
+    
+    /**
+     * 
+     * @param apptServiceId is the current selected service to delete
+     * @return a boolean if the service was deleted
+     */
     public boolean deleteAppointmentService(int apptServiceId) {
         // et appointment service
         Appointmentservice apptService = asDB.getAppointmentById(apptServiceId);
+//        System.out.println("apptService null?" + apptService == null);
+        if (apptService == null) return false;
         return asDB.delete(apptService);
-    }
+    } 
     
 }

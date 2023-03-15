@@ -1,3 +1,4 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -63,8 +64,7 @@ public class AppointmentDB {
             Account acc = em.find(Account.class, userID);
             
 //            Account acc = accDB.getAccountByClientID(appointment.getClientID());
-            acc.getAppointmentList().add(appointment);
-            
+            acc.getAppointmentList().add(appointment);  
             tr.begin();
             em.persist(appointment); // persist appt
             em.merge(acc); // merge account with newly added appointment
@@ -87,6 +87,9 @@ public class AppointmentDB {
         
         
         try {
+            int userID = appointment.getClientID().getUserId();
+            Account acc = em.find(Account.class, userID);
+            
             tr.begin();
             em.merge(appointment);
             tr.commit();
@@ -105,20 +108,24 @@ public class AppointmentDB {
     public boolean delete(Appointment appt) {
         
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
-       EntityTransaction trans = em.getTransaction();
-       try{
-           trans.begin();
-           em.remove(em.merge(appt));
-           trans.commit();
-           return true;
-       } catch (Exception e){
-           trans.rollback();
-       }
-       finally{
-           em.close();
-       }
-        
-        return false;
+        EntityTransaction trans = em.getTransaction();
+        try{
+            int userID = appt.getClientID().getUserId();
+            Account acc = em.find(Account.class, userID);
+            
+            trans.begin();
+            em.remove(em.merge(appt));
+//            em.merge(acc);
+            trans.commit();
+            return true;
+        } catch (Exception e){
+            trans.rollback();
+        }
+        finally{
+            em.close();
+        }
+
+         return false;
     }
     
     
@@ -190,4 +197,3 @@ public class AppointmentDB {
 //    }
     
 }
-
